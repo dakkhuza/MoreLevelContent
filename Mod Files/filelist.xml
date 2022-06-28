@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<contentpackage name="More Level Content" modversion="0.0.3" corepackage="False" steamworkshopid="2814493175" gameversion="0.18.12.0">
+  <LocationTypes file="%ModDir%/locationTypes.xml" />
+  <NPCSets file="%ModDir%/pirates.xml" />
+  <Missions file="%ModDir%/missions.xml" />
+  <Text file="%ModDir%/EnglishVanilla.xml" />
+  <Talents file="%ModDir%/Pirate/piratetalents.xml" />
+  <Item file="%ModDir%/dummyitem.xml" />
+  <Item file="%ModDir%/Pirate/pirateitems.xml" />
+  <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_0-10.sub" />
+  <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_10-20.sub" />
+  <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o2_diff_20-30.sub" />
+</contentpackage>

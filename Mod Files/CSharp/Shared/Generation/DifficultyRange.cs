@@ -20,7 +20,7 @@ namespace MoreLevelContent.Shared.Generation
             {
                 MinDiff = 0;
                 MaxDiff = 0;
-                Log.Debug($"Element with name {name} has no diff range defined. Will only spawn when at 0% diff!");
+                Log.Warn($"Element with name {name} has no diff range defined. Will only spawn when at 0% diff!");
                 return;
             }
             string diffStr1 = match.Groups[1].Value;
@@ -31,7 +31,7 @@ namespace MoreLevelContent.Shared.Generation
 
             MinDiff = float.Parse(diffStr1);
             MaxDiff = float.Parse(diffStr2);
-            Log.Debug($"Parsed diff for element with name {name} as {MinDiff}-{MaxDiff}%");
+            Log.Verbose($"Parsed diff for element with name {name} as {MinDiff}-{MaxDiff}%");
         }
 
         public override string ToString() => $"{MinDiff} - {MaxDiff}";

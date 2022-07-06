@@ -20,12 +20,18 @@ namespace MoreLevelContent.Shared.Generation
         /// </summary>
         public bool Active { get; private set; }
 
-        public LevelContentProducer() => AddDirector(PirateOutpostDirector.Instance);
+        public LevelContentProducer()
+        {
+            Log.Verbose("LevelContentProducer::ctr..");
+            AddDirector(PirateOutpostDirector.Instance);
+        }
 
         private readonly List<IGenerateSubmarine> submarineGenerators = new List<IGenerateSubmarine>();
         private readonly List<IGenerateNPCs> npcGenerators = new List<IGenerateNPCs>();
         private readonly List<ILevelStartGenerate> levelStartGenerators = new List<ILevelStartGenerate>();
 
+
+        public void Cleanup() => Log.Verbose("LevelContentProducer::Cleanup");
 
         public void AddDirector<Director>(GenerationDirector<Director> director) where Director : class
         {
@@ -40,19 +46,19 @@ namespace MoreLevelContent.Shared.Generation
             if (director is IGenerateSubmarine)
             {
                 submarineGenerators.Add(director as IGenerateSubmarine);
-                Log.Debug($"Added {director} to Submarine generators");
+                Log.Verbose($"Added {director} to Submarine generators");
             }
 
             if (director is IGenerateNPCs)
             {
                 npcGenerators.Add(director as IGenerateNPCs);
-                Log.Debug($"Added {director} to NPC generators");
+                Log.Verbose($"Added {director} to NPC generators");
             }
 
             if (director is ILevelStartGenerate)
             {
                 levelStartGenerators.Add(director as ILevelStartGenerate);
-                Log.Debug($"Added {director} to level start generators");
+                Log.Verbose($"Added {director} to level start generators");
             }
         }
 

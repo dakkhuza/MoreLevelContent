@@ -46,7 +46,7 @@ namespace MoreLevelContent.Shared.Store
 
             foreach (var item in pirateOutposts)
             {
-                Log.Debug(item.DifficultyRange.ToString());
+                Log.Verbose(item.DifficultyRange.ToString());
             }
 
             if (pirateOutposts.Count > 0)
@@ -70,7 +70,7 @@ namespace MoreLevelContent.Shared.Store
                 pirateSets.Add(new PirateNPCSetDef(prefab, prefab.Name.Value));
             }
 
-            Log.Debug("Sorting sets by their diff ranges...");
+            Log.Verbose("Sorting sets by their diff ranges...");
             pirateSets.Sort();
 
             if (pirateSets.Count == 0)
@@ -78,7 +78,7 @@ namespace MoreLevelContent.Shared.Store
                 Log.Error("Failed to find pirates to spawn :(");
                 return false;
             }
-            Log.Debug($"Collected {pirateSets.Count} pirate NPC sets to choose from.");
+            Log.Verbose($"Collected {pirateSets.Count} pirate NPC sets to choose from.");
             return true;
         }
 

@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 using Barotrauma;
 using Barotrauma.Items.Components;
+using Barotrauma.MoreLevelContent.Config;
 using Barotrauma.MoreLevelContent.Shared.Utils;
 using Microsoft.Xna.Framework;
-using MoreLevelContent.Shared;
-using MoreLevelContent.Shared.Generation;
 using MoreLevelContent.Shared.Store;
 using MoreLevelContent.Shared.Utils;
 
@@ -30,8 +28,8 @@ namespace MoreLevelContent.Shared.Generation.Pirate
             characterItems = new Dictionary<Character, List<Item>>();
             selectedPirateSet = PirateStore.Instance.GetNPCSetForDiff(spawnData.PirateDifficulty);
             selectedOutpost = PirateStore.Instance.GetPirateOutpostForDiff(spawnData.PirateDifficulty);
-            Log.Debug($"Selected NPC set {selectedPirateSet.Prefab.Name}");
-            Log.Debug($"Selected outpost {selectedOutpost.ContentFile.Path}");
+            Log.Verbose($"Selected NPC set {selectedPirateSet.Prefab.Name}");
+            Log.Verbose($"Selected outpost {selectedOutpost.ContentFile.Path}");
             pirateDiff = spawnData.PirateDifficulty;
             _spawnData = spawnData;
         }
@@ -42,8 +40,13 @@ namespace MoreLevelContent.Shared.Generation.Pirate
             characterItems.Clear();
 
             enemyBase = PirateOutpostDirector.Instance.SpawnSubOnPath(Level.Loaded, "Pirate Outpost", selectedOutpost.ContentFile);
-            enemyBase.Info.DisplayName = "Pirate Base";
-            enemyBase.ShowSonarMarker = false; // Don't show the base on sonar
+            if (enemyBase == null)
+            {
+                Log.Error("Failed to place pirate outpost! Skipping...");
+                return;
+            }
+            enemyBase.Info.DisplayName = TextManager.Get("mlc.pirateoutpost");
+            enemyBase.ShowSonarMarker = PirateOutpostDirector.Instance.Config.DisplaySonarMarker;
 
             if (enemyBase.GetItems(alsoFromConnectedSubs: false).Find(i => i.HasTag("reactor") && !i.NonInteractable)?.GetComponent<Reactor>() is Reactor reactor)
             {
@@ -74,6 +77,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
 #if SERVER
             playerCount = GameMain.Server.ConnectedClients.Where(c => !c.SpectateOnly || !GameMain.Server.ServerSettings.AllowSpectating).Count();
 #endif
+            if (!PirateOutpostDirector.Instance.Config.AddDiffPerPlayer) addedMissionDifficultyPerPlayer = 0;
 
             float enemyCreationDifficulty = pirateDiff + (playerCount * addedMissionDifficultyPerPlayer);
             Random rand = new MTRandom(ToolBox.StringToInt(Level.Loaded.Seed));
@@ -107,9 +111,8 @@ namespace MoreLevelContent.Shared.Generation.Pirate
                     HumanPrefab character = CharacterUtils.GetHumanPrefabFromElement(variantElement);
                     if (character == null)
                     {
-                        Log.Debug(characterType.ToString());
-                        Log.Debug(variantElement.ToString());
-                        Log.Error("Character was null!!");
+
+                        Log.Error($"Character was null!\nTYPE: {characterType}, VARIANT: {variantElement}");
                         continue;
                     }
 
@@ -121,9 +124,11 @@ namespace MoreLevelContent.Shared.Generation.Pirate
                         {
                             humanAIController.InitShipCommandManager();
                             commanderAssigned = true;
-                            Log.Debug("Spawned Commader");
+                            Log.Verbose("Spawned Commader");
                         }
                     }
+
+                    
 
                     foreach (Item item in spawnedCharacter.Inventory.AllItems)
                     {
@@ -141,7 +146,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
         private void HuskOutpost()
         {
             if (!_spawnData.Husked) return;
-            Log.Debug("You've met with a terrible fate, haven't you?");
+            Log.InternalDebug("You've met with a terrible fate, haven't you?");
             if (!AfflictionHelper.TryGetAffliction("huskinfection", out AfflictionPrefab husk))
             {
                 Log.Error("Couldn't get the husk affliction!!!");
@@ -150,7 +155,8 @@ namespace MoreLevelContent.Shared.Generation.Pirate
             foreach (Character character in characters)
             {
                 character.CharacterHealth.ApplyAffliction(character.AnimController.MainLimb, new Affliction(husk, 200));
-                character.CharacterHealth.ApplyAffliction(character.AnimController.MainLimb, new Affliction(AfflictionPrefab.InternalDamage, 100));
+                character.CharacterHealth.ApplyAffliction(character.AnimController.MainLimb, new Affliction(AfflictionPrefab.InternalDamage, 99));
+                character.CharacterHealth.ApplyAffliction(character.AnimController.MainLimb, new Affliction(AfflictionPrefab.Stun, 100));
             }
         }
 

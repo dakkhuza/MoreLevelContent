@@ -16,7 +16,7 @@ namespace MoreLevelContent
         public static bool IsRunning => GameMain.GameSession?.IsRunning ?? false;
 
         public static Main Instance;
-        public static string Version = "0.0.3";
+        public static string Version = "0.0.4";
         private LevelContentProducer levelContentProducer;
 
         public Main()
@@ -43,6 +43,7 @@ namespace MoreLevelContent
             var level_onCreateWrecks = typeof(Level).GetMethod("CreateWrecks", BindingFlags.NonPublic | BindingFlags.Instance);
             var level_onSpawnNPC = typeof(Level).GetMethod(nameof(Level.SpawnNPCs));
             var level_generate = typeof(Level).GetMethod(nameof(Level.Generate));
+            MoveRuins.Init();
 
             levelContentProducer = new LevelContentProducer();
 
@@ -99,6 +100,6 @@ namespace MoreLevelContent
             return null;
         }
 
-        public override void Stop() => levelContentProducer.Cleanup();
+        public override void Stop() { }
     }
 }

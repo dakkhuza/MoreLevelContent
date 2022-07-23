@@ -1,3 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <npcsets>
   <!-- TODO: Fix berserkers and medics not using their weapon / gun -->
   <!-- 0-20 -->
@@ -12,7 +13,6 @@
         <skill identifier="medical" level="5" />
         <skill identifier="helm" level="40" />
       </job>
-
       <ItemSet commonness="1">
         <Item identifier="idcard" equip="true" showpreview="false" />
         <Item identifier="piratecaptainhat" equip="true" />
@@ -31,7 +31,6 @@
         <Item identifier="captainspipe" equip="false" />
       </ItemSet>
     </npc>
-
     <!-- Sec -->
     <!-- 0-5 -->
     <npc identifier="piratesecurityrecruit" job="securityofficer" spawnpointtags="security" behavior="Patrol" healthmultiplier="0.55" aimspeed="0.7" aimaccuracy="0.3">
@@ -64,7 +63,6 @@
         </Item>
       </ItemSet>
     </npc>
-
     <!-- 5-20 -->
     <npc identifier="piratesecuritygunner" job="securityofficer" spawnpointtags="security" behavior="Patrol" healthmultiplier="0.75" aimspeed="0.8" aimaccuracy="0.6">
       <ItemSet>
@@ -88,13 +86,12 @@
         </Item>
       </ItemSet>
     </npc>
-
     <!-- Medic -->
     <npc identifier="piratemedicrecruit" job="medicaldoctor" behavior="Patrol" healthmultiplier="0.55" aimspeed="0.8" aimaccuracy="0.3">
       <ItemSet commonness="1">
         <Item identifier="piratebandana" equip="true" />
         <Item identifier="doctorsuniform1" equip="true" outfit="true">
-          <Item identifier="antibloodloss2"/>
+          <Item identifier="antibloodloss2" />
         </Item>
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
@@ -104,12 +101,11 @@
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
-        <Item identifier="antibleeding1"/>
-        <Item identifier="antibiotics"/>
-        <Item identifier="antidama1"/>
+        <Item identifier="antibleeding1" />
+        <Item identifier="antibiotics" />
+        <Item identifier="antidama1" />
       </ItemSet>
     </npc>
-
     <!-- Engineer -->
     <npc identifier="pirateengineerrecruit" job="engineer" commonness="1" healthmultiplier="0.4" aimspeed="0.8" aimaccuracy="0.3">
       <ItemSet>
@@ -130,7 +126,6 @@
         </Item>
       </ItemSet>
     </npc>
-
     <!-- Mechanic -->
     <npc identifier="piratemechanicrecruit" job="mechanic" healthmultiplier="0.4" aimspeed="0.6" aimaccuracy="0.3">
       <ItemSet>
@@ -150,9 +145,7 @@
         </Item>
       </ItemSet>
     </npc>
-
   </npcset>
-
   <npcset identifier="mlc_pirates_cold_caverns_1">
     <!-- Sec -->
     <!-- 5-20 -->
@@ -173,7 +166,6 @@
           <Item identifier="oxygentank" />
         </Item>
       </ItemSet>
-
       <ItemSet commonness="0.5">
         <Item identifier="pirateclothesnovice" equip="true" />
         <Item identifier="idcard" equip="true" />
@@ -181,11 +173,11 @@
           <Item identifier="batterycell" showpreview="false" />
         </Item>
         <Item identifier="revolver">
-          <Item identifier="revolverround"/>
-          <Item identifier="revolverround"/>
-          <Item identifier="revolverround"/>
-          <Item identifier="revolverround"/>
-          <Item identifier="revolverround"/>
+          <Item identifier="revolverround" />
+          <Item identifier="revolverround" />
+          <Item identifier="revolverround" />
+          <Item identifier="revolverround" />
+          <Item identifier="revolverround" />
         </Item>
         <Item identifier="divingknife" />
         <Item identifier="piratebandana" equip="true" />
@@ -194,9 +186,7 @@
         </Item>
       </ItemSet>
     </npc>
-
   </npcset>
-
   <!-- 15-30 -->
   <npcset identifier="mlc_pirates_ridge">
     <!-- Captain -->
@@ -209,8 +199,6 @@
         <skill identifier="medical" level="5" />
         <skill identifier="helm" level="40" />
       </job>
-
-
       <ItemSet commonness="1">
         <Item identifier="idcard" equip="true" showpreview="false" />
         <Item identifier="piratecaptainhat" equip="true" />
@@ -230,11 +218,10 @@
         <Item identifier="revolverround" />
         <Item identifier="revolverround" />
         <Item identifier="revolverround" />
-        <Item identifier="steroids"/>
+        <Item identifier="steroids" />
         <Item identifier="captainspipe" equip="false" />
       </ItemSet>
     </npc>
-
     <!-- 15-25 -->
     <npc identifier="piratesecurityrecruit" job="securityofficer" spawnpointtags="security" behavior="Patrol" healthmultiplier="0.55" aimspeed="0.8" aimaccuracy="0.3">
       <ItemSet commonness="1">
@@ -255,7 +242,6 @@
           <Item identifier="oxygentank" />
         </Item>
       </ItemSet>
-
       <ItemSet commonness="0.5">
         <Item identifier="pirateclothesnovice" equip="true" />
         <Item identifier="idcard" equip="true" />
@@ -263,11 +249,11 @@
           <Item identifier="batterycell" showpreview="false" />
         </Item>
         <Item identifier="revolver">
-          <Item identifier="revolverround"/>
-          <Item identifier="revolverround"/>
-          <Item identifier="revolverround"/>
-          <Item identifier="revolverround"/>
-          <Item identifier="revolverround"/>
+          <Item identifier="revolverround" />
+          <Item identifier="revolverround" />
+          <Item identifier="revolverround" />
+          <Item identifier="revolverround" />
+          <Item identifier="revolverround" />
         </Item>
         <Item identifier="divingknife" />
         <Item identifier="piratebandana" equip="true" />
@@ -276,7 +262,6 @@
         </Item>
       </ItemSet>
     </npc>
-
     <!-- 20-30 -->
     <npc identifier="piratesecuritygunner" job="securityofficer" spawnpointtags="security" behavior="Patrol" healthmultiplier="0.75" aimspeed="0.8" aimaccuracy="0.6">
       <ItemSet>
@@ -300,13 +285,12 @@
         </Item>
       </ItemSet>
     </npc>
-
     <!-- Medic -->
     <npc identifier="piratemedicrecruit" job="medicaldoctor" behavior="Patrol" healthmultiplier="0.55" aimspeed="0.8" aimaccuracy="0.3">
       <ItemSet commonness="1">
         <Item identifier="piratebandana" equip="true" />
         <Item identifier="doctorsuniform1" equip="true" outfit="true">
-          <Item identifier="antibloodloss2"/>
+          <Item identifier="antibloodloss2" />
         </Item>
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
@@ -316,12 +300,11 @@
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
-        <Item identifier="antibleeding1"/>
-        <Item identifier="antibiotics"/>
-        <Item identifier="antidama1"/>
+        <Item identifier="antibleeding1" />
+        <Item identifier="antibiotics" />
+        <Item identifier="antidama1" />
       </ItemSet>
     </npc>
-
     <!-- Engineer -->
     <npc identifier="pirateengineerrecruit" job="engineer" commonness="1" healthmultiplier="0.55" aimspeed="0.8" aimaccuracy="0.3">
       <ItemSet>
@@ -342,7 +325,6 @@
         </Item>
       </ItemSet>
     </npc>
-
     <!-- Mechanic -->
     <npc identifier="piratemechanicrecruit" job="mechanic" healthmultiplier="0.55" aimspeed="0.6" aimaccuracy="0.3">
       <ItemSet>
@@ -363,7 +345,6 @@
       </ItemSet>
     </npc>
   </npcset>
-
   <!-- 25-50 -->
   <npcset identifier="mlc_pirates_plateau">
     <!-- Captain -->
@@ -376,7 +357,6 @@
         <skill identifier="medical" level="5" />
         <skill identifier="helm" level="40" />
       </job>
-
       <ItemSet commonness="1">
         <Item identifier="idcard" equip="true" showpreview="false" />
         <Item identifier="piratecaptainhat" equip="true" />
@@ -385,14 +365,12 @@
           <Item identifier="batterycell" showpreview="false" />
         </Item>
         <Item identifier="smg">
-          <Item identifier="smgmagazine" showpreview="false"/>
+          <Item identifier="smgmagazine" showpreview="false" />
         </Item>
-
-        <Item identifier="steroids"/>
-        <Item identifier="antidama1"/>
+        <Item identifier="steroids" />
+        <Item identifier="antidama1" />
         <Item identifier="captainspipe" equip="false" />
       </ItemSet>
-
       <ItemSet commonness="0.5">
         <Item identifier="idcard" equip="true" showpreview="false" />
         <Item identifier="piratecaptainhat" equip="true" />
@@ -400,19 +378,16 @@
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="shotgun">
-          <Item identifier="shotgunshell" showpreview="false"/>
-          <Item identifier="shotgunshell" showpreview="false"/>
-          <Item identifier="shotgunshell" showpreview="false"/>
+          <Item identifier="shotgunshell" showpreview="false" />
+          <Item identifier="shotgunshell" showpreview="false" />
+          <Item identifier="shotgunshell" showpreview="false" />
         </Item>
-
-        <Item identifier="steroids"/>
-        <Item identifier="antidama1"/>
+        <Item identifier="steroids" />
+        <Item identifier="antidama1" />
         <Item identifier="captainspipe" equip="false" />
       </ItemSet>
     </npc>
-
     <!-- 25-35 -->
     <npc identifier="piratesecurityrecruit" job="securityofficer" spawnpointtags="security" behavior="Patrol" healthmultiplier="0.6" aimspeed="0.8" aimaccuracy="0.7">
       <ItemSet commonness="1">
@@ -422,27 +397,22 @@
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="harpoongun">
           <Item identifier="spear" />
           <Item identifier="spear" />
           <Item identifier="spear" />
           <Item identifier="spear" />
         </Item>
-
-
         <Item identifier="stungun">
-          <Item identifier="stungundart"/>
-          <Item identifier="stungundart"/>
-          <Item identifier="stungundart"/>
+          <Item identifier="stungundart" />
+          <Item identifier="stungundart" />
+          <Item identifier="stungundart" />
         </Item>
-
         <Item identifier="divingknife" />
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
       </ItemSet>
-
       <ItemSet commonness="0.5">
         <Item identifier="ballistichelmet2" equip="true" />
         <Item identifier="pirateclothes" equip="true" />
@@ -450,25 +420,20 @@
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="harpoongun">
           <Item identifier="alienspear" />
         </Item>
-
-
         <Item identifier="stungun">
-          <Item identifier="stungundart"/>
-          <Item identifier="stungundart"/>
-          <Item identifier="stungundart"/>
+          <Item identifier="stungundart" />
+          <Item identifier="stungundart" />
+          <Item identifier="stungundart" />
         </Item>
-
         <Item identifier="divingknife" />
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
       </ItemSet>
     </npc>
-
     <!-- 30-40 -->
     <npc identifier="piratesecuritygunner" job="securityofficer" spawnpointtags="security" behavior="Patrol" healthmultiplier="0.75" aimspeed="0.8" aimaccuracy="0.7">
       <ItemSet commonness="1">
@@ -478,7 +443,6 @@
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="revolver">
           <Item identifier="revolverround" />
           <Item identifier="revolverround" />
@@ -487,18 +451,16 @@
           <Item identifier="revolverround" />
           <Item identifier="revolverround" />
         </Item>
-
         <Item identifier="stungun">
-          <Item identifier="stungundart"/>
-          <Item identifier="stungundart"/>
-          <Item identifier="stungundart"/>
+          <Item identifier="stungundart" />
+          <Item identifier="stungundart" />
+          <Item identifier="stungundart" />
         </Item>
         <Item identifier="divingknife" />
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
       </ItemSet>
-
       <ItemSet commonness="0.5">
         <Item identifier="ballistichelmet2" equip="true" />
         <Item identifier="pirateclothes" equip="true" />
@@ -506,62 +468,51 @@
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="harpoongun">
           <Item identifier="explosivespear" />
           <Item identifier="explosivespear" />
         </Item>
-
         <Item identifier="grenadelauncher">
           <Item identifier="40mmstungrenade" />
         </Item>
         <Item identifier="40mmstungrenade" />
         <Item identifier="40mmstungrenade" />
-
         <Item identifier="divingknife" />
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
       </ItemSet>
     </npc>
-
     <!-- 40-50  -->
     <npc identifier="piratesecuritybrute" job="securityofficer" spawnpointtags="security" behavior="Patrol" healthmultiplier="1.0" aimspeed="2" aimaccuracy="1.0">
       <ItemSet commonness="1">
         <Item identifier="pirateclothes" equip="true" />
         <Item identifier="piratebodyarmor" equip="true" />
         <Item identifier="piratebandana" equip="true" />
-
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="shotgun">
-          <Item identifier="shotgunslug"/>
-          <Item identifier="shotgunslug"/>
-          <Item identifier="shotgunslug"/>
-          <Item identifier="shotgunslug"/>
-          <Item identifier="shotgunslug"/>
+          <Item identifier="shotgunslug" />
+          <Item identifier="shotgunslug" />
+          <Item identifier="shotgunslug" />
+          <Item identifier="shotgunslug" />
+          <Item identifier="shotgunslug" />
         </Item>
-
-        <Item identifier="shotgunslug"/>
-        <Item identifier="shotgunslug"/>
-        <Item identifier="shotgunslug"/>
-        <Item identifier="shotgunslug"/>
-        <Item identifier="shotgunslug"/>
-        <Item identifier="shotgunslug"/>
-        <Item identifier="shotgunslug"/>
-        <Item identifier="shotgunslug"/>
-
-
+        <Item identifier="shotgunslug" />
+        <Item identifier="shotgunslug" />
+        <Item identifier="shotgunslug" />
+        <Item identifier="shotgunslug" />
+        <Item identifier="shotgunslug" />
+        <Item identifier="shotgunslug" />
+        <Item identifier="shotgunslug" />
+        <Item identifier="shotgunslug" />
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
       </ItemSet>
     </npc>
-
-
     <!-- Medic -->
     <npc identifier="piratemedicrecruit" job="medicaldoctor" behavior="Patrol" healthmultiplier="0.55" aimspeed="0.8" aimaccuracy="0.3">
       <ItemSet commonness="1">
@@ -572,31 +523,26 @@
           <Item identifier="antibloodloss2" />
           <Item identifier="antibloodloss2" />
         </Item>
-
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="syringegun" tags="weapon,gun">
-          <Item identifier="chloralhydrate"/>
-          <Item identifier="chloralhydrate"/>
-          <Item identifier="chloralhydrate"/>
-          <Item identifier="chloralhydrate"/>
+          <Item identifier="chloralhydrate" />
+          <Item identifier="chloralhydrate" />
+          <Item identifier="chloralhydrate" />
+          <Item identifier="chloralhydrate" />
         </Item>
-
         <Item identifier="oxygentank" />
-        <Item identifier="antibleeding1"/>
-        <Item identifier="antibleeding1"/>
-        <Item identifier="antibleeding1"/>
-
-        <Item identifier="antibiotics"/>
-        <Item identifier="antidama1"/>
-        <Item identifier="antidama1"/>
-        <Item identifier="antidama1"/>
+        <Item identifier="antibleeding1" />
+        <Item identifier="antibleeding1" />
+        <Item identifier="antibleeding1" />
+        <Item identifier="antibiotics" />
+        <Item identifier="antidama1" />
+        <Item identifier="antidama1" />
+        <Item identifier="antidama1" />
       </ItemSet>
     </npc>
-
     <!-- Engineer -->
     <npc identifier="pirateengineerrecruit" job="engineer" commonness="1" healthmultiplier="0.55" aimspeed="0.7" aimaccuracy="0.3">
       <ItemSet>
@@ -608,7 +554,6 @@
         </Item>
         <Item identifier="wrench" equip="true" />
         <Item identifier="screwdriver" equip="true" />
-
         <Item identifier="revolver" equip="false">
           <Item identifier="revolverround" />
           <Item identifier="revolverround" />
@@ -617,7 +562,6 @@
           <Item identifier="revolverround" />
           <Item identifier="revolverround" />
         </Item>
-
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
@@ -626,7 +570,6 @@
         </Item>
       </ItemSet>
     </npc>
-
     <!-- Mechanic -->
     <npc identifier="piratemechanicrecruit" job="mechanic" healthmultiplier="0.55" aimspeed="0.7" aimaccuracy="0.3">
       <ItemSet>
@@ -638,7 +581,6 @@
         <Item identifier="idcard" equip="true" />
         <Item identifier="wrench" equip="true" />
         <Item identifier="screwdriver" equip="true" />
-
         <Item identifier="revolver" equip="false">
           <Item identifier="revolverround" />
           <Item identifier="revolverround" />
@@ -647,7 +589,6 @@
           <Item identifier="revolverround" />
           <Item identifier="revolverround" />
         </Item>
-
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
@@ -657,7 +598,6 @@
       </ItemSet>
     </npc>
   </npcset>
-
   <!-- 45-65 -->
   <npcset identifier="mlc_pirates_greatsea">
     <!-- Captain -->
@@ -670,7 +610,6 @@
         <skill identifier="medical" level="5" />
         <skill identifier="helm" level="40" />
       </job>
-
       <ItemSet commonness="1">
         <Item identifier="idcard" equip="true" showpreview="false" />
         <Item identifier="piratecaptainhat" equip="true" />
@@ -678,18 +617,15 @@
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="shotgun">
-          <Item identifier="shotgunshell" showpreview="false"/>
-          <Item identifier="shotgunshell" showpreview="false"/>
-          <Item identifier="shotgunshell" showpreview="false"/>
+          <Item identifier="shotgunshell" showpreview="false" />
+          <Item identifier="shotgunshell" showpreview="false" />
+          <Item identifier="shotgunshell" showpreview="false" />
         </Item>
-
-        <Item identifier="steroids"/>
-        <Item identifier="antidama1"/>
+        <Item identifier="steroids" />
+        <Item identifier="antidama1" />
         <Item identifier="captainspipe" equip="false" />
       </ItemSet>
-
       <ItemSet commonness="0.5">
         <Item identifier="idcard" equip="true" showpreview="false" />
         <Item identifier="piratecaptainhat" equip="true" />
@@ -697,18 +633,15 @@
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="shotgun">
-          <Item identifier="shotgunslugexplosive" showpreview="false"/>
-          <Item identifier="shotgunslugexplosive" showpreview="false"/>
+          <Item identifier="shotgunslugexplosive" showpreview="false" />
+          <Item identifier="shotgunslugexplosive" showpreview="false" />
         </Item>
-
-        <Item identifier="steroids"/>
-        <Item identifier="antidama1"/>
+        <Item identifier="steroids" />
+        <Item identifier="antidama1" />
         <Item identifier="captainspipe" equip="false" />
       </ItemSet>
     </npc>
-
     <!-- 55-65 -->
     <npc identifier="piratecaptainlord" job="captain" moduleflags="none" behavior="Patrol" healthmultiplier="0.8" aimspeed="0.8" aimaccuracy="0.5">
       <job name="captain" identifier="captain">
@@ -718,7 +651,6 @@
         <skill identifier="medical" level="5" />
         <skill identifier="helm" level="40" />
       </job>
-
       <ItemSet commonness="1">
         <Item identifier="idcard" equip="true" showpreview="false" />
         <Item identifier="piratecaptainhat" equip="true" />
@@ -726,24 +658,20 @@
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="smg">
-          <Item identifier="smgmagazine" showpreview="false"/>
+          <Item identifier="smgmagazine" showpreview="false" />
         </Item>
-
         <Item identifier="shotgun">
-          <Item identifier="shotgunslugexplosive" showpreview="false"/>
-          <Item identifier="shotgunslugexplosive" showpreview="false"/>
-          <Item identifier="shotgunshell" showpreview="false"/>
-          <Item identifier="shotgunshell" showpreview="false"/>
-          <Item identifier="shotgunshell" showpreview="false"/>
+          <Item identifier="shotgunslugexplosive" showpreview="false" />
+          <Item identifier="shotgunslugexplosive" showpreview="false" />
+          <Item identifier="shotgunshell" showpreview="false" />
+          <Item identifier="shotgunshell" showpreview="false" />
+          <Item identifier="shotgunshell" showpreview="false" />
         </Item>
-
-        <Item identifier="steroids"/>
-        <Item identifier="antidama1"/>
+        <Item identifier="steroids" />
+        <Item identifier="antidama1" />
         <Item identifier="captainspipe" equip="false" />
       </ItemSet>
-
       <ItemSet commonness="0.5">
         <Item identifier="idcard" equip="true" showpreview="false" />
         <Item identifier="piratecaptainhat" equip="true" />
@@ -751,21 +679,18 @@
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="shotgun">
-          <Item identifier="shotgunslugexplosive" showpreview="false"/>
-          <Item identifier="shotgunslugexplosive" showpreview="false"/>
-          <Item identifier="shotgunslugexplosive" showpreview="false"/>
-          <Item identifier="shotgunslugexplosive" showpreview="false"/>
-          <Item identifier="shotgunslugexplosive" showpreview="false"/>
+          <Item identifier="shotgunslugexplosive" showpreview="false" />
+          <Item identifier="shotgunslugexplosive" showpreview="false" />
+          <Item identifier="shotgunslugexplosive" showpreview="false" />
+          <Item identifier="shotgunslugexplosive" showpreview="false" />
+          <Item identifier="shotgunslugexplosive" showpreview="false" />
         </Item>
-
-        <Item identifier="steroids"/>
-        <Item identifier="antidama1"/>
+        <Item identifier="steroids" />
+        <Item identifier="antidama1" />
         <Item identifier="captainspipe" equip="false" />
       </ItemSet>
     </npc>
-
     <!-- Sec -->
     <!-- 45-65 -->
     <npc identifier="piratesecurityelite" job="securityofficer" spawnpointtags="security" behavior="Patrol" healthmultiplier="1.2" aimspeed="0.8" aimaccuracy="0.7">
@@ -773,31 +698,25 @@
         <Item identifier="piratebodyarmor" equip="true" />
         <Item identifier="piratebandana" equip="true" />
         <Item identifier="pirateclotheshard" equip="true" />
-
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="smg">
           <Item identifier="smgmagazine" />
         </Item>
         <Item identifier="smgmagazine" />
         <Item identifier="smgmagazine" />
-
         <Item identifier="stungun">
-          <Item identifier="stungundart"/>
-          <Item identifier="stungundart"/>
-          <Item identifier="stungundart"/>
+          <Item identifier="stungundart" />
+          <Item identifier="stungundart" />
+          <Item identifier="stungundart" />
         </Item>
-
         <Item identifier="divingknife" />
-
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
       </ItemSet>
-
       <ItemSet commonness="0.5">
         <Item identifier="piratehelmet" equip="true" />
         <Item identifier="piratebodyarmor" equip="true" />
@@ -806,229 +725,191 @@
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="grenadelauncher">
           <Item identifier="40mmgrenade" />
         </Item>
         <Item identifier="40mmgrenade" />
         <Item identifier="40mmgrenade" />
         <Item identifier="40mmgrenade" />
-
         <Item identifier="divingknife" />
-
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
       </ItemSet>
     </npc>
-
     <!-- 55-65  -->
     <npc identifier="pirateflamer" job="securityofficer" spawnpointtags="security" behavior="Patrol" healthmultiplier="1.5" aimspeed="0.8" aimaccuracy="1.0">
       <ItemSet commonness="1">
         <Item identifier="pirateclothes" equip="true" />
         <Item identifier="piratehelmet" equip="true" />
         <Item identifier="piratebandana" equip="true" />
-
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="flamer">
-          <Item identifier="incendiumfueltank"/>
+          <Item identifier="incendiumfueltank" />
         </Item>
-        <Item identifier="incendiumfueltank"/>
-
+        <Item identifier="incendiumfueltank" />
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
       </ItemSet>
     </npc>
-
     <npc identifier="piratedeadeye" job="securityofficer" spawnpointtags="security" behavior="Patrol" healthmultiplier="0.55" aimspeed="1.0" aimaccuracy="1.0">
       <ItemSet commonness="1">
         <Item identifier="pirateclothes" equip="true" />
         <Item identifier="piratebandana" equip="true" />
-
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="smgunique">
-          <Item identifier="smgmagazine"/>
+          <Item identifier="smgmagazine" />
         </Item>
-        <Item identifier="smgmagazine"/>
-
+        <Item identifier="smgmagazine" />
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
       </ItemSet>
     </npc>
-
     <npc identifier="piratesecuritybrute" job="securityofficer" spawnpointtags="security" behavior="Patrol" healthmultiplier="2.0" aimspeed="2" aimaccuracy="1.0">
       <ItemSet commonness="1">
         <Item identifier="pirateclotheshard" equip="true" />
         <Item identifier="piratehelmet" equip="true" />
         <Item identifier="piratebodyarmor" equip="true" />
-
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
-
         <Item identifier="shotgun">
-          <Item identifier="shotgunslugexplosive"/>
-          <Item identifier="shotgunslugexplosive"/>
-          <Item identifier="shotgunslugexplosive"/>
-          <Item identifier="shotgunslugexplosive"/>
-          <Item identifier="shotgunslugexplosive"/>
+          <Item identifier="shotgunslugexplosive" />
+          <Item identifier="shotgunslugexplosive" />
+          <Item identifier="shotgunslugexplosive" />
+          <Item identifier="shotgunslugexplosive" />
+          <Item identifier="shotgunslugexplosive" />
         </Item>
-        <Item identifier="shotgunslug"/>
-        <Item identifier="shotgunslug"/>
-        <Item identifier="shotgunslug"/>
-        <Item identifier="shotgunslug"/>
-        <Item identifier="shotgunslug"/>
-        <Item identifier="shotgunslug"/>
-        <Item identifier="shotgunslug"/>
-        <Item identifier="shotgunslug"/>
-
+        <Item identifier="shotgunslug" />
+        <Item identifier="shotgunslug" />
+        <Item identifier="shotgunslug" />
+        <Item identifier="shotgunslug" />
+        <Item identifier="shotgunslug" />
+        <Item identifier="shotgunslug" />
+        <Item identifier="shotgunslug" />
+        <Item identifier="shotgunslug" />
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
       </ItemSet>
     </npc>
-
     <npc identifier="pirateberserker" job="securityofficer" spawnpointtags="security" behavior="Patrol" healthmultiplier="2.0" aimspeed="2" aimaccuracy="1.0">
       <ItemSet commonness="1">
         <Item identifier="pirateclotheshard" equip="true" />
         <Item identifier="piratehelmet" equip="true" />
         <Item identifier="piratebodyarmor" equip="true" />
-
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="divingknifeunique" />
-
-
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
       </ItemSet>
     </npc>
-
     <!-- Medic -->
     <npc identifier="piratemedic" job="medicaldoctor" behavior="Patrol" healthmultiplier="0.55" aimspeed="0.8" aimaccuracy="0.3">
       <ItemSet commonness="1">
         <Item identifier="piratebandana" equip="true" />
         <Item identifier="doctorsuniform1" equip="true" outfit="true">
-          <Item identifier="antibloodloss2"/>
-          <Item identifier="antibloodloss2"/>
+          <Item identifier="antibloodloss2" />
+          <Item identifier="antibloodloss2" />
         </Item>
         <Item identifier="piratebodyarmor" equip="true" />
-
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="syringegun" tags="weapon,gun">
-          <Item identifier="paralyzant"/>
-          <Item identifier="paralyzant"/>
-          <Item identifier="paralyzant"/>
+          <Item identifier="paralyzant" />
+          <Item identifier="paralyzant" />
+          <Item identifier="paralyzant" />
         </Item>
-
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
-
-        <Item identifier="antibleeding1"/>
-        <Item identifier="antibleeding1"/>
-        <Item identifier="antibleeding1"/>
-        <Item identifier="antibleeding1"/>
-        <Item identifier="antibiotics"/>
-        <Item identifier="antidama1"/>
-        <Item identifier="antidama1"/>
-        <Item identifier="antidama1"/>
+        <Item identifier="antibleeding1" />
+        <Item identifier="antibleeding1" />
+        <Item identifier="antibleeding1" />
+        <Item identifier="antibleeding1" />
+        <Item identifier="antibiotics" />
+        <Item identifier="antidama1" />
+        <Item identifier="antidama1" />
+        <Item identifier="antidama1" />
       </ItemSet>
-
       <ItemSet commonness="0.5">
         <Item identifier="piratebandana" equip="true" />
         <Item identifier="doctorsuniform1" equip="true" outfit="true">
-          <Item identifier="antibloodloss2"/>
-          <Item identifier="antibloodloss2"/>
+          <Item identifier="antibloodloss2" />
+          <Item identifier="antibloodloss2" />
         </Item>
         <Item identifier="piratebodyarmor" equip="true" />
-
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="syringegun" tags="weapon,gun">
-          <Item identifier="cyanide"/>
-          <Item identifier="cyanide"/>
-          <Item identifier="cyanide"/>
-          <Item identifier="cyanide"/>
+          <Item identifier="cyanide" />
+          <Item identifier="cyanide" />
+          <Item identifier="cyanide" />
+          <Item identifier="cyanide" />
         </Item>
-
         <Item identifier="divingknife" />
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
-
-        <Item identifier="antibleeding1"/>
-        <Item identifier="antibleeding1"/>
-        <Item identifier="antibleeding1"/>
-        <Item identifier="antibleeding1"/>
-        <Item identifier="antibiotics"/>
-        <Item identifier="antidama1"/>
-        <Item identifier="antidama1"/>
-        <Item identifier="antidama1"/>
-        <Item identifier="calyxanide"/>
+        <Item identifier="antibleeding1" />
+        <Item identifier="antibleeding1" />
+        <Item identifier="antibleeding1" />
+        <Item identifier="antibleeding1" />
+        <Item identifier="antibiotics" />
+        <Item identifier="antidama1" />
+        <Item identifier="antidama1" />
+        <Item identifier="antidama1" />
+        <Item identifier="calyxanide" />
       </ItemSet>
-
       <ItemSet commonness="0.3">
         <Item identifier="piratebandana" equip="true" />
         <Item identifier="doctorsuniform1" equip="true" outfit="true">
-          <Item identifier="antibloodloss2"/>
-          <Item identifier="antibloodloss2"/>
+          <Item identifier="antibloodloss2" />
+          <Item identifier="antibloodloss2" />
         </Item>
         <Item identifier="piratebodyarmor" equip="true" />
-
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="syringegun" tags="weapon,gun">
-          <Item identifier="sufforin"/>
-          <Item identifier="sufforin"/>
-          <Item identifier="sufforin"/>
-          <Item identifier="sufforin"/>
+          <Item identifier="sufforin" />
+          <Item identifier="sufforin" />
+          <Item identifier="sufforin" />
+          <Item identifier="sufforin" />
         </Item>
-
         <Item identifier="divingknife" />
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
-
-        <Item identifier="antibleeding1"/>
-        <Item identifier="antibleeding1"/>
-        <Item identifier="antibleeding1"/>
-        <Item identifier="antibleeding1"/>
-        <Item identifier="antibiotics"/>
-        <Item identifier="antidama1"/>
-        <Item identifier="antidama1"/>
-        <Item identifier="antidama1"/>
-        <Item identifier="calyxanide"/>
+        <Item identifier="antibleeding1" />
+        <Item identifier="antibleeding1" />
+        <Item identifier="antibleeding1" />
+        <Item identifier="antibleeding1" />
+        <Item identifier="antibiotics" />
+        <Item identifier="antidama1" />
+        <Item identifier="antidama1" />
+        <Item identifier="antidama1" />
+        <Item identifier="calyxanide" />
       </ItemSet>
-
     </npc>
-
     <!-- Engineer -->
     <npc identifier="pirateengineerrecruit" job="engineer" commonness="1" healthmultiplier="0.55" aimspeed="0.7" aimaccuracy="0.3">
       <ItemSet>
@@ -1038,10 +919,8 @@
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="wrenchhardened" equip="true" />
         <Item identifier="screwdriverhardened" equip="true" />
-
         <Item identifier="revolver" equip="false">
           <Item identifier="revolverrounddepletedfuel" />
           <Item identifier="revolverrounddepletedfuel" />
@@ -1053,7 +932,6 @@
         <Item identifier="revolverround" />
         <Item identifier="revolverround" />
         <Item identifier="revolverround" />
-
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
@@ -1062,7 +940,6 @@
         </Item>
       </ItemSet>
     </npc>
-
     <!-- Mechanic -->
     <npc identifier="piratemechanicrecruit" job="mechanic" healthmultiplier="0.55" aimspeed="0.7" aimaccuracy="0.3">
       <ItemSet>
@@ -1073,10 +950,8 @@
           <Item identifier="batterycell" showpreview="false" />
         </Item>
         <Item identifier="idcard" equip="true" />
-
         <Item identifier="wrenchdementonite" equip="true" />
         <Item identifier="screwdriverdementonite" equip="true" />
-
         <Item identifier="revolver" equip="false">
           <Item identifier="revolverround" />
           <Item identifier="revolverround" />
@@ -1090,7 +965,6 @@
         <Item identifier="revolverround" />
         <Item identifier="revolverround" />
         <Item identifier="revolverround" />
-
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
@@ -1100,7 +974,6 @@
       </ItemSet>
     </npc>
   </npcset>
-
   <!-- 55-100 -->
   <npcset identifier="mlc_pirates_wastes">
     <!-- Captain -->
@@ -1113,7 +986,6 @@
         <skill identifier="medical" level="5" />
         <skill identifier="helm" level="40" />
       </job>
-
       <ItemSet commonness="1">
         <Item identifier="idcard" equip="true" showpreview="false" />
         <Item identifier="piratecaptainhat" equip="true" />
@@ -1122,29 +994,25 @@
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="handcannon">
-          <Item identifier="handcannonround" showpreview="false"/>
-          <Item identifier="handcannonround" showpreview="false"/>
-          <Item identifier="handcannonround" showpreview="false"/>
-          <Item identifier="handcannonround" showpreview="false"/>
-          <Item identifier="handcannonround" showpreview="false"/>
-          <Item identifier="handcannonround" showpreview="false"/>
+          <Item identifier="handcannonround" showpreview="false" />
+          <Item identifier="handcannonround" showpreview="false" />
+          <Item identifier="handcannonround" showpreview="false" />
+          <Item identifier="handcannonround" showpreview="false" />
+          <Item identifier="handcannonround" showpreview="false" />
+          <Item identifier="handcannonround" showpreview="false" />
         </Item>
-        <Item identifier="handcannonround" showpreview="false"/>
-        <Item identifier="handcannonround" showpreview="false"/>
-        <Item identifier="handcannonround" showpreview="false"/>
-
+        <Item identifier="handcannonround" showpreview="false" />
+        <Item identifier="handcannonround" showpreview="false" />
+        <Item identifier="handcannonround" showpreview="false" />
         <Item identifier="smg">
-          <Item identifier="smgmagazine" showpreview="false"/>
+          <Item identifier="smgmagazine" showpreview="false" />
         </Item>
-
-        <Item identifier="steroids"/>
-        <Item identifier="antidama1"/>
+        <Item identifier="steroids" />
+        <Item identifier="antidama1" />
         <Item identifier="captainspipe" equip="false" />
       </ItemSet>
     </npc>
-
     <!-- Sec -->
     <!-- 45-65 -->
     <npc identifier="piratesecurityelite" job="securityofficer" spawnpointtags="security" behavior="Patrol" healthmultiplier="1.3" aimspeed="0.8" aimaccuracy="0.7">
@@ -1152,30 +1020,24 @@
         <Item identifier="piratebodyarmor" equip="true" />
         <Item identifier="piratebandana" equip="true" />
         <Item identifier="pirateclotheshard" equip="true" />
-
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="assaultrifle">
           <Item identifier="assaultriflemagazine" />
         </Item>
         <Item identifier="assaultriflemagazine" />
-
         <Item identifier="stungun">
-          <Item identifier="stungundartfulgurium"/>
-          <Item identifier="stungundartfulgurium"/>
-          <Item identifier="stungundartfulgurium"/>
+          <Item identifier="stungundartfulgurium" />
+          <Item identifier="stungundartfulgurium" />
+          <Item identifier="stungundartfulgurium" />
         </Item>
-
         <Item identifier="divingknife" />
-
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
       </ItemSet>
-
       <ItemSet commonness="0.6">
         <Item identifier="piratehelmet" equip="true" />
         <Item identifier="piratebodyarmor" equip="true" />
@@ -1184,76 +1046,62 @@
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="grenadelauncher">
           <Item identifier="40mmgrenade" />
         </Item>
         <Item identifier="40mmgrenade" />
         <Item identifier="40mmgrenade" />
         <Item identifier="40mmgrenade" />
-
         <Item identifier="divingknife" />
-
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
       </ItemSet>
     </npc>
-
     <!-- 55-65  -->
     <npc identifier="pirateflamer" job="securityofficer" spawnpointtags="security" behavior="Patrol" healthmultiplier="1.5" aimspeed="0.8" aimaccuracy="1.0">
       <ItemSet commonness="1">
         <Item identifier="pirateclothes" equip="true" />
         <Item identifier="piratehelmet" equip="true" />
         <Item identifier="piratebandana" equip="true" />
-
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="flamer">
-          <Item identifier="incendiumfueltank"/>
+          <Item identifier="incendiumfueltank" />
         </Item>
-        <Item identifier="incendiumfueltank"/>
-
+        <Item identifier="incendiumfueltank" />
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
       </ItemSet>
     </npc>
-
     <npc identifier="piratedeadeye" job="securityofficer" spawnpointtags="security" behavior="Patrol" healthmultiplier="0.55" aimspeed="1.5" aimaccuracy="1.0">
       <ItemSet commonness="1">
         <Item identifier="pirateclothes" equip="true" />
         <Item identifier="piratebandana" equip="true" />
-
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="smgunique">
-          <Item identifier="smgmagazinedepletedfuel"/>
+          <Item identifier="smgmagazinedepletedfuel" />
         </Item>
-        <Item identifier="smgmagazinedepletedfuel"/>
-
+        <Item identifier="smgmagazinedepletedfuel" />
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
       </ItemSet>
     </npc>
-
     <npc identifier="piratesecuritybrute" job="securityofficer" spawnpointtags="security" behavior="Patrol" healthmultiplier="1.0" aimspeed="1.0" aimaccuracy="1.0">
       <ItemSet commonness="1">
         <Item identifier="pirateclotheshard" equip="true" />
         <Item identifier="piratehelmet" equip="true" />
-
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="autoshotgun">
           <Item identifier="shotgunshell" />
           <Item identifier="shotgunshell" />
@@ -1284,119 +1132,100 @@
           <Item identifier="shotgunshell" />
           <Item identifier="shotgunshell" />
         </Item>
-
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
       </ItemSet>
     </npc>
-
     <npc identifier="pirateberserker" job="securityofficer" spawnpointtags="security" behavior="Patrol" healthmultiplier="2.0" aimspeed="2" aimaccuracy="1.0">
       <ItemSet commonness="1">
         <Item identifier="pirateclotheshard" equip="true" />
         <Item identifier="piratehelmet" equip="true" />
         <Item identifier="piratebodyarmor" equip="true" />
-
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="boardingaxe" equip="true" />
-
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
       </ItemSet>
     </npc>
-
     <!-- Medic -->
     <npc identifier="piratemedic" job="medicaldoctor" behavior="Patrol" healthmultiplier="0.55" aimspeed="0.8" aimaccuracy="0.3">
       <ItemSet commonness="1">
         <Item identifier="piratebandana" equip="true" />
         <Item identifier="pirateclotheshard" equip="true" outfit="true" />
         <Item identifier="piratebodyarmor" equip="true" />
-
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="syringegun" tags="weapon,gun">
-          <Item identifier="cyanide"/>
-          <Item identifier="cyanide"/>
-          <Item identifier="cyanide"/>
-          <Item identifier="cyanide"/>
+          <Item identifier="cyanide" />
+          <Item identifier="cyanide" />
+          <Item identifier="cyanide" />
+          <Item identifier="cyanide" />
         </Item>
-
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
-
-        <Item identifier="cyanideantidote"/>
+        <Item identifier="cyanideantidote" />
         <Item identifier="antibleeding1" />
         <Item identifier="antibleeding1" />
         <Item identifier="antibleeding1" />
-        <Item identifier="antibiotics"/>
+        <Item identifier="antibiotics" />
         <Item identifier="antidama1" />
         <Item identifier="antidama1" />
         <Item identifier="antidama1" />
       </ItemSet>
-
       <ItemSet commonness="0.5">
         <Item identifier="piratebandana" equip="true" />
         <Item identifier="doctorsuniform1" equip="true" outfit="true">
-          <Item identifier="antibloodloss2"/>
-          <Item identifier="antibloodloss2"/>
+          <Item identifier="antibloodloss2" />
+          <Item identifier="antibloodloss2" />
         </Item>
         <Item identifier="piratebodyarmor" equip="true" />
-
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="syringegun" tags="weapon,gun">
           <Item identifier="antidama2" />
           <Item identifier="antidama2" />
           <Item identifier="antidama2" />
           <Item identifier="antidama2" />
         </Item>
-
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
-
-        <Item identifier="antibleeding1"/>
-        <Item identifier="antibleeding1"/>
-        <Item identifier="antibleeding1"/>
-        <Item identifier="antibleeding1"/>
-        <Item identifier="antibiotics"/>
-        <Item identifier="antidama1"/>
-        <Item identifier="antidama1"/>
-        <Item identifier="antidama1"/>
-        <Item identifier="calyxanide"/>
+        <Item identifier="antibleeding1" />
+        <Item identifier="antibleeding1" />
+        <Item identifier="antibleeding1" />
+        <Item identifier="antibleeding1" />
+        <Item identifier="antibiotics" />
+        <Item identifier="antidama1" />
+        <Item identifier="antidama1" />
+        <Item identifier="antidama1" />
+        <Item identifier="calyxanide" />
       </ItemSet>
     </npc>
-
     <!-- Engineer -->
     <npc identifier="pirateengineerveteran" job="engineer" commonness="1" healthmultiplier="0.55" aimspeed="0.7" aimaccuracy="0.3">
       <ItemSet commonness="1">
         <Item identifier="pirateclotheshard" equip="true" />
         <Item identifier="piratebandana" equip="true" />
-        <Item identifier="pucs" equip="true"/>
+        <Item identifier="pucs" equip="true" />
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="wrenchhardened" equip="true" />
         <Item identifier="screwdriverhardened" equip="true" />
-
         <Item identifier="smg">
-          <Item identifier="smgmagazinedepletedfuel"/>
+          <Item identifier="smgmagazinedepletedfuel" />
         </Item>
-
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
@@ -1407,19 +1236,16 @@
       <ItemSet commonness="0.5">
         <Item identifier="pirateclotheshard" equip="true" />
         <Item identifier="piratebandana" equip="true" />
-        <Item identifier="pucs" equip="true"/>
+        <Item identifier="pucs" equip="true" />
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="wrenchhardened" equip="true" />
         <Item identifier="screwdriverhardened" equip="true" />
-
         <Item identifier="nucleargun" equip="false">
           <Item identifier="fuelrod" />
         </Item>
-
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
@@ -1428,7 +1254,6 @@
         </Item>
       </ItemSet>
     </npc>
-
     <!-- Mechanic -->
     <npc identifier="piratemechanicveteran" job="mechanic" healthmultiplier="0.55" aimspeed="0.7" aimaccuracy="0.3">
       <ItemSet>
@@ -1439,10 +1264,8 @@
           <Item identifier="batterycell" showpreview="false" />
         </Item>
         <Item identifier="idcard" equip="true" />
-
         <Item identifier="wrenchdementonite" equip="true" />
         <Item identifier="screwdriverdementonite" equip="true" />
-
         <Item identifier="shotgununique" equip="false">
           <Item identifier="shotgunshell" />
           <Item identifier="shotgunshell" />
@@ -1460,8 +1283,6 @@
         <Item identifier="shotgunshell" />
         <Item identifier="shotgunshell" />
         <Item identifier="shotgunshell" />
-
-
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
@@ -1470,7 +1291,6 @@
         </Item>
       </ItemSet>
     </npc>
-
     <!-- Engineer -->
     <npc identifier="pirateengineerrecruit" job="engineer" commonness="1" healthmultiplier="0.55" aimspeed="0.7" aimaccuracy="0.3">
       <ItemSet>
@@ -1480,10 +1300,8 @@
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
-
         <Item identifier="wrenchhardened" equip="true" />
         <Item identifier="screwdriverhardened" equip="true" />
-
         <Item identifier="revolver" equip="false">
           <Item identifier="revolverrounddepletedfuel" />
           <Item identifier="revolverrounddepletedfuel" />
@@ -1495,7 +1313,6 @@
         <Item identifier="revolverround" />
         <Item identifier="revolverround" />
         <Item identifier="revolverround" />
-
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
@@ -1504,7 +1321,6 @@
         </Item>
       </ItemSet>
     </npc>
-
     <!-- Mechanic -->
     <npc identifier="piratemechanicrecruit" job="mechanic" healthmultiplier="0.55" aimspeed="0.7" aimaccuracy="0.3">
       <ItemSet>
@@ -1515,10 +1331,8 @@
           <Item identifier="batterycell" showpreview="false" />
         </Item>
         <Item identifier="idcard" equip="true" />
-
         <Item identifier="wrenchdementonite" equip="true" />
         <Item identifier="screwdriverdementonite" equip="true" />
-
         <Item identifier="revolver" equip="false">
           <Item identifier="revolverround" />
           <Item identifier="revolverround" />
@@ -1532,7 +1346,6 @@
         <Item identifier="revolverround" />
         <Item identifier="revolverround" />
         <Item identifier="revolverround" />
-
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
@@ -1541,6 +1354,5 @@
         </Item>
       </ItemSet>
     </npc>
-
   </npcset>
 </npcsets>

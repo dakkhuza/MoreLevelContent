@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<infotexts language="English" nowhitespace="false" translatedname="English">
+  <mlc.patchnotes>
+    CONTENT
+    - Added 4 new pirate outposts
+    - Added a chance for ruins to spawn in the abyss. (Default: 25% chance)
+
+    TWEAKS
+    - Updated config handling
+    - Improved install check
+
+    BUG FIXES
+    - Fixed the mod crashing in single player
+    - Fixed? an issue where the settings button would appear twice
+    </mlc.patchnotes>
+</infotexts>

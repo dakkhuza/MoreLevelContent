@@ -1,12 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <locationtypes>
-  <ilo_PirateOutpost
-    identifier="ilo_PirateOutpost"
-    namefile="Content/Map/locationNames.txt"
-    commonnessperzone="1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0"
-    hasoutpost="false"
-    beaconstationchance="0">
-
+  <ilo_PirateOutpost identifier="ilo_PirateOutpost" namefile="Content/Map/locationNames.txt" commonnessperzone="1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0" hasoutpost="false" beaconstationchance="0">
     <Symbol texture="Content/Map/MapAtlas.png" sourcerect="640,640,128,128" color="128,206,175,255" />
-    <Portrait texture="Content/Map/LocationPortraits/NaturalFormations.png" premultiplyalpha="false"/>
+    <Portrait texture="Content/Map/LocationPortraits/NaturalFormations.png" premultiplyalpha="false" />
   </ilo_PirateOutpost>
 </locationtypes>

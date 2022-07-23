@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<contentpackage name="More Level Content" modversion="0.0.4" corepackage="False" steamworkshopid="2814493175" gameversion="0.18.12.0">
+<contentpackage name="More Level Content" modversion="0.0.4" corepackage="False" steamworkshopid="2814493175" gameversion="0.18.15.0" expectedhash="776018EBED7980B209D70804135985DC">
   <Item file="%ModDir%/dummyitem.xml" />
-  <Text file="%ModDir%/Language/EnglishVanilla.xml" />
+  <Text file="%ModDir%/Language/English.xml" />
+  <Text file="%ModDir%/Language/PatchNotes.xml" />
   <UIStyle file="%ModDir%/UI/config.xml" />
   <LocationTypes file="%ModDir%/Pirate/pirate_location.xml" />
   <NPCSets file="%ModDir%/Pirate/pirate_npcset.xml" />
@@ -9,6 +10,10 @@
   <Talents file="%ModDir%/Pirate/pirate_talents.xml" />
   <Item file="%ModDir%/Pirate/pirate_items.xml" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_0-10.sub" />
+  <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_5-15.sub" />
+  <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_0-15.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_10-20.sub" />
-  <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o2_diff_20-30.sub" />
+  <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_20-30.sub" />
+  <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_15-25.sub" />
+  <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_25-35.sub" />
 </contentpackage>

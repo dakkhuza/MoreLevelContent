@@ -20,16 +20,17 @@ namespace Barotrauma.MoreLevelContent.Config
                 "mlc_config",
                 "Toggle the display of the config editor",
                 ToggleGUI);
-            LoadConfig();
+            // Exit if we're in an editor
+            if (Screen.Selected.IsEditor) return;
+            if (GameMain.IsSingleplayer) return; // We don't need to do any of this if we're in singleplayer
             NetUtil.Register(NetEvent.CONFIG_WRITE_CLIENT, ClientRead);
-            NetUtil.Register(NetEvent.PING_CLIENT, PongServer);
             if (!GameMain.Client.IsServerOwner) RequestConfig();
             else ClientWrite();
         }
 
         public void SetConfig(MLCConfig config)
         {
-            this.config = config;
+            this.Config = config;
             Log.Debug("[CLIENT] Config Updated");
             Log.Verbose(Config.ToString());
 
@@ -41,6 +42,7 @@ namespace Barotrauma.MoreLevelContent.Config
         private void RequestConfig()
         {
             IWriteMessage outMsg = NetUtil.CreateNetMsg(NetEvent.CONFIG_REQUEST);
+            outMsg.Write(Main.Version);
             GameMain.LuaCs.Networking.Send(outMsg);
             Log.Verbose("Requested config from server...");
         }
@@ -54,7 +56,8 @@ namespace Barotrauma.MoreLevelContent.Config
                 return;
             }
             IWriteMessage outMsg = NetUtil.CreateNetMsg(NetEvent.CONFIG_WRITE_SERVER);
-            Config.WriteTo(ref outMsg);
+            outMsg.Write(Main.Version);
+            WriteConfig(ref outMsg);
             GameMain.LuaCs.Networking.Send(outMsg);
             Log.Debug("Sent config packet to server!");
         }
@@ -66,20 +69,21 @@ namespace Barotrauma.MoreLevelContent.Config
             ReadNetConfig(ref inMsg);
         }
 
-        private void PongServer(object[] args)
-        {
-            IWriteMessage outMsg = NetUtil.CreateNetMsg(NetEvent.PONG_SERVER);
-            outMsg.Write(Main.Version);
-            NetUtil.SendServer(outMsg);
-            Log.Debug("Pong!");
-        }
-
         private void UpdateConfig()
         {
             if (!GameMain.Client.HasPermission(ClientPermissions.ManageSettings)) return;
             ClientWrite();
         }
 
+        private void DisplayPatchNotes(bool force = false)
+        {
+            if (Config.Version != Main.Version || force)
+            {
+                PatchNotes.Open();
+                Config.Version = Main.Version; // Update the version
+                SetConfig(Config); // Save config
+            }
+        }
 
         public bool SettingsOpen
         {

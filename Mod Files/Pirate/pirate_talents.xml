@@ -1,188 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Talents>
-
-    <!-- Immunities -->
-    <Talent identifier="ptalent_immune_burn">
-        <AbilityGroupEffect abilityeffecttype="None">
-            <Abilities>
-                <CharacterAbilityGiveResistance resistanceid="burn" multiplier="0"/>
-            </Abilities>
-        </AbilityGroupEffect>
-    </Talent>
-
-    <!-- Increase -->
-    <Talent identifier="ptalent_increase_burn">
-        <AbilityGroupEffect abilityeffecttype="OnAddDamageAffliction">
-            <Abilities>
-                <CharacterAbilityModifyAffliction afflictionidentifiers="burn" addedmultiplier="0.5" />
-            </Abilities>
-        </AbilityGroupEffect>
-    </Talent>
-
-    <!-- Abilities -->
-    <Talent identifier="ptalent_tank">
-        <AbilityGroupEffect abilityeffecttype="None">
-            <Abilities>
-                <CharacterAbilityGiveStat stattype="MovementSpeed" value="-0.15" />
-            </Abilities>
-        </AbilityGroupEffect>
-
-        <AbilityGroupInterval maxtriggercount="1">
-            <Conditions>
-                <AbilityConditionAboveVitality invert="true" vitalitypercentage="0"/>
-            </Conditions>
-            <Abilities>
-                <CharacterAbilityApplyStatusEffects>
-                    <StatusEffects>
-                        <StatusEffect type="OnAbility" target="Character" multiplyafflictionsbymaxvitality="true" disabledeltatime="true">
-                            <Affliction identifier="implacable" amount="20.0"/>
-                        </StatusEffect>
-                    </StatusEffects>
-                </CharacterAbilityApplyStatusEffects>
-            </Abilities>
-        </AbilityGroupInterval>
-    </Talent>
-
-    <Talent identifier="ptalent_berserker">
-        <AbilityGroupEffect abilityeffecttype="None">
-            <Abilities>
-                <CharacterAbilityGiveStat stattype="MeleeAttackSpeed" value="0.8" />
-                <CharacterAbilityGiveStat stattype="MovementSpeed" value="0.15" />
-                <CharacterAbilityGiveResistance resistanceid="stun,incrementalstun,progressivestun" multiplier="0.15"/>
-            </Abilities>
-        </AbilityGroupEffect>
-    </Talent>
-
-    <Talent identifier="ptalent_healaura">
-        <AbilityGroupEffect abilityeffecttype="None">
-            <Abilities>
-                <CharacterAbilityApplyStatusEffectsToAllies range="600">
-                    <StatusEffects>
-                        <StatusEffect type="OnAbility" target="Character" multiplyafflictionsbymaxvitality="true">
-                            <Affliction identifier="melodicrespite" amount="15"/>
-                        </StatusEffect>
-                    </StatusEffects>
-                </CharacterAbilityApplyStatusEffectsToAllies>
-            </Abilities>
-        </AbilityGroupEffect>
-    </Talent>
-
-    <Talent identifier="ptalent_fanatic">
-        <AbilityGroupInterval>
-            <Conditions>
-                <AbilityConditionAboveVitality invert="true" vitalitypercentage="0.9"/>
-            </Conditions>
-            <Abilities>
-                <CharacterAbilityApplyStatusEffects>
-                    <StatusEffects>
-                        <StatusEffect type="OnAbility" target="Character" multiplyafflictionsbymaxvitality="true" disabledeltatime="true">
-                            <Affliction identifier="combatstimulant" amount="15.0"/>
-                        </StatusEffect>
-                    </StatusEffects>
-                </CharacterAbilityApplyStatusEffects>
-            </Abilities>
-        </AbilityGroupInterval>
-    </Talent>
-
-    <!-- Skill Increases -->
-
-    <!-- Recruit -->
-    <Talent identifier="ptalent_recruitmechanic">
-        <AbilityGroupEffect abilityeffecttype="None">
-            <Abilities>
-                <CharacterAbilityGiveStat stattype="MechanicalSkillBonus" value="20"/>
-            </Abilities>
-        </AbilityGroupEffect>
-    </Talent>
-
-    <Talent identifier="ptalent_recruitengineer">
-        <AbilityGroupEffect abilityeffecttype="None">
-            <Abilities>
-                <CharacterAbilityGiveStat stattype="ElectricalSkillBonus" value="20"/>
-            </Abilities>
-        </AbilityGroupEffect>
-    </Talent>
-
-    <Talent identifier="ptalent_recruitsec">
-        <AbilityGroupEffect abilityeffecttype="None">
-            <Abilities>
-                <CharacterAbilityGiveStat stattype="WeaponsSkillBonus" value="20"/>
-            </Abilities>
-        </AbilityGroupEffect>
-    </Talent>
-
-    <Talent identifier="ptalent_recruitmedic">
-        <AbilityGroupEffect abilityeffecttype="None">
-            <Abilities>
-                <CharacterAbilityGiveStat stattype="MedicalSkillBonus" value="20"/>
-            </Abilities>
-        </AbilityGroupEffect>
-    </Talent>
-
-
-    <!-- Established -->
-    <Talent identifier="ptalent_mechanic">
-        <AbilityGroupEffect abilityeffecttype="None">
-            <Abilities>
-                <CharacterAbilityGiveStat stattype="MechanicalSkillBonus" value="35"/>
-            </Abilities>
-        </AbilityGroupEffect>
-    </Talent>
-
-    <Talent identifier="ptalent_engineer">
-        <AbilityGroupEffect abilityeffecttype="None">
-            <Abilities>
-                <CharacterAbilityGiveStat stattype="ElectricalSkillBonus" value="35"/>
-            </Abilities>
-        </AbilityGroupEffect>
-    </Talent>
-
-    <Talent identifier="ptalent_sec">
-        <AbilityGroupEffect abilityeffecttype="None">
-            <Abilities>
-                <CharacterAbilityGiveStat stattype="WeaponsSkillBonus" value="35"/>
-            </Abilities>
-        </AbilityGroupEffect>
-    </Talent>
-
-    <Talent identifier="ptalent_medic">
-        <AbilityGroupEffect abilityeffecttype="None">
-            <Abilities>
-                <CharacterAbilityGiveStat stattype="MedicalSkillBonus" value="35"/>
-            </Abilities>
-        </AbilityGroupEffect>
-    </Talent>
-
-    <!-- Elite -->
-    <Talent identifier="ptalent_mechanicelite">
-        <AbilityGroupEffect abilityeffecttype="None">
-            <Abilities>
-                <CharacterAbilityGiveStat stattype="MechanicalSkillBonus" value="45"/>
-            </Abilities>
-        </AbilityGroupEffect>
-    </Talent>
-
-    <Talent identifier="ptalent_engineerelite">
-        <AbilityGroupEffect abilityeffecttype="None">
-            <Abilities>
-                <CharacterAbilityGiveStat stattype="ElectricalSkillBonus" value="45"/>
-            </Abilities>
-        </AbilityGroupEffect>
-    </Talent>
-
-    <Talent identifier="ptalent_secelite">
-        <AbilityGroupEffect abilityeffecttype="None">
-            <Abilities>
-                <CharacterAbilityGiveStat stattype="WeaponsSkillBonus" value="45"/>
-            </Abilities>
-        </AbilityGroupEffect>
-    </Talent>
-
-    <Talent identifier="ptalent_medicelite">
-        <AbilityGroupEffect abilityeffecttype="None">
-            <Abilities>
-                <CharacterAbilityGiveStat stattype="MedicalSkillBonus" value="45"/>
-            </Abilities>
-        </AbilityGroupEffect>
-    </Talent>
-
+  <!-- Immunities -->
+  <Talent identifier="ptalent_immune_burn">
+    <AbilityGroupEffect abilityeffecttype="None">
+      <Abilities>
+        <CharacterAbilityGiveResistance resistanceid="burn" multiplier="0" />
+      </Abilities>
+    </AbilityGroupEffect>
+  </Talent>
+  <!-- Increase -->
+  <Talent identifier="ptalent_increase_burn">
+    <AbilityGroupEffect abilityeffecttype="OnAddDamageAffliction">
+      <Abilities>
+        <CharacterAbilityModifyAffliction afflictionidentifiers="burn" addedmultiplier="0.5" />
+      </Abilities>
+    </AbilityGroupEffect>
+  </Talent>
+  <!-- Abilities -->
+  <Talent identifier="ptalent_tank">
+    <AbilityGroupEffect abilityeffecttype="None">
+      <Abilities>
+        <CharacterAbilityGiveStat stattype="MovementSpeed" value="-0.15" />
+      </Abilities>
+    </AbilityGroupEffect>
+    <AbilityGroupInterval maxtriggercount="1">
+      <Conditions>
+        <AbilityConditionAboveVitality invert="true" vitalitypercentage="0" />
+      </Conditions>
+      <Abilities>
+        <CharacterAbilityApplyStatusEffects>
+          <StatusEffects>
+            <StatusEffect type="OnAbility" target="Character" multiplyafflictionsbymaxvitality="true" disabledeltatime="true">
+              <Affliction identifier="implacable" amount="20.0" />
+            </StatusEffect>
+          </StatusEffects>
+        </CharacterAbilityApplyStatusEffects>
+      </Abilities>
+    </AbilityGroupInterval>
+  </Talent>
+  <Talent identifier="ptalent_berserker">
+    <AbilityGroupEffect abilityeffecttype="None">
+      <Abilities>
+        <CharacterAbilityGiveStat stattype="MeleeAttackSpeed" value="0.8" />
+        <CharacterAbilityGiveStat stattype="MovementSpeed" value="0.15" />
+        <CharacterAbilityGiveResistance resistanceid="stun,incrementalstun,progressivestun" multiplier="0.15" />
+      </Abilities>
+    </AbilityGroupEffect>
+  </Talent>
+  <Talent identifier="ptalent_healaura">
+    <AbilityGroupEffect abilityeffecttype="None">
+      <Abilities>
+        <CharacterAbilityApplyStatusEffectsToAllies range="600">
+          <StatusEffects>
+            <StatusEffect type="OnAbility" target="Character" multiplyafflictionsbymaxvitality="true">
+              <Affliction identifier="melodicrespite" amount="15" />
+            </StatusEffect>
+          </StatusEffects>
+        </CharacterAbilityApplyStatusEffectsToAllies>
+      </Abilities>
+    </AbilityGroupEffect>
+  </Talent>
+  <Talent identifier="ptalent_fanatic">
+    <AbilityGroupInterval>
+      <Conditions>
+        <AbilityConditionAboveVitality invert="true" vitalitypercentage="0.9" />
+      </Conditions>
+      <Abilities>
+        <CharacterAbilityApplyStatusEffects>
+          <StatusEffects>
+            <StatusEffect type="OnAbility" target="Character" multiplyafflictionsbymaxvitality="true" disabledeltatime="true">
+              <Affliction identifier="combatstimulant" amount="15.0" />
+            </StatusEffect>
+          </StatusEffects>
+        </CharacterAbilityApplyStatusEffects>
+      </Abilities>
+    </AbilityGroupInterval>
+  </Talent>
+  <!-- Skill Increases -->
+  <!-- Recruit -->
+  <Talent identifier="ptalent_recruitmechanic">
+    <AbilityGroupEffect abilityeffecttype="None">
+      <Abilities>
+        <CharacterAbilityGiveStat stattype="MechanicalSkillBonus" value="20" />
+      </Abilities>
+    </AbilityGroupEffect>
+  </Talent>
+  <Talent identifier="ptalent_recruitengineer">
+    <AbilityGroupEffect abilityeffecttype="None">
+      <Abilities>
+        <CharacterAbilityGiveStat stattype="ElectricalSkillBonus" value="20" />
+      </Abilities>
+    </AbilityGroupEffect>
+  </Talent>
+  <Talent identifier="ptalent_recruitsec">
+    <AbilityGroupEffect abilityeffecttype="None">
+      <Abilities>
+        <CharacterAbilityGiveStat stattype="WeaponsSkillBonus" value="20" />
+      </Abilities>
+    </AbilityGroupEffect>
+  </Talent>
+  <Talent identifier="ptalent_recruitmedic">
+    <AbilityGroupEffect abilityeffecttype="None">
+      <Abilities>
+        <CharacterAbilityGiveStat stattype="MedicalSkillBonus" value="20" />
+      </Abilities>
+    </AbilityGroupEffect>
+  </Talent>
+  <!-- Established -->
+  <Talent identifier="ptalent_mechanic">
+    <AbilityGroupEffect abilityeffecttype="None">
+      <Abilities>
+        <CharacterAbilityGiveStat stattype="MechanicalSkillBonus" value="35" />
+      </Abilities>
+    </AbilityGroupEffect>
+  </Talent>
+  <Talent identifier="ptalent_engineer">
+    <AbilityGroupEffect abilityeffecttype="None">
+      <Abilities>
+        <CharacterAbilityGiveStat stattype="ElectricalSkillBonus" value="35" />
+      </Abilities>
+    </AbilityGroupEffect>
+  </Talent>
+  <Talent identifier="ptalent_sec">
+    <AbilityGroupEffect abilityeffecttype="None">
+      <Abilities>
+        <CharacterAbilityGiveStat stattype="WeaponsSkillBonus" value="35" />
+      </Abilities>
+    </AbilityGroupEffect>
+  </Talent>
+  <Talent identifier="ptalent_medic">
+    <AbilityGroupEffect abilityeffecttype="None">
+      <Abilities>
+        <CharacterAbilityGiveStat stattype="MedicalSkillBonus" value="35" />
+      </Abilities>
+    </AbilityGroupEffect>
+  </Talent>
+  <!-- Elite -->
+  <Talent identifier="ptalent_mechanicelite">
+    <AbilityGroupEffect abilityeffecttype="None">
+      <Abilities>
+        <CharacterAbilityGiveStat stattype="MechanicalSkillBonus" value="45" />
+      </Abilities>
+    </AbilityGroupEffect>
+  </Talent>
+  <Talent identifier="ptalent_engineerelite">
+    <AbilityGroupEffect abilityeffecttype="None">
+      <Abilities>
+        <CharacterAbilityGiveStat stattype="ElectricalSkillBonus" value="45" />
+      </Abilities>
+    </AbilityGroupEffect>
+  </Talent>
+  <Talent identifier="ptalent_secelite">
+    <AbilityGroupEffect abilityeffecttype="None">
+      <Abilities>
+        <CharacterAbilityGiveStat stattype="WeaponsSkillBonus" value="45" />
+      </Abilities>
+    </AbilityGroupEffect>
+  </Talent>
+  <Talent identifier="ptalent_medicelite">
+    <AbilityGroupEffect abilityeffecttype="None">
+      <Abilities>
+        <CharacterAbilityGiveStat stattype="MedicalSkillBonus" value="45" />
+      </Abilities>
+    </AbilityGroupEffect>
+  </Talent>
 </Talents>

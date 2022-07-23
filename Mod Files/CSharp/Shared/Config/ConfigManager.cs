@@ -3,6 +3,7 @@ using Barotrauma.MoreLevelContent.Shared.Config;
 using MoreLevelContent;
 using MoreLevelContent.Shared;
 using Barotrauma.Networking;
+using System;
 
 namespace Barotrauma.MoreLevelContent.Config
 {
@@ -13,8 +14,8 @@ namespace Barotrauma.MoreLevelContent.Config
     {
         public override void Setup()
         {
-            LoadConfig();
 #if CLIENT
+            LoadConfig();
             SetupClient();
 #elif SERVER
             SetupServer();
@@ -27,7 +28,12 @@ namespace Barotrauma.MoreLevelContent.Config
             {
                 try
                 {
-                    config = LuaCsConfig.Load<MLCConfig>(configFilepath);
+                    Config = LuaCsConfig.Load<MLCConfig>(configFilepath);
+                    Log.Debug($"Move Chance: {Config.NetworkedConfig.GeneralConfig.RuinMoveChance}");
+#if CLIENT
+                    DisplayPatchNotes();
+#endif
+                    Log.Debug(Config.NetworkedConfig.ToString());
                     return;
                 } catch
                 {
@@ -36,6 +42,7 @@ namespace Barotrauma.MoreLevelContent.Config
                 }
             } else
             {
+                Log.Debug("File doesn't exist");
                 DefaultConfig();
             }
         }
@@ -43,8 +50,11 @@ namespace Barotrauma.MoreLevelContent.Config
         private void DefaultConfig()
         {
             Log.Debug("Defaulting config...");
-            config = MLCConfig.GetDefault();
-            SaveConfig();
+            Config = MLCConfig.GetDefault();
+#if CLIENT
+            SaveConfig(); // Only save the default config on the client, look into changing this for dedicated servers
+            DisplayPatchNotes(true);
+#endif
         }
 
         private void SaveConfig()
@@ -55,12 +65,19 @@ namespace Barotrauma.MoreLevelContent.Config
 
         private void ReadNetConfig(ref IReadMessage inMsg)
         {
-            config.Pirate = PirateConfig.ReadFrom(ref inMsg);
-            Log.Verbose(Config.ToString());
+            try
+            {
+                Config.NetworkedConfig = INetSerializableStruct.Read<NetworkedConfig>(inMsg);
+            } catch(Exception err)
+            {
+                Log.Debug(err.ToString());
+            }
         }
 
+        private void WriteConfig(ref IWriteMessage outMsg) => 
+            (Config.NetworkedConfig as INetSerializableStruct).Write(outMsg);
+
         private static readonly string configFilepath = $"{ACsMod.GetSoreFolder<Main>()}/MLCConfig.xml";
-        public MLCConfig Config => config;
-        private MLCConfig config;
+        public MLCConfig Config;
     }
 }

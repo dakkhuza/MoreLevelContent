@@ -1,4 +1,5 @@
 ﻿using Barotrauma.Networking;
+using MoreLevelContent;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,22 +8,22 @@ namespace Barotrauma.MoreLevelContent.Shared.Config
 {
     public struct MLCConfig
     {
-        public PirateConfig Pirate;
-        public DebugConfig Debug;
+        public NetworkedConfig NetworkedConfig;
+        public ClientConfig Client;
+        public string Version;
 
         public static MLCConfig GetDefault()
         {
             MLCConfig config = new MLCConfig
             {
-                Pirate = PirateConfig.GetDefault(),
-                Debug = DebugConfig.GetDefault()
+                NetworkedConfig = NetworkedConfig.GetDefault(),
+                Client = ClientConfig.GetDefault(),
+                Version = Main.Version
             };
             return config;
         }
 
-        public void WriteTo(ref IWriteMessage outMsg) => Pirate.WriteTo(ref outMsg);
-
         public override string ToString() =>
-            $"\n_= MLC CONFIG =_" + Pirate.ToString() + Debug.ToString();
+            $"\n_= MLC CONFIG =_" + NetworkedConfig.ToString() + Client.ToString();
     }
 }

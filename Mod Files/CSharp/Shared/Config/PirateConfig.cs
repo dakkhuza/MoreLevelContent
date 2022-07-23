@@ -6,7 +6,8 @@ using System.Text;
 
 namespace Barotrauma.MoreLevelContent.Shared.Config
 {
-    public struct PirateConfig
+    [NetworkSerialize]
+    public struct PirateConfig : INetSerializableStruct
     {
         public Int32 BasePirateSpawnChance;
         public Int32 BaseHuskChance;
@@ -27,32 +28,6 @@ namespace Barotrauma.MoreLevelContent.Shared.Config
                 DisplaySonarMarker = false
             };
             return config;
-        }
-
-        public void WriteTo(ref IWriteMessage outMsg)
-        {
-            outMsg.Write(BasePirateSpawnChance);
-            outMsg.Write(BaseHuskChance);
-            outMsg.Write(SpawnChanceNoise);
-            outMsg.Write(DifficultyNoise);
-
-            // Bool Values
-            outMsg.Write(AddDiffPerPlayer);
-            outMsg.Write(DisplaySonarMarker);
-            outMsg.WritePadBits();
-        }
-
-        public static PirateConfig ReadFrom(ref IReadMessage inMsg)
-        {
-            return new PirateConfig()
-            {
-                BasePirateSpawnChance = inMsg.ReadInt32(),
-                BaseHuskChance = inMsg.ReadInt32(),
-                SpawnChanceNoise = inMsg.ReadSingle(),
-                DifficultyNoise = inMsg.ReadSingle(),
-                AddDiffPerPlayer = inMsg.ReadBoolean(),
-                DisplaySonarMarker = inMsg.ReadBoolean()
-            };
         }
 
         public override string ToString() => 

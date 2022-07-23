@@ -10,18 +10,18 @@ namespace MoreLevelContent.Shared
     {
         private static readonly bool verbose = true;
 
-        public static void Debug(string msg) => LogBase("MLC D", msg, "null", Color.MediumPurple);
-        public static void Warn(string msg) => LogBase("MLC W", msg, "null", Color.Yellow);
-        public static void Error(string msg) => LogBase("MLC E", msg, "null", Color.Red);
+        public static void Debug(string msg) => LogBase("MLC D ", msg, "null", Color.MediumPurple);
+        public static void Warn(string msg) => LogBase("MLC W ", msg, "null", Color.Yellow);
+        public static void Error(string msg) => LogBase("MLC E ", msg, "null", Color.Red);
         public static void InternalDebug(string msg)
         {
-            if (!ConfigManager.Instance.Config.Debug.Internal) return;
+            if (!ConfigManager.Instance.Config.Client.Internal) return;
             LogBase("MLC ID", msg, "null", Color.Purple);
         }
 
         public static void Verbose(string msg)
         {
-            if (!ConfigManager.Instance.Config.Debug.Verbose) return;
+            if (!ConfigManager.Instance.Config.Client.Verbose) return;
             LogBase("MLC V", msg, "null", Color.LightGray);
         }
 

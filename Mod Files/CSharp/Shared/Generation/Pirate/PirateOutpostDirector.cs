@@ -17,7 +17,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
         public bool ForceSpawn { get; set; } = false;
         public bool ForceHusk { get; set; } = false;
 
-        public PirateConfig Config => ConfigManager.Instance.Config.Pirate;
+        public PirateConfig Config => ConfigManager.Instance.Config.NetworkedConfig.PirateConfig;
 
         private PirateSpawnData levelSpawnData;
         private PirateOutpost enemyOutpost;
@@ -35,13 +35,15 @@ namespace MoreLevelContent.Shared.Generation.Pirate
 
             // Prevent an outpost from spawning if the mission is a pirate
             // It will brick the pirates if it does
-            foreach (Mission mission in GameMain.GameSession.GameMode!.Missions)
+            if (!Screen.Selected.IsEditor) // Don't check in editor
             {
-                if (mission is PirateMission) return;
+                foreach (Mission mission in GameMain.GameSession.GameMode!.Missions)
+                {
+                    if (mission is PirateMission) return;
+                }
             }
 
             levelSpawnData = GetSpawnData(levelData);
-
             if (levelSpawnData.WillSpawn) enemyOutpost = new PirateOutpost(levelSpawnData);
         }
 

@@ -1,12 +1,14 @@
+using Barotrauma;
 
-public struct DebugConfig
+
+public struct ClientConfig
 {
     public bool Verbose;
     public bool Internal;
 
-    public static DebugConfig GetDefault()
+    public static ClientConfig GetDefault()
     {
-        return new DebugConfig()
+        return new ClientConfig()
         {
             Verbose = false,
             Internal = false

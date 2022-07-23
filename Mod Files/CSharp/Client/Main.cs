@@ -20,14 +20,15 @@ namespace MoreLevelContent
         private FieldInfo traitorProbabilityText;
         public void InitClient()
         {
-            // var gameMain_ResetNetLobbyScreen = typeof(GameMain).GetMethod(nameof(GameMain.ResetNetLobbyScreen), BindingFlags.Static | BindingFlags.Public);
+            // Exit if we're in an editor
+            if (Screen.Selected.IsEditor) return;
             traitorProbabilityText = typeof(NetLobbyScreen).GetField("traitorProbabilityText", BindingFlags.Instance | BindingFlags.NonPublic);
             CreateSettingsButton();
-            // HookMethod("mlc.client.CreateSettingsButton", gameMain_ResetNetLobbyScreen, CreateSettingsButton, LuaCsHook.HookMethodType.After);
         }
 
         private void CreateSettingsButton()
         {
+            if (SettingsButton != null) return; // Exit if the settings button is already created
             GUITextBlock textBox =  (GUITextBlock)traitorProbabilityText.GetValue(GameMain.NetLobbyScreen);
             var settingsContentRect = textBox.RectTransform
                 .Parent // traitorProbContainer

@@ -34,15 +34,14 @@ namespace Barotrauma.MoreLevelContent.Config
             Log.Debug("[CLIENT] Config Updated");
             Log.Verbose(Config.ToString());
 
-            // Rework this to be better
-            UpdateConfig();
+            if (!GameMain.IsSingleplayer) UpdateConfig();
             SaveConfig();
         }
 
         private void RequestConfig()
         {
             IWriteMessage outMsg = NetUtil.CreateNetMsg(NetEvent.CONFIG_REQUEST);
-            outMsg.Write(Main.Version);
+            outMsg.WriteString(Main.Version);
             GameMain.LuaCs.Networking.Send(outMsg);
             Log.Verbose("Requested config from server...");
         }
@@ -56,7 +55,7 @@ namespace Barotrauma.MoreLevelContent.Config
                 return;
             }
             IWriteMessage outMsg = NetUtil.CreateNetMsg(NetEvent.CONFIG_WRITE_SERVER);
-            outMsg.Write(Main.Version);
+            outMsg.WriteString(Main.Version);
             WriteConfig(ref outMsg);
             GameMain.LuaCs.Networking.Send(outMsg);
             Log.Debug("Sent config packet to server!");
@@ -77,11 +76,10 @@ namespace Barotrauma.MoreLevelContent.Config
 
         private void DisplayPatchNotes(bool force = false)
         {
-            if (Config.Version != Main.Version || force)
+            
+            if (Config.Version != Main.Version || force || Main.IsNightly)
             {
                 PatchNotes.Open();
-                Config.Version = Main.Version; // Update the version
-                SetConfig(Config); // Save config
             }
         }
 

@@ -1,4 +1,4 @@
-
+﻿
 using Barotrauma;
 using Barotrauma.Networking;
 using System;
@@ -10,7 +10,7 @@ namespace MoreLevelContent.Networking
     /// </summary>
     public static partial class NetUtil
     {
-        public static IWriteMessage CreateNetMsg(NetEvent target) => GameMain.LuaCs.Networking.Start(Enum.GetName(typeof(NetEvent), target));
+        internal static IWriteMessage CreateNetMsg(NetEvent target) => GameMain.LuaCs.Networking.Start(Enum.GetName(typeof(NetEvent), target));
 
         /// <summary>
         /// Register a method to run when the specified NetEvent happens
@@ -48,6 +48,21 @@ namespace MoreLevelContent.Networking
         /// <summary>
         /// Used to reply to the server's ping
         /// </summary>
-        PONG_SERVER
+        PONG_SERVER,
+
+        /// <summary>
+        /// Send the location of a new distress signal
+        /// </summary>
+        MAP_SEND_NEWDISTRESS,
+
+        /// <summary>
+        /// Call the create distress method on the server
+        /// </summary>
+        COMMAND_CREATEDISTRESS,
+
+        /// <summary>
+        /// Fakes a world step
+        /// </summary>
+        COMMAND_STEPWORLD
     }
 }

@@ -8,9 +8,9 @@ namespace Barotrauma.MoreLevelContent.Shared.Utils
 {
     public static class CharacterUtils
     {
-        internal static Character CreateHuman(HumanPrefab humanPrefab, List<Character> characters, Dictionary<Character, List<Item>> characterItems, Submarine submarine, CharacterTeamType teamType, ISpatialEntity positionToStayIn = null, Rand.RandSync humanPrefabRandSync = Rand.RandSync.ServerAndClient, bool giveTags = true)
+        internal static Character CreateHuman(HumanPrefab humanPrefab, List<Character> characters, Dictionary<Character, List<Item>> characterItems, Submarine submarine, CharacterTeamType teamType, ISpatialEntity positionToStayIn = null)
         {
-            CharacterInfo characterInfo = humanPrefab.GetCharacterInfo(Rand.RandSync.ServerAndClient) ?? new CharacterInfo(CharacterPrefab.HumanSpeciesName, npcIdentifier: humanPrefab.Identifier, jobOrJobPrefab: humanPrefab.GetJobPrefab(humanPrefabRandSync), randSync: humanPrefabRandSync);
+            CharacterInfo characterInfo = humanPrefab.CreateCharacterInfo(Rand.RandSync.ServerAndClient);
             characterInfo.TeamID = teamType;
 
             if (positionToStayIn == null)
@@ -24,6 +24,21 @@ namespace Barotrauma.MoreLevelContent.Shared.Utils
             spawnedCharacter.HumanPrefab = humanPrefab;
             humanPrefab.InitializeCharacter(spawnedCharacter, positionToStayIn);
             humanPrefab.GiveItems(spawnedCharacter, submarine, Rand.RandSync.ServerAndClient);
+
+            characters.Add(spawnedCharacter);
+            characterItems.Add(spawnedCharacter, spawnedCharacter.Inventory.FindAllItems(recursive: true));
+
+            return spawnedCharacter;
+        }
+
+        internal static Character CreateHuman(HumanPrefab humanPrefab, List<Character> characters, Dictionary<Character, List<Item>> characterItems, CharacterTeamType teamType, Vector2 spawnPosition, bool createNetEvent = true)
+        {
+            CharacterInfo characterInfo = humanPrefab.CreateCharacterInfo(Rand.RandSync.ServerAndClient);
+            characterInfo.TeamID = teamType;
+            Character spawnedCharacter = Character.Create(characterInfo.SpeciesName, spawnPosition, ToolBox.RandomSeed(8), characterInfo, createNetworkEvent: createNetEvent);
+            spawnedCharacter.HumanPrefab = humanPrefab;
+            humanPrefab.InitializeCharacter(spawnedCharacter);
+            humanPrefab.GiveItems(spawnedCharacter, null, Rand.RandSync.ServerAndClient, createNetworkEvents: createNetEvent);
 
             characters.Add(spawnedCharacter);
             characterItems.Add(spawnedCharacter, spawnedCharacter.Inventory.FindAllItems(recursive: true));

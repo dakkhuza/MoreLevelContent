@@ -25,7 +25,7 @@ namespace Barotrauma.MoreLevelContent.Config
             DefaultConfig();
         }
 
-        private readonly List<int> correctInstalls = new List<int>();
+        private readonly List<ulong> correctInstalls = new List<ulong>();
 
         #region Networking
         private void ServerRead(object[] args)
@@ -34,6 +34,7 @@ namespace Barotrauma.MoreLevelContent.Config
             {
                 IReadMessage inMsg = (IReadMessage)args[0];
                 Client c = (Client)args[1];
+                Log.Debug($"Got config from client {c.Name}");
                 if (!c.HasPermission(ClientPermissions.ManageSettings))
                 {
                     Log.Error("No Perms!");
@@ -76,7 +77,7 @@ namespace Barotrauma.MoreLevelContent.Config
 
         private bool CheckClientVersion(Client client, string clientVersion)
         {
-            if (correctInstalls.Contains(client.ID)) return true;
+            if (correctInstalls.Contains(client.SteamID)) return true;
             if (clientVersion != Main.Version)
             {
                 GameMain.Server.SendDirectChatMessage(
@@ -88,7 +89,7 @@ namespace Barotrauma.MoreLevelContent.Config
             }
 
             GameMain.Server.SendChatMessage(TextManager.GetServerMessage($"mlc.server.installed~[client]={client.Name}").Value);
-            correctInstalls.Add(client.ID);
+            correctInstalls.Add(client.SteamID);
             return true;
         }
 

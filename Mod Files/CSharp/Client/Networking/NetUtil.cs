@@ -8,6 +8,6 @@ namespace MoreLevelContent.Networking
     /// </summary>
     public static partial class NetUtil
     {
-        public static void SendServer(IWriteMessage outMsg, DeliveryMethod deliveryMethod = DeliveryMethod.Reliable) => GameMain.LuaCs.Networking.Send(outMsg, deliveryMethod);
+        internal static void SendServer(IWriteMessage outMsg, DeliveryMethod deliveryMethod = DeliveryMethod.Reliable) => GameMain.LuaCs.Networking.Send(outMsg, deliveryMethod);
     }
 }

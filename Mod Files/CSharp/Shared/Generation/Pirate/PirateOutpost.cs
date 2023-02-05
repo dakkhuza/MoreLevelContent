@@ -21,6 +21,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
         private readonly float pirateDiff;
         private Submarine enemyBase;
         readonly PirateSpawnData _spawnData;
+        private bool _generated = false;
 
         public PirateOutpost(PirateSpawnData spawnData)
         {
@@ -36,6 +37,8 @@ namespace MoreLevelContent.Shared.Generation.Pirate
 
         public void Generate()
         {
+            if (_generated) return;
+            _generated = true;
             characters.Clear();
             characterItems.Clear();
 
@@ -54,6 +57,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
             }
 
             enemyBase.TeamID = CharacterTeamType.None;
+            enemyBase.Info.Type = SubmarineType.EnemySubmarine;
             Log.InternalDebug($"Spawned a pirate base with name {enemyBase.Info.Name}");
         }
 
@@ -67,6 +71,10 @@ namespace MoreLevelContent.Shared.Generation.Pirate
                 Log.Error("Pirate outpost was null! Aborting NPC spawn...");
                 return;
             }
+
+            // Don't spawn more pirates than there are diving suits on the outpost
+            int maxSpawns = Item.ItemList.Where(it => it.Submarine == enemyBase && (it.Prefab.Identifier == "divingsuitlocker2" || it.Prefab.Identifier == "divingsuitlocker")).Count();
+            int currentSpawns = 0;
 
             XElement characterConfig = selectedPirateSet.Prefab.ConfigElement.GetChildElement("Characters");
             XElement characterTypeConfig = selectedPirateSet.Prefab.ConfigElement.GetChildElement("CharacterTypes");
@@ -87,6 +95,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
                 // it is possible to get more than the "max" amount of characters if the modified difficulty is high enough; this is intentional
                 // if necessary, another "hard max" value could be used to clamp the value for performance/gameplay concerns
                 int amountCreated = GetDifficultyModifiedAmount(element.GetAttributeInt("minamount", 0), element.GetAttributeInt("maxamount", 0), enemyCreationDifficulty, rand);
+
                 for (int i = 0; i < amountCreated; i++)
                 {
                     XElement characterType =
@@ -108,6 +117,10 @@ namespace MoreLevelContent.Shared.Generation.Pirate
                         continue;
                     }
 
+                    bool isCommander = variantElement.GetAttributeBool("iscommander", false);
+                    // don't spawn more than the max diving suits on the outpost
+                    if (currentSpawns > maxSpawns && (commanderAssigned || isCommander)) break;
+
                     HumanPrefab character = CharacterUtils.GetHumanPrefabFromElement(variantElement);
                     if (character == null)
                     {
@@ -119,7 +132,6 @@ namespace MoreLevelContent.Shared.Generation.Pirate
                     Character spawnedCharacter = CharacterUtils.CreateHuman(character, characters, characterItems, enemyBase, CharacterTeamType.None, null);
                     if (!commanderAssigned)
                     {
-                        bool isCommander = variantElement.GetAttributeBool("iscommander", false);
                         if (isCommander && spawnedCharacter.AIController is HumanAIController humanAIController)
                         {
                             humanAIController.InitShipCommandManager();
@@ -137,6 +149,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
                             item.AddTag("id_pirate");
                         }
                     }
+                    currentSpawns++;
                 }
             }
 
@@ -150,6 +163,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
             if (!AfflictionHelper.TryGetAffliction("huskinfection", out AfflictionPrefab husk))
             {
                 Log.Error("Couldn't get the husk affliction!!!");
+                return;
             }
 
             foreach (Character character in characters)

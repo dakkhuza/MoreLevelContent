@@ -1,4 +1,5 @@
 ﻿using Barotrauma;
+using Barotrauma.Extensions;
 using Barotrauma.MoreLevelContent.Shared.Utils;
 using MoreLevelContent.Shared.Generation.Interfaces;
 using System;
@@ -13,13 +14,20 @@ namespace MoreLevelContent.Shared.Generation
         static GenerationDirector()
         {
             if (_spawnSubOnPath != null) return;
-            _spawnSubOnPath = _spawnSubOnPath = typeof(Level).GetMethod("SpawnSubOnPath", BindingFlags.NonPublic | BindingFlags.Instance);
+            _spawnSubOnPath = typeof(Level).GetMethod("SpawnSubOnPath", BindingFlags.NonPublic | BindingFlags.Instance);
+            _autofill = typeof(AutoItemPlacer).GetMethod("CreateAndPlace", BindingFlags.NonPublic | BindingFlags.Static);
+            if (_spawnSubOnPath == null || _autofill == null)
+            {
+                Log.Error("Unable to reflect");
+            }
         }
 
         private static readonly MethodInfo _spawnSubOnPath;
+        private static readonly MethodInfo _autofill;
 
         public abstract bool Active { get; }
 
-        internal Submarine SpawnSubOnPath(Level level, string name, OutpostModuleFile sub) => _spawnSubOnPath.Invoke(level, new object[] { name, sub, SubmarineType.BeaconStation }) as Submarine;
+        internal Submarine SpawnSubOnPath(Level level, string name, ContentFile sub) => _spawnSubOnPath.Invoke(level, new object[] { name, sub, SubmarineType.BeaconStation }) as Submarine;
+        internal void AutofillSub(Submarine sub) => _autofill.Invoke(null, new object[] { sub.ToEnumerable(), null });
     }
 }

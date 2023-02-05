@@ -1,45 +1,148 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
 <infotexts language="English" nowhitespace="false" translatedname="English">
-  <!-- Outpost Name -->
-  <mlc.pirateoutpost>Pirate Base</mlc.pirateoutpost>
-  <!-- Pirate Titles -->
-  <npctitle.piratemedicrecruit>Pirate Medic Recruit</npctitle.piratemedicrecruit>
-  <npctitle.piratemedic>Pirate Medic</npctitle.piratemedic>
-  <npctitle.pirateflamer>Pirate Flamer</npctitle.pirateflamer>
-  <npctitle.piratedeadeye>Pirate Deadeye</npctitle.piratedeadeye>
-  <npctitle.pirateberserker>Pirate Berserker</npctitle.pirateberserker>
-  <npctitle.piratefanatic>Pirate Fanatic</npctitle.piratefanatic>
-  <npctitle.piratetank>Pirate Juggernaut</npctitle.piratetank>
-  <npctitle.piratevolitile>Volitile Pirate</npctitle.piratevolitile>
-  <!-- Server Messages -->
-  <mlc.server.wrongversionclient>Your client is using the wrong version!\nClient: v[clientversion]  Server: v[serverversion]</mlc.server.wrongversionclient>
-  <mlc.server.wrongversion>Client [client] is using the wrong version!\nClient: v[clientversion]  Server: v[serverversion]</mlc.server.wrongversion>
-  <mlc.server.installed>Client [client] has More Level Content installed correctly!</mlc.server.installed>
-  <!-- Patch Notes -->
-  <mlc.patchnote>More Level Content Patch Notes v[version]</mlc.patchnote>
-  <!-- Config -->
-  <mlc.config>More Level Content Settings</mlc.config>
-  <!-- General Config -->
-  <SettingsTab.General>General</SettingsTab.General>
-  <mlc.settings.moveruins>Abyssal Ruins</mlc.settings.moveruins>
-  <mlc.settings.moveruinstooltip>The chance for alien ruins to spawn in the abyss area</mlc.settings.moveruinstooltip>
-  <!-- Pirate Config -->
-  <SettingsTab.PirateOutpost>Pirate Outposts</SettingsTab.PirateOutpost>
-  <mlc.config.piratespawnchance>Base Spawn Chance</mlc.config.piratespawnchance>
-  <mlc.config.piratespawnchancetooltip>The base chance for a pirate outpost to spawn, this is then further modified by the regions difficulty. Default is 0.</mlc.config.piratespawnchancetooltip>
-  <mlc.config.piratehuskchance>Base Husk Chance</mlc.config.piratehuskchance>
-  <mlc.config.piratehuskchancetooltip>The base chance for the pirate outpost to spawn with everyone on board husked. Default is 1.</mlc.config.piratehuskchancetooltip>
-  <mlc.config.piratespawnnoise>Spawn Noise</mlc.config.piratespawnnoise>
-  <mlc.config.piratediffnoise>Difficulty Noise</mlc.config.piratediffnoise>
-  <mlc.config.piratedisplaysonar>Display On Sonar</mlc.config.piratedisplaysonar>
-  <mlc.config.piratedisplaysonartooltip>If a marker for the pirate base should appear on sonar</mlc.config.piratedisplaysonartooltip>
-  <mlc.config.piratescalediff>Scale Difficulty</mlc.config.piratescalediff>
-  <mlc.config.piratescaledifftooltip>If the difficulty of the pirates should scale with server members</mlc.config.piratescaledifftooltip>
-  <!-- Debug Config -->
-  <SettingsTab.Debug>Debug</SettingsTab.Debug>
-  <mlc.config.debugverbose>Verbose Logging</mlc.config.debugverbose>
-  <mlc.config.debugverbosetooltip>Enable verbose logging, provides detailed (but longer) logs</mlc.config.debugverbosetooltip>
-  <mlc.config.debuginternal>Internal Logging</mlc.config.debuginternal>
-  <mlc.config.debuginternaltooltip>Enable internal logging, which logs internal debugging messages to console</mlc.config.debuginternaltooltip>
-  <!-- Talents -->
+    <!-- Location Defs -->
+    <ilo_PirateOutpost>Pirate Outpost</ilo_PirateOutpost>
+    <mlc_BeaconConstruction>Beacon Construction</mlc_BeaconConstruction>
+
+    <!-- Map UI -->
+    <mlc.beaconconsttooltip>Construction has halted on a ‖color:gui.orange‖beacon station‖end‖ in this passageway pending a delivery of [requestedsupplies]. Once constructed, it will make it easier for human habitation to spread into nearby locations.</mlc.beaconconsttooltip>
+    <mlc.distresstooltip>Someone has activated a distress beacon in this passage. A lost crew, free salvage or something else?</mlc.distresstooltip>
+    <mlc.distresstooltipfaint>The signal from the distress beacon in this passage is growing weak. Whatever is here isn't going to be detectable much longer.</mlc.distresstooltipfaint>
+    <mlc.pirateactivitytooltip>There have been reports of pirate activity near this area. Crews should exercise caution.</mlc.pirateactivitytooltip>
+
+    <mlc.navigationannouce>Signal Update</mlc.navigationannouce>
+
+    <mlc.distress.new>A new distress beacon has been picked up between [location1] and [location2]</mlc.distress.new>
+    <mlc.distress.faint>The signal from the distress beacon between [location1] and [location2] is growing faint.</mlc.distress.faint>
+    <mlc.distress.lost>The distress signal between [location1] and [location2] can no longer be detected over background noise.</mlc.distress.lost>
+
+    <mlc.beaconconstone>[supply1]</mlc.beaconconstone>
+    <mlc.beaconconsttwo>[supply1] and [supply2]</mlc.beaconconsttwo>
+    <mlc.beaconconstthree>[supply1], [supply2] and [supply3]</mlc.beaconconstthree>
+
+    <mlc.beaconconstutility>‖color:gui.Green‖[count] Beacon Utility Supplies‖end‖</mlc.beaconconstutility>
+    <mlc.beaconconststructural>‖color:gui.Orange‖[count] Beacon Structural Supplies‖end‖</mlc.beaconconststructural>
+    <mlc.beaconconstelectrical>‖color:gui.Yellow‖[count] Beacon Electrical Supplies‖end‖</mlc.beaconconstelectrical>
+
+    <!-- Level Stuff -->
+    <mlc.distresscall>Distress Beacon</mlc.distresscall>
+
+    <!-- Mission Items -->
+
+    <entityname.distressbeacon>Distress Beacon</entityname.distressbeacon>
+    <entitydescription.distressbeacon>Produces a long range signal that can be detected by a sonar monitor, handheld sonar, or navigation terminal.</entitydescription.distressbeacon>
+
+    <entityname.jumpstarter>Jump Starter</entityname.jumpstarter>
+    <entitydescription.jumpstarter>Battery powered electrical device used to jump start dead systems.</entitydescription.jumpstarter>
+    <itemmsgdetachcrowbar>[[use]] Detach (Crowbar)</itemmsgdetachcrowbar>
+
+    <!-- Beacon Construction -->
+    <entityname.mlc_beaconutilitysupplies>Beacon Utility Supplies</entityname.mlc_beaconutilitysupplies>
+    <entitydescription.mlc_beaconutilitysupplies>A box of various utility supplies for use in constructing beacons. Degrades when in water. Store on a shelf for safe keeping.</entitydescription.mlc_beaconutilitysupplies>
+
+    <entityname.mlc_beaconstructuralsupplies>Beacon Structural Supplies</entityname.mlc_beaconstructuralsupplies>
+    <entitydescription.mlc_beaconstructuralsupplies>A box of various structural supplies for use in constructing beacons. May cause injury when sliding. Store on a shelf for safe keeping.</entitydescription.mlc_beaconstructuralsupplies>
+
+    <entityname.mlc_beaconelectrialsupplies>Beacon Electrical Supplies</entityname.mlc_beaconelectrialsupplies>
+    <entitydescription.mlc_beaconelectrialsupplies>A box of various utility supplies for use in constructing beacons. Degrades when in water. Store on a shelf for safe keeping.</entitydescription.mlc_beaconelectrialsupplies>
+
+    <!-- Structural Crafting Items -->
+    <entityname.mlc_beaconsmat1>Beacon Exterior Plating</entityname.mlc_beaconsmat1>
+    <entitydescription.mlc_beaconsmat1>Heavy plating used to make the exterior of beacon stations. Built to resist the crushing pressure as well as various wildlife.</entitydescription.mlc_beaconsmat1>
+
+    <entityname.mlc_beaconsmat2>Beacon Interior Plating</entityname.mlc_beaconsmat2>
+    <entitydescription.mlc_beaconsmat2>Lightweight metal sheets used to line the interior of beacon stations.</entitydescription.mlc_beaconsmat2>
+
+    <entityname.mlc_beaconsmat3>Beacon Support Truss Bundle</entityname.mlc_beaconsmat3>
+    <entitydescription.mlc_beaconsmat3>Heavy duty trusses and anchors used to secure a beacon station to the walls of a cavern.</entitydescription.mlc_beaconsmat3>
+
+    <!-- Electrical Crafting Items -->
+    <entityname.mlc_beaconemat1>Beacon Logic Circuits</entityname.mlc_beaconemat1>
+    <entitydescription.mlc_beaconemat1>Assorted circuits used in the construction of beacon sonar systems. Will break if exposed to water.</entitydescription.mlc_beaconemat1>
+
+    <entityname.mlc_beaconemat2>Beacon Wiring</entityname.mlc_beaconemat2>
+    <entitydescription.mlc_beaconemat2>Large and small cabling used to supply power and connect circuitry on beacon stations. Will break if exposed to water.</entitydescription.mlc_beaconemat2>
+
+    <entityname.mlc_beaconemat3>Beacon Electrical Components</entityname.mlc_beaconemat3>
+    <entitydescription.mlc_beaconemat3>Various fuses, switches and breakers used in a beacon stations electrical system. Will break if exposed to water.</entitydescription.mlc_beaconemat3>
+
+    <!-- Utility Crafting Items -->
+    <entityname.mlc_beaconumat1>Beacon Plumbing Components</entityname.mlc_beaconumat1>
+    <entitydescription.mlc_beaconumat1>Pipes, valves and other flow control systems used to keep water out and air inside a beacon station.</entitydescription.mlc_beaconumat1>
+
+    <entityname.mlc_beaconumat2>Beacon Reactor Components</entityname.mlc_beaconumat2>
+    <entitydescription.mlc_beaconumat2>Shielding, control rods and steam exchange systems used in the construction of a beacon stations reactor. Will break if exposed to water.</entitydescription.mlc_beaconumat2>
+
+    <entityname.mlc_beaconumat3>Beacon Sealing Components</entityname.mlc_beaconumat3>
+    <entitydescription.mlc_beaconumat3>Welding flux, rubber patches and other products used to seal gaps in a beacon station.</entitydescription.mlc_beaconumat3>
+
+    <!-- Blackmarket -->
+    <npctitle.blackmarketmerchant>Blackmarket Merchant</npctitle.blackmarketmerchant>
+
+    <!-- Outpost Name -->
+    <mlc.pirateoutpost>Pirate Base</mlc.pirateoutpost>
+
+    <!-- Pirate Titles -->
+    <npctitle.piratemedicrecruit>Pirate Medic Recruit</npctitle.piratemedicrecruit>
+    <npctitle.piratemedic>Pirate Medic</npctitle.piratemedic>
+    <npctitle.pirateflamer>Pirate Flamer</npctitle.pirateflamer>
+    <npctitle.piratedeadeye>Pirate Deadeye</npctitle.piratedeadeye>
+    <npctitle.pirateberserker>Pirate Berserker</npctitle.pirateberserker>
+
+    <npctitle.piratefanatic>Pirate Fanatic</npctitle.piratefanatic>
+    <npctitle.piratetank>Pirate Juggernaut</npctitle.piratetank>
+    <npctitle.piratevolitile>Volitile Pirate</npctitle.piratevolitile>
+
+    <!-- Server Messages -->
+    <mlc.server.wrongversionclient>Your client is using the wrong version!\nClient: v[clientversion]  Server: v[serverversion]</mlc.server.wrongversionclient>
+    <mlc.server.wrongversion>Client [client] is using the wrong version!\nClient: v[clientversion]  Server: v[serverversion]</mlc.server.wrongversion>
+    <mlc.server.installed>Client [client] has More Level Content installed correctly!</mlc.server.installed>
+
+    <!-- Patch Notes -->
+    <mlc.patchnote>More Level Content Patch Notes v[version]</mlc.patchnote>
+
+    <!-- Config -->
+    <mlc.config>More Level Content Settings</mlc.config>
+    <mlc.configshort>MLC Settings</mlc.configshort>
+
+    <!-- General Config -->
+    <SettingsTab.General>General</SettingsTab.General>
+    
+    <mlc.settings.moveruins>Abyssal Ruins</mlc.settings.moveruins>
+    <mlc.settings.moveruinstooltip>The chance for alien ruins to spawn in the abyss area</mlc.settings.moveruinstooltip>
+
+    <mlc.settings.maxdistresscount>Max Active Distress Beacons</mlc.settings.maxdistresscount>
+    <mlc.settings.maxdistresscounttooltip>How many distress beacons can be active at the same time</mlc.settings.maxdistresscounttooltip>
+
+    <mlc.settings.spawndistresschance>Distress Beacon Chance</mlc.settings.spawndistresschance>
+    <mlc.settings.spawndistresschancetooltip>Percentage chance for a new distress beacon to spawn</mlc.settings.spawndistresschancetooltip>
+
+    <mlc.settings.spawnchance>[chance]% chance</mlc.settings.spawnchance>
+    <mlc.settings.maxactive>[max] max</mlc.settings.maxactive>
+
+    <!-- Pirate Config -->
+    <SettingsTab.PirateOutpost>Pirate Outposts</SettingsTab.PirateOutpost>
+
+
+    <mlc.config.piratespawnchance>Bonus Spawn Chance</mlc.config.piratespawnchance>
+    <mlc.config.piratespawnchancetooltip>Increasing this value above 0 will result in a LOT more pirate outposts spawning, potentially upsetting the game balance.</mlc.config.piratespawnchancetooltip>
+
+    <mlc.config.piratehuskchance>Husk Chance</mlc.config.piratehuskchance>
+    <mlc.config.piratehuskchancetooltip>The chance for pirate outposts to spawn with everyone on board husked. Default is 1.</mlc.config.piratehuskchancetooltip>
+
+    <mlc.config.piratespawnnoise>Spawn Noise</mlc.config.piratespawnnoise>
+    <mlc.config.piratediffnoise>Difficulty Noise, this value affects how much noise is added to the difficulty. For example a value of 25 can result in pirates 25% harder than the current difficulty spawning.</mlc.config.piratediffnoise>
+
+    <mlc.config.piratedisplaysonar>Display On Sonar</mlc.config.piratedisplaysonar>
+    <mlc.config.piratedisplaysonartooltip>If a marker for the pirate base should appear on sonar.</mlc.config.piratedisplaysonartooltip>
+
+    <mlc.config.piratescalediff>Scale Difficulty</mlc.config.piratescalediff>
+    <mlc.config.piratescaledifftooltip>If the difficulty of the pirates should scale with server members.</mlc.config.piratescaledifftooltip>
+
+    <!-- Debug Config -->
+    <SettingsTab.Debug>Debug</SettingsTab.Debug>
+    <mlc.config.debugverbose>Verbose Logging</mlc.config.debugverbose>
+    <mlc.config.debugverbosetooltip>Enable verbose logging, provides detailed (but longer) logs</mlc.config.debugverbosetooltip>
+    <mlc.config.debuginternal>Internal Logging</mlc.config.debuginternal>
+    <mlc.config.debuginternaltooltip>Enable internal logging, which logs internal debugging messages to console</mlc.config.debuginternaltooltip>
+    <!-- Talents -->
 </infotexts>

@@ -10,7 +10,8 @@ namespace MoreLevelContent.Shared.Generation
         protected DefWithDifficultyRange(string stringContainingDiff) => DifficultyRange = new DifficultyRange(stringContainingDiff);
 
         public float MinDifficulty => DifficultyRange.MinDiff;
-        public float MaxDifficulrt => DifficultyRange.MaxDiff;
+        public float MaxDifficulty => DifficultyRange.MaxDiff;
+        public float AverageDifficulty => (MinDifficulty + MaxDifficulty) / 2;
 
         public DifficultyRange DifficultyRange { get; protected set; }
 

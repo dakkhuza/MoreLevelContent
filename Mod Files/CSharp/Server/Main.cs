@@ -8,7 +8,6 @@ namespace MoreLevelContent
     {
         public void InitServer()
         {
-
         }
     }
 }

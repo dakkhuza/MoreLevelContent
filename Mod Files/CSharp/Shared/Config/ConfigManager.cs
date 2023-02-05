@@ -29,11 +29,17 @@ namespace Barotrauma.MoreLevelContent.Config
                 try
                 {
                     Config = LuaCsConfig.Load<MLCConfig>(configFilepath);
-                    Log.Debug($"Move Chance: {Config.NetworkedConfig.GeneralConfig.RuinMoveChance}");
+                    if (Config.Version != Main.Version)
+                    {
+                        MigrateConfig();
+                        Log.Debug("Migrated Config");
+                    }
 #if CLIENT
                     DisplayPatchNotes();
+                    SetConfig(Config);
 #endif
-                    Log.Debug(Config.NetworkedConfig.ToString());
+                    Config.Version = Main.Version;
+                    SaveConfig();
                     return;
                 } catch
                 {
@@ -45,6 +51,12 @@ namespace Barotrauma.MoreLevelContent.Config
                 Log.Debug("File doesn't exist");
                 DefaultConfig();
             }
+        }
+
+        private void MigrateConfig()
+        {
+            Config.NetworkedConfig.GeneralConfig.DistressSpawnChance = 35;
+            Config.NetworkedConfig.GeneralConfig.MaxActiveDistressBeacons = 5;
         }
 
         private void DefaultConfig()

@@ -28,8 +28,6 @@ namespace MoreLevelContent.Shared.Generation.Pirate
 
         void ILevelStartGenerate.OnLevelGenerationStart(LevelData levelData, bool _)
         {
-            enemyOutpost = null;
-
             // Exit if it's an outpost level
             if (levelData.Type == LevelData.LevelType.Outpost) return;
 
@@ -44,7 +42,11 @@ namespace MoreLevelContent.Shared.Generation.Pirate
             }
 
             levelSpawnData = GetSpawnData(levelData);
-            if (levelSpawnData.WillSpawn) enemyOutpost = new PirateOutpost(levelSpawnData);
+            if (levelSpawnData.WillSpawn)
+            {
+                enemyOutpost = new PirateOutpost(levelSpawnData);
+                Log.Verbose("Set pirate outpost");
+            }
         }
 
         public void GenerateSub() => enemyOutpost?.Generate();

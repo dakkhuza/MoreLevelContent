@@ -1,0 +1,61 @@
+<infotexts language="English" nowhitespace="false" translatedname="English">
+    <!-- Missions -->
+    <missionname.beaconconstruction>Beacon Construction</missionname.beaconconstruction>
+    <missiondescription.beaconconstruction>The beacon station between [location1] and [location2] needs a shipment of [requestedsupplies] for construction to continue. A commision of [reward] has been offered to any crew that fulfills the shipment.</missiondescription.beaconconstruction>
+    <beaconconsonarlabel>Construction Site</beaconconsonarlabel>
+
+    <missionheader0.beaconconstruction>Supplies Delivered</missionheader0.beaconconstruction>
+    <missionmessage0.beaconconstruction>The supplies have been delivered. Navigate the submarine to [location2] to claim your commision.</missionmessage0.beaconconstruction>
+
+    <missionsuccess.beaconconstruction>Construction on the beacon station continues.</missionsuccess.beaconconstruction>
+    <missionfailure.beaconconstruction>Construction on the beacon station remains on hold.</missionfailure.beaconconstruction>
+
+    <!-- Distress Missions -->
+
+    <!-- Generic -->
+    <missionname.distressmission>Distress Beacon</missionname.distressmission>
+    <missiondescription.distressmission>Long range listening stations detected an active distress beacon in this passage. The last known location has been marked on the sonar.</missiondescription.distressmission>
+    <missionfailure.distressmission>The call for help remains unanswered.</missionfailure.distressmission>
+
+    <!-- Distess Escort -->
+    <distress.lostdiversuccess>The diver thanks you profusely for rescuing them. They give you a reward as thanks.</distress.lostdiversuccess>
+    <distress.pirateambushsuccess>Pirates trying to lure helpless crews in with distress beacons. The world is better off without them.</distress.pirateambushsuccess>
+
+    <!-- Distress Submarine -->
+    <distress.submarinesuccess.crew>The crew and shuttle was safely escorted out, the surviving crew rewards you [reward] for the trouble.</distress.submarinesuccess.crew>
+    <distress.submarinesuccess.sub>You pawn off the shuttle for [reward].</distress.submarinesuccess.sub>
+    <distress.submarinefail>The shuttle joins the crew at the bottom of the sea floor.</distress.submarinefail>
+
+    <missionheader0.distress_shiprescue>Lost Shuttle</missionheader0.distress_shiprescue>
+    <missionmessage0.distress_shiprescue>The distress beacon leads to a lost shuttle, based on radio chatter they're not having a good time. Navigating them and the shuttle out.</missionmessage0.distress_shiprescue>
+
+    <missionheader1.distress_shiprescue>Lost Shuttle</missionheader1.distress_shiprescue>
+    <missionmessage1.distress_shiprescue>The shuttle crew has perished, an all too common fate. They won't be paying for this rescue anymore but the shuttle itself could still be claimed as salvage.</missionmessage1.distress_shiprescue>
+
+    <missionheader0.distress_ghostship>Adrift Submarine</missionheader0.distress_ghostship>
+    <missionheader1.distress_ghostship>Adrift Submarine</missionheader1.distress_ghostship>
+    <missionmessage0.distress_ghostship>The source of the distress signal appears to be a drifting submarine. Standard coalition protocol is to board the sub to investigate.</missionmessage0.distress_ghostship>
+    
+    <!-- Mission Specific -->
+    <missionmessage1.distress_ghostship_bandit1>Upon boarding the drifting sub, you can hear footsteps. Is the crew still alive?</missionmessage1.distress_ghostship_bandit1>
+    <distress.success.distress_ghostship_bandit1>The submarine was taken over by bandits, the crew slaughtered.</distress.success.distress_ghostship_bandit1>
+
+    <missionmessage1.distress_ghostship_husks>Upon boarding the drifting sub, you can hear footsteps. Is the crew still alive?</missionmessage1.distress_ghostship_husks>
+    <distress.success.distress_ghostship_husks>You remind yourself to stock up on Calyxanide at the next outpost.</distress.success.distress_ghostship_husks>
+
+    <distress.success.distress_ghostship_prisonbreak>A cautionary tale to always keep an eye on your prisoners.</distress.success.distress_ghostship_prisonbreak>
+    
+    <missionmessage1.distress_ghostship_crawlers>Upon boarding the drifting sub, you are instantly aware of the stench of death that permeates the air. If the crew was alive at some point, they've long since died.</missionmessage1.distress_ghostship_crawlers>
+    <distress.success.distress_ghostship_crawlers>A strange sight, a drifting submarine being used as a breeding ground. Perhaps one of the crew members had a pet that got too hungry.</distress.success.distress_ghostship_crawlers>
+
+    <distress.success.distress_ghostship_alienship>The sight of the alien modified submarine sticks in your brain, scratching at the walls of your skull. What the hell is 'jove'?</distress.success.distress_ghostship_alienship>
+    
+    
+    <!-- Fluff -->
+    <label.insanerant1>HOW DEEP UNDER THE ICE CAN GOD SEE?</label.insanerant1>
+    <label.insanerant2>DO</label.insanerant2>
+    <label.insanerant3>YOU</label.insanerant3>
+    <label.insanerant4>HEAR</label.insanerant4>
+    <label.insanerant5>IT</label.insanerant5>
+    <label.insanerant6>CALL?</label.insanerant6>
+</infotexts>

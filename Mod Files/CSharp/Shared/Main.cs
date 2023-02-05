@@ -1,8 +1,16 @@
 ﻿using Barotrauma;
 using Barotrauma.MoreLevelContent.Config;
+using Barotrauma.MoreLevelContent.Shared.Utils;
+using HarmonyLib;
 using MoreLevelContent.Shared;
+using MoreLevelContent.Shared.Data;
 using MoreLevelContent.Shared.Generation;
+using MoreLevelContent.Shared.Utils;
+using MoreLevelContent.Shared.XML;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 
 namespace MoreLevelContent
@@ -12,12 +20,18 @@ namespace MoreLevelContent
     /// </summary>
     partial class Main : ACsMod
     {
-        public static bool IsCampaign => GameMain.GameSession?.GameMode is MultiPlayerCampaign;
+        public static bool IsCampaign => GameMain.GameSession?.Campaign != null || GameMain.IsSingleplayer;
         public static bool IsRunning => GameMain.GameSession?.IsRunning ?? false;
+        public static bool IsClient => GameMain.NetworkMember != null && GameMain.NetworkMember.IsClient;
+        public const string GUID = "com.dak.mlc";
+        public static bool IsRelase = true;
+        public static bool IsNightly = false;
+
 
         public static Main Instance;
-        public static string Version = "0.0.4";
+        public static string Version = "0.0.6";
         private LevelContentProducer levelContentProducer;
+        internal static Harmony Harmony;
 
         public Main()
         {
@@ -37,15 +51,25 @@ namespace MoreLevelContent
         public static void HookMethod(string identifier, MethodInfo method, LuaCsPatch patch, LuaCsHook.HookMethodType hookType) =>
             GameMain.LuaCs.Hook.HookMethod(identifier, method, patch, hookType, Instance);
 
+        public static void Patch(MethodBase original, HarmonyMethod prefix = null, HarmonyMethod postfix = null, HarmonyMethod transpiler = null, HarmonyMethod finalizer = null)
+            => Harmony.Patch(original, prefix, postfix, transpiler, finalizer);
+
         public void Init()
         {
             Log.Verbose("Reflecting methods...");
             var level_onCreateWrecks = typeof(Level).GetMethod("CreateWrecks", BindingFlags.NonPublic | BindingFlags.Instance);
             var level_onSpawnNPC = typeof(Level).GetMethod(nameof(Level.SpawnNPCs));
             var level_generate = typeof(Level).GetMethod(nameof(Level.Generate));
-            MoveRuins.Init();
+            var gameSession_before_startRound = typeof(GameSession).GetMethod(nameof(GameSession.StartRound), new Type[] { typeof(LevelData), typeof(bool), typeof(SubmarineInfo), typeof(SubmarineInfo) });
+            Harmony = new Harmony("com.mlc.dak");
 
+            MoveRuins.Init();
             levelContentProducer = new LevelContentProducer();
+            MapDirector.Instance.Setup();
+            XMLManager.Instance.Setup();
+            InjectionManager.Instance.Setup();
+            Hooks.Instance.Setup();
+            Commands.Instance.Setup();
 
             if (!levelContentProducer.Active)
             {
@@ -75,8 +99,16 @@ namespace MoreLevelContent
                 OnLevelGenerate,
                 LuaCsHook.HookMethodType.Before,
                 this);
+
+            GameMain.LuaCs.Hook.HookMethod(
+                "mlc.shared.before_startRound",
+                gameSession_before_startRound,
+                OnBeforeStartRound,
+                LuaCsHook.HookMethodType.Before,
+                this);
             Log.Verbose("Done!");
         }
+
 
         public object OnCreateWrecks(object self, Dictionary<string, object> args)
         {
@@ -92,14 +124,20 @@ namespace MoreLevelContent
 
         public object OnLevelGenerate(object self, Dictionary<string, object> args)
         {
-            foreach (var item in args.Keys)
-            {
-                Log.Verbose( "key: " + item + "value:" + args[item]?.GetType().Name);
-            }
             levelContentProducer.LevelGenerate(args["levelData"] as LevelData, args["mirror"] as bool? ?? false);
             return null;
         }
 
-        public override void Stop() { }
+        public object OnBeforeStartRound(object self, Dictionary<string, object> args)
+        {
+            levelContentProducer.StartRound();
+            return null;
+        }
+
+        public override void Stop()
+        {
+            Harmony.UnpatchAll(); // Cleanup harmony patches
+            InjectionManager.Instance.Cleanup(); // Remove injected content
+        }
     }
 }

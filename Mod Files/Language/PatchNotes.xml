@@ -1,16 +1,24 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
 <infotexts language="English" nowhitespace="false" translatedname="English">
-  <mlc.patchnotes>
-    CONTENT
-    - Added 4 new pirate outposts
-    - Added a chance for ruins to spawn in the abyss. (Default: 25% chance)
+    <mlc.patchnotes>
+    DISTRESSING CONSTRUCTIONS
 
-    TWEAKS
-    - Updated config handling
-    - Improved install check
+    NEW FEATURES
+    - Beacon Construction missions
+    - Bring supplies to beacons to build them!
+    - Buy supplies at outposts or craft them
 
-    BUG FIXES
-    - Fixed the mod crashing in single player
-    - Fixed? an issue where the settings button would appear twice
+    - Distress missions
+    - Distress Beacons will spawn on the campaign map
+    - They will disapear after a few levels
+    - Get to them quick!
+    - Distress missions offer a random, hidden mission
+
+    CHANGES
+    - Updated some of the pirate outposts
+    - Gave more pirates default skills
+    - Clamped max pirate spawns to how many diving suits they have
+
+    Let me know how it feels!
+    Contact @Dak#0001 on https://discord.gg/XFp5vq67MY 
     </mlc.patchnotes>
 </infotexts>

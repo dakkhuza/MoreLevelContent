@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Barotrauma.MoreLevelContent.Shared.Config;
 using Barotrauma.MoreLevelContent.Config;
 using MoreLevelContent.Shared;
+using OpenAL;
 
 namespace Barotrauma.MoreLevelContent.Client.UI
 {
@@ -47,13 +48,7 @@ namespace Barotrauma.MoreLevelContent.Client.UI
             bottom = new GUILayoutGroup(new RectTransform((contentFrame.RectTransform.RelativeSize.X, 0.04f), mainLayout.RectTransform), isHorizontal: true) { Stretch = true, RelativeSpacing = 0.01f };
 
             var tabToSelect = Tab.Debug;
-
-            if (GameMain.Client.HasPermission(Networking.ClientPermissions.ManageSettings))
-            {
-                CreateGeneralTab();
-                CreatePirateOutpostTab();
-                tabToSelect = Tab.General;
-            }
+            tabToSelect = MakePermissionLockedTabs(tabToSelect);
             CreateDebugTab();
 
             CreateBottomButtons();
@@ -61,29 +56,78 @@ namespace Barotrauma.MoreLevelContent.Client.UI
             SelectTab(tabToSelect);
         }
 
+        private Tab MakePermissionLockedTabs(Tab defaultTab)
+        {
+            // If we're not in single player
+            if (!GameMain.IsSingleplayer)
+            {
+                // and we don't have perms
+                if (!GameMain.Client.HasPermission(Networking.ClientPermissions.ManageSettings)) 
+                    return defaultTab; // don't create perm locked tabs
+            }
+            CreateGeneralTab();
+            CreatePirateOutpostTab();
+            return Tab.General;
+        }
+
         GUITextBlock moveRuinsChanceDisplay;
+        GUITextBlock maxDistressCountDisplay;
+        GUITextBlock distressSpawnChanceDisplay;
         private void CreateGeneralTab()
         {
             GUIFrame content = CreateNewContentFrame(Tab.General);
             var (left, right) = CreateSidebars(content);
+
             var moveRuinsChance = Label(left, TextManager.Get("mlc.settings.moveruins"), GUIStyle.SubHeadingFont);
-
-            moveRuinsChanceDisplay = new GUITextBlock(new RectTransform(new Vector2(1.0f, 1.0f), moveRuinsChance.RectTransform), "", textAlignment: Alignment.CenterRight)
-            {
-                ToolTip = TextManager.Get("mlc.settings.moveruinstooltip")
-            };
-
-            void UpdateRuinMoveChance(float v)
-            {
-                unsavedConfig.NetworkedConfig.GeneralConfig.RuinMoveChance = Round(v);
-                moveRuinsChanceDisplay.Text = $"{Round(v)}% chance to move";
-            }
-
+            moveRuinsChanceDisplay = TextBlock(moveRuinsChance, TextManager.Get("mlc.settings.moveruinstooltip"));
             Slider(left, (0, 100), 100, (v) => $"{Round(v)}%",
                 unsavedConfig.NetworkedConfig.GeneralConfig.RuinMoveChance,
                 (v) => UpdateRuinMoveChance(v));
 
+            var maxActiveDistress = Label(left, TextManager.Get("mlc.settings.maxdistresscount"), GUIStyle.SubHeadingFont);
+            maxDistressCountDisplay = TextBlock(maxActiveDistress, TextManager.Get("mlc.settings.maxdistresscounttooltip"));
+            Slider(left, (0, 100), 100, (v) => $"{Round(v)}",
+                    unsavedConfig.NetworkedConfig.GeneralConfig.MaxActiveDistressBeacons,
+                    (v) => UpdateMaxDistress(v));
+
+
+            var distressSpawnChance = Label(left, TextManager.Get("mlc.settings.spawndistresschance"), GUIStyle.SubHeadingFont);
+            distressSpawnChanceDisplay = TextBlock(distressSpawnChance, TextManager.Get("mlc.settings.spawndistresschancetooltip"));
+            Slider(left, (0, 100), 100, (v) => $"{Round(v)}",
+                unsavedConfig.NetworkedConfig.GeneralConfig.DistressSpawnChance,
+                (v) => UpdateDistressSpawnChance(v));
+
+
+            void UpdateRuinMoveChance(float v)
+            {
+                unsavedConfig.NetworkedConfig.GeneralConfig.RuinMoveChance = Round(v);
+                moveRuinsChanceDisplay.Text = TextManager.GetWithVariable("mlc.settings.spawnchance", "[chance]", Round(v).ToString()); ;
+            }
+
+            void UpdateMaxDistress(float v)
+            {
+                unsavedConfig.NetworkedConfig.GeneralConfig.MaxActiveDistressBeacons = Round(v);
+                maxDistressCountDisplay.Text = TextManager.GetWithVariable("mlc.settings.maxactive", "[max]", Round(v).ToString()); ;
+            }
+
+            void UpdateDistressSpawnChance(float v)
+            {
+                unsavedConfig.NetworkedConfig.GeneralConfig.DistressSpawnChance = Round(v);
+                distressSpawnChanceDisplay.Text = TextManager.GetWithVariable("mlc.settings.spawnchance", "[chance]", Round(v).ToString());
+            }
+
+
             UpdateRuinMoveChance(unsavedConfig.NetworkedConfig.GeneralConfig.RuinMoveChance);
+            UpdateMaxDistress(unsavedConfig.NetworkedConfig.GeneralConfig.MaxActiveDistressBeacons);
+            UpdateDistressSpawnChance(unsavedConfig.NetworkedConfig.GeneralConfig.DistressSpawnChance);
+
+            GUITextBlock TextBlock(GUITextBlock container, RichString tooltip)
+            {
+                return new GUITextBlock(new RectTransform(new Vector2(1.0f, 1.0f), container.RectTransform), "", textAlignment: Alignment.CenterRight)
+                {
+                    ToolTip = tooltip
+                };
+            }
         }
 
         GUITextBlock pirateSpawnChanceDisplay;
@@ -141,6 +185,7 @@ namespace Barotrauma.MoreLevelContent.Client.UI
 
             Tickbox(left, TextManager.Get("mlc.config.debugverbose"), TextManager.Get("mlc.config.debugverbosetooltip"), unsavedConfig.Client.Verbose, (v) => unsavedConfig.Client.Verbose = v);
             Tickbox(left, TextManager.Get("mlc.config.debuginternal"), TextManager.Get("mlc.config.debuginternaltooltip"), unsavedConfig.Client.Internal, (v) => unsavedConfig.Client.Internal = v);
+            
             GUIButton showPatchNotes = new GUIButton(NewItemRectT(left), text: "Patch Notes")
             {
                 OnClicked = (btn, obj) =>

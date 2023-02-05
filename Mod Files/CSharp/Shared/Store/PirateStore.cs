@@ -20,10 +20,9 @@ namespace MoreLevelContent.Shared.Store
             HasContent = FindAndScoreOutpostFiles() && FindAndScoreNPCs();
         }
 
-        public PirateNPCSetDef GetNPCSetForDiff(float diff) => GetElementsForDiff(diff, pirateSets).GetRandom(Rand.RandSync.ServerAndClient);
+        public PirateNPCSetDef GetNPCSetForDiff(float diff) => GetElementWithPreferedDifficulty(diff, pirateSets);
 
-        internal PirateOutpostDef GetPirateOutpostForDiff(float diff) => GetElementsForDiff(diff, pirateOutposts).GetRandom(Rand.RandSync.ServerAndClient);
-
+        internal PirateOutpostDef GetPirateOutpostForDiff(float diff) => GetElementWithPreferedDifficulty(diff, pirateOutposts);
         private bool FindAndScoreOutpostFiles()
         {
             Log.Debug("Collecting pirate outposts...");

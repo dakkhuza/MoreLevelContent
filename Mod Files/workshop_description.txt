@@ -1,0 +1,96 @@
+[img]https://raw.githubusercontent.com/dakkhuza/MoreLevelContent/main/Images/LOGO.png[/img]
+[img]https://raw.githubusercontent.com/dakkhuza/MoreLevelContent/main/Images/anim_alpha_banner.gif[/img]
+                                                                    [i]Expect Issues[/i]
+
+Ever get bored of levels? Ruins, shipwrecks and beacons a plenty not filling that void in your dented diving suit?
+
+Ever wanted MORE things to do in levels? And not just a different looking wreck or a beacon station with hostile humans but actual NEW content? 
+
+Well then it's a good thing you're already on this page!
+
+
+I made More Level Content (MLC) because I was in the same sinking sub as you. Bored out of my mind as I got dragged to the bottom by a thalamus after going three outposts with "kill hammer head / crawler / spineling" and NO pirate missions. A thought crossed my mind as the flesh spike carried my crew to the great beyond...
+
+
+                                                   What if the Thalamus was pirates?
+
+
+
+[img]https://raw.githubusercontent.com/dakkhuza/MoreLevelContent/main/Images/LOGO_PirateOutpost.png[/img]
+
+Pirate missions are a real highlight of barotrauma (for me). HOWEVER I feel they are brought down a bit by the fact the pirates never really get the chance to sneak up on you! You almost always have the drop on them and that doesn't feel right.
+
+With Pirate Outposts getting the drop on those pesky pirates is a thing of the past! Randomly spawning only sometimes in levels (chance based on level difficulty), Pirate Outposts will not hesitate to pepper your hull with all sorts of fun armaments.
+
+[img]https://raw.githubusercontent.com/dakkhuza/MoreLevelContent/main/Images/hero_pirate_outpost_attack.png[/img]
+
+The pirates themselves aren't pushovers either. Each area has it's own set of blood thirsty marauders ready to turn you into the immediate past president of the "being alive" club, Ha. Ha. This is also affected by difficulty.
+
+[img]https://raw.githubusercontent.com/dakkhuza/MoreLevelContent/main/Images/hero_pirate_npc_showcase.gif[/img]
+                                        [i]Maybe I should have opened with a stun grenade...[/i]
+
+[img]https://raw.githubusercontent.com/dakkhuza/MoreLevelContent/main/Images/LOGO_Extendable.png[/img]
+
+Want to make your own pirate outposts? Just follow these 4 easy* steps!
+[i]*As long as you already know how to use the sub editor...[/i]
+
+                                        Simply design the outpost in the submarine editor...
+[img]https://raw.githubusercontent.com/dakkhuza/MoreLevelContent/main/Images/Tutorial/pirate_outpost_tutorial_0.jpg[/img]
+                                                        And when you go to save the file...
+[img]https://raw.githubusercontent.com/dakkhuza/MoreLevelContent/02192c73372628684d532f4cda28d842bbe8afa9/Images/Tutorial/pirate_outpost_tutorial_1.jpg[/img]
+[b]
+SET THE SUBMARINE TYPE TO OUTPOST MODULE
+DO NOT BUILD YOUR PIRATE OUTPOST AS AN OUTPOST MODULE
+[/b]
+
+Then...
+
+[olist]
+ [*] Append the difficulty range of this outpost to the end of the name. For example if my outpost was named "[i]coolpirateoutpost[/i]" and I wanted it to spawn in difficulties between 15%-30% it's name would become "[i]coolpirateoutpost[b]_diff_15-30[/b][/i]"
+ [*] Set the "[i]location types[/i]" to "[i][b]ilo_PirateOutpost[/b][/i]"
+ [*] Go to the "Required Content Packages" tab
+ [*] Select "More Level Content"
+[/olist]
+
+You're done! Your outpost now has a chance to spawn anywhere in the difficulty range you selected and is ready to upload to the workshop!
+
+[img]https://raw.githubusercontent.com/dakkhuza/MoreLevelContent/main/Images/hero_pirate_bump_0.png[/img]
+
+
+[img]https://raw.githubusercontent.com/dakkhuza/MoreLevelContent/main/Images/LOGO_Planned.png[/img]
+[url=https://trello.com/b/soZSEESb/more-level-content][img]https://raw.githubusercontent.com/dakkhuza/MoreLevelContent/8a2d43f454db9a8db4ce2e9ba0c7d27ee55d4107/Images/LOGO_Roadmap.png[/img][/url]
+There's a lot of things I want to add to this mod and if you've got any suggestions feel free to post them in the thread below. Here's the things I have planned for now, in order of priority.
+
+[b]In game config[/b] ADDED
+
+[b]Move the ruins to the abyss islands[/b] ADDED
+
+[b]More pirate outpost variation[/b] ADDED
+I'll keep improving and adding more pirate outposts every update
+
+[b]S.O.S. calls[/b] IN DEVELOPMENT
+Why is everyone always dead when we finally show up! You should be able to rarely find survivors and ferry them back to the nearest outpost for a reward. Weird that the only one left was the clown, where'd he scamper off too? And while you're looking for him can you get someone to do something about that beeping? It's driving me nuts! 
+
+[b]Hermits, black-markets and other weirdos[/b]
+Why does everyone out there in the ice cold blue gotta shoot us, our only salvation found at outposts? Not everyone likes to do business within sight of the law. Sometimes you'll find little abodes, automated shops and maybe even a black-market or two hiding between the ice, away from the prying eyes of the coalition. Keep your eyes peeled and your sonar on.
+
+[b]New Level Hazards[/b]
+Balast flora is fun! But once you know how to deal with / spot it loses a bit of it's charm. There should be more plants that mess with the submarine and the crew inside in fun and interesting ways. 
+
+Also try...
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2651035690][img]https://raw.githubusercontent.com/dakkhuza/MiscWorkshopAssets/main/logo_wantedalive.png[/img][/url]
+
+[h2]FAQ[/h2]
+Q: I'm getting level check-sum mismatches!
+A: Every player in the server needs to have the mod installed + client side lua + the CS module for this mod to function correctly. If everyone for sure has it installed and setup correctly, I'm not sure of the cause and seems to be something intrinsic to barotrauma (it's some floating point ♥♥♥♥♥♥♥)
+
+Q: Can this mod be added mid campaign?
+A: This mod currently only affects level generation so it's safe to add mid-campaign! In the future I'm planning on experimenting with map changes so this may change.
+
+Q: Is this mod compatible with x/y/z?
+A: This mod uses it's own hook into level generation and is thus not affected by any other level gen editing mod. It also doesn't override any XML. This means it's compatible(?) with everything! Please let me know if there's any issues however.
+
+[h2]KNOWN ISSUES[/h2]
+
+ISSUE: Level Equality issues on levels with ruins in them
+TEMP FIX: Set the chance to move ruins into the abyss to 0

@@ -1,4 +1,4 @@
-using Barotrauma.Networking;
+﻿using Barotrauma.Networking;
 using System;
 
 namespace Barotrauma.MoreLevelContent.Shared.Config

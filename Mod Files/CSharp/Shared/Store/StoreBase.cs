@@ -1,5 +1,7 @@
-﻿using Barotrauma.MoreLevelContent.Shared.Utils;
+﻿using Barotrauma;
+using Barotrauma.MoreLevelContent.Shared.Utils;
 using MoreLevelContent.Shared.Generation;
+using MoreLevelContent.Shared.Generation.Pirate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,26 +13,53 @@ namespace MoreLevelContent.Shared.Store
     {
         public static bool HasContent { get; protected set; }
 
-        protected List<Deff> GetElementsForDiff<Deff>(float diff, List<Deff> elements) where Deff : DefWithDifficultyRange
+        protected Element GetElementWithPreferedDifficulty<Element>(float preferedDifficulty, List<Element> elements, float maxDifference = 20f) where Element : DefWithDifficultyRange
         {
-            Log.InternalDebug($"Looking for {typeof(Deff).Name} with difficulty of {diff}...");
-
-            List<Deff> suitableDefs = elements.Where(d => d.DifficultyRange.IsInRangeOf(diff)).ToList();
-            if (suitableDefs.Count == 0)
+            Log.InternalDebug($"Looking for {typeof(Element).Name} with perfered difficulty of {preferedDifficulty}...");
+            List<Element> filtered = elements;
+            try
             {
-                Log.InternalDebug($"No defs found for difficulty {diff}! Falling back to the highest level difficulty...");
-                suitableDefs.Add(elements.First());
+                filtered = elements.Where(e => MathF.Abs(e.AverageDifficulty - preferedDifficulty) < maxDifference).ToList();
+            } catch(Exception e)
+            {
+                Log.Error(e.ToString());
             }
 
-            if (suitableDefs.Count == 0)
+            if (filtered.Count == 0)
             {
-                Log.Error("DEFS WAS ZERO, SOMETHING WENT __HORRIBLY__ WRONG!");
+                Log.Warn($"Failed to find element of type '{nameof(Element)}' with prefered difficulty of {preferedDifficulty} with a max differential of {maxDifference}!");
+                filtered = elements;
             }
 
-            Log.InternalDebug($"Found {suitableDefs.Count} suitable {typeof(T).Name} to choose from.");
-            suitableDefs.Sort();
-            return suitableDefs;
+            Log.Verbose($"Filtered sets of '{nameof(Element)}' to choose from {filtered.Count}");
+
+            filtered = filtered.OrderBy(e => e.AverageDifficulty).ToList();
+            Element selectedElement = ToolBox.SelectWeightedRandom(filtered, (elm) =>
+            {
+                return elm.AverageDifficulty > preferedDifficulty
+                    ? preferedDifficulty / elm.AverageDifficulty
+                    : elm.AverageDifficulty / preferedDifficulty;
+            }, Rand.RandSync.ServerAndClient);
+
+            return selectedElement;
         }
 
+        internal List<OutpostModuleFile> GetOutpostModuleFilesWithLocation(string locationType)
+        {
+            var outpostModuleFiles = ContentPackageManager.EnabledPackages.All
+                .SelectMany(p => p.GetFiles<OutpostModuleFile>())
+                .OrderBy(f => f.UintIdentifier).ToList();
+            List<OutpostModuleFile> modulesWithTag = new();
+            foreach (var outpostModuleFile in outpostModuleFiles)
+            {
+                SubmarineInfo subInfo = new SubmarineInfo(outpostModuleFile.Path.Value);
+                if (subInfo.OutpostModuleInfo != null)
+                {
+                    if (subInfo.OutpostModuleInfo.AllowedLocationTypes.Contains(locationType))
+                        modulesWithTag.Add(outpostModuleFile);
+                }
+            }
+            return modulesWithTag;
+        }
     }
 }

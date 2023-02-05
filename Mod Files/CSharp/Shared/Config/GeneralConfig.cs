@@ -1,4 +1,4 @@
-
+﻿
 
 using Barotrauma.Networking;
 
@@ -9,12 +9,18 @@ namespace Barotrauma.MoreLevelContent.Shared.Config
     {
         // public bool MoveRuins;
         public int RuinMoveChance;
+        public int MaxActiveDistressBeacons;
+        public int DistressSpawnChance;
+
+        public float DistressSpawnPercentage => DistressSpawnChance / 100f;
 
         public static LevelConfig GetDefault()
         {
             LevelConfig config = new LevelConfig
             {
-                RuinMoveChance = 25
+                RuinMoveChance = 25,
+                MaxActiveDistressBeacons = 5,
+                DistressSpawnChance = 35
             };
             return config;
         }

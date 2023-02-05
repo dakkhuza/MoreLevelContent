@@ -1,4 +1,4 @@
-using Barotrauma;
+﻿using Barotrauma;
 using Barotrauma.MoreLevelContent.Config;
 using Microsoft.Xna.Framework;
 using System;
@@ -24,9 +24,9 @@ namespace MoreLevelContent.Shared.Generation
         {
             // Exit if caves haven't been generated yet
             if (Loaded.Caves.Count < Loaded.GenerationParams.CaveCount) return null;
-
+            Random rand = new MTRandom(ToolBox.StringToInt(Loaded.Seed));
             // Roll for move
-            if (Rand.Range(0, 100, Rand.RandSync.ServerAndClient) > ConfigManager.Instance.Config.NetworkedConfig.GeneralConfig.RuinMoveChance) return null;
+            if (rand.Next(100) > ConfigManager.Instance.Config.NetworkedConfig.GeneralConfig.RuinMoveChance) return null;
             Log.Debug("Moving the ruins...");
 
             // Generate ruin point
@@ -34,9 +34,7 @@ namespace MoreLevelContent.Shared.Generation
             int limitLeft = Math.Max((int)Loaded.StartPosition.X, ruinSize.X / 2);
             int limitRight = Math.Min((int)Loaded.EndPosition.X, Loaded.Size.X - (ruinSize.X / 2));
 
-            Point ruinPos = new Point(
-                       Rand.Range(limitLeft, limitRight, Rand.RandSync.ServerAndClient),
-                       Rand.Range(Loaded.AbyssArea.Top + 5000, Loaded.AbyssArea.Bottom - 5000, Rand.RandSync.ServerAndClient));
+            Point ruinPos = new Point(rand.Next(limitLeft, limitRight), rand.Next(Loaded.AbyssArea.Top + 5000, Loaded.AbyssArea.Bottom - 5000));
 
             // Move the ruins above the sea floor, copied from Level.cs Line 1709
             ruinPos.Y = Math.Max(ruinPos.Y, (int)Loaded.GetBottomPosition(ruinPos.X).Y + 500);

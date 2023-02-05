@@ -1,0 +1,10 @@
+<OutpostGenerationParameters>
+    <OutpostConfig identifier="site_02" totalmodulecount="12" minhallwaylength="100" allowedlocationtypes="mlc_site02" allowstealing="true" minwaterpercentage="0" maxwaterpercentage="3" lockunuseddoors="true" removeunusedgaps="true">
+        <modulecount flag="s02_airlock" count="1"/>
+        <modulecount flag="EngineeringModule" count="1"/>
+        <modulecount flag="AdminModule" count="1"/>
+        <modulecount flag="CrewModule" count="1"/>
+        <modulecount flag="ResearchModule" count="1"/>
+        <modulecount flag="SecurityModule" count="1"/>
+    </OutpostConfig>
+</OutpostGenerationParameters>

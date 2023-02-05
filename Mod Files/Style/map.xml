@@ -1,0 +1,17 @@
+<style>
+    <BeaconConst color="250,215,107,255" hovercolor="255,231,178,255">
+        <Sprite name="BeaconConst" texture="%ModDir%/Style/map_icons.png" tile="false" sourcerect="9,18,72,75" maintainaspectratio="true"/>
+    </BeaconConst>
+
+    <DistressBeacon color="255,106,106,255" hovercolor="255,156,156,255">
+        <Sprite name="Distress" texture="%ModDir%/Style/map_icons.png" tile="false" sourcerect="113,21,72,75" maintainaspectratio="true"/>
+    </DistressBeacon>
+
+    <DistressBeaconFaint color="150,60,60,255" hovercolor="150,75,75,255">
+        <Sprite name="Distress" texture="%ModDir%/Style/map_icons.png" tile="false" sourcerect="113,21,72,75" maintainaspectratio="true"/>
+    </DistressBeaconFaint>
+
+    <DebugBlackMarket color="0,0,0,255" hovercolor="10,10,10,255">
+        <Sprite name="Blackmarket" texture="%ModDir%/Style/map_icons.png" tile="false" sourcerect="113,21,72,75" maintainaspectratio="true"/>
+    </DebugBlackMarket>
+</style>

@@ -1,231 +1,277 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
 <Missions>
-  <!-- Used-->
-  <!-- We hi-jack missions because I can't think of a better way to get the data into the game -->
-  <!-- It's preformatted and everything :) -->
-  <!-- Pirate Outposts -->
-  <!-- Cold Caverns (0-10% diff)-->
-  <PirateMission name="mlc_pirate_diff_0-10" type="Pirate" identifier="mlc_mp_pirate_cold_cavern" tags="" description="INTERNAL USE ONLY" difficulty="0" commonness="0" reward="0" successmessage="" addedmissiondifficultyperplayer="8">
-    <message header="" text="" />
-    <message header="" text="" />
-    <!-- NOT Used, outposts are defined elsewhere -->
-    <SubmarineTypes>
-      <Submarine path="Content/Map/EnemySubmarines/DugongPirate.sub" preferreddifficulty="0" alternatereward="0" />
-    </SubmarineTypes>
-    <!-- Used -->
-    <Characters>
-      <!-- The types of characters we'll spawn in -->
-      <Character typeidentifier="piratesecurity" minamount="1" maxamount="1" />
-      <Character typeidentifier="piratemechanic" minamount="1" maxamount="1" />
-      <Character typeidentifier="pirateengineer" minamount="1" maxamount="1" />
-    </Characters>
-    <CharacterTypes>
-      <CharacterType typeidentifier="piratesecurity">
-        <Character identifier="piratesecurityrecruit" from="mlc_pirates_cold_caverns" preferreddifficulty="5" iscommander="true" />
-      </CharacterType>
-      <CharacterType typeidentifier="piratemechanic">
-        <Character identifier="piratemechanicrecruit" from="mlc_pirates_cold_caverns" preferreddifficulty="5" />
-      </CharacterType>
-      <CharacterType typeidentifier="pirateengineer">
-        <Character identifier="pirateengineerrecruit" from="mlc_pirates_cold_caverns" preferreddifficulty="5" />
-      </CharacterType>
-    </CharacterTypes>
-    <Icon texture="Content/UI/MissionIcons.png" sourcerect="0,768,256,256" color="243,146,55" />
-  </PirateMission>
-  <!-- Cold Caverns (10-20% diff)-->
-  <PirateMission name="mlc_pirate_diff_10-20" type="Pirate" identifier="mlc_mp_pirate_cold_cavern1" tags="" description="INTERNAL USE ONLY" difficulty="0" commonness="0" reward="0" successmessage="" addedmissiondifficultyperplayer="8">
-    <message header="" text="" />
-    <message header="" text="" />
-    <!-- NOT Used, outposts are defined elsewhere -->
-    <SubmarineTypes>
-      <Submarine path="Content/Map/EnemySubmarines/DugongPirate.sub" preferreddifficulty="0" alternatereward="0" />
-    </SubmarineTypes>
-    <!-- Used -->
-    <Characters>
-      <!-- The types of characters we'll spawn in -->
-      <Character typeidentifier="piratecaptain" minamount="1" maxamount="1" />
-      <Character typeidentifier="piratesecurity" minamount="1" maxamount="1" />
-      <Character typeidentifier="piratemedic" minamount="0" maxamount="1" />
-      <Character typeidentifier="piratemechanic" minamount="1" maxamount="1" />
-      <Character typeidentifier="pirateengineer" minamount="1" maxamount="1" />
-    </Characters>
-    <CharacterTypes>
-      <CharacterType typeidentifier="piratecaptain">
-        <Character identifier="piratecaptain" from="mlc_pirates_cold_caverns" preferreddifficulty="10" iscommander="true" />
-      </CharacterType>
-      <CharacterType typeidentifier="piratesecurity">
-        <Character identifier="piratesecurityrecruit" from="mlc_pirates_cold_caverns_1" preferreddifficulty="10" />
-        <Character identifier="piratesecuritygunner" from="mlc_pirates_cold_caverns" preferreddifficulty="15" />
-      </CharacterType>
-      <CharacterType typeidentifier="piratemechanic">
-        <Character identifier="piratemechanicrecruit" from="mlc_pirates_cold_caverns" preferreddifficulty="10" />
-      </CharacterType>
-      <CharacterType typeidentifier="pirateengineer">
-        <Character identifier="pirateengineerrecruit" from="mlc_pirates_cold_caverns" preferreddifficulty="10" />
-      </CharacterType>
-      <CharacterType typeidentifier="piratemedic">
-        <Character identifier="piratemedicrecruit" from="mlc_pirates_cold_caverns" preferreddifficulty="10" />
-      </CharacterType>
-    </CharacterTypes>
-    <Icon texture="Content/UI/MissionIcons.png" sourcerect="0,768,256,256" color="243,146,55" />
-  </PirateMission>
-  <!-- Europan Ridge (15-30% diff)-->
-  <PirateMission name="mlc_pirate_diff_15-30" type="Pirate" identifier="mlc_mp_pirates_ridge" tags="" description="INTERNAL USE ONLY" difficulty="0" commonness="0" reward="0" successmessage="" addedmissiondifficultyperplayer="8">
-    <message header="" text="" />
-    <message header="" text="" />
-    <!-- NOT Used, outposts are defined elsewhere -->
-    <SubmarineTypes>
-      <Submarine path="Content/Map/EnemySubmarines/DugongPirate.sub" preferreddifficulty="0" alternatereward="0" />
-    </SubmarineTypes>
-    <!-- Used -->
-    <Characters>
-      <!-- The types of characters we'll spawn in -->
-      <Character typeidentifier="piratecaptain" minamount="1" maxamount="1" />
-      <Character typeidentifier="piratesecurity" minamount="1" maxamount="2" />
-      <Character typeidentifier="piratemedic" minamount="1" maxamount="1" />
-      <Character typeidentifier="piratemechanic" minamount="1" maxamount="1" />
-      <Character typeidentifier="pirateengineer" minamount="1" maxamount="1" />
-    </Characters>
-    <CharacterTypes>
-      <CharacterType typeidentifier="piratecaptain">
-        <Character identifier="piratecaptain" from="mlc_pirates_ridge" preferreddifficulty="20" iscommander="true" />
-      </CharacterType>
-      <CharacterType typeidentifier="piratesecurity">
-        <Character identifier="piratesecurityrecruit" from="mlc_pirates_ridge" preferreddifficulty="15" />
-        <Character identifier="piratesecuritygunner" from="mlc_pirates_ridge" preferreddifficulty="20" />
-      </CharacterType>
-      <CharacterType typeidentifier="piratemechanic">
-        <Character identifier="piratemechanicrecruit" from="mlc_pirates_ridge" preferreddifficulty="10" />
-      </CharacterType>
-      <CharacterType typeidentifier="pirateengineer">
-        <Character identifier="pirateengineerrecruit" from="mlc_pirates_ridge" preferreddifficulty="10" />
-      </CharacterType>
-      <CharacterType typeidentifier="piratemedic">
-        <Character identifier="piratemedicrecruit" from="mlc_pirates_ridge" preferreddifficulty="10" />
-      </CharacterType>
-    </CharacterTypes>
-    <Icon texture="Content/UI/MissionIcons.png" sourcerect="0,768,256,256" color="243,146,55" />
-  </PirateMission>
-  <!-- Aphotic Plateau (25-50% diff)-->
-  <PirateMission name="mlc_pirate_diff_25-50" type="Pirate" identifier="mlc_mp_pirate_plateau" tags="" description="INTERNAL USE ONLY" difficulty="0" commonness="0" reward="0" successmessage="" addedmissiondifficultyperplayer="8">
-    <message header="" text="" />
-    <message header="" text="" />
-    <!-- NOT Used, outposts are defined elsewhere -->
-    <SubmarineTypes>
-      <Submarine path="Content/Map/EnemySubmarines/DugongPirate.sub" preferreddifficulty="0" alternatereward="0" />
-    </SubmarineTypes>
-    <!-- Used -->
-    <Characters>
-      <!-- The types of characters we'll spawn in -->
-      <Character typeidentifier="piratecaptain" minamount="1" maxamount="1" />
-      <Character typeidentifier="piratesecurity" minamount="2" maxamount="4" />
-      <Character typeidentifier="piratemedic" minamount="1" maxamount="1" />
-      <Character typeidentifier="piratemechanic" minamount="1" maxamount="2" />
-      <Character typeidentifier="pirateengineer" minamount="1" maxamount="2" />
-    </Characters>
-    <CharacterTypes>
-      <CharacterType typeidentifier="piratecaptain">
-        <Character identifier="piratecaptain" from="mlc_pirates_plateau" preferreddifficulty="30" iscommander="true" />
-      </CharacterType>
-      <CharacterType typeidentifier="piratesecurity">
-        <Character identifier="piratesecurityrecruit" from="mlc_pirates_plateau" preferreddifficulty="25" />
-        <Character identifier="piratesecuritygunner" from="mlc_pirates_plateau" preferreddifficulty="35" />
-        <Character identifier="piratesecuritybrute" from="mlc_pirates_plateau" preferreddifficulty="40" />
-      </CharacterType>
-      <CharacterType typeidentifier="piratemechanic">
-        <Character identifier="piratemechanicrecruit" from="mlc_pirates_plateau" preferreddifficulty="25" />
-      </CharacterType>
-      <CharacterType typeidentifier="pirateengineer">
-        <Character identifier="pirateengineerrecruit" from="mlc_pirates_plateau" preferreddifficulty="25" />
-      </CharacterType>
-      <CharacterType typeidentifier="piratemedic">
-        <Character identifier="piratemedicrecruit" from="mlc_pirates_plateau" preferreddifficulty="25" />
-      </CharacterType>
-    </CharacterTypes>
-    <Icon texture="Content/UI/MissionIcons.png" sourcerect="0,768,256,256" color="243,146,55" />
-  </PirateMission>
-  <!-- The Great Sea (45-65% diff)-->
-  <PirateMission name="mlc_pirate_diff_45-65" type="Pirate" identifier="mlc_mp_pirate_greatsea" tags="" description="INTERNAL USE ONLY" difficulty="0" commonness="0" reward="0" successmessage="" addedmissiondifficultyperplayer="8">
-    <message header="" text="" />
-    <message header="" text="" />
-    <!-- NOT Used, outposts are defined elsewhere -->
-    <SubmarineTypes>
-      <Submarine path="Content/Map/EnemySubmarines/DugongPirate.sub" preferreddifficulty="0" alternatereward="0" />
-    </SubmarineTypes>
-    <!-- Used -->
-    <Characters>
-      <!-- The types of characters we'll spawn in -->
-      <Character typeidentifier="piratecaptain" minamount="1" maxamount="1" />
-      <Character typeidentifier="piratesecurity" minamount="3" maxamount="5" />
-      <Character typeidentifier="piratemedic" minamount="1" maxamount="2" />
-      <Character typeidentifier="piratemechanic" minamount="1" maxamount="2" />
-      <Character typeidentifier="pirateengineer" minamount="1" maxamount="2" />
-    </Characters>
-    <CharacterTypes>
-      <CharacterType typeidentifier="piratecaptain">
-        <Character identifier="piratecaptain" from="mlc_pirates_greatsea" preferreddifficulty="50" iscommander="true" />
-        <Character identifier="piratecaptainlord" from="mlc_pirates_greatsea" preferreddifficulty="60" iscommander="true" />
-      </CharacterType>
-      <CharacterType typeidentifier="piratesecurity">
-        <Character identifier="piratesecurityelite" from="mlc_pirates_greatsea" preferreddifficulty="50" />
-        <Character identifier="pirateflamer" from="mlc_pirates_greatsea" preferreddifficulty="55" />
-        <Character identifier="pirateberserker" from="mlc_pirates_greatsea" preferreddifficulty="55" />
-        <Character identifier="piratedeadeye" from="mlc_pirates_greatsea" preferreddifficulty="60" />
-        <Character identifier="piratesecuritybrute" from="mlc_pirates_greatsea" preferreddifficulty="60" />
-      </CharacterType>
-      <CharacterType typeidentifier="piratemechanic">
-        <Character identifier="piratemechanicrecruit" from="mlc_pirates_greatsea" preferreddifficulty="45" />
-      </CharacterType>
-      <CharacterType typeidentifier="pirateengineer">
-        <Character identifier="pirateengineerrecruit" from="mlc_pirates_greatsea" preferreddifficulty="45" />
-      </CharacterType>
-      <CharacterType typeidentifier="piratemedic">
-        <Character identifier="piratemedic" from="mlc_pirates_greatsea" preferreddifficulty="45" />
-        <Character identifier="piratemedic" from="mlc_pirates_wastes" preferreddifficulty="55" />
-      </CharacterType>
-    </CharacterTypes>
-    <Icon texture="Content/UI/MissionIcons.png" sourcerect="0,768,256,256" color="243,146,55" />
-  </PirateMission>
-  <!-- Hydrothermal Wastes (55-100% diff)-->
-  <PirateMission name="mlc_pirate_diff_55-100" type="Pirate" identifier="mlc_mp_pirate_wastes" tags="" description="INTERNAL USE ONLY" difficulty="0" commonness="0" reward="0" successmessage="" addedmissiondifficultyperplayer="8">
-    <message header="" text="" />
-    <message header="" text="" />
-    <!-- NOT Used, outposts are defined elsewhere -->
-    <SubmarineTypes>
-      <Submarine path="Content/Map/EnemySubmarines/DugongPirate.sub" preferreddifficulty="0" alternatereward="0" />
-    </SubmarineTypes>
-    <!-- Used -->
-    <Characters>
-      <!-- The types of characters we'll spawn in -->
-      <Character typeidentifier="piratecaptain" minamount="1" maxamount="1" />
-      <Character typeidentifier="piratesecurity" minamount="5" maxamount="5" />
-      <Character typeidentifier="piratemedic" minamount="2" maxamount="2" />
-      <Character typeidentifier="piratemechanic" minamount="2" maxamount="2" />
-      <Character typeidentifier="pirateengineer" minamount="2" maxamount="2" />
-    </Characters>
-    <CharacterTypes>
-      <CharacterType typeidentifier="piratecaptain">
-        <Character identifier="piratecaptainlord" from="mlc_pirates_wastes" preferreddifficulty="60" iscommander="true" />
-      </CharacterType>
-      <CharacterType typeidentifier="piratesecurity">
-        <Character identifier="piratesecurityelite" from="mlc_pirates_wastes" preferreddifficulty="60" />
-        <Character identifier="pirateflamer" from="mlc_pirates_wastes" preferreddifficulty="65" />
-        <Character identifier="piratedeadeye" from="mlc_pirates_wastes" preferreddifficulty="65" />
-        <Character identifier="piratesecuritybrute" from="mlc_pirates_wastes" preferreddifficulty="70" />
-        <Character identifier="pirateberserker" from="mlc_pirates_wastes" preferreddifficulty="80" />
-      </CharacterType>
-      <CharacterType typeidentifier="piratemechanic">
-        <Character identifier="piratemechanicrecruit" from="mlc_pirates_wastes" preferreddifficulty="60" />
-        <Character identifier="piratemechanicveteran" from="mlc_pirates_wastes" preferreddifficulty="70" />
-      </CharacterType>
-      <CharacterType typeidentifier="pirateengineer">
-        <Character identifier="pirateengineerrecruit" from="mlc_pirates_wastes" preferreddifficulty="60" />
-        <Character identifier="pirateengineerveteran" from="mlc_pirates_wastes" preferreddifficulty="70" />
-      </CharacterType>
-      <CharacterType typeidentifier="piratemedic">
-        <Character identifier="piratemedic" from="mlc_pirates_wastes" preferreddifficulty="60" />
-      </CharacterType>
-    </CharacterTypes>
-    <Icon texture="Content/UI/MissionIcons.png" sourcerect="0,768,256,256" color="243,146,55" />
-  </PirateMission>
+    <!-- Used-->
+    <!-- We hi-jack missions because I can't think of a better way to get the data into the game -->
+    <!-- It's preformatted and everything :) -->
+
+    <!-- Pirate Outposts -->
+
+    <!-- Cold Caverns (0-10% diff)-->
+    <PirateMission name="mlc_pirate_diff_0-10" type="Pirate" identifier="mlc_mp_pirate_cold_cavern" tags="" description="INTERNAL USE ONLY" difficulty="0" commonness="0" reward="0" successmessage="" addedmissiondifficultyperplayer="8">
+        <message header="" text="" />
+        <message header="" text="" />
+
+        <!-- NOT Used, outposts are defined elsewhere -->
+        <SubmarineTypes>
+            <Submarine path="Content/Map/EnemySubmarines/DugongPirate.sub" preferreddifficulty="0" alternatereward="0"/>
+        </SubmarineTypes>
+
+        <!-- Used -->
+        <Characters>
+            <!-- The types of characters we'll spawn in -->
+            <Character typeidentifier="piratesecurity" minamount="1" maxamount="1"/>
+            <Character typeidentifier="piratemechanic" minamount="1" maxamount="1" />
+            <Character typeidentifier="pirateengineer" minamount="1" maxamount="1" />
+        </Characters>
+
+        <CharacterTypes>
+            <CharacterType typeidentifier="piratesecurity">
+                <Character identifier="piratesecurityrecruit" from="mlc_pirates_cold_caverns" preferreddifficulty="5" iscommander="true"/>
+            </CharacterType>
+
+            <CharacterType typeidentifier="piratemechanic">
+                <Character identifier="piratemechanicrecruit" from="mlc_pirates_cold_caverns" preferreddifficulty="5"/>
+            </CharacterType>
+
+            <CharacterType typeidentifier="pirateengineer">
+                <Character identifier="pirateengineerrecruit" from="mlc_pirates_cold_caverns" preferreddifficulty="5"/>
+            </CharacterType>
+        </CharacterTypes>
+        <Icon texture="Content/UI/MissionIcons.png" sourcerect="0,768,256,256" color="243,146,55"/>
+    </PirateMission>
+
+    <!-- Cold Caverns (10-20% diff)-->
+    <PirateMission name="mlc_pirate_diff_10-20" type="Pirate" identifier="mlc_mp_pirate_cold_cavern1" tags="" description="INTERNAL USE ONLY" difficulty="0" commonness="0" reward="0" successmessage="" addedmissiondifficultyperplayer="8">
+        <message header="" text="" />
+        <message header="" text="" />
+
+        <!-- NOT Used, outposts are defined elsewhere -->
+        <SubmarineTypes>
+            <Submarine path="Content/Map/EnemySubmarines/DugongPirate.sub" preferreddifficulty="0" alternatereward="0"/>
+        </SubmarineTypes>
+
+        <!-- Used -->
+        <Characters>
+            <!-- The types of characters we'll spawn in -->
+            <Character typeidentifier="piratecaptain" minamount="1" maxamount="1" />
+            <Character typeidentifier="piratesecurity" minamount="1" maxamount="1" />
+            <Character typeidentifier="piratemedic" minamount="0" maxamount="1" />
+            <Character typeidentifier="piratemechanic" minamount="1" maxamount="1" />
+            <Character typeidentifier="pirateengineer" minamount="1" maxamount="1" />
+        </Characters>
+
+        <CharacterTypes>
+            <CharacterType typeidentifier="piratecaptain">
+                <Character identifier="piratecaptain" from="mlc_pirates_cold_caverns" preferreddifficulty="10" iscommander="true"/>
+            </CharacterType>
+
+            <CharacterType typeidentifier="piratesecurity">
+                <Character identifier="piratesecurityrecruit" from="mlc_pirates_cold_caverns_1" preferreddifficulty="10"/>
+                <Character identifier="piratesecuritygunner" from="mlc_pirates_cold_caverns" preferreddifficulty="15"/>
+            </CharacterType>
+
+            <CharacterType typeidentifier="piratemechanic">
+                <Character identifier="piratemechanicrecruit" from="mlc_pirates_cold_caverns" preferreddifficulty="10"/>
+            </CharacterType>
+
+            <CharacterType typeidentifier="pirateengineer">
+                <Character identifier="pirateengineerrecruit" from="mlc_pirates_cold_caverns" preferreddifficulty="10"/>
+            </CharacterType>
+
+            <CharacterType typeidentifier="piratemedic">
+                <Character identifier="piratemedicrecruit" from="mlc_pirates_cold_caverns" preferreddifficulty="10"/>
+            </CharacterType>
+        </CharacterTypes>
+        <Icon texture="Content/UI/MissionIcons.png" sourcerect="0,768,256,256" color="243,146,55"/>
+    </PirateMission>
+
+    <!-- Europan Ridge (15-30% diff)-->
+    <PirateMission name="mlc_pirate_diff_15-30" type="Pirate" identifier="mlc_mp_pirates_ridge" tags="" description="INTERNAL USE ONLY" difficulty="0" commonness="0" reward="0" successmessage="" addedmissiondifficultyperplayer="8">
+        <message header="" text="" />
+        <message header="" text="" />
+
+        <!-- NOT Used, outposts are defined elsewhere -->
+        <SubmarineTypes>
+            <Submarine path="Content/Map/EnemySubmarines/DugongPirate.sub" preferreddifficulty="0" alternatereward="0"/>
+        </SubmarineTypes>
+
+        <!-- Used -->
+        <Characters>
+            <!-- The types of characters we'll spawn in -->
+            <Character typeidentifier="piratecaptain" minamount="1" maxamount="1" />
+            <Character typeidentifier="piratesecurity" minamount="1" maxamount="2" />
+            <Character typeidentifier="piratemedic" minamount="1" maxamount="1" />
+            <Character typeidentifier="piratemechanic" minamount="1" maxamount="1" />
+            <Character typeidentifier="pirateengineer" minamount="1" maxamount="1" />
+        </Characters>
+
+        <CharacterTypes>
+            <CharacterType typeidentifier="piratecaptain">
+                <Character identifier="piratecaptain" from="mlc_pirates_ridge" preferreddifficulty="20" iscommander="true"/>
+            </CharacterType>
+
+            <CharacterType typeidentifier="piratesecurity">
+                <Character identifier="piratesecurityrecruit" from="mlc_pirates_ridge" preferreddifficulty="15"/>
+                <Character identifier="piratesecuritygunner" from="mlc_pirates_ridge" preferreddifficulty="20"/>
+            </CharacterType>
+
+            <CharacterType typeidentifier="piratemechanic">
+                <Character identifier="piratemechanicrecruit" from="mlc_pirates_ridge" preferreddifficulty="10"/>
+            </CharacterType>
+
+            <CharacterType typeidentifier="pirateengineer">
+                <Character identifier="pirateengineerrecruit" from="mlc_pirates_ridge" preferreddifficulty="10"/>
+            </CharacterType>
+
+            <CharacterType typeidentifier="piratemedic">
+                <Character identifier="piratemedicrecruit" from="mlc_pirates_ridge" preferreddifficulty="10"/>
+            </CharacterType>
+        </CharacterTypes>
+        <Icon texture="Content/UI/MissionIcons.png" sourcerect="0,768,256,256" color="243,146,55"/>
+    </PirateMission>
+
+    <!-- Aphotic Plateau (25-50% diff)-->
+    <PirateMission name="mlc_pirate_diff_25-50" type="Pirate" identifier="mlc_mp_pirate_plateau" tags="" description="INTERNAL USE ONLY" difficulty="0" commonness="0" reward="0" successmessage="" addedmissiondifficultyperplayer="8">
+        <message header="" text="" />
+        <message header="" text="" />
+
+        <!-- NOT Used, outposts are defined elsewhere -->
+        <SubmarineTypes>
+            <Submarine path="Content/Map/EnemySubmarines/DugongPirate.sub" preferreddifficulty="0" alternatereward="0"/>
+        </SubmarineTypes>
+
+        <!-- Used -->
+        <Characters>
+            <!-- The types of characters we'll spawn in -->
+            <Character typeidentifier="piratecaptain" minamount="1" maxamount="1" />
+            <Character typeidentifier="piratesecurity" minamount="2" maxamount="4" />
+            <Character typeidentifier="piratemedic" minamount="1" maxamount="1" />
+            <Character typeidentifier="piratemechanic" minamount="1" maxamount="2" />
+            <Character typeidentifier="pirateengineer" minamount="1" maxamount="2" />
+        </Characters>
+
+        <CharacterTypes>
+            <CharacterType typeidentifier="piratecaptain">
+                <Character identifier="piratecaptain" from="mlc_pirates_plateau" preferreddifficulty="30" iscommander="true"/>
+            </CharacterType>
+
+            <CharacterType typeidentifier="piratesecurity">
+                <Character identifier="piratesecurityrecruit" from="mlc_pirates_plateau" preferreddifficulty="25"/>
+                <Character identifier="piratesecuritygunner" from="mlc_pirates_plateau" preferreddifficulty="35"/>
+                <Character identifier="piratesecuritybrute" from="mlc_pirates_plateau" preferreddifficulty="40"/>
+            </CharacterType>
+
+            <CharacterType typeidentifier="piratemechanic">
+                <Character identifier="piratemechanicrecruit" from="mlc_pirates_plateau" preferreddifficulty="25"/>
+            </CharacterType>
+
+            <CharacterType typeidentifier="pirateengineer">
+                <Character identifier="pirateengineerrecruit" from="mlc_pirates_plateau" preferreddifficulty="25"/>
+            </CharacterType>
+
+            <CharacterType typeidentifier="piratemedic">
+                <Character identifier="piratemedicrecruit" from="mlc_pirates_plateau" preferreddifficulty="25"/>
+            </CharacterType>
+        </CharacterTypes>
+        <Icon texture="Content/UI/MissionIcons.png" sourcerect="0,768,256,256" color="243,146,55"/>
+    </PirateMission>
+
+    <!-- The Great Sea (45-65% diff)-->
+    <PirateMission name="mlc_pirate_diff_45-65" type="Pirate" identifier="mlc_mp_pirate_greatsea" tags="" description="INTERNAL USE ONLY" difficulty="0" commonness="0" reward="0" successmessage="" addedmissiondifficultyperplayer="8">
+        <message header="" text="" />
+        <message header="" text="" />
+
+        <!-- NOT Used, outposts are defined elsewhere -->
+        <SubmarineTypes>
+            <Submarine path="Content/Map/EnemySubmarines/DugongPirate.sub" preferreddifficulty="0" alternatereward="0"/>
+        </SubmarineTypes>
+
+        <!-- Used -->
+        <Characters>
+            <!-- The types of characters we'll spawn in -->
+            <Character typeidentifier="piratecaptain" minamount="1" maxamount="1" />
+            <Character typeidentifier="piratesecurity" minamount="3" maxamount="5" />
+            <Character typeidentifier="piratemedic" minamount="1" maxamount="2" />
+            <Character typeidentifier="piratemechanic" minamount="1" maxamount="2" />
+            <Character typeidentifier="pirateengineer" minamount="1" maxamount="2" />
+        </Characters>
+
+        <CharacterTypes>
+            <CharacterType typeidentifier="piratecaptain">
+                <Character identifier="piratecaptain" from="mlc_pirates_greatsea" preferreddifficulty="50" iscommander="true"/>
+                <Character identifier="piratecaptainlord" from="mlc_pirates_greatsea" preferreddifficulty="60" iscommander="true"/>
+            </CharacterType>
+
+            <CharacterType typeidentifier="piratesecurity">
+                <Character identifier="piratesecurityelite" from="mlc_pirates_greatsea" preferreddifficulty="50"/>
+                <Character identifier="pirateflamer" from="mlc_pirates_greatsea" preferreddifficulty="55"/>
+                <Character identifier="pirateberserker" from="mlc_pirates_greatsea" preferreddifficulty="55"/>
+                <Character identifier="piratedeadeye" from="mlc_pirates_greatsea" preferreddifficulty="60"/>
+                <Character identifier="piratesecuritybrute" from="mlc_pirates_greatsea" preferreddifficulty="60"/>
+            </CharacterType>
+
+            <CharacterType typeidentifier="piratemechanic">
+                <Character identifier="piratemechanicrecruit" from="mlc_pirates_greatsea" preferreddifficulty="45"/>
+            </CharacterType>
+
+            <CharacterType typeidentifier="pirateengineer">
+                <Character identifier="pirateengineerrecruit" from="mlc_pirates_greatsea" preferreddifficulty="45"/>
+            </CharacterType>
+
+            <CharacterType typeidentifier="piratemedic">
+                <Character identifier="piratemedic" from="mlc_pirates_greatsea" preferreddifficulty="45"/>
+                <Character identifier="piratemedic" from="mlc_pirates_wastes" preferreddifficulty="55"/>
+            </CharacterType>
+        </CharacterTypes>
+        <Icon texture="Content/UI/MissionIcons.png" sourcerect="0,768,256,256" color="243,146,55"/>
+    </PirateMission>
+
+    <!-- Hydrothermal Wastes (55-100% diff)-->
+    <PirateMission name="mlc_pirate_diff_55-100" type="Pirate" identifier="mlc_mp_pirate_wastes" tags="" description="INTERNAL USE ONLY" difficulty="0" commonness="0" reward="0" successmessage="" addedmissiondifficultyperplayer="8">
+        <message header="" text="" />
+        <message header="" text="" />
+
+        <!-- NOT Used, outposts are defined elsewhere -->
+        <SubmarineTypes>
+            <Submarine path="Content/Map/EnemySubmarines/DugongPirate.sub" preferreddifficulty="0" alternatereward="0"/>
+        </SubmarineTypes>
+
+        <!-- Used -->
+        <Characters>
+            <!-- The types of characters we'll spawn in -->
+            <Character typeidentifier="piratecaptain" minamount="1" maxamount="1" />
+            <Character typeidentifier="piratesecurity" minamount="5" maxamount="5" />
+            <Character typeidentifier="piratemedic" minamount="2" maxamount="2" />
+            <Character typeidentifier="piratemechanic" minamount="2" maxamount="2" />
+            <Character typeidentifier="pirateengineer" minamount="2" maxamount="2" />
+        </Characters>
+
+        <CharacterTypes>
+            <CharacterType typeidentifier="piratecaptain">
+                <Character identifier="piratecaptainlord" from="mlc_pirates_wastes" preferreddifficulty="60" iscommander="true"/>
+            </CharacterType>
+
+            <CharacterType typeidentifier="piratesecurity">
+                <Character identifier="piratesecurityelite" from="mlc_pirates_wastes" preferreddifficulty="60"/>
+                <Character identifier="pirateflamer" from="mlc_pirates_wastes" preferreddifficulty="65"/>
+                <Character identifier="piratedeadeye" from="mlc_pirates_wastes" preferreddifficulty="65"/>
+                <Character identifier="piratesecuritybrute" from="mlc_pirates_wastes" preferreddifficulty="70"/>
+                <Character identifier="pirateberserker" from="mlc_pirates_wastes" preferreddifficulty="80"/>
+            </CharacterType>
+
+            <CharacterType typeidentifier="piratemechanic">
+                <Character identifier="piratemechanicrecruit" from="mlc_pirates_wastes" preferreddifficulty="60"/>
+                <Character identifier="piratemechanicveteran" from="mlc_pirates_wastes" preferreddifficulty="70"/>
+            </CharacterType>
+
+            <CharacterType typeidentifier="pirateengineer">
+                <Character identifier="pirateengineerrecruit" from="mlc_pirates_wastes" preferreddifficulty="60"/>
+                <Character identifier="pirateengineerveteran" from="mlc_pirates_wastes" preferreddifficulty="70"/>
+            </CharacterType>
+
+            <CharacterType typeidentifier="piratemedic">
+                <Character identifier="piratemedic" from="mlc_pirates_wastes" preferreddifficulty="60"/>
+            </CharacterType>
+        </CharacterTypes>
+        <Icon texture="Content/UI/MissionIcons.png" sourcerect="0,768,256,256" color="243,146,55"/>
+    </PirateMission>
 </Missions>

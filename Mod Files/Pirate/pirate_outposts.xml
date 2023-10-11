@@ -1,0 +1,16 @@
+<Missions tags="MLC, piratebases">
+    <PirateBaseSet
+        identifier="piratebaseset1"
+        tags="piratebase, mlc"
+        type="GoTo">
+        <PirateBase path="%ModDir%/Pirate/Outposts/PirateOutpost01-0-10.sub" min="0" max="10"/>
+        <PirateBase path="%ModDir%/Pirate/Outposts/PirateOutpost02-0-15.sub" min="0" max="15"/>
+        <PirateBase path="%ModDir%/Pirate/Outposts/PirateOutpost03-5-15.sub" min="5" max="15"/>
+        <PirateBase path="%ModDir%/Pirate/Outposts/PirateOutpost04-10-20.sub" min="10" max="20"/>
+        <PirateBase path="%ModDir%/Pirate/Outposts/PirateOutpost05-15-25.sub" min="15" max="25"/>
+        <PirateBase path="%ModDir%/Pirate/Outposts/PirateOutpost06-40-50.sub" min="40" max="50"/>
+        <PirateBase path="%ModDir%/Pirate/Outposts/PirateOutpost07-50-70.sub" min="50" max="70"/>
+        <PirateBase path="%ModDir%/Pirate/Outposts/PirateOutpost08-20-30.sub" min="20" max="30"/>
+    </PirateBaseSet>
+
+</Missions>

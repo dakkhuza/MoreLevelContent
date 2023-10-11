@@ -59,6 +59,8 @@ namespace MoreLevelContent.Networking
         /// </summary>
         MAP_SEND_NEWDISTRESS,
 
+        MAP_UPDATE_DISTRESS,
+
         /// <summary>
         /// Call the create distress method on the server
         /// </summary>
@@ -69,8 +71,14 @@ namespace MoreLevelContent.Networking
         /// </summary>
         COMMAND_STEPWORLD,
 
+        /// <summary>
+        /// Request a location connection equality check from the server
+        /// </summary>
         MAP_CONNECTION_EQUALITYCHECK_REQUEST,
 
+        /// <summary>
+        /// Send the location connection equality information to the client
+        /// </summary>
         MAP_CONNECTION_EQUALITYCHECK_SENDCLIENT
     }
 }

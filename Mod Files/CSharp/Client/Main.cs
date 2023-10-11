@@ -38,8 +38,6 @@ namespace MoreLevelContent
             CreateSettingsButton();
         }
 
-
-
         private static void AddSettingsButton()
         {
             if (!GUI.PauseMenuOpen) return; // don't try to add the button when the pause menu doesn't exist

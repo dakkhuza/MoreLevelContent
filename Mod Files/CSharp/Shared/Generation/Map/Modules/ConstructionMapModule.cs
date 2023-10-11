@@ -64,7 +64,7 @@ namespace MoreLevelContent.Shared.Generation
                 Log.Debug("Map has construction sites");
             }
         }
-        public override void OnProgressWorld(Map __instance) { }
+        public override void OnProgressWorld_Step(Map __instance) { }
 
         private void TrySpawnBeaconConstruction(LevelData levelData, LevelData_MLCData extraData, LocationConnection locationConnection)
         {

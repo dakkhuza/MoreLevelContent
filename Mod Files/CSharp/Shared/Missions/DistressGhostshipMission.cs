@@ -411,8 +411,8 @@ namespace MoreLevelContent.Missions
         private void OnStructureDamaged(Structure structure, float damageAmount, Character character)
         {
             if (character == null || damageAmount <= 0.0f) { return; }
-            if (!character.IsPlayer) { return; }
             if (structure?.Submarine == null || structure.Submarine != ghostship) { return; }
+            if (character.IsHuman && character.IsPlayer) { return; }
 
             // let them accidentally damage the hull a bit
             if (damageAmount <= 1.5f && accumulatedDamage < ACCUMULATED_DAMAGE_BREAKPOINT)

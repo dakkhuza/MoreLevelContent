@@ -17,13 +17,19 @@ namespace MoreLevelContent.Shared.Data
                 Log.Error("No drop off point specified!!");
                 return false;
             }
-            int uCount = DropOffPoint.ContainedItems.Where(it => it.Tags.Contains("supply_utility")).Count();
-            int sCount = DropOffPoint.ContainedItems.Where(it => it.Tags.Contains("supply_structural")).Count();
-            int eCount = DropOffPoint.ContainedItems.Where(it => it.Tags.Contains("supply_electrical")).Count();
+            int utilityCount = DropOffPoint.ContainedItems.Where(it => it.Tags.Contains("supply_utility")).Count();
+            int structualCount = DropOffPoint.ContainedItems.Where(it => it.Tags.Contains("supply_structural")).Count();
+            int electricalCount = DropOffPoint.ContainedItems.Where(it => it.Tags.Contains("supply_electrical")).Count();
+
+            int requestedUtility = Level.Loaded.LevelData.MLC().RequestedU;
+            int requestedStructual = Level.Loaded.LevelData.MLC().RequestedS;
+            int requestedElectrical = Level.Loaded.LevelData.MLC().RequestedE;
+
+            //Log.InternalDebug($"Utility: {utilityCount} / {requestedUtility}, Structual: {structualCount} / {requestedStructual}, Electrical: {electricalCount} / {requestedElectrical}");
             return 
-                uCount >= Level.Loaded.LevelData.MLC().RequestedU && // electrical
-                sCount >= Level.Loaded.LevelData.MLC().RequestedS && // structural
-                eCount >= Level.Loaded.LevelData.MLC().RequestedE;   // electrical
+                utilityCount >= requestedUtility && // electrical
+                structualCount >= requestedStructual && // structural
+                electricalCount >= requestedElectrical;   // electrical
         }
     }
 

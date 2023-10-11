@@ -1,0 +1,8 @@
+<infotexts>
+    <!-- Alien Items -->
+    <name.unknownalienitem>Alien Object</name.unknownalienitem>
+    <description.unknownalienitem>Some sort of alien object, who knows what it could do!</description.unknownalienitem>
+
+    <entityname.mlc_alienrevival>Manifold Wrapper</entityname.mlc_alienrevival>
+    <entitydescription.mlc_alienrevival>Some sort of alien object, use near a deceased crew member to revive them.</entitydescription.mlc_alienrevival>    
+</infotexts>

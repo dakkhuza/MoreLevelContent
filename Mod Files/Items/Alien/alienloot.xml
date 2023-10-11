@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Items>
+    <Item name="" identifier="mlc_alienrevival" category="Alien" Tags="alien, unknownalienitem"
+        scale="0.5" impactsoundtag="impact_metal_light">
+        <Sprite texture="%ModDir%/Items/Alien/alienitems.png" sourcerect="95,0,101,97"
+            origin="0.5,0.5" depth="0.60" />
+        <DecorativeSprite texture="%ModDir%/Items/Alien/alienitems.png" sourcerect="0,0,95,97"
+            origin="0.5,0.5" rotationspeed="-715" depth="0.61" />
+        <Body radius="20" mindensity="9" maxdensity="11" />
+        <Holdable slots="RightHand,LeftHand,Any" holdpos="0,-70" handle1="0,10" handle2="0,-10"></Holdable>
+    </Item>
+</Items>

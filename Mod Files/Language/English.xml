@@ -145,4 +145,14 @@
     <mlc.config.debuginternal>Internal Logging</mlc.config.debuginternal>
     <mlc.config.debuginternaltooltip>Enable internal logging, which logs internal debugging messages to console</mlc.config.debuginternaltooltip>
     <!-- Talents -->
+
+    <!-- AI Order Traitor Stuff, Not visible in game, used for debugging -->
+    <orderoptions.traitorinjectitem>Inject Husk Eggs, Cyanide, Sufforin, Paralyzant</orderoptions.traitorinjectitem>
+
+    <!-- Traitor Voicelines -->
+    <dialog.traitorcultist.found>I'm only trying to save you!</dialog.traitorcultist.found>
+    <dialog.traitorcultist.found>The Husk will set you free!</dialog.traitorcultist.found>
+    <dialog.traitorcultist.found>Disgusting meatbags, you would never accept the husk willingly!</dialog.traitorcultist.found>
+
+    <dialog.traitorpoison.found>You'll never take me alive!</dialog.traitorpoison.found>
 </infotexts>

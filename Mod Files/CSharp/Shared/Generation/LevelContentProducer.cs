@@ -25,6 +25,7 @@ namespace MoreLevelContent.Shared.Generation
             Log.Verbose("LevelContentProducer::ctr..");
             AddDirector(PirateOutpostDirector.Instance);
             AddDirector(MissionGenerationDirector.Instance);
+            AddDirector(CaveGenerationDirector.Instance);
             // AddDirector(PirateEncounterDirector.Instance);
         }
 

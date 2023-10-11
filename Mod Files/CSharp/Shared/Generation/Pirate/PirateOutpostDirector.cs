@@ -28,6 +28,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
 
         void ILevelStartGenerate.OnLevelGenerationStart(LevelData levelData, bool _)
         {
+            enemyOutpost = null;
             // Exit if it's an outpost level
             if (levelData.Type == LevelData.LevelType.Outpost) return;
 

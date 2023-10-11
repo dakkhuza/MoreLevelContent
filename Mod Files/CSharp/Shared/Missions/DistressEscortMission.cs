@@ -9,6 +9,7 @@ using Barotrauma.MoreLevelContent.Shared.Utils;
 using Microsoft.Xna.Framework;
 using MoreLevelContent.Shared;
 using MoreLevelContent.Shared.Data;
+using MoreLevelContent.Shared.Utils;
 using static Barotrauma.Level;
 
 namespace MoreLevelContent.Missions
@@ -17,13 +18,10 @@ namespace MoreLevelContent.Missions
     partial class DistressEscortMission : DistressMission
     {
         private readonly XElement characterConfig;
-        //private readonly XElement distressItem;
         private readonly LocalizedString sonarLabel;
         private readonly PositionType spawnPositionType;
         private readonly bool hostile;
 
-        // private readonly List<Character> characters = new List<Character>();
-        // private readonly Dictionary<Character, List<Item>> characterItems = new Dictionary<Character, List<Item>>();
         private readonly MissionNPCCollection missionNPCs;
 
 
@@ -31,12 +29,11 @@ namespace MoreLevelContent.Missions
         private Submarine missionSub;
         private Vector2 spawnPosition;
 
-        public override LocalizedString SonarLabel => base.SonarLabel.IsNullOrEmpty() ? sonarLabel : base.SonarLabel;
-        public override IEnumerable<Vector2> SonarPositions
+        public override IEnumerable<(LocalizedString Label, Vector2 Position)> SonarLabels
         {
             get
             {
-                yield return spawnPosition;
+                yield return (Prefab.SonarLabel.IsNullOrEmpty() ? sonarLabel : Prefab.SonarLabel, spawnPosition);
             }
         }
 
@@ -46,7 +43,6 @@ namespace MoreLevelContent.Missions
             missionSub = sub;
             characterConfig = prefab.ConfigElement.GetChildElement("Characters");
             sonarLabel = TextManager.Get("missionname.distressmission");
-            //distressItem = prefab.ConfigElement.GetChildElement("DistressItem");
             spawnPositionType = characterConfig.GetAttributeEnum("spawntype", PositionType.Cave);
             hostile = characterConfig.GetAttributeBool("hostile", false);
             missionNPCs = new(this, characterConfig);
@@ -85,8 +81,13 @@ namespace MoreLevelContent.Missions
 
             if (!Loaded.TryGetInterestingPosition(false, spawnPositionType, 0, out spawnPosition))
             {
-                Log.Error($"Failed to find a spawn position of type {spawnPositionType}!");
-                return;
+                Log.Error($"Failed to find a spawn position of type {spawnPositionType}! Falling back to any position.");
+                bool failed = Loaded.TryGetInterestingPosition(false, PositionType.MainPath | PositionType.SidePath | PositionType.Cave | PositionType.Wreck, 0, out spawnPosition);
+                if (failed)
+                {
+                    Log.Error("Could not find ANY position to spawn distress humans at!");
+                    spawnPosition = Vector2.Zero;
+                }
             }
 
             CharacterTeamType team = hostile ? CharacterTeamType.None : CharacterTeamType.FriendlyNPC;
@@ -179,7 +180,11 @@ namespace MoreLevelContent.Missions
                     return;
                 }
 
-                bool ShouldActivate() => GameMain.GameSession.CrewManager.GetCharacters().Where(c => c.IsPlayer).Any(c => MissionNPCCollection.Close(c, aiCharacter, MINDIST));
+                bool ShouldActivate()
+                {
+                    bool shouldActivate = GameSession.GetSessionCrewCharacters(CharacterType.Player).Any(c => MissionNPCCollection.Close(c, aiCharacter, MINDIST));
+                    return shouldActivate;
+                }
             }
         }
 
@@ -210,7 +215,7 @@ namespace MoreLevelContent.Missions
         protected override bool DetermineCompleted()
         {
             return Submarine.MainSub != null && Submarine.MainSub.AtEndExit
-                ? hostile ? missionNPCs.characters.Any(c => MissionNPCCollection.Survived(c) && !MissionNPCCollection.IsCaptured(c)) : missionNPCs.characters.All(c => MissionNPCCollection.Survived(c))
+                ? hostile ? triggered : missionNPCs.characters.All(c => MissionNPCCollection.Survived(c))
                 : false;
         }
 

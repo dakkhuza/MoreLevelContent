@@ -17,7 +17,11 @@ namespace MoreLevelContent.Networking
         /// </summary>
         /// <param name="target"></param>
         /// <param name="netEvent"></param>
-        public static void Register(NetEvent target, LuaCsAction netEvent) => GameMain.LuaCs.Networking.Receive(Enum.GetName(typeof(NetEvent), target), netEvent);
+        public static void Register(NetEvent target, LuaCsAction netEvent)
+        {
+            if (GameMain.IsSingleplayer) return;
+            GameMain.LuaCs.Networking.Receive(Enum.GetName(typeof(NetEvent), target), netEvent);
+        }
     }
 
     /// <summary>
@@ -63,6 +67,10 @@ namespace MoreLevelContent.Networking
         /// <summary>
         /// Fakes a world step
         /// </summary>
-        COMMAND_STEPWORLD
+        COMMAND_STEPWORLD,
+
+        MAP_CONNECTION_EQUALITYCHECK_REQUEST,
+
+        MAP_CONNECTION_EQUALITYCHECK_SENDCLIENT
     }
 }

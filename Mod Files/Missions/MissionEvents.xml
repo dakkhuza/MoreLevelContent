@@ -1,0 +1,659 @@
+<Randomevents>
+    <EventPrefabs>
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <!--                        Construction Events                                -->
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+        <ScriptedEvent identifier="constructionworkers">
+            <SpawnAction npcsetidentifier="mlc_constructionsite_npcs"
+                npcidentifier="constructionworker" spawnpointtag="constructionsaferoom"
+                spawnlocation="any"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="mlc_constructionsite_npcs"
+                npcidentifier="constructionworker" spawnpointtag="constructionsaferoom"
+                spawnlocation="any"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+        </ScriptedEvent>
+
+        <ScriptedEvent identifier="constructioncorpse">
+            <SpawnAction npcsetidentifier="mlc_constructionsite_npcs"
+                npcidentifier="constructionworker_outside"
+                targettag="corpse_construction" spawnpointtag="constructioncorpse"
+                spawnlocation="any"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <AfflictionAction targettag="corpse_construction" affliction="concussion" strength="100" />
+            <AfflictionAction targettag="corpse_construction" LimbType="Head"
+                affliction="blunttrauma"
+                strength="50" />
+            <AfflictionAction targettag="corpse_construction" affliction="oxygenlow" strength="200" />
+        </ScriptedEvent>
+
+        <ScriptedEvent identifier="constructioncorpse1">
+            <SpawnAction npcsetidentifier="mlc_constructionsite_npcs"
+                npcidentifier="constructionworker"
+                targettag="constructionworker_outside" spawnpointtag="constructioncorpse"
+                spawnlocation="any"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <AfflictionAction targettag="corpse_construction" affliction="lacerations"
+                LimbType="LeftHand" strength="100" />
+            <AfflictionAction targettag="corpse_construction" affliction="lacerations"
+                LimbType="LeftArm" strength="100" />
+            <AfflictionAction targettag="corpse_construction" affliction="bleeding"
+                LimbType="LeftHand" strength="100" />
+            <AfflictionAction targettag="corpse_construction" affliction="bleeding"
+                LimbType="LeftArm" strength="100" />
+            <AfflictionAction targettag="corpse_construction" affliction="bloodloss" strength="200" />
+        </ScriptedEvent>
+
+        <ScriptedEvent identifier="constructioncorpse2">
+            <SpawnAction npcsetidentifier="mlc_constructionsite_npcs"
+                npcidentifier="constructionworker_outside"
+                targettag="corpse_construction" spawnpointtag="constructioncorpse"
+                spawnlocation="any"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <AfflictionAction targettag="corpse_construction" affliction="bitewounds" strength="100" />
+            <AfflictionAction targettag="corpse_construction" affliction="bleeding" strength="100" />
+            <AfflictionAction targettag="corpse_construction" affliction="bloodloss" strength="200" />
+        </ScriptedEvent>
+
+        <ScriptedEvent identifier="constructionhusk">
+            <SpawnAction npcsetidentifier="mlc_constructionsite_npcs"
+                npcidentifier="constructionworker_outside"
+                targettag="corpse_construction" spawnpointtag="constructioncorpse"
+                spawnlocation="any"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <TagAction criteria="crew" tag="player" />
+            <AfflictionAction targettag="corpse_construction" affliction="huskinfection"
+                strength="100" />
+            <AfflictionAction targettag="corpse_construction" affliction="internaldamage"
+                strength="10" />
+
+            <GodModeAction targettag="corpse_construction" enabled="true" />
+            <TriggerAction target1tag="corpse_construction" target2tag="player" radius="400" />
+            <GodModeAction targettag="corpse_construction" enabled="false" />
+        </ScriptedEvent>
+
+        <ScriptedEvent identifier="constructionclown">
+            <SpawnAction npcsetidentifier="mlc_special_npcs" npcidentifier="clowncorpse"
+                targettag="construction_clowncorpse" spawnpointtag="constructioncorpse"
+                spawnlocation="any"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <TagAction criteria="crew" tag="player" />
+            <AfflictionAction targettag="construction_clowncorpse" affliction="oxygenlow"
+                strength="200" />
+            <CheckDataAction identifier="construction_clowncorpse" condition="eq 0">
+                <!-- If they've never met the clown corpse, don't explode till we interact with it -->
+                <Success>
+                    <SetDataAction identifier="construction_clowncorpse" value="1" />
+                    <TriggerAction target1tag="construction_clowncorpse" target2tag="player"
+                        radius="100"
+                        waitforinteraction="true" disableiftargetincapacitated="false" />
+                    <StatusEffectAction targettag="construction_clowncorpse">
+                        <StatusEffect>
+                            <Sound file="Content/Items/Weapons/honk.ogg" range="500" />
+                            <sound file="Content/Items/Weapons/ExplosionMedium1.ogg" range="10000"
+                                selectionmode="All" />
+                            <sound file="Content/Items/Weapons/ExplosionDebris1.ogg" range="10000" />
+                            <Explosion range="200.0" ballastfloradamage="100" structuredamage="150"
+                                itemdamage="500" force="15" severlimbsprobability="0.5"
+                                decal="explosion"
+                                decalsize="0.5" penetration="0.5">
+                                <Affliction identifier="explosiondamage" strength="50"
+                                    dividebylimbcount="true" />
+                                <Affliction identifier="burn" strength="15" probability="0.2"
+                                    dividebylimbcount="false" />
+                                <Affliction identifier="bleeding" strength="20" probability="0.05"
+                                    dividebylimbcount="false" />
+                                <Affliction identifier="stun" strength="7" />
+                            </Explosion>
+
+                        </StatusEffect>
+                    </StatusEffectAction>
+                </Success>
+
+                <Failure>
+                    <CheckDataAction identifier="construction_clowncorpse" condition="eq 1">
+                        <!-- They've met the corpse once, explode when they get close -->
+                        <Success>
+                            <SetDataAction identifier="construction_clowncorpse" value="2" />
+                            <TriggerAction target1tag="construction_clowncorpse" target2tag="player"
+                                radius="300"
+                                waitforinteraction="false" disableiftargetincapacitated="false" />
+                            <StatusEffectAction targettag="construction_clowncorpse">
+                                <StatusEffect>
+                                    <Sound file="Content/Items/Weapons/honk.ogg" range="500" />
+                                    <sound file="Content/Items/Weapons/ExplosionMedium1.ogg"
+                                        range="10000"
+                                        selectionmode="All" />
+                                    <sound file="Content/Items/Weapons/ExplosionDebris1.ogg"
+                                        range="10000" />
+                                    <Explosion range="300.0" ballastfloradamage="100"
+                                        structuredamage="150"
+                                        itemdamage="500" force="15" severlimbsprobability="0.5"
+                                        decal="explosion"
+                                        decalsize="0.5" penetration="0.5">
+                                        <Affliction identifier="explosiondamage" strength="50"
+                                            dividebylimbcount="true" />
+                                        <Affliction identifier="burn" strength="15"
+                                            probability="0.2"
+                                            dividebylimbcount="false" />
+                                        <Affliction identifier="bleeding" strength="20"
+                                            probability="0.05"
+                                            dividebylimbcount="false" />
+                                        <Affliction identifier="stun" strength="7" />
+                                    </Explosion>
+
+                                </StatusEffect>
+                            </StatusEffectAction>
+
+                        </Success>
+
+                        <Failure>
+                            <CheckDataAction identifier="construction_clowncorpse" condition="eq 2">
+
+                                <!-- They've met the corpse twice, gas light them and do nothing -->
+                                <Success>
+                                    <TriggerAction target1tag="construction_clowncorpse"
+                                        target2tag="player"
+                                        radius="300"
+                                        waitforinteraction="false"
+                                        disableiftargetincapacitated="false" />
+                                    <SetDataAction identifier="construction_clowncorpse" value="3" />
+
+                                    <SpawnAction npcsetidentifier="mlc_special_npcs"
+                                        npcidentifier="clowncorpse"
+                                        targettag="construction_clowncorpse2"
+                                        spawnlocation="MainSub"
+                                        spawnpointtype="Path" team="FriendlyNPC" />
+                                    <AfflictionAction targettag="construction_clowncorpse2"
+                                        affliction="oxygenlow"
+                                        strength="200" />
+
+                                    <StatusEffectAction targettag="construction_clowncorpse2">
+                                        <StatusEffect>
+                                            <Sound file="Content/Items/Weapons/honk.ogg" range="500" />
+                                            <Explosion range="200.0" stun="1.0" force="15.0"
+                                                flames="true" flash="true" shockwave="true"
+                                                sparks="true" underwaterbubble="true" />
+                                        </StatusEffect>
+                                    </StatusEffectAction>
+                                    <WaitAction time="10" />
+                                    <StatusEffectAction targettag="construction_clowncorpse2">
+                                        <StatusEffect>
+                                            <Sound file="Content/Items/Weapons/honk.ogg" range="500" />
+                                            <sound file="Content/Items/Weapons/ExplosionMedium1.ogg"
+                                                range="10000"
+                                                selectionmode="All" />
+                                            <sound file="Content/Items/Weapons/ExplosionDebris1.ogg"
+                                                range="10000" />
+                                            <Explosion range="300.0" ballastfloradamage="100"
+                                                structuredamage="150"
+                                                itemdamage="500" force="15"
+                                                severlimbsprobability="0.5"
+                                                decal="explosion"
+                                                decalsize="0.5" penetration="0.5">
+                                                <Affliction identifier="explosiondamage"
+                                                    strength="50"
+                                                    dividebylimbcount="true" />
+                                                <Affliction identifier="burn" strength="15"
+                                                    probability="0.2"
+                                                    dividebylimbcount="false" />
+                                                <Affliction identifier="bleeding" strength="20"
+                                                    probability="0.05"
+                                                    dividebylimbcount="false" />
+                                                <Affliction identifier="stun" strength="7" />
+                                            </Explosion>
+
+                                        </StatusEffect>
+                                    </StatusEffectAction>
+
+                                </Success>
+
+
+                                <Failure>
+
+                                    <CheckDataAction identifier="construction_clowncorpse"
+                                        condition="eq 3">
+
+                                        <!-- They've met the clown corpse 3 times, this time it
+                                        swims after them to blow up -->
+                                        <Success>
+                                            <GodModeAction
+                                                targettag="construction_clowncorpse" enabled="true" />
+                                            <AfflictionAction targettag="construction_clowncorpse"
+                                                affliction="paralysis"
+                                                strength="200" />
+                                            <TriggerAction target1tag="construction_clowncorpse"
+                                                target2tag="player"
+                                                radius="500"
+                                                waitforinteraction="false"
+                                                disableiftargetincapacitated="false"
+                                                applytotarget2="target_player" />
+                                            <!-- Release the clown -->
+                                            <AfflictionAction targettag="construction_clowncorpse"
+                                                affliction="paralysis"
+                                                strength="-200" />
+
+                                            <!-- Make the clown go after the player that got too
+                                            close -->
+                                            <CombatAction combatmode="Offensive"
+                                                npctag="construction_clowncorpse"
+                                                enemytag="target_player" isinstigator="false"
+                                                guardreaction="none" witnessreaction="none" />
+
+                                            <!-- Explode when we get close -->
+                                            <TriggerAction target1tag="construction_clowncorpse"
+                                                target2tag="target_player"
+                                                radius="100"
+                                                waitforinteraction="false"
+                                                disableiftargetincapacitated="false" />
+                                            <SetDataAction identifier="construction_clowncorpse"
+                                                value="4" />
+                                            <GodModeAction
+                                                targettag="construction_clowncorpse" enabled="false" />
+                                            <AfflictionAction targettag="construction_clowncorpse"
+                                                affliction="oxygenlow"
+                                                strength="200" />
+
+                                            <StatusEffectAction targettag="construction_clowncorpse">
+                                                <StatusEffect>
+                                                    <Sound file="Content/Items/Weapons/honk.ogg"
+                                                        range="500" />
+                                                    <sound
+                                                        file="Content/Items/Weapons/ExplosionMedium1.ogg"
+                                                        range="10000"
+                                                        selectionmode="All" />
+                                                    <sound
+                                                        file="Content/Items/Weapons/ExplosionDebris1.ogg"
+                                                        range="10000" />
+                                                    <Explosion range="200.0"
+                                                        ballastfloradamage="100"
+                                                        structuredamage="150"
+                                                        itemdamage="500" force="15"
+                                                        severlimbsprobability="0.5"
+                                                        decal="explosion"
+                                                        decalsize="0.5" penetration="0.5">
+                                                        <Affliction identifier="explosiondamage"
+                                                            strength="50"
+                                                            dividebylimbcount="true" />
+                                                        <Affliction identifier="burn" strength="15"
+                                                            probability="0.2"
+                                                            dividebylimbcount="false" />
+                                                        <Affliction identifier="bleeding"
+                                                            strength="20"
+                                                            probability="0.05"
+                                                            dividebylimbcount="false" />
+                                                        <Affliction identifier="stun" strength="7" />
+                                                    </Explosion>
+
+                                                </StatusEffect>
+                                            </StatusEffectAction>
+
+                                        </Success>
+
+                                        <Failure>
+                                            <CheckDataAction identifier="construction_clowncorpse"
+                                                condition="eq 4">
+                                                <!-- This time the clown just explodes repeatidly -->
+                                                <Success>
+                                                    <SetDataAction
+                                                        identifier="construction_clowncorpse"
+                                                        value="5" />
+
+                                                    <Label name="explode" />
+                                                    <WaitAction time="2" />
+                                                    <StatusEffectAction
+                                                        targettag="construction_clowncorpse">
+                                                        <StatusEffect>
+                                                            <Sound
+                                                                file="Content/Items/Weapons/honk.ogg"
+                                                                range="500" />
+                                                            <sound
+                                                                file="Content/Items/Weapons/ExplosionMedium1.ogg"
+                                                                range="10000"
+                                                                selectionmode="All" />
+                                                            <sound
+                                                                file="Content/Items/Weapons/ExplosionDebris1.ogg"
+                                                                range="10000" />
+                                                            <Explosion range="200.0"
+                                                                ballastfloradamage="100"
+                                                                structuredamage="150"
+                                                                itemdamage="500" force="15"
+                                                                severlimbsprobability="0"
+                                                                decal="explosion"
+                                                                decalsize="0.5" penetration="0.5">
+                                                                <Affliction
+                                                                    identifier="explosiondamage"
+                                                                    strength="50"
+                                                                    dividebylimbcount="true" />
+                                                                <Affliction identifier="burn"
+                                                                    strength="15"
+                                                                    probability="0.2"
+                                                                    dividebylimbcount="false" />
+                                                                <Affliction identifier="bleeding"
+                                                                    strength="20"
+                                                                    probability="0.05"
+                                                                    dividebylimbcount="false" />
+                                                                <Affliction identifier="stun"
+                                                                    strength="7" />
+                                                            </Explosion>
+
+                                                        </StatusEffect>
+                                                    </StatusEffectAction>
+
+                                                    <GoTo name="explode" />
+                                                </Success>
+                                                <Failure>
+                                                    <TriggerAction
+                                                        target1tag="construction_clowncorpse"
+                                                        target2tag="player"
+                                                        radius="100"
+                                                        waitforinteraction="true"
+                                                        disableiftargetincapacitated="false" />
+                                                    <!-- Finally, a 50% chance to explode instantly
+                                                    when inspecting, a 50% chance to give money and
+                                                    then explode after a second -->
+                                                    <RNGAction chance="0.5">
+                                                        <Success>
+                                                            <MoneyAction amount="100" />
+                                                            <WaitAction time="1" />
+                                                            <StatusEffectAction
+                                                                targettag="construction_clowncorpse">
+                                                                <StatusEffect>
+                                                                    <Sound
+                                                                        file="Content/Items/Weapons/honk.ogg"
+                                                                        range="500" />
+                                                                    <sound
+                                                                        file="Content/Items/Weapons/ExplosionMedium1.ogg"
+                                                                        range="10000"
+                                                                        selectionmode="All" />
+                                                                    <sound
+                                                                        file="Content/Items/Weapons/ExplosionDebris1.ogg"
+                                                                        range="10000" />
+                                                                    <Explosion range="200.0"
+                                                                        ballastfloradamage="100"
+                                                                        structuredamage="150"
+                                                                        itemdamage="500" force="15"
+                                                                        severlimbsprobability="0.5"
+                                                                        decal="explosion"
+                                                                        decalsize="0.5"
+                                                                        penetration="0.5">
+                                                                        <Affliction
+                                                                            identifier="explosiondamage"
+                                                                            strength="50"
+                                                                            dividebylimbcount="true" />
+                                                                        <Affliction
+                                                                            identifier="burn"
+                                                                            strength="15"
+                                                                            probability="0.2"
+                                                                            dividebylimbcount="false" />
+                                                                        <Affliction
+                                                                            identifier="bleeding"
+                                                                            strength="20"
+                                                                            probability="0.05"
+                                                                            dividebylimbcount="false" />
+                                                                        <Affliction
+                                                                            identifier="stun"
+                                                                            strength="7" />
+                                                                    </Explosion>
+
+                                                                </StatusEffect>
+                                                            </StatusEffectAction>
+                                                        </Success>
+                                                        <Failure>
+                                                            <StatusEffectAction
+                                                                targettag="construction_clowncorpse">
+                                                                <StatusEffect>
+                                                                    <Sound
+                                                                        file="Content/Items/Weapons/honk.ogg"
+                                                                        range="500" />
+                                                                    <sound
+                                                                        file="Content/Items/Weapons/ExplosionMedium1.ogg"
+                                                                        range="10000"
+                                                                        selectionmode="All" />
+                                                                    <sound
+                                                                        file="Content/Items/Weapons/ExplosionDebris1.ogg"
+                                                                        range="10000" />
+                                                                    <Explosion range="200.0"
+                                                                        ballastfloradamage="100"
+                                                                        structuredamage="150"
+                                                                        itemdamage="500" force="15"
+                                                                        severlimbsprobability="0.5"
+                                                                        decal="explosion"
+                                                                        decalsize="0.5"
+                                                                        penetration="0.5">
+                                                                        <Affliction
+                                                                            identifier="explosiondamage"
+                                                                            strength="50"
+                                                                            dividebylimbcount="true" />
+                                                                        <Affliction
+                                                                            identifier="burn"
+                                                                            strength="15"
+                                                                            probability="0.2"
+                                                                            dividebylimbcount="false" />
+                                                                        <Affliction
+                                                                            identifier="bleeding"
+                                                                            strength="20"
+                                                                            probability="0.05"
+                                                                            dividebylimbcount="false" />
+                                                                        <Affliction
+                                                                            identifier="stun"
+                                                                            strength="7" />
+                                                                    </Explosion>
+
+                                                                </StatusEffect>
+                                                            </StatusEffectAction>
+                                                        </Failure>
+                                                    </RNGAction>
+                                                </Failure>
+                                            </CheckDataAction>
+                                        </Failure>
+                                    </CheckDataAction>
+                                </Failure>
+                            </CheckDataAction>
+                        </Failure>
+                    </CheckDataAction>
+                </Failure>
+            </CheckDataAction>
+        </ScriptedEvent>
+
+
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <!--                          Distress Events                                  -->
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+        <ScriptedEvent identifier="distress_ghostship_bandit_2">
+            <SpawnAction npcsetidentifier="abandonedoutpostnpcs" npcidentifier="bandit"
+                spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
+                team="None" requirespawnpointtag="true" lootingisstealing="false" />
+            <SpawnAction npcsetidentifier="abandonedoutpostnpcs" npcidentifier="banditleader"
+                spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
+                team="None" requirespawnpointtag="true" lootingisstealing="false" />
+        </ScriptedEvent>
+
+        <ScriptedEvent identifier="distress_ghostship_bandit_4_easy">
+            <SpawnAction npcsetidentifier="abandonedoutpostnpcs" npcidentifier="bandit"
+                spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
+                team="None" requirespawnpointtag="true" lootingisstealing="false" />
+            <SpawnAction npcsetidentifier="abandonedoutpostnpcs" npcidentifier="bandit"
+                spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
+                team="None" requirespawnpointtag="true" lootingisstealing="false" />
+            <SpawnAction npcsetidentifier="abandonedoutpostnpcs" npcidentifier="bandit"
+                spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
+                team="None" requirespawnpointtag="true" lootingisstealing="false" />
+            <SpawnAction npcsetidentifier="abandonedoutpostnpcs" npcidentifier="banditleader"
+                spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
+                team="None" requirespawnpointtag="true" lootingisstealing="false" />
+        </ScriptedEvent>
+
+        <ScriptedEvent identifier="distress_ghostship_bandit_5_hard">
+            <SpawnAction npcsetidentifier="abandonedoutpostnpcs" npcidentifier="bandit"
+                spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
+                team="None" requirespawnpointtag="true" lootingisstealing="false" />
+            <SpawnAction npcsetidentifier="abandonedoutpostnpcs" npcidentifier="bandit"
+                spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
+                team="None" requirespawnpointtag="true" lootingisstealing="false" />
+            <SpawnAction npcsetidentifier="abandonedoutpostnpcs" npcidentifier="bandit"
+                spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
+                team="None" requirespawnpointtag="true" lootingisstealing="false" />
+            <SpawnAction npcsetidentifier="abandonedoutpostnpcs" npcidentifier="banditleader"
+                spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
+                team="None" requirespawnpointtag="true" lootingisstealing="false" />
+            <SpawnAction npcsetidentifier="abandonedoutpostnpcs" npcidentifier="banditleader_heavy"
+                spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
+                team="None" requirespawnpointtag="true" lootingisstealing="false" />
+        </ScriptedEvent>
+
+        <ScriptedEvent identifier="distress_ghostship_prisonbreak">
+            <!-- Prisoner 1 -->
+            <SpawnAction npcsetidentifier="mlc_distress_npcs" npcidentifier="prisoner"
+                spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
+                team="None" requirespawnpointtag="true" lootingisstealing="false"
+                targettag="prisoner1" />
+            <StatusEffectAction targettag="prisoner1">
+                <StatusEffect>
+                    <GiveTalentInfo giverandom="false"
+                        talentidentifiers="swole, crustyseaman, stonewall" />
+                </StatusEffect>
+            </StatusEffectAction>
+
+            <!-- Prisoner 2 -->
+            <SpawnAction npcsetidentifier="mlc_distress_npcs" npcidentifier="prisoner"
+                spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
+                team="None" requirespawnpointtag="true" lootingisstealing="false"
+                targettag="prisoner2" />
+            <StatusEffectAction targettag="prisoner2">
+                <StatusEffect>
+                    <GiveTalentInfo giverandom="false"
+                        talentidentifiers="swole, inordinateexsanguination, implacable" />
+                </StatusEffect>
+            </StatusEffectAction>
+
+            <!-- Prisoner 3 -->
+            <SpawnAction npcsetidentifier="mlc_distress_npcs" npcidentifier="prisonercrowbar"
+                spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
+                team="None" requirespawnpointtag="true" lootingisstealing="false"
+                targettag="prisoner3" />
+            <StatusEffectAction targettag="prisoner3">
+                <StatusEffect>
+                    <GiveTalentInfo giverandom="false"
+                        talentidentifiers="swole, phdinnuclearphysics, multifunctional" />
+                </StatusEffect>
+            </StatusEffectAction>
+
+            <!-- Prisoner 4 -->
+            <SpawnAction npcsetidentifier="mlc_distress_npcs" npcidentifier="prisoner"
+                spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
+                team="None" requirespawnpointtag="true" lootingisstealing="false"
+                targettag="prisoner4" />
+            <StatusEffectAction targettag="prisoner4">
+                <StatusEffect>
+                    <GiveTalentInfo giverandom="false"
+                        talentidentifiers="swole, berserker, foolhardy" />
+                </StatusEffect>
+            </StatusEffectAction>
+
+        </ScriptedEvent>
+
+        <ScriptedEvent identifier="distress_ghostship_prisonbreak1">
+            <SpawnAction npcsetidentifier="mlc_distress_npcs" npcidentifier="prisoner"
+                spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
+                team="None" requirespawnpointtag="true" lootingisstealing="false" />
+
+            <SpawnAction npcsetidentifier="mlc_distress_npcs" npcidentifier="prisoner"
+                spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
+                team="None" requirespawnpointtag="true" lootingisstealing="false" />
+
+            <SpawnAction npcsetidentifier="mlc_distress_npcs" npcidentifier="prisoner"
+                spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
+                team="None" requirespawnpointtag="true" lootingisstealing="false" />
+
+            <SpawnAction npcsetidentifier="mlc_distress_npcs" npcidentifier="prisoner"
+                spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
+                team="None" requirespawnpointtag="true" lootingisstealing="false" />
+        </ScriptedEvent>
+
+
+        <ScriptedEvent identifier="distress_ghostship_crawlernest">
+
+            <SpawnAction itemidentifier="crawleregg" spawnlocation="Any"
+                spawnpointtype="Enemy" spawnpointtag="distress_nest" requirespawnpointtag="true" />
+            <SpawnAction speciesname="crawler" spawnlocation="Any"
+                spawnpointtype="Enemy" spawnpointtag="distress_monster" requirespawnpointtag="true" />
+
+            <SpawnAction itemidentifier="crawleregg" spawnlocation="Any"
+                spawnpointtype="Enemy" spawnpointtag="distress_nest" requirespawnpointtag="true" />
+            <SpawnAction speciesname="crawler" spawnlocation="Any"
+                spawnpointtype="Enemy" spawnpointtag="distress_monster" requirespawnpointtag="true" />
+
+
+            <SpawnAction itemidentifier="crawleregg" spawnlocation="Any"
+                spawnpointtype="Enemy" spawnpointtag="distress_nest" requirespawnpointtag="true" />
+            <SpawnAction speciesname="crawler" spawnlocation="Any"
+                spawnpointtype="Enemy" spawnpointtag="distress_monster" requirespawnpointtag="true" />
+
+            <SpawnAction itemidentifier="crawleregg" spawnlocation="Any"
+                spawnpointtype="Enemy" spawnpointtag="distress_nest" requirespawnpointtag="true" />
+            <SpawnAction speciesname="crawler" spawnlocation="Any"
+                spawnpointtype="Enemy" spawnpointtag="distress_monster" requirespawnpointtag="true" />
+
+            <SpawnAction itemidentifier="crawleregg" spawnlocation="Any"
+                spawnpointtype="Enemy" spawnpointtag="distress_nest" requirespawnpointtag="true" />
+            <SpawnAction itemidentifier="crawleregg" spawnlocation="Any"
+                spawnpointtype="Enemy" spawnpointtag="distress_nest" requirespawnpointtag="true" />
+
+
+        </ScriptedEvent>
+
+        <ScriptedEvent identifier="distress_ghostship_fractal">
+            <RNGAction chance="0.5">
+                <Success>
+                    <SpawnAction speciesname="Fractalguardian" spawnlocation="Any"
+                        spawnpointtype="Enemy" spawnpointtag="distress_monster"
+                        requirespawnpointtag="true" />
+
+                </Success>
+                <Failure>
+                    <SpawnAction speciesname="Fractalguardian2" spawnlocation="Any"
+                        spawnpointtype="Enemy" spawnpointtag="distress_monster"
+                        requirespawnpointtag="true" />
+
+                </Failure>
+            </RNGAction>
+
+        </ScriptedEvent>
+
+        <ScriptedEvent identifier="shuttle_clown">
+            <SpawnAction npcsetidentifier="mlc_distress_npcs" npcidentifier="clownmenace"
+                spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_shuttle"
+                team="None" requirespawnpointtag="true" lootingisstealing="false"
+                targettag="clownnpc1" />
+            <TagAction criteria="humanprefabidentifier:cuffedshuttlecaptain" tag="clownvictimnpc" />
+            <CombatAction combatmode="offensive" npctag="clownnpc1" enemytag="clownvictimnpc"
+                isinstigator="true" />
+        </ScriptedEvent>
+
+    </EventPrefabs>
+
+    <!-- Construction Events -->
+    <EventSet identifier="mlctransitevents" allowatstart="true" minleveldifficulty="0"
+        maxleveldifficulty="100" chooserandom="true" campaign="true" additive="true">
+
+        <!-- Corpses -->
+        <ScriptedEvent identifier="constructioncorpse" commonness="5" probability="0.5"
+            triggercooldown="false" />
+        <ScriptedEvent identifier="constructioncorpse1" commonness="5" probability="0.5"
+            triggercooldown="false" />
+        <ScriptedEvent identifier="constructioncorpse2" commonness="5" probability="0.5"
+            triggercooldown="false" />
+
+        <!-- Special -->
+        <ScriptedEvent identifier="constructionhusk" commonness="2" probability="0.5"
+            triggercooldown="false" />
+        <ScriptedEvent identifier="constructionclown" commonness="2" probability="1"
+            triggercooldown="false" />
+
+
+    </EventSet>
+
+</Randomevents>

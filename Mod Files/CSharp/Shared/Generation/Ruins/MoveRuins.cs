@@ -14,6 +14,7 @@ namespace MoreLevelContent.Shared.Generation
     {
         public static void Init()
         {
+            if (GameMain.IsMultiplayer) return;
             var level_FindPosAwayFromMainPath = typeof(Level).GetMethod("FindPosAwayFromMainPath", BindingFlags.NonPublic | BindingFlags.Instance);
             Main.HookMethod("MLC::MoveRuinSpawnPos", level_FindPosAwayFromMainPath, MoveRuinSpawnPos, LuaCsHook.HookMethodType.Before);
         }
@@ -22,6 +23,8 @@ namespace MoreLevelContent.Shared.Generation
 
         public static object MoveRuinSpawnPos(object self, Dictionary<string, object> args)
         {
+            // Broken in multiplayer
+            if (GameMain.IsMultiplayer) return null;
             // Exit if caves haven't been generated yet
             if (Loaded.Caves.Count < Loaded.GenerationParams.CaveCount) return null;
             Random rand = new MTRandom(ToolBox.StringToInt(Loaded.Seed));

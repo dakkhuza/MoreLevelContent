@@ -6,6 +6,7 @@
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
     <npcset identifier="mlc_distress_npcs">
+        <!-- Divers -->
         <npc identifier="lostdiver" job="commoner" moduleflags="none" healthmultiplier="0.8"
             behavior="Patrol">
             <ItemSet commonness="1">
@@ -37,7 +38,6 @@
                 </Item>
             </ItemSet>
         </npc>
-
 
         <npc identifier="insanediver" job="killer" moduleflags="none" healthmultiplier="1.5"
             behavior="Patrol">
@@ -137,6 +137,7 @@
             </ItemSet>
         </npc>
 
+        <!-- Event NPCs -->
         <npc identifier="cuffedshuttlecaptain" job="watchman" healthmultiplier="1.5"
             behavior="StayInHull">
             <ItemSet commonness="1">
@@ -152,7 +153,46 @@
             </ItemSet>
         </npc>
 
+        <npc identifier="clownmenace">
+            <ItemSet commonness="1">
+                <Item identifier="clownmask" equip="true" />
+                <Item identifier="clowncostume" equip="true" />
+                <Item identifier="toyhammer" equip="true" />
+                <Item identifier="oxygeniteshard_clownevent" />
+            </ItemSet>
+        </npc>
 
+        <npc identifier="prisoner" job="killer" behavior="Passive" healthmultiplier="2" aimspeed="1"
+            aimaccuracy="1">
+            <ItemSet commonness="3">
+                <Item identifier="idcard" equip="true" />
+                <Item identifier="prisonerclothes" equip="true" />
+                <Item identifier="divingknife" equip="true" />
+            </ItemSet>
+            <ItemSet commonness="1">
+                <Item identifier="prisonerclothes" equip="true" />
+                <Item identifier="divingknifeunique" equip="true" />
+            </ItemSet>
+            <ItemSet commonness="0.1">
+                <Item identifier="idcard" equip="true" />
+                <Item identifier="prisonerclothes" equip="true" />
+                <Item identifier="boardingaxe" equip="true" />
+            </ItemSet>
+
+        </npc>
+
+        <npc identifier="prisonercrowbar" job="killer" behavior="Passive" healthmultiplier="2"
+            aimspeed="1" aimaccuracy="1">
+            <ItemSet commonness="3">
+                <Item identifier="prisonerclothes" equip="true" />
+                <Item identifier="crowbar" equip="true" />
+            </ItemSet>
+            <ItemSet commonness="1">
+                <Item identifier="idcard" equip="true" />
+                <Item identifier="prisonerclothes" equip="true" />
+                <Item identifier="crowbarhardened" equip="true" />
+            </ItemSet>
+        </npc>
     </npcset>
 
     <npcset identifier="mlc_distress_corpses">
@@ -409,40 +449,6 @@
             </ItemSet>
         </npc>
 
-        <npc identifier="prisoner" job="killer" behavior="Passive" healthmultiplier="2" aimspeed="1"
-            aimaccuracy="1">
-            <ItemSet commonness="3">
-                <Item identifier="idcard" equip="true" />
-                <Item identifier="prisonerclothes" equip="true" />
-                <Item identifier="divingknife" equip="true" />
-            </ItemSet>
-            <ItemSet commonness="1">
-                <Item identifier="prisonerclothes" equip="true" />
-                <Item identifier="divingknifeunique" equip="true" />
-            </ItemSet>
-            <ItemSet commonness="0.1">
-                <Item identifier="idcard" equip="true" />
-                <Item identifier="prisonerclothes" equip="true" />
-                <Item identifier="boardingaxe" equip="true" />
-            </ItemSet>
-
-        </npc>
-
-        <npc identifier="prisonercrowbar" job="killer" behavior="Passive" healthmultiplier="2"
-            aimspeed="1" aimaccuracy="1">
-            <ItemSet commonness="3">
-                <Item identifier="prisonerclothes" equip="true" />
-                <Item identifier="crowbar" equip="true" />
-            </ItemSet>
-            <ItemSet commonness="1">
-                <Item identifier="idcard" equip="true" />
-                <Item identifier="prisonerclothes" equip="true" />
-                <Item identifier="crowbarhardened" equip="true" />
-            </ItemSet>
-
-        </npc>
-
-
         <!-- 
             <!\-\-Clowns\-\->
             <!\-\-Misc
@@ -517,5 +523,66 @@
 
 
 -->
+    </npcset>
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <!--                         Construction Site NPCs                            -->
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- minerclothes -->
+    <npcset identifier="mlc_constructionsite_npcs">
+        <npc identifier="constructionworker_outside" job="mechanic">
+            <ItemSet commonness="1">
+                <Item identifier="idcardwreck" equip="true" />
+                <Item identifier="bluejumpsuit1" equip="true" />
+                <Item identifier="baseballcap" equip="true" />
+                <Item identifier="toolbelt">
+                    <Item identifier="wrench" />
+                </Item>
+                <Item identifier="respawndivingsuit" equip="true" />
+            </ItemSet>
+            <ItemSet commonness="1">
+                <Item identifier="idcardwreck" equip="true" />
+                <Item identifier="bluejumpsuit2" equip="true" />
+                <Item identifier="baseballcap" equip="true" />
+                <Item identifier="toolbelt">
+                    <Item identifier="wrench" />
+                </Item>
+                <Item identifier="respawndivingsuit" equip="true" />
+            </ItemSet>
+        </npc>
+
+        <npc identifier="constructionworker" job="mechanic">
+            <ItemSet commonness="1">
+                <Item identifier="idcardwreck" equip="true" />
+                <Item identifier="bluejumpsuit1" equip="true" />
+                <Item identifier="baseballcap" equip="true" />
+                <Item identifier="toolbelt">
+                    <Item identifier="wrench" />
+                    <Item identifier="weldingtool">
+                        <Item identifier="weldingfueltank" />
+                    </Item>
+                </Item>
+            </ItemSet>
+            <ItemSet commonness="1">
+                <Item identifier="idcardwreck" equip="true" />
+                <Item identifier="bluejumpsuit2" equip="true" />
+                <Item identifier="baseballcap" equip="true" />
+                <Item identifier="toolbelt">
+                    <Item identifier="wrench" />
+                </Item>
+            </ItemSet>
+        </npc>
+
+    </npcset>
+
+    <npcset identifier="mlc_special_npcs">
+        <npc identifier="clowncorpse" job="assistant">
+            <ItemSet commonness="1">
+                <Item identifier="clownmask" equip="true" />
+                <Item identifier="clowncostume" equip="true" />
+                <Item identifier="bikehorn" />
+            </ItemSet>
+        </npc>
+
     </npcset>
 </npcsets>

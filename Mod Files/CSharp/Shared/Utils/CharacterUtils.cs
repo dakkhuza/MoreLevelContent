@@ -23,7 +23,7 @@ namespace Barotrauma.MoreLevelContent.Shared.Utils
             Character spawnedCharacter = Character.Create(characterInfo.SpeciesName, positionToStayIn.WorldPosition, ToolBox.RandomSeed(8), characterInfo);
             spawnedCharacter.HumanPrefab = humanPrefab;
             humanPrefab.InitializeCharacter(spawnedCharacter, positionToStayIn);
-            humanPrefab.GiveItems(spawnedCharacter, submarine, Rand.RandSync.ServerAndClient);
+            humanPrefab.GiveItems(spawnedCharacter, submarine, null, Rand.RandSync.ServerAndClient);
 
             characters.Add(spawnedCharacter);
             characterItems.Add(spawnedCharacter, spawnedCharacter.Inventory.FindAllItems(recursive: true));
@@ -38,7 +38,7 @@ namespace Barotrauma.MoreLevelContent.Shared.Utils
             Character spawnedCharacter = Character.Create(characterInfo.SpeciesName, spawnPosition, ToolBox.RandomSeed(8), characterInfo, createNetworkEvent: createNetEvent);
             spawnedCharacter.HumanPrefab = humanPrefab;
             humanPrefab.InitializeCharacter(spawnedCharacter);
-            humanPrefab.GiveItems(spawnedCharacter, null, Rand.RandSync.ServerAndClient, createNetworkEvents: createNetEvent);
+            humanPrefab.GiveItems(spawnedCharacter, null, null, Rand.RandSync.ServerAndClient, createNetworkEvents: createNetEvent);
 
             characters.Add(spawnedCharacter);
             characterItems.Add(spawnedCharacter, spawnedCharacter.Inventory.FindAllItems(recursive: true));

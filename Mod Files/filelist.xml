@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<contentpackage name="More Level Content" modversion="0.0.16" corepackage="False" steamworkshopid="2814493175" gameversion="0.21.6.0">
+<contentpackage name="More Level Content" modversion="0.0.49" corepackage="False" steamworkshopid="2814493175" gameversion="1.0.21.0">
   <Item file="%ModDir%/dummyitem.xml" />
   <Text file="%ModDir%/Language/English.xml" />
   <Text file="%ModDir%/Language/PatchNotes.xml" />
@@ -7,25 +7,31 @@
   <UIStyle file="%ModDir%/Style/map.xml" />
   <UIStyle file="%ModDir%/Style/menu.xml" />
   <LocationTypes file="%ModDir%/Map/LocationDefs.xml" />
-  <NPCSets file="%ModDir%/Pirate/pirate_npcset.xml" />
-  <Missions file="%ModDir%/Pirate/pirate_missions.xml" />
-  <Talents file="%ModDir%/Pirate/pirate_talents.xml" />
-  <Item file="%ModDir%/Pirate/pirate_items.xml" />
-  <Item file="%ModDir%/Missions/MissionItems.xml" />
-  <Missions file="%ModDir%/Missions/CustomMissions.xml" />
-  <OutpostModule file="%ModDir%/Map/Beacons/BeaconConstruction.sub" />
-  <NPCSets file="%ModDir%/Missions/MissionNPCs.xml" />
-  <RandomEvents file="%ModDir%/Missions/ScriptedEvents.xml" />
-  <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_20-30.sub" />
-  <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_15-25.sub" />
-  <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o2_diff_20-30.sub" />
-  <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_50-70.sub" />
-  <Submarine file="%ModDir%/Missions/dugong_alien.sub" />
-  <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_0-15.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_0-10.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_5-15.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_25-35.sub" />
-  <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_40-50.sub" />
-  <Submarine file="%ModDir%/Missions/barsuk_monster.sub" />
+  <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_0-15.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_10-20.sub" />
+  <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_40-50.sub" />
+  <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_50-70.sub" />
+  <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o2_diff_20-30.sub" />
+  <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_15-25.sub" />
+  <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o3_diff_15-25.sub" />
+  <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o4_diff_15-25.sub" />
+  <Item file="%ModDir%/Pirate/pirate_items.xml" />
+  <Item file="%ModDir%/Missions/MissionItems.xml" />
+  <Talents file="%ModDir%/Pirate/pirate_talents.xml" />
+  <NPCSets file="%ModDir%/Pirate/pirate_npcset.xml" />
+  <Missions file="%ModDir%/Pirate/pirate_missions.xml" />
+  <Submarine file="%ModDir%/Missions/dugong_alien.sub" />
+  <Submarine file="%ModDir%/Missions/barsuk_monster.sub" />
+  <Missions file="%ModDir%/Missions/CustomMissions.xml" />
+  <NPCSets file="%ModDir%/Missions/MissionNPCs.xml" />
+  <RandomEvents file="%ModDir%/Missions/MissionEvents.xml" />
+  <Submarine file="%ModDir%/Map/ConstructionSites/BeaconConstruction_worksite.sub" />
+  <OutpostModule file="%ModDir%/Map/ConstructionSites/BeaconConstruction_encounter.sub" />
+  <OutpostModule file="%ModDir%/Map/ConstructionSites/BeaconConstruction_2.sub" />
+  <OutpostModule file="%ModDir%/Map/ConstructionSites/BeaconConstruction.sub" />
+  <OutpostModule file="%ModDir%/Map/ConstructionSites/BeaconConstruction_worksite.sub" />
+  <OutpostModule file="%ModDir%/Map/ConstructionSites/BeaconConstruction_2_worksite.sub" />
 </contentpackage>

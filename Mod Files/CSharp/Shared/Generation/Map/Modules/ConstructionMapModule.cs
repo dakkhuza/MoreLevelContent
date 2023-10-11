@@ -16,7 +16,7 @@ namespace MoreLevelContent.Shared.Generation
             LevelData_MLCData data = levelData.MLC();
             if (data.HasBeaconConstruction)
             {
-                var constructionMissions = MissionPrefab.Prefabs.Where(m => m.Tags.Any(t => t.Equals("beaconconstruction", StringComparison.OrdinalIgnoreCase))).OrderBy(m => m.UintIdentifier);
+                var constructionMissions = MissionPrefab.Prefabs.Where(m => m.Tags.Contains("beaconconstruction")).OrderBy(m => m.UintIdentifier);
                 if (constructionMissions.Any())
                 {
                     Random rand = new MTRandom(ToolBox.StringToInt(levelData.Seed));
@@ -46,6 +46,7 @@ namespace MoreLevelContent.Shared.Generation
         public override void OnMapGenerate(Map __instance) { }
         public override void OnMapLoad(Map __instance)
         {
+
             if (!__instance.Connections.Any(c => c.LevelData.MLC().HasBeaconConstruction))
             {
                 Log.Debug("Migrating old save...");
@@ -53,13 +54,14 @@ namespace MoreLevelContent.Shared.Generation
                 {
                     var connection = __instance.Connections[i];
 
-                    // Skip if there's no beacon station to replace
-                    if (!connection.LevelData.HasBeaconStation) continue;
-
                     // See if we should generate a construction site
                     LevelData_MLCData extraData = connection.LevelData.MLC();
                     TrySpawnBeaconConstruction(connection.LevelData, extraData, connection);
                 }
+            }
+            else
+            {
+                Log.Debug("Map has construction sites");
             }
         }
         public override void OnProgressWorld(Map __instance) { }
@@ -67,13 +69,12 @@ namespace MoreLevelContent.Shared.Generation
         private void TrySpawnBeaconConstruction(LevelData levelData, LevelData_MLCData extraData, LocationConnection locationConnection)
         {
             var rand = new MTRandom(ToolBox.StringToInt(levelData.Seed));
-            // Replace some beacon stations with construction sites
-            if (levelData.HasBeaconStation && !extraData.HasBeaconConstruction)
+            // Place some beacon stations
+            if (!levelData.IsBeaconActive)
             {
-                _ = rand.NextDouble(); // Offset the randomness by one from the seed
                 double roll = rand.NextDouble();
-                double chance = locationConnection.Locations.Select(l => l.Type.BeaconStationChance).Max();
-                extraData.HasBeaconConstruction = roll < chance;
+                double chance = locationConnection.Locations.Select(l => l.Type.BeaconStationChance).Min();
+                extraData.HasBeaconConstruction = roll < (chance / 1.2); // construction sites have half the chance to spawn as regular beacon stations
                 if (extraData.HasBeaconConstruction)
                 {
                     CreateBeaconConstruction(levelData, rand, extraData);

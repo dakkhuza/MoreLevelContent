@@ -2,6 +2,17 @@
 [img]https://raw.githubusercontent.com/dakkhuza/MoreLevelContent/main/Images/anim_alpha_banner.gif[/img]
                                                                     [i]Expect Issues[/i]
 
+[h1]INSTALLING[/h1]
+- Install Lua for Barotrauma + Client side lua, [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2559634234]see here for info [/url]
+- If everything is installed correctly, you'll see a join message in chat when you join a server running MLC
+- In singleplayer, press escape and you should see a settings button
+
+[h1]TRANSLATIONS[/h1]
+There's a [url=https://steamcommunity.com/workshop/filedetails/?id=2984257107]collection[/url] linked at the top of the page containing all translations I'm aware of. If you would like your translation mod added, either leave a comment linking it or message me on discord (Dak#0001)
+
+[h2]Join the discord![/h2]
+https://discord.gg/XFp5vq67MY 
+
 Ever get bored of levels? Ruins, shipwrecks and beacons a plenty not filling that void in your dented diving suit?
 
 Ever wanted MORE things to do in levels? And not just a different looking wreck or a beacon station with hostile humans but actual NEW content? 
@@ -63,18 +74,17 @@ There's a lot of things I want to add to this mod and if you've got any suggesti
 
 [b]In game config[/b] ADDED
 
-[b]Move the ruins to the abyss islands[/b] ADDED
+[b]Move the ruins to the abyss islands[/b] ADDED (Disabled in multiplayer)
 
 [b]More pirate outpost variation[/b] ADDED
 I'll keep improving and adding more pirate outposts every update
 
-[b]S.O.S. calls[/b] IN DEVELOPMENT
-Why is everyone always dead when we finally show up! You should be able to rarely find survivors and ferry them back to the nearest outpost for a reward. Weird that the only one left was the clown, where'd he scamper off too? And while you're looking for him can you get someone to do something about that beeping? It's driving me nuts! 
+[b]S.O.S. calls[/b] ADDED
 
-[b]Hermits, black-markets and other weirdos[/b]
+[b]Hermits, black-markets and other weirdos[/b] PLANNED 
 Why does everyone out there in the ice cold blue gotta shoot us, our only salvation found at outposts? Not everyone likes to do business within sight of the law. Sometimes you'll find little abodes, automated shops and maybe even a black-market or two hiding between the ice, away from the prying eyes of the coalition. Keep your eyes peeled and your sonar on.
 
-[b]New Level Hazards[/b]
+[b]New Level Hazards[/b] PLANNED 
 Balast flora is fun! But once you know how to deal with / spot it loses a bit of it's charm. There should be more plants that mess with the submarine and the crew inside in fun and interesting ways. 
 
 Also try...
@@ -84,6 +94,9 @@ Also try...
 Q: I'm getting level check-sum mismatches!
 A: Every player in the server needs to have the mod installed + client side lua + the CS module for this mod to function correctly. If everyone for sure has it installed and setup correctly, I'm not sure of the cause and seems to be something intrinsic to barotrauma (it's some floating point ♥♥♥♥♥♥♥)
 
+Q: I have client side lua installed and the mod still isn't loading!
+A: Check console to see if there are any other client side lua mods throwing errors, if there are it prevents MLC from loading. Other than that try re-starting your game, sometimes CS mods don't load for clients and I have no idea why.
+
 Q: Can this mod be added mid campaign?
 A: This mod currently only affects level generation so it's safe to add mid-campaign! In the future I'm planning on experimenting with map changes so this may change.
 
@@ -92,5 +105,8 @@ A: This mod uses it's own hook into level generation and is thus not affected by
 
 [h2]KNOWN ISSUES[/h2]
 
-ISSUE: Level Equality issues on levels with ruins in them
-TEMP FIX: Set the chance to move ruins into the abyss to 0
+Joining mid-game when a distress beacon is active will kick you.
+Solution: Don't join when a distress beacon is active.
+
+On creating a new campaign, all clients will be kicked. 
+Solution: Just load the campaign up again

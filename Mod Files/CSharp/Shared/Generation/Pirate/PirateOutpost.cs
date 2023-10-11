@@ -54,6 +54,9 @@ namespace MoreLevelContent.Shared.Generation.Pirate
             if (enemyBase.GetItems(alsoFromConnectedSubs: false).Find(i => i.HasTag("reactor") && !i.NonInteractable)?.GetComponent<Reactor>() is Reactor reactor)
             {
                 reactor.PowerUpImmediately();
+                reactor.FuelConsumptionRate = 0; // never run out of fuel
+                // Make sure the reactor doesn't explode lol
+                if (CompatabilityHelper.Instance.HazardousReactorsInstalled) reactor.Item.InvulnerableToDamage = true;
             }
 
             enemyBase.TeamID = CharacterTeamType.None;

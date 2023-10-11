@@ -32,10 +32,14 @@
     <missionheader1.distress_shiprescue>Lost Shuttle</missionheader1.distress_shiprescue>
     <missionmessage1.distress_shiprescue>The shuttle crew has perished, an all too common fate. They won't be paying for this rescue anymore but the shuttle itself could still be claimed as salvage.</missionmessage1.distress_shiprescue>
 
+    <distress.lostshuttle.atend>The lost shuttle is within range for salvaging.</distress.lostshuttle.atend>
+    <!-- Distress Ghostship -->
+
     <missionheader0.distress_ghostship>Adrift Submarine</missionheader0.distress_ghostship>
     <missionheader1.distress_ghostship>Adrift Submarine</missionheader1.distress_ghostship>
     <missionmessage0.distress_ghostship>The source of the distress signal appears to be a drifting submarine. Standard coalition protocol is to board the sub to investigate.</missionmessage0.distress_ghostship>
-    
+    <distress.ghostship.damagenotification>Doing excessive damage to a scuttled vessel may result in reputation loss!</distress.ghostship.damagenotification>
+
     <!-- Mission Specific -->
     <missionmessage1.distress_ghostship_bandit1>Upon boarding the drifting sub, you can hear footsteps. Is the crew still alive?</missionmessage1.distress_ghostship_bandit1>
     <distress.success.distress_ghostship_bandit1>The submarine was taken over by bandits, the crew slaughtered.</distress.success.distress_ghostship_bandit1>
@@ -48,7 +52,7 @@
     <missionmessage1.distress_ghostship_crawlers>Upon boarding the drifting sub, you are instantly aware of the stench of death that permeates the air. If the crew was alive at some point, they've long since died.</missionmessage1.distress_ghostship_crawlers>
     <distress.success.distress_ghostship_crawlers>A strange sight, a drifting submarine being used as a breeding ground. Perhaps one of the crew members had a pet that got too hungry.</distress.success.distress_ghostship_crawlers>
 
-    <distress.success.distress_ghostship_alienship>The sight of the alien modified submarine sticks in your brain, scratching at the walls of your skull. What the hell is 'jove'?</distress.success.distress_ghostship_alienship>
+    <distress.success.distress_ghostship_alienship>The sight of the modified submarine sticks in your brain, scratching at the walls of your skull. What the hell is 'jove'?</distress.success.distress_ghostship_alienship>
     
     
     <!-- Fluff -->
@@ -58,4 +62,6 @@
     <label.insanerant4>HEAR</label.insanerant4>
     <label.insanerant5>IT</label.insanerant5>
     <label.insanerant6>CALL?</label.insanerant6>
+
+    <charactername.clowncorpse>Clown Corpse</charactername.clowncorpse>
 </infotexts>

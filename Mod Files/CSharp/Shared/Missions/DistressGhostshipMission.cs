@@ -10,6 +10,8 @@ using Barotrauma.Items.Components;
 using Microsoft.Xna.Framework;
 using MoreLevelContent.Shared.Utils;
 using System.Collections.Generic;
+using Steamworks.Data;
+using Barotrauma.Networking;
 
 namespace MoreLevelContent.Missions
 {
@@ -64,14 +66,12 @@ namespace MoreLevelContent.Missions
             }
         }
 
-        public override LocalizedString SonarLabel => base.SonarLabel.IsNullOrEmpty() ? defaultSonarLabel : base.SonarLabel;
-        public override IEnumerable<Vector2> SonarPositions
+        public override IEnumerable<(LocalizedString Label, Vector2 Position)> SonarLabels
         {
             get
             {
-                var empty = Enumerable.Empty<Vector2>();
-
-                return ghostship == null ? empty : trackingSonarMarker.GetEnumerable();
+                if (ghostship == null) yield break;
+                yield return trackingSonarMarker.CurrentPosition;
             }
         }
 
@@ -145,7 +145,7 @@ namespace MoreLevelContent.Missions
             submarine.TagSubmarineWaypoints("distress_ghostship");
 
             // Init tracking sonar marker
-            trackingSonarMarker = new TrackingSonarMarker(30, submarine);
+            trackingSonarMarker = new TrackingSonarMarker(30, submarine, Prefab.SonarLabel.IsNullOrEmpty() ? defaultSonarLabel : Prefab.SonarLabel);
         }
 
         private void SpawnDecals()
@@ -164,22 +164,28 @@ namespace MoreLevelContent.Missions
 
         private void PlaceDecals(string decalName, string preferedHull, int count)
         {
-            bool hasPreferedHull = !string.IsNullOrWhiteSpace(preferedHull);
-            Random rand = new MTRandom(ToolBox.StringToInt(level.Seed));
-            List<Hull> filteredHulls = ghostship.GetHulls(false).Where(h => !h.RoomName.Contains("ballast") && !h.RoomName.Contains("airlock") && !h.IsWetRoom).ToList();
-            var preferedHulls = filteredHulls.Where(h => h.RoomName.ToLowerInvariant() == preferedHull.ToLowerInvariant());
-
-            for (int i = 0; i < count; i++)
+            try
             {
-                Hull hull = filteredHulls.ToList().GetRandom(rand);
-                if (hasPreferedHull && preferedHull.Any())
-                {
-                    hull = preferedHulls.ToList().GetRandom(rand);
-                    Log.Debug($"Set prefered hull, roomname {hull.RoomName}");
-                }
+                bool hasPreferedHull = !string.IsNullOrWhiteSpace(preferedHull);
+                Random rand = new MTRandom(ToolBox.StringToInt(level.Seed));
+                List<Hull> filteredHulls = ghostship.GetHulls(false).Where(h => !h.RoomName.Contains("ballast") && !h.RoomName.Contains("airlock") && !h.IsWetRoom).ToList();
+                var preferedHulls = filteredHulls.Where(h => h.RoomName.ToLowerInvariant() == preferedHull.ToLowerInvariant());
 
-                Vector2 pos = new Vector2(hull.WorldPosition.X + rand.Next(-hull.RectWidth / 2, hull.RectWidth / 2), hull.WorldPosition.Y + rand.Next(-hull.RectHeight / 2, hull.RectHeight / 2));
-                Decal decal = hull.AddDecal(decalName, pos, 1.0f, false);
+                for (int i = 0; i < count; i++)
+                {
+                    Hull hull = filteredHulls.ToList().GetRandom(rand);
+                    if (hasPreferedHull && preferedHull.Any())
+                    {
+                        hull = preferedHulls.ToList().GetRandom(rand);
+                        Log.Debug($"Set prefered hull, roomname {hull.RoomName}");
+                    }
+
+                    Vector2 pos = new Vector2(hull.WorldPosition.X + rand.Next(-hull.RectWidth / 2, hull.RectWidth / 2), hull.WorldPosition.Y + rand.Next(-hull.RectHeight / 2, hull.RectHeight / 2));
+                    Decal decal = hull.AddDecal(decalName, pos, 1.0f, false);
+                }
+            } catch(Exception e)
+            {
+                Log.Error(e.ToString());
             }
         }
 
@@ -229,40 +235,11 @@ namespace MoreLevelContent.Missions
 
         protected override void StartMissionSpecific(Level level)
         {
-            if (!IsClient) StartServer();
-
-            ghostship.NeutralizeBallast();
-
-            if (reactorActive && ghostship.GetItems(alsoFromConnectedSubs: false).Find(i => i.HasTag("reactor") && !i.NonInteractable)?.GetComponent<Reactor>() is Reactor reactor)
+            if (!IsClient)
             {
-                reactor.PowerUpImmediately();
+                StartServer();
+                InitShip();
             }
-
-            Item sonarItem = Item.ItemList.Find(it => it.Submarine == ghostship && it.GetComponent<Sonar>() != null);
-            if (sonarItem == null)
-            {
-                DebugConsole.ThrowError($"No sonar found in the beacon station \"{ghostship.Info.Name}\"!");
-                return;
-            }
-
-            var steering = sonarItem.GetComponent<Steering>();
-            steering.AutoPilot = true;
-            switch (travelTarget)
-            {
-                case TravelTarget.Start:
-                    steering.SetDestinationLevelStart();
-                    break;
-                case TravelTarget.Maintain:
-                    steering.MaintainPos = true;
-                    steering.PosToMaintain = ghostship.WorldPosition;
-                    break;
-                case TravelTarget.End:
-                    steering.SetDestinationLevelEnd();
-                    break;
-            }
-
-            // Reputation stuff
-            Hooks.Instance.OnStructureDamaged += OnStructureDamaged;
         }
 
         void StartServer()
@@ -315,6 +292,64 @@ namespace MoreLevelContent.Missions
                 }
                 character.CharacterHealth.ForceUpdateVisuals();
             });
+            // Reputation stuff
+            Hooks.Instance.OnStructureDamaged += OnStructureDamaged;
+        }
+        void InitShip()
+        {
+            ghostship.NeutralizeBallast();
+            var ghostshipItems = ghostship.GetItems(alsoFromConnectedSubs: false);
+
+            if (reactorActive && ghostshipItems.Find(i => i.HasTag("reactor") && !i.NonInteractable)?.GetComponent<Reactor>() is Reactor reactor)
+            {
+                Item reactorItem = reactor.Item;
+                ItemContainer container = reactorItem.GetComponent<ItemContainer>();
+                reactor.PowerUpImmediately();
+                reactor.FuelConsumptionRate = 0;
+
+                // ItemPrefab rod = ItemPrefab.Find(null, "fuelrod".ToIdentifier());
+
+
+                // Make sure the reactor doesn't explode or irradiate the bots
+                if (CompatabilityHelper.Instance.HazardousReactorsInstalled) CompatabilityHelper.SetupHazReactor(reactor);
+                Repairable repairable = reactor.Item.GetComponent<Repairable>();
+                if (repairable != null)
+                {
+                    repairable.DeteriorationSpeed = 0.0f;
+                }
+            }
+
+            // make sure shit doesn't break by itself
+            ghostshipItems.FindAll(i => i.HasTag("junctionbox") || i.HasTag("oxygengenerator")).ForEach(i =>
+            {
+                if (i.GetComponent<Repairable>() is Repairable repairable)
+                {
+                    repairable.DeteriorationSpeed = 0;
+                }
+            });
+
+            Item sonarItem = Item.ItemList.Find(it => it.Submarine == ghostship && it.GetComponent<Sonar>() != null);
+            if (sonarItem == null)
+            {
+                DebugConsole.ThrowError($"No sonar found in the beacon station \"{ghostship.Info.Name}\"!");
+                return;
+            }
+
+            var steering = sonarItem.GetComponent<Steering>();
+            steering.AutoPilot = true;
+            switch (travelTarget)
+            {
+                case TravelTarget.Start:
+                    steering.SetDestinationLevelStart();
+                    break;
+                case TravelTarget.Maintain:
+                    steering.MaintainPos = true;
+                    steering.PosToMaintain = ghostship.WorldPosition;
+                    break;
+                case TravelTarget.End:
+                    steering.SetDestinationLevelEnd();
+                    break;
+            }
         }
 
         readonly float detectDist = Sonar.DefaultSonarRange;
@@ -330,8 +365,6 @@ namespace MoreLevelContent.Missions
             }
             trackingSonarMarker.Update(deltaTime);
 
-            if (IsClient) return;
-            accumulatedDamage -= 1f * deltaTime; // reduce accumulated damage by 1 every second
             bool crewMemberInSub = CrewInSub();
             switch (State)
             {
@@ -355,11 +388,14 @@ namespace MoreLevelContent.Missions
                     break;
             }
 
+            if (IsClient) return;
+            accumulatedDamage -= 1f * deltaTime; // reduce accumulated damage by 2 every second
+
             bool CrewInSub()
             {
-                foreach (var crewMember in GameMain.GameSession?.CrewManager?.GetCharacters())
+                foreach (var crewMember in GameSession.GetSessionCrewCharacters(CharacterType.Player))
                 {
-                    if (crewMember.IsPlayer && crewMember.Submarine == ghostship)
+                    if (crewMember.Submarine == ghostship)
                     {
                         return true;
                     }
@@ -369,21 +405,37 @@ namespace MoreLevelContent.Missions
         }
 
         float accumulatedDamage = 0;
-        const float accumulatedDamageBreakPoint = 10;
+        const float ACCUMULATED_DAMAGE_BREAKPOINT = 20;
+        const float MAX_REP_LOSS = 10;
+        bool displayedWarning = false;
         private void OnStructureDamaged(Structure structure, float damageAmount, Character character)
         {
+            if (character == null || damageAmount <= 0.0f) { return; }
+            if (!character.IsPlayer) { return; }
+            if (structure?.Submarine == null || structure.Submarine != ghostship) { return; }
+
             // let them accidentally damage the hull a bit
-            if (character == null) return;
-            if (damageAmount <= 2.0f && accumulatedDamage < accumulatedDamageBreakPoint)
+            if (damageAmount <= 1.5f && accumulatedDamage < ACCUMULATED_DAMAGE_BREAKPOINT)
             {
                 accumulatedDamage += damageAmount;
                 return;
             }
-            if (structure?.Submarine == null || structure.Submarine != ghostship) { return; }
-            if (!character.IsPlayer) { return; }
-            if (GameMain.GameSession?.Campaign?.Map?.CurrentLocation != null)
+
+            if (!displayedWarning)
+            {
+                displayedWarning = true;
+                accumulatedDamage = 0;
+
+#if SERVER
+                GameMain.Server?.SendChatMessage(TextManager.GetServerMessage("distress.ghostship.damagenotification")?.Value, ChatMessageType.Default);
+#endif
+                return;
+            }
+
+            if (GameMain.GameSession?.Campaign?.Map?.CurrentLocation?.Reputation != null)
             {
                 var reputationLoss = damageAmount * Reputation.ReputationLossPerWallDamage;
+                reputationLoss = Math.Min(reputationLoss, 10); // clamp rep loss to a value 0-10
                 GameMain.GameSession.Campaign.Map.CurrentLocation.Reputation.AddReputation(-reputationLoss);
             }
         }

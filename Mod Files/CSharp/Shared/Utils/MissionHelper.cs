@@ -11,20 +11,22 @@ namespace MoreLevelContent.Shared.Utils
 {
     public class TrackingSonarMarker
     {
-        public IEnumerable<Vector2> GetEnumerable() => CurrentPosition.ToEnumerable();
-        public Vector2 CurrentPosition { get; private set; }
+        public (LocalizedString Label, Vector2 Position) CurrentPosition { get; private set; }
+        private readonly LocalizedString label;
 
-        public TrackingSonarMarker(float updateInterval, Func<Vector2> getPositionFunc)
+        public TrackingSonarMarker(float updateInterval, Func<Vector2> getPositionFunc, LocalizedString sonarLabel)
         {
             _updateInterval = updateInterval;
             _getPositionFunc = getPositionFunc;
+            label = sonarLabel;
             Init();
         }
 
-        internal TrackingSonarMarker(float updateInterval, Submarine submarine)
+        internal TrackingSonarMarker(float updateInterval, Submarine submarine, LocalizedString sonarLabel)
         {
             _updateInterval = updateInterval;
             _getPositionFunc = () => submarine.WorldPosition;
+            label = sonarLabel;
             Init();
         }
 
@@ -32,7 +34,7 @@ namespace MoreLevelContent.Shared.Utils
         readonly Func<Vector2> _getPositionFunc;
         private float _timeSinceLastUpdate;
 
-        private void Init() => CurrentPosition = _getPositionFunc.Invoke();
+        private void Init() => CurrentPosition = (label, _getPositionFunc.Invoke());
 
         public void Update(float delta)
         {
@@ -40,7 +42,7 @@ namespace MoreLevelContent.Shared.Utils
             if (_timeSinceLastUpdate > _updateInterval)
             {
                 _timeSinceLastUpdate = 0;
-                CurrentPosition = _getPositionFunc.Invoke();
+                CurrentPosition = (label, _getPositionFunc.Invoke());
             }
         }
     }

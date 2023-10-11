@@ -89,48 +89,55 @@ namespace MoreLevelContent.Missions
         }
 
         // Allow override the default sonar label with a sonarlabel="" attribute
-        public override LocalizedString SonarLabel => base.SonarLabel.IsNullOrEmpty() ? sonarLabel : base.SonarLabel;
+        // public override LocalizedString SonarLabel => base.SonarLabel.IsNullOrEmpty() ? sonarLabel : base.SonarLabel;
 
         // Display a different failure message if the shuttle was located
         public override LocalizedString FailureMessage => state > 0 ? revealedFailure : base.FailureMessage;
 
         // Display a different success message if the crew is dead or alive at the end of the level
-        public override LocalizedString SuccessMessage => state < 2 ? successCrew : successSub;
+        public override LocalizedString SuccessMessage => state < 2 ? FormatReward(successCrew) : FormatReward(successSub);
 
-
-        public override IEnumerable<Vector2> SonarPositions
+        public override IEnumerable<(LocalizedString Label, Vector2 Position)> SonarLabels
         {
             get
             {
-                var empty = Enumerable.Empty<Vector2>();
-
-                if (lostSubmarine == null) return empty;
-
+                if (lostSubmarine == null) yield break;
                 if (outsideOfSonarRange)
                 {
-                    return trackingSonarMarker != null ? trackingSonarMarker.GetEnumerable() : empty;
+                    if (trackingSonarMarker == null) yield break;
+                    yield return trackingSonarMarker.CurrentPosition;
                 }
-                return empty;
             }
         }
 
         #region Reward
-        
+
+        LocalizedString FormatReward(LocalizedString input)
+        {
+            string msg = input.Value;
+            msg = msg.Replace("[reward]", GetReward(null).ToString());
+            return msg;
+        }
+
         public override int GetReward(Submarine sub) => Completed ? GetRewardCompleted() : GetRewardInLevel();
+
+        int survivingCrewPayout = 0;
+
+        void CalculateSurvivingPayout(out int payout)
+        {
+            payout = 0;
+            foreach (var character in missionNPCs.characters)
+            {
+                if (MissionNPCCollection.Survived(character))
+                {
+                    payout += rewardLookup[character];
+                }
+            }
+        }
 
         int GetRewardCompleted()
         {
-            int reward = 0;
-
-            foreach (var character in missionNPCs.characters)
-            {
-                // Add payout for each living character
-                if (MissionNPCCollection.Survived(character))
-                {
-                    reward += rewardLookup[character];
-                    Log.Debug("Adjusted payout");
-                }
-            }
+            int reward = survivingCrewPayout;
 
             if (SubSalvaged)
             {
@@ -216,7 +223,7 @@ namespace MoreLevelContent.Missions
         {
             submarine.SetPosition(submarine.FindSpawnPos(submarine.WorldPosition));
             lostSubmarine = submarine;
-            lostSubmarine.Info.Type = SubmarineType.BeaconStation;
+            lostSubmarine.Info.Type = SubmarineType.Player;
             submarine.TeamID = CharacterTeamType.FriendlyNPC;
             lostSubmarine.ShowSonarMarker = false;
             submarine.PhysicsBody.FarseerBody.BodyType = FarseerPhysics.BodyType.Dynamic;
@@ -230,8 +237,8 @@ namespace MoreLevelContent.Missions
             submarine.TagSubmarineWaypoints("distress_shuttle");
 
             // Init sonar tracking 
-            trackingSonarMarker = new TrackingSonarMarker(30, submarine);
-            TriggerEvents(0);
+            trackingSonarMarker = new TrackingSonarMarker(30, submarine, Prefab.SonarLabel.IsNullOrEmpty() ? sonarLabel : Prefab.SonarLabel);
+            // TriggerEvents(0);
         }
 
         protected override void StartMissionSpecific(Level level)
@@ -331,11 +338,28 @@ namespace MoreLevelContent.Missions
         // state 0 = init
         // state 1 = crew alive, escort to end
         // state 2 = crew dead, escort sub to end
-        readonly float spawnDist = Sonar.DefaultSonarRange * 4;
-
+        readonly float spawnDist = Sonar.DefaultSonarRange * 2;
+        private bool _salvedState = false;
+        private bool _migrate = false;
         protected override void UpdateMissionSpecific(float deltaTime)
         {
             UpdateLastPing(deltaTime);
+#if CLIENT
+            if (SubSalvaged && _salvedState != SubSalvaged)
+            {
+                CoroutineManager.StartCoroutine(_showMessageBox(TextManager.Get("missionheader1.distress_shiprescue"), TextManager.Get("distress.lostshuttle.atend")));
+                _salvedState = SubSalvaged;
+            }
+            IEnumerable<CoroutineStatus> _showMessageBox(LocalizedString header, LocalizedString message)
+            {
+                while (GUIMessageBox.VisibleBox?.UserData is RoundSummary)
+                {
+                    yield return new WaitForSeconds(1.0f);
+                }
+                CreateMessageBox(header, message);
+                yield return CoroutineStatus.Success;
+            }
+#endif
             if (IsClient) return;
 
             switch (state)
@@ -365,6 +389,8 @@ namespace MoreLevelContent.Missions
             }
         }
 
+
+
         readonly float sonarClose = Sonar.DefaultSonarRange / 0.8f;
         void UpdateLastPing(float deltaTime)
         {
@@ -392,14 +418,25 @@ namespace MoreLevelContent.Missions
                     {
                         //round ended before the coroutine finished
                         if (GameMain.GameSession == null || Level.Loaded == null) { return; }
-                        Entity.Spawner.AddCharacterToSpawnQueue(monsterSpecies.Identifier, spawnPos);
+                        Entity.Spawner.AddCharacterToSpawnQueue(monsterSpecies.Identifier, spawnPos, (Character character) =>
+                        {
+                            if (character.AIController is EnemyAIController controller)
+                            {
+                                AITarget target = missionNPCs.characters.GetRandomUnsynced().AiTarget;
+                                if (target != null) controller.SelectTarget(target);
+                            }
+                        });
                     }, Rand.Range(0f, amount));
                 }
             }
         }
 
         // Allow getting the sub out at either exits
-        protected override bool DetermineCompleted() => SubSalvaged || CrewResuced;
+        protected override bool DetermineCompleted()
+        {
+            CalculateSurvivingPayout(out survivingCrewPayout);
+            return SubSalvaged || CrewResuced;
+        }
 
         protected override void EndMissionSpecific(bool completed)
         {

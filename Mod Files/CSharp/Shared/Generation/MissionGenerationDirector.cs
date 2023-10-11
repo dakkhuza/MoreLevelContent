@@ -130,7 +130,7 @@ namespace MoreLevelContent.Shared.Generation
         {
             if (Level.Loaded.LevelData.MLC().HasBeaconConstruction)
             {
-                Submarine beacon = SpawnSubOnPath(Level.Loaded, "Beacon Station", BeaconConstStore.Instance.GetBeacon());
+                Submarine beacon = SpawnSubOnPath(Level.Loaded, "Beacon Station", BeaconConstStore.Instance.GetBeaconForLevel());
                 Level.Loaded.MLC().BeaconConstructionStation = beacon;
                 Item storageItem = Item.ItemList.Find(it => it.Submarine == beacon && it.GetComponent<ItemContainer>() != null && it.Tags.Contains("dropoff"));
                 if (storageItem == null)

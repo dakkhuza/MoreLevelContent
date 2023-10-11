@@ -25,8 +25,8 @@ namespace MoreLevelContent
                 Log.Debug(
                     $"MISSION DEBUG PRINTOUT\n" +
                     $"Name: {item.Name.Value}\n" +
-                    $"Sonar: {item.SonarLabel}\n" +
-                    $"Sonar Position: {item.SonarPositions.FirstOrDefault()}\n" +
+                    $"Sonar: {item.SonarLabels.FirstOrDefault().Label}\n" +
+                    $"Sonar Position: {item.SonarLabels.FirstOrDefault().Position}\n" +
                     $"Beacon: {Level.Loaded.MLC().BeaconConstructionStation.WorldPosition}");
             }
         }
@@ -62,7 +62,7 @@ namespace MoreLevelContent
                 return;
             }
             Log.Debug("Sent create distress request");
-            NetUtil.SendServer(NetUtil.CreateNetMsg(NetEvent.COMMAND_CREATEDISTRESS)); 
+            NetUtil.SendServer(NetUtil.CreateNetMsg(NetEvent.COMMAND_CREATEDISTRESS));
 #endif
         }
     }

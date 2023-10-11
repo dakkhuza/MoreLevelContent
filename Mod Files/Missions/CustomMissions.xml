@@ -6,7 +6,7 @@
                 tags="beaconconstruction, mlc"
                 type="GoTo"
                 customType="BeaconConstruction"
-                commonness="0"
+                commonness="10"
                 reward="2800">
                 <supplycosts>
                         <supply_utility price="1200" />
@@ -17,16 +17,20 @@
                         header="missionheader0.beaconconstruction"
                         text="missionmessage0.beaconconstruction" />
                 <Reputation
-                        identifier="coalition"
+                        identifier="location"
                         amount="10" />
                 <Icon
                         texture="%ModDir%/Missions/Icons.png"
                         sourcerect="0,0,256,256"
                         color="243,146,55" />
+                <TriggerEvent state="0" delay="5" eventidentifier="constructionworkers"
+                        campaignonly="true" />
         </ConstructionMission>
 
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <!--                          Distress Escort Missions                         -->
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-        <!-- Distress Missions -->
         <DistressEscort
                 identifier="distress_lostdivercave"
                 textidentifier="distressmission"
@@ -48,6 +52,9 @@
                         texture="%ModDir%/Missions/Icons.png"
                         sourcerect="256,0,256,256"
                         color="255,106,106" />
+                <Reputation
+                        identifier="location"
+                        amount="5" />
         </DistressEscort>
 
         <DistressEscort
@@ -72,6 +79,9 @@
                         texture="%ModDir%/Missions/Icons.png"
                         sourcerect="256,0,256,256"
                         color="255,106,106" />
+                <Reputation
+                        identifier="location"
+                        amount="5" />
         </DistressEscort>
 
         <DistressEscort
@@ -96,6 +106,9 @@
                         texture="%ModDir%/Missions/Icons.png"
                         sourcerect="256,0,256,256"
                         color="255,106,106" />
+                <Reputation
+                        identifier="location"
+                        amount="5" />
         </DistressEscort>
 
         <DistressEscort
@@ -119,6 +132,9 @@
                         texture="%ModDir%/Missions/Icons.png"
                         sourcerect="256,0,256,256"
                         color="255,106,106" />
+                <Reputation
+                        identifier="location"
+                        amount="5" />
         </DistressEscort>
 
         <DistressEscort
@@ -153,6 +169,9 @@
                         texture="%ModDir%/Missions/Icons.png"
                         sourcerect="256,0,256,256"
                         color="255,106,106" />
+                <Reputation
+                        identifier="location"
+                        amount="5" />
         </DistressEscort>
 
         <DistressEscort
@@ -184,11 +203,18 @@
                                 minmoney="500"
                                 maxmoney="1000" />
                 </Characters>
+                <Reputation
+                        identifier="location"
+                        amount="5" />
                 <Icon
                         texture="%ModDir%/Missions/Icons.png"
                         sourcerect="256,0,256,256"
                         color="255,106,106" />
         </DistressEscort>
+
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <!--                         Distress Shuttle Missions                         -->
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
         <DistressSubmarine
                 identifier="distress_shiprescue0"
@@ -197,7 +223,7 @@
                 type="GoTo"
                 customType="DistressSubmarine"
                 commonness="8"
-                reward="500"
+                reward="2500"
                 crewsurviveidentifier="distress.submarinesuccess.crew"
                 subsalvagedidentifer="distress.submarinesuccess.sub"
                 revealedFailureidentifer="distress.submarinefail"
@@ -214,15 +240,17 @@
 
                 <Characters>
                         <Item from="mlc_distress_npcs" identifier="shuttlecaptain"
-                                allowordering="true" isCaptain="true" payout="50"
+                                allowordering="true" isCaptain="true" payout="150"
                                 color="250,164,107" />
                         <Item from="outpostnpcs1" identifier="commoner" allowordering="true"
-                                payout="100" />
+                                payout="500" />
                 </Characters>
 
                 <message text="missionmessage0.distress_shiprescue" />
                 <message text="missionmessage1.distress_shiprescue" />
-
+                <Reputation
+                        identifier="location"
+                        amount="5" />
                 <Icon
                         texture="%ModDir%/Missions/Icons.png"
                         sourcerect="256,0,256,256"
@@ -236,7 +264,7 @@
                 type="GoTo"
                 customType="DistressSubmarine"
                 commonness="8"
-                reward="1000"
+                reward="3500"
                 crewsurviveidentifier="distress.submarinesuccess.crew"
                 subsalvagedidentifer="distress.submarinesuccess.sub"
                 revealedFailureidentifer="distress.submarinefail"
@@ -279,13 +307,16 @@
 
                 <Characters>
                         <Item from="mlc_distress_npcs" identifier="shuttlecaptain"
-                                allowordering="true" isCaptain="true" payout="100"
+                                allowordering="true" isCaptain="true" payout="150"
                                 color="250,164,107" />
                         <Item from="outpostnpcs1" identifier="commoner" allowordering="true"
-                                payout="300" />
+                                payout="500" />
                         <Item from="outpostnpcs1" identifier="commoner" allowordering="true"
-                                payout="300" />
+                                payout="500" />
                 </Characters>
+                <Reputation
+                        identifier="location"
+                        amount="5" />
 
                 <message text="missionmessage0.distress_shiprescue" />
                 <message text="missionmessage1.distress_shiprescue" />
@@ -302,8 +333,8 @@
                 tags="distress, mlc, hard"
                 type="GoTo"
                 customType="DistressSubmarine"
-                commonness="4"
-                reward="2000"
+                commonness="5"
+                reward="4500"
                 crewsurviveidentifier="distress.submarinesuccess.crew"
                 subsalvagedidentifer="distress.submarinesuccess.sub"
                 revealedFailureidentifer="distress.submarinefail"
@@ -346,19 +377,23 @@
 
                 <Characters>
                         <Item from="mlc_distress_npcs" identifier="shuttlecaptain"
-                                allowordering="true" isCaptain="true" payout="100"
+                                allowordering="true" isCaptain="true" payout="250"
                                 color="250,164,107" />
                         <Item from="outpostnpcs1" identifier="commoner" allowordering="true"
-                                payout="300" />
+                                payout="400" />
                         <Item from="outpostnpcs1" identifier="commoner" allowordering="true"
-                                payout="300" />
+                                payout="400" />
                         <Item from="outpostnpcs1" identifier="commoner" allowordering="true"
-                                payout="300" />
+                                payout="400" />
                         <Item from="outpostnpcs1" identifier="commoner" allowordering="true"
-                                payout="300" />
+                                payout="400" />
                         <Item from="outpostnpcs1" identifier="commoner" allowordering="true"
-                                payout="300" />
+                                payout="400" />
                 </Characters>
+
+                <Reputation
+                        identifier="location"
+                        amount="5" />
 
                 <message text="missionmessage0.distress_shiprescue" />
                 <message text="missionmessage1.distress_shiprescue" />
@@ -375,8 +410,8 @@
                 tags="distress, mlc, medium"
                 type="GoTo"
                 customType="DistressSubmarine"
-                commonness="1"
-                reward="1000"
+                commonness="3"
+                reward="3500"
                 crewsurviveidentifier="distress.submarinesuccess.crew"
                 subsalvagedidentifer="distress.submarinesuccess.sub"
                 revealedFailureidentifer="distress.submarinefail"
@@ -392,6 +427,9 @@
 
                 <message text="missionmessage0.distress_shiprescue" />
                 <message text="missionmessage1.distress_shiprescue" />
+                <Reputation
+                        identifier="location"
+                        amount="5" />
 
                 <TriggerEvent state="0" delay="5" eventidentifier="shuttle_clown"
                         campaignonly="true" />
@@ -401,6 +439,9 @@
                         color="255,106,106" />
         </DistressSubmarine>
 
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <!--                       Distress Ghostship Missions                         -->
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
         <DistressGhostship
                 identifier="distress_ghostship_bandit"
@@ -408,7 +449,7 @@
                 tags="distress, mlc"
                 type="GoTo"
                 customType="DistressGhostship"
-                commonness="4"
+                commonness="10"
                 reward="0"
                 successmessage="distress.success.distress_ghostship_bandit1"
         >
@@ -446,6 +487,11 @@
                         </Item>
                 </Characters>
 
+                <Reputation
+                        identifier="location"
+                        amount="5" />
+
+
                 <Decals>
                         <Item prefab="blood" count="20" />
                 </Decals>
@@ -471,7 +517,7 @@
                 tags="distress, mlc"
                 type="GoTo"
                 customType="DistressGhostship"
-                commonness="3"
+                commonness="9"
                 reward="0"
                 successmessage="distress.success.distress_ghostship_bandit1"
         >
@@ -480,6 +526,11 @@
                         <Sub path="Content/Submarines/Camel.sub" commonness="25" />
                         <Sub path="Content/Submarines/Orca.sub" commonness="15" />
                 </Submarines>
+
+                <Reputation
+                        identifier="location"
+                        amount="5" />
+
 
                 <Characters>
                         <Item
@@ -516,14 +567,15 @@
                         <Item prefab="explosion" count="2" preferedhull="roomname.commandroom" />
                 </Decals>
 
-                <DamageDevices>
+                <!--DamageDevices>
                         <Item tag="command" condition="0" all="true" />
                         <Item tag="engine" condition="0" all="true" />
-                </DamageDevices>
+                </DamageDevices-->
 
-                <message header="missionheader0.distress_ghostship_bandit1"
-                        text="missionmessage0.distress_ghostship_bandit1" />
-                <message header="missionheader1.distress_ghostship_bandit1"
+                <message header="missionheader0.distress_ghostship"
+                        text="missionmessage0.distress_ghostship" />
+
+                <message header="missionheader1.distress_ghostship"
                         text="missionmessage1.distress_ghostship_bandit1" />
 
 
@@ -541,7 +593,7 @@
                 tags="distress, mlc"
                 type="GoTo"
                 customType="DistressGhostship"
-                commonness="4"
+                commonness="8"
                 reward="0"
                 successmessage="distress.success.distress_ghostship_bandit1"
         >
@@ -550,6 +602,11 @@
                         <Sub path="Content/Submarines/Camel.sub" commonness="25" />
                         <Sub path="Content/Submarines/Orca.sub" commonness="15" />
                 </Submarines>
+
+                <Reputation
+                        identifier="location"
+                        amount="5" />
+
 
                 <Characters>
                         <Item
@@ -586,10 +643,10 @@
                         <Item prefab="explosion" count="2" preferedhull="roomname.commandroom" />
                 </Decals>
 
-                <DamageDevices>
+                <!--DamageDevices>
                         <Item tag="command" condition="0" all="true" />
                         <Item tag="engine" condition="0" all="true" />
-                </DamageDevices>
+                </DamageDevices-->
 
                 <message header="missionheader0.distress_ghostship"
                         text="missionmessage0.distress_ghostship" />
@@ -598,7 +655,7 @@
                         text="missionmessage1.distress_ghostship_bandit1" />
 
 
-                <TriggerEvent state="0" delay="5" eventidentifier="distress_ghostship_bandit_4_hard"
+                <TriggerEvent state="0" delay="5" eventidentifier="distress_ghostship_bandit_5_hard"
                         campaignonly="true" />
                 <Icon
                         texture="%ModDir%/Missions/Icons.png"
@@ -612,7 +669,7 @@
                 tags="distress, mlc"
                 type="GoTo"
                 customType="DistressGhostship"
-                commonness="1"
+                commonness="5"
                 reward="0"
                 successmessage="distress.success.distress_ghostship_husks"
         >
@@ -620,6 +677,11 @@
                         <Sub path="Content/Submarines/Camel.sub" commonness="1" />
                         <Sub path="Content/Submarines/Orca.sub" commonness="1" />
                 </Submarines>
+
+                <Reputation
+                        identifier="location"
+                        amount="5" />
+
 
                 <Characters>
                         <!-- Husks -->
@@ -737,7 +799,7 @@
                 tags="distress, mlc"
                 type="GoTo"
                 customType="DistressGhostship"
-                commonness="1"
+                commonness="5"
                 reward="0"
                 successmessage="distress.success.distress_ghostship_crawlers"
         >
@@ -746,6 +808,11 @@
                         minfloodpercentage="0.1" maxfloodpercentage="0.15">
                         <Sub path="%ModDir%/Missions/barsuk_monster.sub" />
                 </Submarines>
+
+                <Reputation
+                        identifier="location"
+                        amount="5" />
+
 
                 <Characters>
                         <!-- Corpses -->
@@ -826,7 +893,7 @@
                 tags="distress, mlc"
                 type="GoTo"
                 customType="DistressGhostship"
-                commonness="1"
+                commonness="4"
                 reward="0"
                 successmessage="distress.success.distress_ghostship_prisonbreak"
         >
@@ -834,6 +901,11 @@
                         <Sub path="Content/Submarines/Venture.sub" />
                         <Sub path="Content/Submarines/Hemulen.sub" />
                 </Submarines>
+
+                <Reputation
+                        identifier="location"
+                        amount="5" />
+
 
                 <Characters>
                         <!-- Corpses -->
@@ -891,7 +963,7 @@
                 tags="distress, mlc"
                 type="GoTo"
                 customType="DistressGhostship"
-                commonness="1"
+                commonness="3"
                 reward="0"
                 successmessage="distress.success.distress_ghostship_prisonbreak"
         >
@@ -899,6 +971,11 @@
                         <Sub path="Content/Submarines/Venture.sub" />
                         <Sub path="Content/Submarines/Hemulen.sub" />
                 </Submarines>
+
+                <Reputation
+                        identifier="location"
+                        amount="5" />
+
 
                 <Characters>
                         <!-- Corpses -->
@@ -956,7 +1033,7 @@
                 tags="distress, mlc"
                 type="GoTo"
                 customType="DistressGhostship"
-                commonness="0.1"
+                commonness="1"
                 reward="0"
                 successmessage="distress.success.distress_ghostship_alienship"
         >
@@ -964,6 +1041,11 @@
                         minfloodpercentage="1" maxfloodpercentage="1">
                         <Sub path="%ModDir%/Missions/dugong_alien.sub" />
                 </Submarines>
+
+                <Reputation
+                        identifier="location"
+                        amount="5" />
+
 
                 <Characters>
                         <!-- Insane -->

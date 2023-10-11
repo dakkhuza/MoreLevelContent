@@ -70,6 +70,7 @@ namespace MoreLevelContent
             InjectionManager.Instance.Setup();
             Hooks.Instance.Setup();
             Commands.Instance.Setup();
+            CompatabilityHelper.Instance.Setup();
 
             if (!levelContentProducer.Active)
             {

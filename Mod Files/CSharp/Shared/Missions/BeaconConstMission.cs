@@ -31,7 +31,7 @@ namespace MoreLevelContent.Missions
             int GetPrice(string supplyType) => supplyCosts.GetChildElement(supplyType).GetAttributeInt("price", 0);
         }
 
-        public override LocalizedString SonarLabel => base.SonarLabel.IsNullOrEmpty() ? sonarLabel : base.SonarLabel;
+        // public override LocalizedString SonarLabel => base.SonarLabel.IsNullOrEmpty() ? sonarLabel : base.SonarLabel;
         public override int Reward => GetReward();
         public override int GetReward(Submarine sub) => GetReward();
 
@@ -41,14 +41,13 @@ namespace MoreLevelContent.Missions
             var levelData = connection.LevelData.MLC();
             int reward = (int)(((PriceUtility * levelData.RequestedU) +
             (PriceStructure * levelData.RequestedS) +
-            (PriceElectric * levelData.RequestedE)) * 1.5);
+            (PriceElectric * levelData.RequestedE)) * 2.5);
             return reward;
         }
 
         protected override void StartMissionSpecific(Level level) => description = description.Replace("[requestedsupplies]", level.LevelData.MLC().GetRequestedSupplies());
 
-
-        public override IEnumerable<Vector2> SonarPositions
+        public override IEnumerable<(LocalizedString Label, Vector2 Position)> SonarLabels
         {
             get
             {
@@ -57,7 +56,7 @@ namespace MoreLevelContent.Missions
                     yield break;
                 }
                 Vector2 worldPos = level.MLC().BeaconConstructionStation.WorldPosition;
-                yield return worldPos;
+                yield return (Prefab.SonarLabel.IsNullOrEmpty() ? sonarLabel : Prefab.SonarLabel, worldPos);
             }
         }
 

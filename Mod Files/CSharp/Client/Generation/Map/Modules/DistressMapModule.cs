@@ -20,9 +20,10 @@ namespace MoreLevelContent.Shared.Generation
         internal void CreateDistress(object[] args)
         {
             IReadMessage inMsg = (IReadMessage)args[0];
-            int seed = inMsg.ReadInt32();
-            Random rand = new MTRandom(seed);
-            Shared_CreateDistress(GameMain.GameSession.Map, rand);
+            int id = (int)inMsg.ReadUInt32();
+            byte steps = inMsg.ReadByte();
+            LocationConnection connection = MapDirector.IdConnectionLookup[id];
+            CreateDistress(connection, steps);
         }
     }
 }

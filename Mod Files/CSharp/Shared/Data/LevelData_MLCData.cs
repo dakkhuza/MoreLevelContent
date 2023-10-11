@@ -59,7 +59,7 @@ namespace MoreLevelContent.Shared.Data
                 case 2:
                     return TextManager.GetWithVariables("mlc.beaconconsttwo", ("[supply1]", requestedSuppliesList[0]), ("[supply2]", requestedSuppliesList[1]));
                 case 3:
-                    return TextManager.GetWithVariables("mlc.beaconconsttwo", ("[supply1]", requestedSuppliesList[0]), ("[supply2]", requestedSuppliesList[1]), ("[supply3]", requestedSuppliesList[2]));
+                    return TextManager.GetWithVariables("mlc.beaconconstthree", ("[supply1]", requestedSuppliesList[0]), ("[supply2]", requestedSuppliesList[1]), ("[supply3]", requestedSuppliesList[2]));
                 default:
                     Log.Error($"Invalid amount of requested supplies {requestedSuppliesList.Count}");
                     return null;

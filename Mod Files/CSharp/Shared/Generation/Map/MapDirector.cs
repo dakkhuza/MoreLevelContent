@@ -14,18 +14,24 @@ using Microsoft.Xna.Framework;
 using FarseerPhysics.Collision;
 using MoreLevelContent.Networking;
 using Barotrauma.Networking;
+using MoreLevelContent.Shared.Utils;
 
 namespace MoreLevelContent.Shared.Generation
 {
     public partial class MapDirector : Singleton<MapDirector>
     {
+        internal static readonly Dictionary<Int32, LocationConnection> IdConnectionLookup = new();
+        internal static readonly Dictionary<LocationConnection, Int32> ConnectionIdLookup = new();
+#if CLIENT
+        private static bool _validatedConnectionLookup = false;
+#endif
         public override void Setup()
         {
             // Map
             var map_ctr_load = typeof(Map).GetConstructor(BindingFlags.Instance | BindingFlags.NonPublic, null, new Type[] { typeof(CampaignMode), typeof(XElement) }, null);
             var map_save = typeof(Map).GetMethod(nameof(Map.Save));
             var map_generate = typeof(Map).GetMethod("Generate", BindingFlags.Instance | BindingFlags.NonPublic);
-            var map_progressworld = AccessTools.Method(typeof(Map), "ProgressWorld", new Type[] { });
+            var map_progressworld = AccessTools.Method(typeof(Map), "ProgressWorld", new Type[] { typeof(CampaignMode) });
 
             // Leveldata
             var leveldata_ctr_load = typeof(LevelData).GetConstructor(new Type[] { typeof(XElement), typeof(float?), typeof(bool) });
@@ -35,6 +41,8 @@ namespace MoreLevelContent.Shared.Generation
             // GameSession
             var gamesession_StartRound = typeof(GameSession).GetMethod(nameof(GameSession.StartRound), BindingFlags.Public | BindingFlags.Instance, new Type[] { typeof(LevelData), typeof(bool), typeof(SubmarineInfo), typeof(SubmarineInfo) });
             var campaignmode_AddExtraMissions = typeof(CampaignMode).GetMethod(nameof(CampaignMode.AddExtraMissions));
+
+            // level generate
 
             Check(map_ctr_load, "map ctr load");
             Check(map_save, "map_save");
@@ -64,8 +72,74 @@ namespace MoreLevelContent.Shared.Generation
 
             Modules.Add(new ConstructionMapModule());
             Modules.Add(new DistressMapModule());
-            // Modules.Add(new )
+
+#if CLIENT
+            NetUtil.Register(NetEvent.MAP_CONNECTION_EQUALITYCHECK_SENDCLIENT, ConnectionEqualityCheck);
+#endif
+#if SERVER
+            NetUtil.Register(NetEvent.MAP_CONNECTION_EQUALITYCHECK_REQUEST, RequestConnectionEquality);
+#endif
         }
+
+#if CLIENT
+        private void ConnectionEqualityCheck(object[] args)
+        {
+            Log.Debug("Got map connection equality check!");
+            IReadMessage inMsg = (IReadMessage)args[0];
+            UInt32 connectionCount = inMsg.ReadUInt32();
+            if (connectionCount != IdConnectionLookup.Keys.Count)
+            {
+                KickClient($"The connection lookup generated on your client did not match the one on the server (Client Key Count: {IdConnectionLookup.Keys.Count}, Server Key Count: {connectionCount})"); 
+                return;
+            }
+
+            for (int i = 0; i < connectionCount - 1; i++)
+            {
+                Int32 key = inMsg.ReadInt32();
+                if (!IdConnectionLookup.ContainsKey(key))
+                {
+                    KickClient($"The connection lookup generated on your client did not match the one on the server (Client did not contain server key {key})");
+                    return;
+                }
+            }
+
+            Log.Debug("Equality good!");
+        }
+
+
+        private void KickClient(string reason)
+        {
+            Log.Error(reason);
+            _ = new GUIMessageBox(TextManager.Get("Error"), TextManager.GetWithVariables("MessageReadError", ("[message]", $"MLC ERROR: {reason}")))
+            {
+                DisplayInLoadingScreens = true
+            };
+            GameMain.Client.Quit();
+
+        }
+#endif
+
+#if SERVER
+        private void RequestConnectionEquality(object[] args)
+        {
+            Log.Debug("Got request for quality check");
+            Client c = (Client)args[1];
+            if (IdConnectionLookup.Count == 0)
+            {
+                c.Kick("Client requested equality check too soon!");
+                return;
+            }
+            
+            IWriteMessage msg = NetUtil.CreateNetMsg(NetEvent.MAP_CONNECTION_EQUALITYCHECK_SENDCLIENT);
+            msg.WriteUInt32((uint)IdConnectionLookup.Keys.Count); // write the total count
+            foreach (var key in IdConnectionLookup.Keys)
+            {
+                msg.WriteUInt32((uint)key);
+            }
+
+            NetUtil.SendClient(msg, c.Connection);
+        }
+#endif
 
         private void Check(object info, string name)
         {
@@ -77,6 +151,14 @@ namespace MoreLevelContent.Shared.Generation
 
         private static void OnRoundStart(GameSession __instance, LevelData levelData)
         {
+#if CLIENT
+            if (!_validatedConnectionLookup && GameMain.IsMultiplayer)
+            {
+                _validatedConnectionLookup = true;
+                NetUtil.SendServer(NetUtil.CreateNetMsg(NetEvent.MAP_CONNECTION_EQUALITYCHECK_REQUEST));
+            }
+#endif
+
             foreach (var item in Instance.Modules)
             {
                 item.OnRoundStart(levelData);
@@ -100,6 +182,7 @@ namespace MoreLevelContent.Shared.Generation
         }
 
         public static void ForceWorldStep() => OnProgressWorld(GameMain.GameSession.Map);
+
         private static void OnProgressWorld(Map __instance)
         {
             foreach (var item in Instance.Modules)
@@ -134,27 +217,10 @@ namespace MoreLevelContent.Shared.Generation
 
         private static void OnMapLoad(Map __instance)
         {
-            // Don't do this for the client
-            // Client gets save sent by server
-            if (Main.IsClient) return;
-            // Update a save from before this update to include construction beacons
-            // if (!__instance.Connections.Any(c => c.LevelData.MLC().HasBeaconConstruction))
-            // {
-            //     Log.Debug("Migrating old save...");
-            //     for (int i = 0; i < __instance.Connections.Count; i++)
-            //     {
-            //         var connection = __instance.Connections[i];
-            // 
-            //         // Skip if there's no beacon station to replace
-            //         if (!connection.LevelData.HasBeaconStation) continue;
-            // 
-            //         // See if we should generate a construction site
-            //         var rand = new MTRandom(ToolBox.StringToInt(connection.LevelData.Seed));
-            //         LevelData_MLCData extraData = connection.LevelData.MLC();
-            //         Instance.TrySpawnBeaconConstruction(connection.LevelData, rand, extraData, connection);
-            //     }
-            // }
+            Log.Debug("Map Load");
 
+            // Generate location connection lookup 
+            GenerateConnectionLookup(__instance);
             foreach (var item in Instance.Modules)
             {
                 item.OnMapLoad(__instance);
@@ -166,14 +232,26 @@ namespace MoreLevelContent.Shared.Generation
             Log.Debug("OnMapSave");
         }
 
-        // implicitly synced
         private static void OnMapGenerate(Map __instance)
         {
             Log.Debug("OnMapGenerate:Postfix");
+            GenerateConnectionLookup(__instance);
             // Get all starting zone connections
             foreach (var item in Instance.Modules)
             {
                 item.OnMapGenerate(__instance);
+            }
+        }
+
+        private static void GenerateConnectionLookup(Map map)
+        {
+            if (IdConnectionLookup.Count > 0) return;
+            for (int i = 0; i < map.Connections.Count; i++)
+            {
+                var connection = map.Connections[i];
+                if (IdConnectionLookup.ContainsKey(i) || ConnectionIdLookup.ContainsKey(connection)) continue; // skip duplicate entries
+                IdConnectionLookup.Add(i, connection);
+                ConnectionIdLookup.Add(connection, i);
             }
         }
     }

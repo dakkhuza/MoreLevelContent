@@ -43,7 +43,7 @@
     <entitydescription.mlc_beaconstructuralsupplies>A box of various structural supplies for use in constructing beacons. May cause injury when sliding. Store on a shelf for safe keeping.</entitydescription.mlc_beaconstructuralsupplies>
 
     <entityname.mlc_beaconelectrialsupplies>Beacon Electrical Supplies</entityname.mlc_beaconelectrialsupplies>
-    <entitydescription.mlc_beaconelectrialsupplies>A box of various utility supplies for use in constructing beacons. Degrades when in water. Store on a shelf for safe keeping.</entitydescription.mlc_beaconelectrialsupplies>
+    <entitydescription.mlc_beaconelectrialsupplies>A box of various electrical supplies for use in constructing beacons. Degrades when in water. Store on a shelf for safe keeping.</entitydescription.mlc_beaconelectrialsupplies>
 
     <!-- Structural Crafting Items -->
     <entityname.mlc_beaconsmat1>Beacon Exterior Plating</entityname.mlc_beaconsmat1>

@@ -214,9 +214,15 @@ namespace MoreLevelContent.Missions
 
         protected override bool DetermineCompleted()
         {
-            return Submarine.MainSub != null && Submarine.MainSub.AtEndExit
-                ? hostile ? triggered : missionNPCs.characters.All(c => MissionNPCCollection.Survived(c))
-                : false;
+            if (Submarine.MainSub != null && Submarine.MainSub.AtEndExit)
+            {
+                if (hostile)
+                {
+                    return triggered;
+                }
+                return missionNPCs.characters.All(c => MissionNPCCollection.Survived(c));
+            }
+            return false;
         }
 
         protected override void EndMissionSpecific(bool completed)

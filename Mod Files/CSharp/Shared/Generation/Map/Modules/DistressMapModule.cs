@@ -16,6 +16,8 @@ namespace MoreLevelContent.Shared.Generation
         private static DistressMapModule _instance;
         private static bool _spawnStartingBeacon = false;
         const int MAX_DISTRESS_CREATE_ATTEMPTS = 5;
+        const int DISTRESS_MIN_DIST = 1;
+        const int DISTRESS_MAX_DIST = 3;
 
         public DistressMapModule()
         {
@@ -140,7 +142,8 @@ namespace MoreLevelContent.Shared.Generation
             Random rand = new MTRandom(seed);
 
             // Find a location connection to spawn a distress beacon at
-            LocationConnection targetConnection = WalkConnection(__instance.CurrentLocation, rand, 3);
+            int dist = Rand.Range(DISTRESS_MIN_DIST, DISTRESS_MAX_DIST, Rand.RandSync.Unsynced);
+            LocationConnection targetConnection = WalkConnection(__instance.CurrentLocation, rand, dist);
             int stepsLeft = rand.Next(4, 8);
             if (!MapDirector.ConnectionIdLookup.ContainsKey(targetConnection)) return; // how does this happen?
 

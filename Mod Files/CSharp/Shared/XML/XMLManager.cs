@@ -12,7 +12,7 @@ namespace MoreLevelContent.Shared.XML
 {
     public class XMLManager : Singleton<XMLManager>
     {
-        //internal List<CustomMission> CustomMissions = new();
+        internal List<CustomMission> CustomMissions = new();
         public override void Setup()
         {
             List<ContentFile> otherFiles = new List<ContentFile>();
@@ -37,11 +37,11 @@ namespace MoreLevelContent.Shared.XML
                     switch (tag)
                     {
                         case "mission":
-                            //CustomMissions.Add(new CustomMission()
-                            //{
-                            //    File = new MissionsFile(file.ContentPackage, file.Path),
-                            //    ContentXElement = contentElement
-                            //});
+                            CustomMissions.Add(new CustomMission()
+                            {
+                                File = new MissionsFile(file.ContentPackage, file.Path),
+                                ContentXElement = contentElement
+                            });
                             Log.Debug("Found custom mission");
                             break;
                         case "MLC": // Ignore MLC tag

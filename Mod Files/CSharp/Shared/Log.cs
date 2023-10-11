@@ -15,7 +15,7 @@ namespace MoreLevelContent.Shared
         public static void Error(string msg) => LogBase("MLC E ", msg, "null", Color.Red);
         public static void InternalDebug(string msg)
         {
-            if (!ConfigManager.Instance.Config.Client.Internal && !Main.IsDebug) return;
+            if (!ConfigManager.Instance.Config.Client.Internal) return;
             LogBase("MLC ID", msg, "null", Color.Purple);
         }
 

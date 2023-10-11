@@ -1,10 +1,14 @@
 ﻿using Barotrauma;
 using Barotrauma.MoreLevelContent.Config;
 using Barotrauma.MoreLevelContent.Shared.Config;
+using Barotrauma.MoreLevelContent.Shared.Utils;
 using Microsoft.Xna.Framework;
 using MoreLevelContent.Shared.Generation.Interfaces;
 using MoreLevelContent.Shared.Store;
 using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Text;
 
 namespace MoreLevelContent.Shared.Generation.Pirate
 {
@@ -24,7 +28,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
 
         void ILevelStartGenerate.OnLevelGenerationStart(LevelData levelData, bool _)
         {
-            enemyOutpost = null; // clear old reference
+            enemyOutpost = null;
             // Exit if it's an outpost level
             if (levelData.Type == LevelData.LevelType.Outpost) return;
 

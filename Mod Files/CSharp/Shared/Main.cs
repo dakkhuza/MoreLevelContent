@@ -21,7 +21,7 @@ namespace MoreLevelContent
     /// </summary>
     partial class Main : ACsMod
     {
-        public static bool IsCampaign => GameMain.GameSession?.Campaign != null;
+        public static bool IsCampaign => GameMain.GameSession?.Campaign != null || GameMain.IsSingleplayer;
         public static bool IsRunning => GameMain.GameSession?.IsRunning ?? false;
         public static bool IsClient => GameMain.NetworkMember != null && GameMain.NetworkMember.IsClient;
         public const string GUID = "com.dak.mlc";
@@ -69,6 +69,7 @@ namespace MoreLevelContent
             levelContentProducer = new LevelContentProducer();
             TurretReflectionInfo.Instance.Setup();
             MapDirector.Instance.Setup();
+            XMLManager.Instance.Setup();
             InjectionManager.Instance.Setup();
             Hooks.Instance.Setup();
             Commands.Instance.Setup();

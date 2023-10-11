@@ -34,12 +34,6 @@ namespace MoreLevelContent.Shared.Generation
             Log.Verbose($"Parsed diff for element with name {name} as {MinDiff}-{MaxDiff}%");
         }
 
-        public DifficultyRange(float min, float max)
-        {
-            MinDiff = min;
-            MaxDiff = max;
-        }
-
         public override string ToString() => $"{MinDiff} - {MaxDiff}";
 
         public bool IsInRangeOf(float diff) => MinDiff <= diff && diff < MaxDiff;

@@ -27,7 +27,7 @@ namespace MoreLevelContent.Shared.Generation
 
         public abstract bool Active { get; }
 
-        internal Submarine SpawnSubOnPath(Level level, string name, ContentFile sub, SubmarineType type = SubmarineType.BeaconStation) => _spawnSubOnPath.Invoke(level, new object[] { name, sub, type }) as Submarine;
+        internal Submarine SpawnSubOnPath(Level level, string name, ContentFile sub) => _spawnSubOnPath.Invoke(level, new object[] { name, sub, SubmarineType.BeaconStation }) as Submarine;
         internal void AutofillSub(Submarine sub) => _autofill.Invoke(null, new object[] { sub.ToEnumerable(), null });
     }
 }

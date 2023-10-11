@@ -59,8 +59,6 @@ namespace MoreLevelContent.Networking
         /// </summary>
         MAP_SEND_NEWDISTRESS,
 
-        MAP_UPDATE_DISTRESS,
-
         /// <summary>
         /// Call the create distress method on the server
         /// </summary>

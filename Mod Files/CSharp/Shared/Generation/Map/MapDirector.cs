@@ -15,14 +15,13 @@ using FarseerPhysics.Collision;
 using MoreLevelContent.Networking;
 using Barotrauma.Networking;
 using MoreLevelContent.Shared.Utils;
-using System.Security.Cryptography;
 
 namespace MoreLevelContent.Shared.Generation
 {
     public partial class MapDirector : Singleton<MapDirector>
     {
-        internal static readonly Dictionary<uint, LocationConnection> IdConnectionLookup = new();
-        internal static readonly Dictionary<LocationConnection, uint> ConnectionIdLookup = new();
+        internal static readonly Dictionary<Int32, LocationConnection> IdConnectionLookup = new();
+        internal static readonly Dictionary<LocationConnection, Int32> ConnectionIdLookup = new();
 #if CLIENT
         private static bool _validatedConnectionLookup = false;
 #endif
@@ -32,8 +31,7 @@ namespace MoreLevelContent.Shared.Generation
             var map_ctr_load = typeof(Map).GetConstructor(BindingFlags.Instance | BindingFlags.NonPublic, null, new Type[] { typeof(CampaignMode), typeof(XElement) }, null);
             var map_save = typeof(Map).GetMethod(nameof(Map.Save));
             var map_generate = typeof(Map).GetMethod("Generate", BindingFlags.Instance | BindingFlags.NonPublic);
-            var map_progressworld_step = AccessTools.Method(typeof(Map), "ProgressWorld", new Type[] { typeof(CampaignMode) });
-            var map_progressworld = AccessTools.Method(typeof(Map), "ProgressWorld", new Type[] { typeof(CampaignMode), typeof(CampaignMode.TransitionType), typeof(float) });
+            var map_progressworld = AccessTools.Method(typeof(Map), "ProgressWorld", new Type[] { typeof(CampaignMode) });
 
             // Leveldata
             var leveldata_ctr_load = typeof(LevelData).GetConstructor(new Type[] { typeof(XElement), typeof(float?), typeof(bool) });
@@ -49,7 +47,7 @@ namespace MoreLevelContent.Shared.Generation
             Check(map_ctr_load, "map ctr load");
             Check(map_save, "map_save");
             Check(map_generate, "map_generate");
-            Check(map_progressworld_step, "map_progressworld");
+            Check(map_progressworld, "map_progressworld");
             Check(leveldata_ctr_load, "leveldata_ctr_load");
             Check(leveldata_ctr_generate, "leveldata_ctr_generate");
             Check(leveldata_save, "leveldata_save");
@@ -59,9 +57,7 @@ namespace MoreLevelContent.Shared.Generation
             // Map data
             _ = Main.Harmony.Patch(map_ctr_load, postfix: new HarmonyMethod(GetType().GetMethod(nameof(OnMapLoad), BindingFlags.Static | BindingFlags.NonPublic)));
             _ = Main.Harmony.Patch(map_generate, postfix: new HarmonyMethod(GetType().GetMethod(nameof(OnMapGenerate), BindingFlags.Static | BindingFlags.NonPublic)));
-            _ = Main.Harmony.Patch(map_progressworld_step, postfix: new HarmonyMethod(AccessTools.Method(typeof(MapDirector), nameof(MapDirector.OnProgressWorld_Step))));
-            _ = Main.Harmony.Patch(map_progressworld, postfix: new HarmonyMethod(AccessTools.Method(typeof(MapDirector), nameof(MapDirector.OnProgressWorld))));
-
+            
             // Level data
             _ = Main.Harmony.Patch(leveldata_ctr_load, postfix: new HarmonyMethod(GetType().GetMethod(nameof(OnLevelDataLoad), BindingFlags.Static | BindingFlags.NonPublic)));
             _ = Main.Harmony.Patch(leveldata_ctr_generate, postfix: new HarmonyMethod(GetType().GetMethod(nameof(OnLevelDataGenerate), BindingFlags.Static | BindingFlags.NonPublic)));
@@ -71,13 +67,79 @@ namespace MoreLevelContent.Shared.Generation
             _ = Main.Harmony.Patch(campaignmode_AddExtraMissions, postfix: new HarmonyMethod(AccessTools.Method(typeof(MapDirector), "OnAddExtraMissions")));
             _ = Main.Harmony.Patch(gamesession_StartRound, new HarmonyMethod(AccessTools.Method(typeof(MapDirector), "OnRoundStart")));
             extraMissions = AccessTools.Field(typeof(CampaignMode), "extraMissions");
-            MapLocationEquality = new MapLocationEqualityCheck();
+
+            _ = Main.Harmony.Patch(map_progressworld, postfix: new HarmonyMethod(AccessTools.Method(typeof(MapDirector), "OnProgressWorld")));
 
             Modules.Add(new ConstructionMapModule());
             Modules.Add(new DistressMapModule());
+
+#if CLIENT
+            NetUtil.Register(NetEvent.MAP_CONNECTION_EQUALITYCHECK_SENDCLIENT, ConnectionEqualityCheck);
+#endif
+#if SERVER
+            NetUtil.Register(NetEvent.MAP_CONNECTION_EQUALITYCHECK_REQUEST, RequestConnectionEquality);
+#endif
         }
 
-        internal MapLocationEqualityCheck MapLocationEquality;
+#if CLIENT
+        private void ConnectionEqualityCheck(object[] args)
+        {
+            Log.Debug("Got map connection equality check!");
+            IReadMessage inMsg = (IReadMessage)args[0];
+            UInt32 connectionCount = inMsg.ReadUInt32();
+            if (connectionCount != IdConnectionLookup.Keys.Count)
+            {
+                KickClient($"The connection lookup generated on your client did not match the one on the server (Client Key Count: {IdConnectionLookup.Keys.Count}, Server Key Count: {connectionCount})"); 
+                return;
+            }
+
+            for (int i = 0; i < connectionCount - 1; i++)
+            {
+                Int32 key = inMsg.ReadInt32();
+                if (!IdConnectionLookup.ContainsKey(key))
+                {
+                    KickClient($"The connection lookup generated on your client did not match the one on the server (Client did not contain server key {key})");
+                    return;
+                }
+            }
+
+            Log.Debug("Equality good!");
+        }
+
+
+        private void KickClient(string reason)
+        {
+            Log.Error(reason);
+            _ = new GUIMessageBox(TextManager.Get("Error"), TextManager.GetWithVariables("MessageReadError", ("[message]", $"MLC ERROR: {reason}")))
+            {
+                DisplayInLoadingScreens = true
+            };
+            GameMain.Client.Quit();
+
+        }
+#endif
+
+#if SERVER
+        private void RequestConnectionEquality(object[] args)
+        {
+            Log.Debug("Got request for quality check");
+            Client c = (Client)args[1];
+            if (IdConnectionLookup.Count == 0)
+            {
+                c.Kick("Client requested equality check too soon!");
+                return;
+            }
+            
+            IWriteMessage msg = NetUtil.CreateNetMsg(NetEvent.MAP_CONNECTION_EQUALITYCHECK_SENDCLIENT);
+            msg.WriteUInt32((uint)IdConnectionLookup.Keys.Count); // write the total count
+            foreach (var key in IdConnectionLookup.Keys)
+            {
+                msg.WriteUInt32((uint)key);
+            }
+
+            NetUtil.SendClient(msg, c.Connection);
+        }
+#endif
 
         private void Check(object info, string name)
         {
@@ -89,6 +151,14 @@ namespace MoreLevelContent.Shared.Generation
 
         private static void OnRoundStart(GameSession __instance, LevelData levelData)
         {
+#if CLIENT
+            if (!_validatedConnectionLookup && GameMain.IsMultiplayer)
+            {
+                _validatedConnectionLookup = true;
+                NetUtil.SendServer(NetUtil.CreateNetMsg(NetEvent.MAP_CONNECTION_EQUALITYCHECK_REQUEST));
+            }
+#endif
+
             foreach (var item in Instance.Modules)
             {
                 item.OnRoundStart(levelData);
@@ -111,21 +181,13 @@ namespace MoreLevelContent.Shared.Generation
             }
         }
 
-        public static void ForceWorldStep() => OnProgressWorld_Step(GameMain.GameSession.Map);
+        public static void ForceWorldStep() => OnProgressWorld(GameMain.GameSession.Map);
 
         private static void OnProgressWorld(Map __instance)
         {
             foreach (var item in Instance.Modules)
             {
                 item.OnProgressWorld(__instance);
-            }
-        }
-
-        private static void OnProgressWorld_Step(Map __instance)
-        {
-            foreach (var item in Instance.Modules)
-            {
-                item.OnProgressWorld_Step(__instance);
             }
         }
 
@@ -163,7 +225,6 @@ namespace MoreLevelContent.Shared.Generation
             {
                 item.OnMapLoad(__instance);
             }
-            Instance.MapLocationEquality.CheckEquality();
         }
 
         private static void OnMapSave()
@@ -182,107 +243,17 @@ namespace MoreLevelContent.Shared.Generation
             }
         }
 
-        // KNOWN ISSUE: On creating a new campaign, all clients will be kicked. Solution: Just load the campaign up again
         private static void GenerateConnectionLookup(Map map)
         {
-            MD5 md5 = MD5.Create();
             if (IdConnectionLookup.Count > 0) return;
-            foreach (var connection in map.Connections)
+            for (int i = 0; i < map.Connections.Count; i++)
             {
-                string connectionName = connection.LevelData.Seed;
-                uint connectionHash = ToolBox.StringToUInt32Hash(connectionName, md5);
-                if (IdConnectionLookup.ContainsKey(connectionHash) || ConnectionIdLookup.ContainsKey(connection)) continue; // skip duplicate entries
-                IdConnectionLookup.Add(connectionHash, connection);
-                ConnectionIdLookup.Add(connection, connectionHash);
+                var connection = map.Connections[i];
+                if (IdConnectionLookup.ContainsKey(i) || ConnectionIdLookup.ContainsKey(connection)) continue; // skip duplicate entries
+                IdConnectionLookup.Add(i, connection);
+                ConnectionIdLookup.Add(connection, i);
             }
         }
-    }
-
-    internal class MapLocationEqualityCheck
-    {
-        public MapLocationEqualityCheck()
-        {
-#if CLIENT
-            NetUtil.Register(NetEvent.MAP_CONNECTION_EQUALITYCHECK_SENDCLIENT, ConnectionEqualityCheck);
-#endif
-#if SERVER
-            NetUtil.Register(NetEvent.MAP_CONNECTION_EQUALITYCHECK_REQUEST, RequestConnectionEquality);
-#endif
-        }
-
-        private static bool _validatedConnectionLookup;
-
-        internal void CheckEquality()
-        {
-            if (!GameMain.IsMultiplayer) return;
-#if CLIENT
-            if (!_validatedConnectionLookup && GameMain.IsMultiplayer)
-            {
-                _validatedConnectionLookup = true;
-                NetUtil.SendServer(NetUtil.CreateNetMsg(NetEvent.MAP_CONNECTION_EQUALITYCHECK_REQUEST));
-            }
-#endif
-        }
-
-#if CLIENT
-        private void ConnectionEqualityCheck(object[] args)
-        {
-            Log.Debug("Got map connection equality check!");
-            IReadMessage inMsg = (IReadMessage)args[0];
-            uint connectionCount = inMsg.ReadUInt32();
-            if (connectionCount != MapDirector.IdConnectionLookup.Keys.Count)
-            {
-                KickClient($"The connection lookup generated on your client did not match the one on the server (Client Key Count: {MapDirector.IdConnectionLookup.Keys.Count}, Server Key Count: {connectionCount})");
-                return;
-            }
-
-            for (int i = 0; i < connectionCount - 1; i++)
-            {
-                uint key = inMsg.ReadUInt32();
-                if (!MapDirector.IdConnectionLookup.ContainsKey(key))
-                {
-                    KickClient($"The connection lookup generated on your client did not match the one on the server (Client did not contain server key {key})");
-                    return;
-                }
-            }
-
-            Log.Debug("Equality good!");
-        }
-
-
-        private void KickClient(string reason)
-        {
-            Log.Error(reason);
-            _ = new GUIMessageBox(TextManager.Get("Error"), TextManager.GetWithVariables("MessageReadError", ("[message]", $"MLC ERROR: {reason}")))
-            {
-                DisplayInLoadingScreens = true
-            };
-            GameMain.Client.Quit();
-
-        }
-#endif
-
-#if SERVER
-        private void RequestConnectionEquality(object[] args)
-        {
-            Log.Debug("Got request for quality check");
-            Client c = (Client)args[1];
-            if (MapDirector.IdConnectionLookup.Count == 0)
-            {
-                c.Kick("Client requested equality check too soon!");
-                return;
-            }
-            
-            IWriteMessage msg = NetUtil.CreateNetMsg(NetEvent.MAP_CONNECTION_EQUALITYCHECK_SENDCLIENT);
-            msg.WriteUInt32((uint)MapDirector.IdConnectionLookup.Keys.Count); // write the total count
-            foreach (var key in MapDirector.IdConnectionLookup.Keys)
-            {
-                msg.WriteUInt32(key);
-            }
-
-            NetUtil.SendClient(msg, c.Connection);
-        }
-#endif
     }
 
     internal class BlackMarketModule

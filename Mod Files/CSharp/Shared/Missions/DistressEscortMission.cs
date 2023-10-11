@@ -128,10 +128,7 @@ namespace MoreLevelContent.Missions
 
         private void InitCharacters()
         {
-            if (missionNPCs.AliveHumans > 0)
-            {
-                spawnPosition = missionNPCs[0].WorldPosition;
-            }
+            spawnPosition = missionNPCs[0].WorldPosition;
         }
 
         protected override void StartMissionSpecific(Level level)

@@ -17,7 +17,6 @@ namespace MoreLevelContent.Shared.Generation
             return location.Connections[rand.Next(0, location.Connections.Count - 1)];
         }
 
-        // TODO: Don't allow walking backwards
         protected Location WalkLocation(Location start, Random rand, int preferedWalkDistance)
         {
             int potentialConnections = start.Connections.Count - 1;
@@ -49,12 +48,10 @@ namespace MoreLevelContent.Shared.Generation
         public virtual void OnAddExtraMissions(CampaignMode __instance, LevelData levelData) { }
         public virtual void OnRoundStart(LevelData levelData) { }
         public virtual void OnLevelDataGenerate(LevelData __instance, LocationConnection locationConnection) { }
-        public virtual void OnProgressWorld_Step(Map __instance) { }
         public virtual void OnProgressWorld(Map __instance) { }
         public virtual void OnLevelDataLoad(LevelData __instance, XElement element) { }
         public virtual void OnLevelDataSave(LevelData __instance, XElement parentElement) { }
         public virtual void OnMapLoad(Map __instance) { }
         public virtual void OnMapGenerate(Map __instance) { }
-        public virtual void OnCaveGenerate(Map __instance) { }
     }
 }

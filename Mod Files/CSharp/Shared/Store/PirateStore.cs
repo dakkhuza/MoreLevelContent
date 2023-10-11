@@ -5,8 +5,6 @@ using System.Text;
 using Barotrauma;
 using Barotrauma.Extensions;
 using MoreLevelContent.Shared.Generation;
-using static Barotrauma.Level;
-using static HarmonyLib.Code;
 
 namespace MoreLevelContent.Shared.Store
 {
@@ -28,25 +26,17 @@ namespace MoreLevelContent.Shared.Store
         private bool FindAndScoreOutpostFiles()
         {
             Log.Debug("Collecting pirate outposts...");
+            var outpostModuleFiles = ContentPackageManager.EnabledPackages.All
+            .SelectMany(p => p.GetFiles<OutpostModuleFile>())
+            .OrderBy(f => f.UintIdentifier).ToList();
 
-            foreach (var missionPrefab in MissionPrefab.Prefabs)
+            foreach (var outpostModuleFile in outpostModuleFiles)
             {
-                if (missionPrefab.Tags.Contains("piratebase") && missionPrefab.Tags.Contains("mlc"))
+                SubmarineInfo subInfo = new SubmarineInfo(outpostModuleFile.Path.Value);
+                if (subInfo.OutpostModuleInfo != null)
                 {
-                    ContentXElement element = missionPrefab.ConfigElement;
-                    foreach (var item in element.GetChildElements("PirateBase"))
-                    {
-                        ContentPath path = item.GetAttributeContentPath("path");
-                        float minDif = item.GetAttributeFloat("min", 0);
-                        float maxDif = item.GetAttributeFloat("max", 100);
-                        PlacementType placement = item.GetAttributeEnum("placement", PlacementType.Bottom);
-
-                        SubmarineInfo subInfo = new SubmarineInfo(path.Value);
-                        SubmarineFile file = ContentPackageManager.EnabledPackages.All.SelectMany(p => p.GetFiles<SubmarineFile>()).Where(f => f.Path.Value == path).FirstOrDefault();
-                        DifficultyRange range = new DifficultyRange(minDif, maxDif);
-                        pirateOutposts.Add(new PirateOutpostDef(file, range, placement));
-                        Log.Debug($"Added pirate outpost with path {path} and range {range}");
-                    }
+                    if (subInfo.OutpostModuleInfo.AllowedLocationTypes.Contains("ilo_PirateOutpost"))
+                        pirateOutposts.Add(new PirateOutpostDef(outpostModuleFile, subInfo));
                 }
             }
 

@@ -27,14 +27,23 @@ namespace MoreLevelContent.Shared.Generation
         }
 
         // TODO: Don't allow walking backwards
-        protected Location WalkLocation(Location start, Random rand, int preferedWalkDistance)
+        protected Location WalkLocation(Location start, Random rand, int preferedWalkDistance, LocationConnection from = null)
         {
+            var filteredConnections = start.Connections.Where(c => c != from);
+            if (!filteredConnections.Any())
+            {
+                return start;
+            }
+
             LocationConnection connectionToTravel = ToolBox.SelectWeightedRandom(
-                start.Connections,
-                start.Connections.Select(c => GetConnectionWeight(start, c)).ToList(),
+                filteredConnections.ToList(),
+                filteredConnections.Select(c => GetConnectionWeight(start, c)).ToList(),
                 rand);
+
             Location walkedLocation = connectionToTravel.OtherLocation(start);
             preferedWalkDistance--;
+
+            // if we haven't walked our wanted dist or 
             if (preferedWalkDistance > 0) walkedLocation = WalkLocation(walkedLocation, rand, preferedWalkDistance);
             return walkedLocation;
         }

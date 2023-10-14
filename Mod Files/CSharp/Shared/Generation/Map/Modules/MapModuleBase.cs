@@ -26,7 +26,6 @@ namespace MoreLevelContent.Shared.Generation
             return GetConnectionWeighted(location, rand);
         }
 
-        // TODO: Don't allow walking backwards
         protected Location WalkLocation(Location start, Random rand, int preferedWalkDistance, LocationConnection from = null)
         {
             var filteredConnections = start.Connections.Where(c => c != from);

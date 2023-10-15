@@ -95,7 +95,7 @@ namespace MoreLevelContent.Shared.Generation
                 string subName = System.IO.Path.GetFileNameWithoutExtension(request.ContentFile.Path.Value);
 
                 Submarine submarine = request.SpawnPosition == PositionType.Wreck
-                    ? SpawnSubOnPath(Loaded, subName, request.ContentFile)
+                    ? SpawnSubOnPath(subName, request.ContentFile)
                     : SpawnSub(request.ContentFile);
 
                 if (submarine != null)
@@ -130,7 +130,7 @@ namespace MoreLevelContent.Shared.Generation
         {
             if (Level.Loaded.LevelData.MLC().HasBeaconConstruction)
             {
-                Submarine beacon = SpawnSubOnPath(Level.Loaded, "Beacon Station", BeaconConstStore.Instance.GetBeaconForLevel());
+                Submarine beacon = SpawnSubOnPath("Beacon Station", BeaconConstStore.Instance.GetBeaconForLevel());
                 Level.Loaded.MLC().BeaconConstructionStation = beacon;
                 Item storageItem = Item.ItemList.Find(it => it.Submarine == beacon && it.GetComponent<ItemContainer>() != null && it.Tags.Contains("dropoff"));
                 if (storageItem == null)

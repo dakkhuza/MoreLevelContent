@@ -28,9 +28,10 @@ namespace MoreLevelContent.Shared.Generation
         public override void Setup()
         {
             // Map
-            var map_ctr_load = typeof(Map).GetConstructor(BindingFlags.Instance | BindingFlags.NonPublic, null, new Type[] { typeof(CampaignMode), typeof(XElement) }, null);
+            var map_load = AccessTools.Method(typeof(Map), nameof(Map.Load));
+            var map_loadstate = AccessTools.Method(typeof(Map), nameof(Map.LoadState));
+
             var map_save = typeof(Map).GetMethod(nameof(Map.Save));
-            var map_generate = typeof(Map).GetMethod("Generate", BindingFlags.Instance | BindingFlags.NonPublic);
             var map_progressworld = AccessTools.Method(typeof(Map), "ProgressWorld", new Type[] { typeof(CampaignMode) });
 
             // Leveldata
@@ -44,9 +45,9 @@ namespace MoreLevelContent.Shared.Generation
 
             // level generate
 
-            Check(map_ctr_load, "map ctr load");
+            Check(map_load, "map load");
+            Check(map_loadstate, "map loadstate");
             Check(map_save, "map_save");
-            Check(map_generate, "map_generate");
             Check(map_progressworld, "map_progressworld");
             Check(leveldata_ctr_load, "leveldata_ctr_load");
             Check(leveldata_ctr_generate, "leveldata_ctr_generate");
@@ -55,8 +56,8 @@ namespace MoreLevelContent.Shared.Generation
             Check(campaignmode_AddExtraMissions, "campaignmode_addextramissions");
 
             // Map data
-            _ = Main.Harmony.Patch(map_ctr_load, postfix: new HarmonyMethod(GetType().GetMethod(nameof(OnMapLoad), BindingFlags.Static | BindingFlags.NonPublic)));
-            _ = Main.Harmony.Patch(map_generate, postfix: new HarmonyMethod(GetType().GetMethod(nameof(OnMapGenerate), BindingFlags.Static | BindingFlags.NonPublic)));
+            _ = Main.Harmony.Patch(map_load, postfix: new HarmonyMethod(GetType().GetMethod(nameof(OnMapLoad), BindingFlags.Static | BindingFlags.NonPublic)));
+            _ = Main.Harmony.Patch(map_loadstate, postfix: new HarmonyMethod(GetType().GetMethod(nameof(OnMapLoadState), BindingFlags.Static | BindingFlags.NonPublic)));
             
             // Level data
             _ = Main.Harmony.Patch(leveldata_ctr_load, postfix: new HarmonyMethod(GetType().GetMethod(nameof(OnLevelDataLoad), BindingFlags.Static | BindingFlags.NonPublic)));
@@ -217,13 +218,27 @@ namespace MoreLevelContent.Shared.Generation
 
         private static void OnMapLoad(Map __instance)
         {
-            Log.Debug("Map Load");
+            Log.Debug("OnMapLoad:Postfix");
 
             // Generate location connection lookup 
             GenerateConnectionLookup(__instance);
+
             foreach (var item in Instance.Modules)
             {
                 item.OnMapLoad(__instance);
+            }
+        }
+
+        private static void OnMapLoadState(Map __instance)
+        {
+            Log.Debug("OnMapLoadState:Postfix");
+
+            // Generate location connection lookup
+            GenerateConnectionLookup(__instance);
+
+            foreach (var item in Instance.Modules)
+            {
+                item.OnMapGenerate(__instance);
             }
         }
 
@@ -232,16 +247,6 @@ namespace MoreLevelContent.Shared.Generation
             Log.Debug("OnMapSave");
         }
 
-        private static void OnMapGenerate(Map __instance)
-        {
-            Log.Debug("OnMapGenerate:Postfix");
-            GenerateConnectionLookup(__instance);
-            // Get all starting zone connections
-            foreach (var item in Instance.Modules)
-            {
-                item.OnMapGenerate(__instance);
-            }
-        }
 
         private static void GenerateConnectionLookup(Map map)
         {

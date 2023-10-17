@@ -173,7 +173,5 @@ namespace MoreLevelContent.Shared.Generation
             Log.Debug("Force creating distress beacon");
             _instance.TrySpawnDistress(GameMain.GameSession.Map, true);
         }
-
-        public override void OnMapGenerate(Map __instance) => _spawnStartingBeacon = true;
     }
 }

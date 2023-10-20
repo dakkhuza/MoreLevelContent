@@ -1,0 +1,13 @@
+<infotexts language="English" nowhitespace="false" translatedname="English">
+
+    <!-- Lost Cargo -->
+    <mlc.lostcargotooltip>A freighter submarine has ditched some of it's cargo due to 'complications' in this passage.</mlc.lostcargotooltip>
+    
+    <mlc.lostcargo.tooslow0>The lost cargo between [location1] and [location2] has been claimed by another crew.</mlc.lostcargo.tooslow0>
+    <mlc.lostcargo.tooslow1>Long range listening stations can no longer detect the lost cargo between [location1] and [location2].</mlc.lostcargo.tooslow1>
+    <mlc.lostcargo.tooslow2>Based on projected currents and ice movement, the lost cargo between [location1] and [location2] is no longer recoverable.</mlc.lostcargo.tooslow2>
+
+    <missionname.lostcargo>Lost Cargo</missionname.lostcargo>
+    <missiondescription.lostcargo>A D2K Shipping freighter submarine has ditched some of it's cargo pods due to 'complications' in this passage. Locate any surviving cargo pods and either salvage the contents or return them.</missiondescription.lostcargo>
+
+</infotexts>

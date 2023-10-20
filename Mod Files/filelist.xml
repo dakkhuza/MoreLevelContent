@@ -23,7 +23,6 @@
   <Talents file="%ModDir%/Pirate/pirate_talents.xml" />
   <NPCSets file="%ModDir%/Pirate/pirate_npcset.xml" />
   <Missions file="%ModDir%/Pirate/pirate_missions.xml" />
-  <Submarine file="%ModDir%/Missions/dugong_alien.sub" />
   <Submarine file="%ModDir%/Missions/barsuk_monster.sub" />
   <Missions file="%ModDir%/Missions/CustomMissions.xml" />
   <NPCSets file="%ModDir%/Missions/MissionNPCs.xml" />
@@ -34,5 +33,6 @@
   <OutpostModule file="%ModDir%/Map/ConstructionSites/BeaconConstruction.sub" />
   <OutpostModule file="%ModDir%/Map/ConstructionSites/BeaconConstruction_worksite.sub" />
   <OutpostModule file="%ModDir%/Map/ConstructionSites/BeaconConstruction_2_worksite.sub" />
+  <Submarine file="%ModDir%/Missions/dugong_alien.sub" />
   <Submarine file="%ModDir%/cargo_pod.sub" />
 </contentpackage>

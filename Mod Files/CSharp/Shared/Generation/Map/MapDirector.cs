@@ -65,11 +65,11 @@ namespace MoreLevelContent.Shared.Generation
             _ = Main.Harmony.Patch(leveldata_save, postfix: new HarmonyMethod(GetType().GetMethod(nameof(OnLevelDataSave), BindingFlags.Static | BindingFlags.NonPublic)));
 
             // Campaign
-            _ = Main.Harmony.Patch(campaignmode_AddExtraMissions, postfix: new HarmonyMethod(AccessTools.Method(typeof(MapDirector), "OnAddExtraMissions")));
-            _ = Main.Harmony.Patch(gamesession_StartRound, new HarmonyMethod(AccessTools.Method(typeof(MapDirector), "OnRoundStart")));
+            _ = Main.Harmony.Patch(campaignmode_AddExtraMissions, postfix: new HarmonyMethod(AccessTools.Method(typeof(MapDirector), nameof(OnAddExtraMissions))));
+            _ = Main.Harmony.Patch(gamesession_StartRound, prefix: new HarmonyMethod(AccessTools.Method(typeof(MapDirector), nameof(OnRoundStart))));
             extraMissions = AccessTools.Field(typeof(CampaignMode), "extraMissions");
 
-            _ = Main.Harmony.Patch(map_progressworld, postfix: new HarmonyMethod(AccessTools.Method(typeof(MapDirector), "OnProgressWorld")));
+            _ = Main.Harmony.Patch(map_progressworld, postfix: new HarmonyMethod(AccessTools.Method(typeof(MapDirector), nameof(OnProgressWorld))));
 
             Modules.Add(new ConstructionMapModule());
             Modules.Add(new DistressMapModule());

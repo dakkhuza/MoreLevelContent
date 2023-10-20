@@ -27,8 +27,6 @@ namespace MoreLevelContent.Shared.Generation
 
         internal void UpdateDistressBeacons(Map __instance)
         {
-            // probably causes issues with DE on lower end computers
-            // probably cache levels with distress beacons
             foreach (LocationConnection connection in __instance.Connections.Where(c => c.LevelData.MLC().HasDistress))
             {
                 // skip locations that are close
@@ -74,8 +72,8 @@ namespace MoreLevelContent.Shared.Generation
             }
 
             // Filter distress prefabs
-            var distressMissions = MissionPrefab.Prefabs.Where(m => // m.Identifier == "distress_ghostship_alienship" &&
-            m.Tags.Contains("distress")).OrderBy(m => m.UintIdentifier);
+            var distressMissions = MissionPrefab.Prefabs.Where(m => m.Tags.Contains("distress")).OrderBy(m => m.UintIdentifier);
+            //distressMissions = distressMissions.Where(m => m.Identifier == "distress_ghostship_alienship").OrderBy(m => m.UintIdentifier);
 
             if (distressMissions.Any())
             {

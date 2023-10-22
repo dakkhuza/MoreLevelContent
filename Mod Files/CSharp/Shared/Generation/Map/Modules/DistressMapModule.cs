@@ -72,16 +72,16 @@ namespace MoreLevelContent.Shared.Generation
             }
 
             // Filter distress prefabs
-            var distressMissions = MissionPrefab.Prefabs.Where(m => m.Tags.Contains("distress")).OrderBy(m => m.UintIdentifier);
+            var orderedDistressMissions = MissionPrefab.Prefabs.Where(m => m.Tags.Contains("distress")).OrderBy(m => m.UintIdentifier);
             //distressMissions = distressMissions.Where(m => m.Identifier == "distress_ghostship_alienship").OrderBy(m => m.UintIdentifier);
 
-            if (distressMissions.Any())
+            if (orderedDistressMissions.Any())
             {
                 try
                 {
                     Log.Debug("Adding distress mission");
                     Random rand = new MTRandom(ToolBox.StringToInt(levelData.Seed));
-                    var distressMissionPrefab = ToolBox.SelectWeightedRandom(distressMissions, p => p.Commonness, rand);
+                    var distressMissionPrefab = ToolBox.SelectWeightedRandom(orderedDistressMissions, p => p.Commonness, rand);
                     Mission inst = distressMissionPrefab.Instantiate(GameMain.GameSession.Map.SelectedConnection.Locations, Submarine.MainSub);
                     AddExtraMission(inst);
                     _internalMissionStore.Add(inst);

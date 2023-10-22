@@ -89,7 +89,7 @@ namespace Barotrauma.MoreLevelContent.Config
         private void WriteConfig(ref IWriteMessage outMsg) => 
             (Config.NetworkedConfig as INetSerializableStruct).Write(outMsg);
 
-        private static readonly string configFilepath = $"{ACsMod.GetSoreFolder<Main>()}/MLCConfig.xml";
+        private static readonly string configFilepath = $"{ACsMod.GetStoreFolder<Main>()}/MLCConfig.xml";
         public MLCConfig Config;
     }
 }

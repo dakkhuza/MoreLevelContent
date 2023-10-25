@@ -22,6 +22,9 @@ namespace MoreLevelContent.Shared.Data
         [SaveData(false)]
         public bool HasBlackMarket;
 
+        [SaveData(false)]
+        public bool HasLostCargo;
+
         [SaveData(0)]
         public int RequestedU;
 

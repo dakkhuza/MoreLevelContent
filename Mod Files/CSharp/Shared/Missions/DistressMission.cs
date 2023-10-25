@@ -11,13 +11,7 @@ namespace MoreLevelContent.Missions
     {
         protected bool DisplayReward;
         private readonly MethodInfo _triggerEventMethod;
-        public DistressMission(MissionPrefab prefab, Location[] locations, Submarine sub) : base(prefab, locations, sub)
-        {
-            DisplayReward = prefab.ConfigElement.GetAttributeBool("displayreward", false);
-            _triggerEventMethod = typeof(Mission).GetMethod("TryTriggerEvents", BindingFlags.Instance | BindingFlags.NonPublic);
-        }
-
-        protected void TriggerEvents(int state) => _triggerEventMethod.Invoke(this, new object[] { state });
+        public DistressMission(MissionPrefab prefab, Location[] locations, Submarine sub) : base(prefab, locations, sub) => DisplayReward = prefab.ConfigElement.GetAttributeBool("displayreward", false);
 
         protected override void EndMissionSpecific(bool completed)
         {

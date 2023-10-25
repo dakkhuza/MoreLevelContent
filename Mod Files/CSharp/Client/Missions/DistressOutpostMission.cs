@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace MoreLevelContent.Missions
 {
-    partial class DistressOutpostMission : DistressMission
-    {
-        public override bool DisplayAsCompleted => false;
-
-        public override bool DisplayAsFailed => false;
-    }
+    //partial class DistressOutpostMission : DistressMission
+    //{
+    //    public override bool DisplayAsCompleted => false;
+    //
+    //    public override bool DisplayAsFailed => false;
+    //}
 }

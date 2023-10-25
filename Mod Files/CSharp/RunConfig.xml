@@ -2,4 +2,5 @@
 <RunConfig>
   <Server>Standard</Server>
   <Client>Standard</Client>
+  <UseNonPublicizedAssemblies>true</UseNonPublicizedAssemblies>
 </RunConfig>

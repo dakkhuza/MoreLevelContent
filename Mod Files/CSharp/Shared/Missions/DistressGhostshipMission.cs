@@ -390,7 +390,6 @@ namespace MoreLevelContent.Missions
             }
 
             if (IsClient) return;
-            accumulatedDamage -= 1f * deltaTime; // reduce accumulated damage by 2 every second
 
             bool CrewInSub()
             {

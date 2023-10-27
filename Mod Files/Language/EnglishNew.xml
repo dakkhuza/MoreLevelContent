@@ -2,8 +2,8 @@
     <mlc.title>More Level Content</mlc.title>
 
     <!-- Distress Missions -->
-    <entityname.mlc_capslogbook>Notebook</entityname.mlc_capslogbook>
-    <entitydescription.mlc_capslogbook>A small, wellworn paper book. Typically used by sub captains to record their travels. Can be sold for a high price at stations or read to garner some experience.</entitydescription.mlc_capslogbook>
+    <entityname.captains_notebook>Notebook</entityname.captains_notebook>
+    <entitydescription.captains_notebook>A small, wellworn paper book. Typically used by sub captains to record their travels. Can be sold for a high price at stations or read to garner some experience.</entitydescription.captains_notebook>
 
     <!-- Lost Cargo -->
     <mlc.cargopodhidden>Cargo Pod?</mlc.cargopodhidden>

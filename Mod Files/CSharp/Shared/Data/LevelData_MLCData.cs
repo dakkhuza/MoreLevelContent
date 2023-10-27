@@ -25,6 +25,9 @@ namespace MoreLevelContent.Shared.Data
         [SaveData(false)]
         public bool HasLostCargo;
 
+        [SaveData(4)]
+        public int CargoStepsLeft;
+
         [SaveData(0)]
         public int RequestedU;
 

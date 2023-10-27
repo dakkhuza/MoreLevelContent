@@ -5,21 +5,53 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using System;
 using System.Linq;
+using MoreLevelContent.Networking;
+using MoreLevelContent.Shared.Utils;
 
 namespace MoreLevelContent.Shared.Generation
 {
-    internal partial class LostCargoMapModule : MapModule
+    internal partial class LostCargoMapModule : TimedEventMapModule
     {
-        public override void OnAddExtraMissions(CampaignMode __instance, LevelData levelData) { }
-        public override void OnLevelDataGenerate(LevelData __instance, LocationConnection locationConnection)
+        protected override NetEvent EventCreated => NetEvent.MAP_SEND_NEWCARGO;
+
+        //protected override NetEvent EventUpdated => throw new NotImplementedException();
+
+        protected override string NewEventText => "mlc.lostcargonew";
+
+        protected override string EventTag => "lostcargo";
+
+        protected override int MaxActiveEvents => 5;
+
+        protected override int EventSpawnChance => 100;
+
+        protected override int MinDistance => 1;
+
+        protected override int MaxDistance => 2;
+
+        protected override int MinEventDuration => 4;
+
+        protected override int MaxEventDuration => 6;
+
+        protected override bool ShouldSpawnEventAtStart => true;
+
+        protected override void HandleEventCreation(LevelData_MLCData data, int eventDuration)
         {
-            var levelData = locationConnection.LevelData.MLC();
-            levelData.HasLostCargo = Rand.Value() > 0.5;
+            data.HasLostCargo = true;
+            data.CargoStepsLeft = eventDuration;
         }
-        public override void OnLevelDataLoad(LevelData __instance, XElement element) { }
-        public override void OnLevelDataSave(LevelData __instance, XElement parentElement) { }
-        public override void OnNewMap(Map __instance) { }
-        public override void OnProgressWorld(Map __instance) { }
-        protected override void InitProjSpecific() { }
+
+        protected override void HandleUpdate(LevelData_MLCData data, LocationConnection connection)
+        {
+            data.CargoStepsLeft--;
+            if (data.CargoStepsLeft <= 0)
+            {
+                data.HasLostCargo = false;
+                string textTag = MLCUtils.GetRandomTag("mlc.lostcargo.tooslow", connection.LevelData);
+                SendEventUpdate(textTag, connection);
+            }
+
+        }
+
+        protected override bool LevelHasEvent(LevelData_MLCData data) => data.HasLostCargo;
     }
 }

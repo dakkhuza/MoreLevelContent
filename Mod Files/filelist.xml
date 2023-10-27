@@ -36,4 +36,5 @@
   <OutpostModule file="%ModDir%/Map/ConstructionSites/BeaconConstruction_2_worksite.sub" />
   <Submarine file="%ModDir%/Missions/dugong_alien.sub" />
   <Submarine file="%ModDir%/Map/CargoPods/cargo_pod.sub" />
+  <Submarine file="%ModDir%/barsuk_outbreak.sub" />
 </contentpackage>

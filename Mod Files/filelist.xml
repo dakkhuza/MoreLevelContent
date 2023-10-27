@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<contentpackage name="More Level Content" modversion="0.0.50" corepackage="False" steamworkshopid="2814493175" gameversion="1.1.18.1">
+<contentpackage name="More Level Content" modversion="0.0.52" corepackage="False" steamworkshopid="2814493175" gameversion="1.1.18.1">
   <Item file="%ModDir%/dummyitem.xml" />
   <Text file="%ModDir%/Language/English.xml" />
   <Text file="%ModDir%/Language/PatchNotes.xml" />
@@ -35,4 +35,5 @@
   <OutpostModule file="%ModDir%/Map/ConstructionSites/BeaconConstruction_worksite.sub" />
   <OutpostModule file="%ModDir%/Map/ConstructionSites/BeaconConstruction_2_worksite.sub" />
   <Submarine file="%ModDir%/Missions/dugong_alien.sub" />
+  <Submarine file="%ModDir%/Map/CargoPods/cargo_pod.sub" />
 </contentpackage>

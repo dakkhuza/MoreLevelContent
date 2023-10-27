@@ -10,7 +10,6 @@ namespace MoreLevelContent.Missions
     abstract partial class DistressMission : Mission
     {
         protected bool DisplayReward;
-        private readonly MethodInfo _triggerEventMethod;
         public DistressMission(MissionPrefab prefab, Location[] locations, Submarine sub) : base(prefab, locations, sub) => DisplayReward = prefab.ConfigElement.GetAttributeBool("displayreward", false);
 
         protected override void EndMissionSpecific(bool completed)

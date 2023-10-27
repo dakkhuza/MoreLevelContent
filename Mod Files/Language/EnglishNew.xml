@@ -1,9 +1,15 @@
 <infotexts language="English" nowhitespace="false" translatedname="English">
     <mlc.title>More Level Content</mlc.title>
 
+    <!-- Distress Missions -->
+    <entityname.mlc_capslogbook>Notebook</entityname.mlc_capslogbook>
+    <entitydescription.mlc_capslogbook>A small, wellworn paper book. Typically used by sub captains to record their travels. Can be sold for a high price at stations or read to garner some experience.</entitydescription.mlc_capslogbook>
+
     <!-- Lost Cargo -->
     <mlc.cargopodhidden>Cargo Pod?</mlc.cargopodhidden>
     <mlc.cargopod>Cargo Pod</mlc.cargopod>
+
+    <mlc.lostcargonew>Lost cargo has been reported between [location1] and [location2].</mlc.lostcargonew>
 
     <mlc.lostcargotooltip>A freighter submarine has ditched some of it's cargo due to 'complications' in this passage.</mlc.lostcargotooltip>
     

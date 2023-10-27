@@ -4,6 +4,7 @@
   <Text file="%ModDir%/Language/English.xml" />
   <Text file="%ModDir%/Language/PatchNotes.xml" />
   <Text file="%ModDir%/Language/MissionText.xml" />
+  <Text file="%ModDir%/Language/EnglishNew.xml"/>
   <UIStyle file="%ModDir%/Style/map.xml" />
   <UIStyle file="%ModDir%/Style/menu.xml" />
   <LocationTypes file="%ModDir%/Map/LocationDefs.xml" />

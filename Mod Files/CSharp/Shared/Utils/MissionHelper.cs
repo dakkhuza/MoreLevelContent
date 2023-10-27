@@ -101,8 +101,12 @@ namespace MoreLevelContent.Shared.Utils
                 GameMain.Server?.SendChatMessage(TextManager.GetServerMessage("distress.ghostship.damagenotification")?.Value, ChatMessageType.Default);
 #endif
 #if CLIENT
-                if (GameMain.IsSingleplayer) 
-                    GameMain.GameSession?.CrewManager?.AddSinglePlayerChatMessage("", TextManager.GetServerMessage("distress.ghostship.damagenotification")?.Value, ChatMessageType.MessageBox, null);
+                if (GameMain.IsSingleplayer)
+                {
+                    GameMain.GameSession?.CrewManager?.AddSinglePlayerChatMessage(
+                        TextManager.Get("mlc.info1")?.Value, TextManager.Get("distress.ghostship.damagenotification")?.Value,
+                        ChatMessageType.MessageBox, null);
+                }
 #endif
                 _displayedWarning = true;
                 Log.Debug("Showed warning message");

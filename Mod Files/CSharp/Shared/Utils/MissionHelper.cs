@@ -1,5 +1,5 @@
 ﻿using Barotrauma;
-using Barotrauma.Extensions;
+using Barotrauma.Networking;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -51,34 +51,37 @@ namespace MoreLevelContent.Shared.Utils
     {
         const float MaxDamagePerSecond = 5.0f;
         const float MaxDamagePerFrame = MaxDamagePerSecond * (float)Timing.Step;
-        const bool _debug = true;
 
         private readonly Submarine _sub;
         private readonly float _threshold;
         private readonly float _maxRepLoss;
         private readonly float _decayPerSec;
+        private readonly float _decayDelay;
         private float _accumulatedDamage;
         private bool _displayedWarning = false;
         private float _lostRep = 0.0f;
-        internal ReputationDamageTracker(Submarine subToTrack, float threshold, float maxRepLoss, float decay)
+        private float _decayTimer;
+        
+        internal ReputationDamageTracker(Submarine subToTrack, float threshold = 20f, float maxRepLoss = 20f, float decay = 1f, float decayDelay = 5f)
         {
             Hooks.Instance.OnStructureDamaged += OnStructureDamaged;
             _sub = subToTrack;
             _threshold = threshold;
             _maxRepLoss = maxRepLoss;
             _decayPerSec = decay * (float)Timing.Step;
+            _decayDelay = decayDelay;
         }
 
         public void Update()
         {
-            if (_accumulatedDamage > 0)
+            if (_accumulatedDamage > 0 && _decayTimer <= 0)
             {
                 _accumulatedDamage -= _decayPerSec;
             }
-            
-            if (_debug)
+
+            if (_decayTimer > 0)
             {
-                Log.Debug($"Accum: {_accumulatedDamage}");
+                _decayTimer -= (float)Timing.Step;
             }
         }
 
@@ -87,16 +90,22 @@ namespace MoreLevelContent.Shared.Utils
             if (character == null || !character.IsPlayer) return;
             if (structure?.Submarine == null || structure.Submarine != _sub) { return; }
 
-            _accumulatedDamage += MathHelper.Clamp(damageAmount, -MaxDamagePerFrame, MaxDamagePerFrame);
+            _accumulatedDamage += MathHelper.Clamp(damageAmount, 0, MaxDamagePerFrame);
+            _decayTimer = _decayDelay;
 
-            if (_accumulatedDamage <= (_threshold / 2)) { return; }
+            if (_accumulatedDamage < _threshold) return;
 
-            if (_displayedWarning)
+            if (!_displayedWarning)
             {
 #if SERVER
                 GameMain.Server?.SendChatMessage(TextManager.GetServerMessage("distress.ghostship.damagenotification")?.Value, ChatMessageType.Default);
 #endif
+#if CLIENT
+                if (GameMain.IsSingleplayer) 
+                    GameMain.GameSession?.CrewManager?.AddSinglePlayerChatMessage("", TextManager.GetServerMessage("distress.ghostship.damagenotification")?.Value, ChatMessageType.MessageBox, null);
+#endif
                 _displayedWarning = true;
+                Log.Debug("Showed warning message");
                 return;
             }
 

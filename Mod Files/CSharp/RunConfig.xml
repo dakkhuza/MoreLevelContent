@@ -3,4 +3,5 @@
   <Server>Standard</Server>
   <Client>Standard</Client>
   <UseNonPublicizedAssemblies>true</UseNonPublicizedAssemblies>
+  <UseInternalAssemblyName>true</UseInternalAssemblyName>
 </RunConfig>

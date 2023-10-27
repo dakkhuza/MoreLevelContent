@@ -32,7 +32,6 @@ namespace MoreLevelContent.Missions
         private Submarine ghostship;
         private LevelData levelData;
         private TrackingSonarMarker trackingSonarMarker;
-        private ReputationDamageTracker damageTracker;
 
 
         enum TravelTarget
@@ -294,7 +293,7 @@ namespace MoreLevelContent.Missions
                 character.CharacterHealth.ForceUpdateVisuals();
             });
             // Reputation stuff
-            damageTracker = new ReputationDamageTracker(ghostship, 20f, 20f, 1f);
+            Hooks.Instance.OnStructureDamaged += OnStructureDamaged;
         }
         void InitShip()
         {
@@ -404,10 +403,47 @@ namespace MoreLevelContent.Missions
             }
         }
 
+        float accumulatedDamage = 0;
+        const float ACCUMULATED_DAMAGE_BREAKPOINT = 20;
+        const float MAX_REP_LOSS = 10;
+        bool displayedWarning = false;
+        private void OnStructureDamaged(Structure structure, float damageAmount, Character character)
+        {
+            if (character == null || damageAmount <= 0.0f) { return; }
+            if (!character.IsPlayer) { return; }
+            if (structure?.Submarine == null || structure.Submarine != ghostship) { return; }
+
+            // let them accidentally damage the hull a bit
+            if (damageAmount <= 1.5f && accumulatedDamage < ACCUMULATED_DAMAGE_BREAKPOINT)
+            {
+                accumulatedDamage += damageAmount;
+                return;
+            }
+
+            if (!displayedWarning)
+            {
+                displayedWarning = true;
+                accumulatedDamage = 0;
+
+#if SERVER
+                GameMain.Server?.SendChatMessage(TextManager.GetServerMessage("distress.ghostship.damagenotification")?.Value, ChatMessageType.Default);
+#endif
+                return;
+            }
+
+            if (GameMain.GameSession?.Campaign?.Map?.CurrentLocation?.Reputation != null)
+            {
+                var reputationLoss = damageAmount * Reputation.ReputationLossPerWallDamage;
+                reputationLoss = Math.Min(reputationLoss, 10); // clamp rep loss to a value 0-10
+                GameMain.GameSession.Campaign.Map.CurrentLocation.Reputation.AddReputation(-reputationLoss);
+            }
+        }
+
         protected override bool DetermineCompleted() => State == 2;
 
         protected override void EndMissionSpecific(bool completed)
         {
+            Hooks.Instance.OnStructureDamaged -= OnStructureDamaged;
             base.EndMissionSpecific(completed);
             missionNPCs.Clear();
         }

@@ -118,7 +118,7 @@ namespace MoreLevelContent.Missions
             ghostship.FlipX();
             submarine.ShowSonarMarker = false;
             submarine.TeamID = CharacterTeamType.None;
-            ghostship.Info.Type = SubmarineType.BeaconStation;
+            ghostship.Info.Type = (SubmarineType)7;
             submarine.PhysicsBody.FarseerBody.BodyType = FarseerPhysics.BodyType.Dynamic;
 
             MissionUtils.PositionSubmarine(submarine, Level.PositionType.MainPath);

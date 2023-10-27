@@ -71,24 +71,14 @@ namespace MoreLevelContent.Shared.Generation
                 return;
             }
 
-            // Filter distress prefabs
-            var orderedDistressMissions = MissionPrefab.Prefabs.Where(m => m.Tags.Contains("distress")).OrderBy(m => m.UintIdentifier);
-            //distressMissions = distressMissions.Where(m => m.Identifier == "distress_ghostship_alienship").OrderBy(m => m.UintIdentifier);
-
-            if (orderedDistressMissions.Any())
+            if (TryGetMissionByTag("distress", levelData, out MissionPrefab prefab))
             {
-                try
-                {
-                    Log.Debug("Adding distress mission");
-                    Random rand = new MTRandom(ToolBox.StringToInt(levelData.Seed));
-                    var distressMissionPrefab = ToolBox.SelectWeightedRandom(orderedDistressMissions, p => p.Commonness, rand);
-                    Mission inst = distressMissionPrefab.Instantiate(GameMain.GameSession.Map.SelectedConnection.Locations, Submarine.MainSub);
-                    AddExtraMission(inst);
-                    _internalMissionStore.Add(inst);
-                    Log.Debug("Added distress mission to extra missions!");
-                } catch(Exception e) { Log.Error(e.ToString()); }
-            }
-            else
+                Log.Debug("Adding distress mission");
+                Mission inst = prefab.Instantiate(GameMain.GameSession.Map.SelectedConnection.Locations, Submarine.MainSub);
+                AddExtraMission(inst); // weird
+                _internalMissionStore.Add(inst);
+                Log.Debug("Added distress mission to extra missions!");
+            } else
             {
                 Log.Error("Failed to find any distress missions!");
             }

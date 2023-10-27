@@ -16,6 +16,28 @@ namespace MoreLevelContent.Shared.Utils
 {
     public static class MLCUtils
     {
+        internal static string GetRandomTag(string baseTag)
+        {
+            int maxIndex = 1;
+            while (TextManager.ContainsTag(baseTag + maxIndex))
+            {
+                maxIndex++;
+            }
+            return "mlc.lostcargo.tooslow" + Rand.Range(0, maxIndex);
+        }
+
+        internal static string GetRandomTag(string baseTag, LevelData data)
+        {
+            Random rand = new MTRandom(ToolBox.StringToInt(data.Seed));
+            int maxIndex = 1;
+            while (TextManager.ContainsTag(baseTag + maxIndex))
+            {
+                maxIndex++;
+            }
+            return "mlc.lostcargo.tooslow" + rand.Next(0, maxIndex);
+        }
+
+
         internal static Vector2 PositionItemOnEdge(Item target, GraphEdge edge, float height, bool setRotation = false)
         {
             Vector2 dir = Vector2.Normalize(edge.GetNormal(edge.Cell1 ?? edge.Cell2));

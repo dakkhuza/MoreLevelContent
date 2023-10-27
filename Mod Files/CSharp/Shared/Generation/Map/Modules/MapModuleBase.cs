@@ -13,6 +13,14 @@ namespace MoreLevelContent.Shared.Generation
 
         protected abstract void InitProjSpecific();
 
+        protected static bool TryGetMissionByTag(string tag, LevelData data, out MissionPrefab missionPrefab)
+        {
+            var orderedMissions = MissionPrefab.Prefabs.Where(m => m.Tags.Contains(tag)).OrderBy(m => m.UintIdentifier);
+            Random rand = new MTRandom(ToolBox.StringToInt(data.Seed));
+            missionPrefab = ToolBox.SelectWeightedRandom(orderedMissions, p => p.Commonness, rand);
+            return missionPrefab != null;
+        }
+
         protected LocationConnection WalkConnection(Location start, Random rand, int preferedWalkDistance)
         {
             // Since we do a connection step at the end of the process, there's one step implict in every walk
@@ -93,6 +101,12 @@ namespace MoreLevelContent.Shared.Generation
             if (destination.IsRadiated())
             {
                 weight *= 0.001f;
+            }
+
+            // Prefer locations that have been revealed
+            if (!destination.Discovered)
+            {
+                weight *= 0.5f;
             }
 
             return MathHelper.Clamp(weight, minWeight, maxWeight);

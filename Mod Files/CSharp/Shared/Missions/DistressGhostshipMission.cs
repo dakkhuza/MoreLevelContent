@@ -390,6 +390,7 @@ namespace MoreLevelContent.Missions
             }
 
             if (IsClient) return;
+            damageTracker.Update();
 
             bool CrewInSub()
             {

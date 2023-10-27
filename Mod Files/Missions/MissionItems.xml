@@ -491,6 +491,7 @@
 
         <Sprite texture="%ModDir%/Missions/mission_items.png" sourcerect="14,285,118,128"
             depth="0.8" />
+
         <Body width="118" height="129" density="40" />
 
         <Holdable pickkey="Use" slots="RightHand+LeftHand" msg="ItemMsgDetachCrowbar"
@@ -541,28 +542,31 @@
             </Containable>
         </ItemContainer>
 
-        <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1"
+        <LightComponent range="10.0" lightcolor="255,255,255,0"
             IsOn="true" castshadows="false" allowingameediting="false" alphablend="true">
             <sprite texture="%ModDir%/Missions/mission_items.png" sourcerect="132,285,118,128"
                 depth="0.1" origin="0.5,0.5" alpha="1.0" />
-            <IsActive targetitemcomponent="PowerContainer" Voltage="gte 1.0" />
+            <IsActive targetitemcomponent="PowerContainer" targetcontainer="true"
+                ChargePercentage="gt 0.01" />
         </LightComponent>
 
-        <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="true"
+        <LightComponent range="10.0" lightcolor="255,255,255,0" IsOn="true"
             castshadows="false" allowingameediting="false" alphablend="true">
             <sprite texture="%ModDir%/Missions/mission_items.png" sourcerect="250,285,118,128"
                 depth="0.1"
                 origin="0.5,0.5" alpha="1.0" />
-            <IsActive targetitemcomponent="PowerContainer" ChargePercentage="gte 0.5" />
+            <IsActive targetitemcomponent="PowerContainer" targetcontainer="true"
+                ChargePercentage="gte 0.5" />
         </LightComponent>
 
-        <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="true"
+        <!--LightComponent range="10.0" lightcolor="255,255,255,0" IsOn="true"
             flicker="0.8" flickerspeed="1.0" pulsefrequency="0.1" pulseamount="0.5"
             castshadows="false" allowingameediting="false" alphablend="true">
             <sprite texture="%ModDir%/Missions/mission_items.png" sourcerect="249,285,118,128"
                 depth="0.1" origin="0.5,0.5" alpha="1.0" />
-            <IsActive targetitemcomponent="PowerContainer" ChargePercentage="lt 0.5" />
-        </LightComponent>
+            <IsActive targetitemcomponent="PowerContainer" targetcontainer="true"
+                ChargePercentage="gt 0.1" />
+        </LightComponent-->
 
     </Item>
 
@@ -581,9 +585,9 @@
         <PreferredContainer primary="ruinstorage,ruinstoragesmall" spawnprobability="0" />
         <PreferredContainer primary="ruinstoragelarge" spawnprobability="0" />
         <PreferredContainer primary="ruintreasure" spawnprobability="0" />
-        
+
         <Throwable>
             <StatusEffect type="Always" target="Hull" oxygen="5000.0" />
         </Throwable>
-    </Item>    
+    </Item>
 </Items>

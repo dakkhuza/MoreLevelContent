@@ -23,6 +23,7 @@ namespace MoreLevelContent.Missions
         private readonly XElement submarineConfig;
         private readonly XElement decalConfig;
         private readonly XElement damageDevices;
+        private readonly XElement removeItems;
         private readonly MissionNPCCollection missionNPCs;
 
         private readonly TravelTarget travelTarget;
@@ -47,6 +48,7 @@ namespace MoreLevelContent.Missions
             // Config
             submarineConfig = prefab.ConfigElement.GetChildElement("submarines");
             characterConfig = prefab.ConfigElement.GetChildElement("characters");
+            removeItems = prefab.ConfigElement.GetChildElement("removeitems");
             decalConfig = prefab.ConfigElement.GetChildElement("decals");
             damageDevices = prefab.ConfigElement.GetChildElement("damageDevices");
 
@@ -301,12 +303,30 @@ namespace MoreLevelContent.Missions
             ghostship.NeutralizeBallast();
             var ghostshipItems = ghostship.GetItems(alsoFromConnectedSubs: false);
 
-            if (reactorActive && ghostshipItems.Find(i => i.HasTag("reactor") && !i.NonInteractable)?.GetComponent<Reactor>() is Reactor reactor)
+            if (ghostshipItems.Find(i => i.HasTag("reactor") && !i.NonInteractable)?.GetComponent<Reactor>() is Reactor reactor)
             {
                 Item reactorItem = reactor.Item;
                 ItemContainer container = reactorItem.GetComponent<ItemContainer>();
-                reactor.PowerUpImmediately();
-                reactor.FuelConsumptionRate = 0;
+                if (reactorActive)
+                {
+                    reactor.PowerUpImmediately();
+                    reactor.FuelConsumptionRate = 0;
+                }
+
+                if (removeItems != null)
+                {
+                    foreach (XElement item in removeItems.Elements())
+                    {
+                        Identifier tagToRemove = item.GetAttributeIdentifier("tag", null);
+                        if (tagToRemove != null)
+                        {
+                            foreach (var itemToRemove in ghostshipItems.FindAll(i => i.HasTag(tagToRemove)))
+                            {
+                                itemToRemove.Remove();
+                            }
+                        }
+                    }
+                }
 
                 // ItemPrefab rod = ItemPrefab.Find(null, "fuelrod".ToIdentifier());
 

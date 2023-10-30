@@ -509,5 +509,20 @@
             </ItemSet>
         </npc>
 
+        <npc identifier="captain_dakota" job="captain">
+            <Item identifier="idcard" equip="true" />
+            <Item identifier="captainscap1" equip="true" />
+            <Item identifier="captainsuniform1" equip="true" />
+            <Item identifier="headset" equip="true" />
+            <Item identifier="handcannon" equip="false">
+                <Item identifier="handcannonround" />
+                <Item identifier="handcannonround" />
+            </Item>
+            <Item identifier="divingknifeunique" />
+
+            <Item identifier="rum" />
+            <Item identifier="captains_notebook" />
+        </npc>
+
     </npcset>
 </npcsets>

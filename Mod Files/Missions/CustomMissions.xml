@@ -1147,6 +1147,127 @@
                         color="255,106,106" />
         </DistressGhostship>
 
+        <DistressGhostship
+                identifier="distress_ghostship_outoffuel"
+                textidentifier="distressmission"
+                tags="distress, mlc"
+                type="GoTo"
+                customType="DistressGhostship"
+                commonness="10"
+                reward="0"
+                successmessage="distress.success.outoffuel">
+
+                <Reputation
+                        identifier="location"
+                        amount="5" amountforopposingfaction="-5" />
+
+                <Submarines floodtargets="roomname.airlockaccess, roomname.reactorroom"
+                        minfloodpercentage="0.15" maxfloodpercentage="0.25">
+                        <Sub path="Content/Submarines/Humpback.sub" commonness="100" />
+                </Submarines>
+
+                <RemoveItems>
+                        <Item tag="reactorfuel" />
+                </RemoveItems>
+
+                <Decals>
+                        <Item prefab="blood" count="40" />
+                </Decals>
+
+
+                <Characters>
+                        <Item
+                                from="mlc_special_npcs"
+                                identifier="captain_dakota"
+                                alive="true">
+
+                                <Affliction identifier="bitewounds" limb="leftleg" strength="25" />
+                                <Affliction identifier="lacerations" randomLimb="true" strength="5"
+                                        amount="4" />
+                        </Item>
+
+                        <Item
+                                from="mlc_distress_corpses"
+                                identifier="distress_mechanic"
+                                alive="false">
+                                <Affliction identifier="bitewounds" randomLimb="true"
+                                        randomStrength="true"
+                                        amount="4" />
+                                <Affliction identifier="lacerations" randomLimb="true"
+                                        randomStrength="true"
+                                        amount="4" />
+                                <Affliction identifier="bleeding" randomLimb="true"
+                                        randomStrength="true"
+                                        amount="4" />
+                                <Affliction identifier="bloodloss"
+                                        randomStrength="true" />
+
+
+                        </Item>
+
+                        <Item
+                                from="mlc_distress_corpses"
+                                identifier="distress_officer"
+                                alive="false">
+                                <Affliction identifier="bitewounds" randomLimb="true"
+                                        randomStrength="true"
+                                        amount="4" />
+                                <Affliction identifier="lacerations" randomLimb="true"
+                                        randomStrength="true"
+                                        amount="4" />
+                                <Affliction identifier="bleeding" randomLimb="true"
+                                        randomStrength="true"
+                                        amount="4" />
+                                <Affliction identifier="bloodloss"
+                                        randomStrength="true" />
+
+                        </Item>
+
+                        <Item
+                                from="mlc_distress_corpses"
+                                identifier="distress_medic"
+                                alive="false">
+                                <Affliction identifier="bitewounds" randomLimb="true"
+                                        randomStrength="true"
+                                        amount="4" />
+                                <Affliction identifier="lacerations" randomLimb="true"
+                                        randomStrength="true"
+                                        amount="4" />
+                                <Affliction identifier="bleeding" randomLimb="true"
+                                        randomStrength="true"
+                                        amount="4" />
+                                <Affliction identifier="bloodloss"
+                                        randomStrength="true" />
+
+                        </Item>
+
+                        <Item
+                                from="mlc_distress_corpses"
+                                identifier="distress_assistant"
+                                alive="false">
+                                <Affliction identifier="bitewounds" randomLimb="true"
+                                        randomStrength="true"
+                                        amount="4" />
+                                <Affliction identifier="lacerations" randomLimb="true"
+                                        randomStrength="true"
+                                        amount="4" />
+                                <Affliction identifier="bleeding" randomLimb="true"
+                                        randomStrength="true"
+                                        amount="4" />
+                                <Affliction identifier="bloodloss"
+                                        randomStrength="true" />
+
+                        </Item>
+                </Characters>
+
+                <TriggerEvent state="0" delay="5" eventidentifier="distress_outofuel"
+                        campaignonly="true" />
+                <Icon
+                        texture="%ModDir%/Missions/Icons.png"
+                        sourcerect="256,0,256,256"
+                        color="255,106,106" />
+        </DistressGhostship>
+
 
         <!--DistressOutpost 
                 identifier="distress_outpost"

@@ -162,7 +162,7 @@
             </ItemSet>
         </npc>
 
-        <npc identifier="prisoner" job="killer" behavior="Passive" healthmultiplier="2" aimspeed="1"
+        <npc identifier="prisoner" job="killer" behavior="Patrol" healthmultiplier="2" aimspeed="1"
             aimaccuracy="1">
             <ItemSet commonness="3">
                 <Item identifier="idcard" equip="true" />
@@ -181,7 +181,7 @@
 
         </npc>
 
-        <npc identifier="prisonercrowbar" job="killer" behavior="Passive" healthmultiplier="2"
+        <npc identifier="prisonercrowbar" job="killer" behavior="Patrol" healthmultiplier="2"
             aimspeed="1" aimaccuracy="1">
             <ItemSet commonness="3">
                 <Item identifier="prisonerclothes" equip="true" />
@@ -197,7 +197,7 @@
 
     <npcset identifier="mlc_distress_corpses">
 
-        <npc identifier="captaincorpse1" job="captain"
+        <npc identifier="distress_captain" job="captain"
             minmoney="50" maxmoney="100">
             <ItemSet commonness="1">
                 <Item identifier="idcard" equip="true" />
@@ -241,7 +241,7 @@
             </ItemSet>
         </npc>
 
-        <npc identifier="engineercorpse1" job="engineer"
+        <npc identifier="distress_engineer" job="engineer"
             minmoney="10" maxmoney="50">
             <ItemSet commonness="1">
                 <Item identifier="idcard" equip="true" />
@@ -267,7 +267,7 @@
             </ItemSet>
         </npc>
 
-        <npc identifier="officercorpse1" job="securityofficer"
+        <npc identifier="distress_officer" job="securityofficer"
             commonness="0.5" minmoney="10" maxmoney="50">
             <ItemSet commonness="1">
                 <Item identifier="securityuniform1" equip="true" />
@@ -295,7 +295,7 @@
             </ItemSet>
         </npc>
 
-        <npc identifier="mediccorpse1" job="medicaldoctor"
+        <npc identifier="distress_medic" job="medicaldoctor"
             minmoney="10" maxmoney="50">
             <ItemSet commonness="1">
                 <Item identifier="idcard" equip="true" />
@@ -320,7 +320,7 @@
             </ItemSet>
         </npc>
 
-        <npc identifier="mechaniccorpse1" job="mechanic"
+        <npc identifier="distress_mechanic" job="mechanic"
             minmoney="10" maxmoney="50">
             <ItemSet commonness="1">
                 <Item identifier="idcard" equip="true" />
@@ -352,7 +352,7 @@
             </ItemSet>
         </npc>
 
-        <npc identifier="assistantcorpse1" job="assistant"
+        <npc identifier="distress_assistant" job="assistant"
             minmoney="0" maxmoney="20">
             <ItemSet commonness="1">
                 <Item identifier="idcard" equip="true" />
@@ -408,7 +408,7 @@
             </ItemSet>
         </npc>
 
-        <npc identifier="clowncorpse1" job="assistant"
+        <npc identifier="distress_clown" job="assistant"
             minmoney="0" maxmoney="20">
             <ItemSet commonness="0.2">
                 <Item identifier="clownmask" equip="true" />
@@ -448,81 +448,6 @@
                 <Item identifier="alientrinket3" />
             </ItemSet>
         </npc>
-
-        <!-- 
-            <!\-\-Clowns\-\->
-            <!\-\-Misc
-            characters (for flavor and loot variation)\-\->
-            <ItemSet commonness="0.2">
-                <Item identifier="commonerclothes3" equip="true" />
-                <Item identifier="antidama1" />
-                <Item identifier="antibleeding1" />
-            </ItemSet>
-            <ItemSet commonness="0.2">
-                <Item identifier="researcherclothes" equip="true" />
-                <Item identifier="syringegun" equip="true">
-                    <Item identifier="cyanide" />
-                </Item>
-            </ItemSet>
-            <ItemSet commonness="0.2">
-                <Item identifier="prisonerclothes" equip="true" />
-                <Item identifier="handcuffs" />
-            </ItemSet>
-            <ItemSet commonness="0.2">
-                <Item identifier="commonerclothes1" equip="true" />
-                <Item identifier="morbusine" equip="true" />
-            </ItemSet>
-            <ItemSet commonness="0.2">
-                <Item identifier="commonerclothes4" equip="true" />
-                <Item identifier="toolbox" equip="true" />
-            </ItemSet>
-            <ItemSet commonness="0.2">
-                <Item identifier="commonerclothes5" equip="true" />
-                <Item identifier="wrench" equip="true" />
-            </ItemSet>
-            <ItemSet commonness="0.2">
-                <Item identifier="quartermasterclothes" equip="true" />
-                <Item identifier="wrench" equip="true" />
-            </ItemSet>
-            <ItemSet commonness="0.2">
-                <Item identifier="banditclothes1" equip="true" />
-                <Item identifier="divingmask" equip="true">
-                    <Item identifier="oxygentank" />
-                </Item>
-                <Item identifier="divingknife" />
-            </ItemSet>
-            <ItemSet commonness="0.1">
-                <Item identifier="securitypatrolclothes" equip="true" />
-                <Item identifier="smgunique" equip="true">
-                    <Item identifier="smgmagazine" />
-                </Item>
-                <Item identifier="divingknife" />
-                <Item identifier="bodyarmor" equip="true" />
-                <Item identifier="divingmask" equip="true">
-                    <Item identifier="oxygentank" />
-                </Item>
-            </ItemSet>
-            <ItemSet commonness="0.1">
-                <Item identifier="pirateclothes" equip="true" />
-                <Item identifier="shotgununique" equip="true">
-                    <Item identifier="shotgunshell" />
-                    <Item identifier="shotgunshell" />
-                </Item>
-            </ItemSet>
-            <ItemSet commonness="0.1">
-                <Item identifier="commonerclothes4" equip="true" />
-                <Item identifier="toolbox" equip="true">
-                    <Item identifier="divingknifeunique" />
-                </Item>
-            </ItemSet>
-            <ItemSet commonness="0.1">
-                <Item identifier="banditclothes2" equip="true" />
-                <Item identifier="flamerunique" equip="true" />
-            </ItemSet>
-
-
-
--->
     </npcset>
 
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->

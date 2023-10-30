@@ -13,9 +13,13 @@ namespace MoreLevelContent.Shared.Generation
 
         protected abstract void InitProjSpecific();
 
-        protected static bool TryGetMissionByTag(string tag, LevelData data, out MissionPrefab missionPrefab)
+        protected static bool TryGetMissionByTag(string tag, LevelData data, out MissionPrefab missionPrefab, string forceMission = "")
         {
             var orderedMissions = MissionPrefab.Prefabs.Where(m => m.Tags.Contains(tag)).OrderBy(m => m.UintIdentifier);
+            if (!string.IsNullOrEmpty(forceMission))
+            {
+                orderedMissions = orderedMissions.Where(m => m.Identifier == forceMission).OrderBy(m => m.UintIdentifier);
+            }
             Random rand = new MTRandom(ToolBox.StringToInt(data.Seed));
             missionPrefab = ToolBox.SelectWeightedRandom(orderedMissions, p => p.Commonness, rand);
             return missionPrefab != null;

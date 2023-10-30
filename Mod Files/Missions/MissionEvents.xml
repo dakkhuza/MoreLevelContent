@@ -462,6 +462,357 @@
         <!--                          Distress Events                                  -->
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
+        <ScriptedEvent identifier="distress_outofuel">
+            <TagAction criteria="humanprefabidentifier:captain_dakota" tag="captain" />
+            <TagAction criteria="player" tag="player" />
+            <TriggerAction target1tag="player" target2tag="captain"
+                applytotarget1="triggerer_player" waitforinteraction="true" />
+
+            <!-- Intro -->
+            <ConversationAction targettag="triggerer_player" text="DistressEvent.outoffuel.c1"
+                eventsprite="captain">
+                <!-- Ask what happened -->
+
+                <Option text="DistressEvent.outoffuel.o1">
+
+                    <!-- The Story -->
+                    <ConversationAction targettag="triggerer_player"
+                        text="DistressEvent.outoffuel.o1.c1"
+                        eventsprite="captain" continueconversation="true" />
+                    <ConversationAction targettag="triggerer_player"
+                        text="DistressEvent.outoffuel.o1.c2"
+                        eventsprite="captain" continueconversation="true" />
+                    <ConversationAction targettag="triggerer_player"
+                        text="DistressEvent.outoffuel.o1.c3"
+                        eventsprite="captain" continueconversation="true">
+
+                        <!-- Accept -->
+                        <Option text="DistressEvent.outoffuel.o1.o1">
+                            <!-- You're a saint -->
+                            <ConversationAction targettag="triggerer_player"
+                                text="DistressEvent.outoffuel.o1.o1.c1"
+                                eventsprite="captain" />
+
+                            <CheckItemAction targettag="triggerer_player"
+                                itemidentifiers="fuelrod">
+                                <!-- They don't have any fuel rods on them. -->
+                                <Failure>
+                                    <ConversationAction targettag="triggerer_player"
+                                        text="DistressEvent.outoffuel.o1.o1.o1.c1"
+                                        eventsprite="captain" continueconversation="true">
+                                        <!-- I'll be back -->
+                                        <Option text="DistressEvent.outoffuel.o1.o1.o1"
+                                            endconversation="true">
+                                            <GoTo name="rodloop" />
+                                        </Option>
+                                    </ConversationAction>
+                                </Failure>
+
+                                <Success>
+                                    <ConversationAction targettag="triggerer_player"
+                                        text="DistressEvent.outoffuel.o1.o1.o1.c1"
+                                        eventsprite="captain">
+                                        <Option text="DistressEvent.outoffuel.o1.o1.o1"
+                                            endconversation="true">
+                                            <GoTo name="rodloop" />
+                                        </Option>
+                                        <!-- Give Rod -->
+                                        <Option text="DistressEvent.outoffuel.o1.o1.o1.o2">
+                                            <GoTo name="giverod" />
+                                        </Option>
+                                        <!-- Intimidate -->
+                                        <Option text="DistressEvent.outoffuel.o1.o1.o1.o3">
+                                            <GoTo name="intimidate" />
+                                        </Option>
+
+                                    </ConversationAction>
+                                </Success>
+                            </CheckItemAction>
+
+                            <Label name="rodloop" />
+                            <ConversationAction targettag="triggerer_player"
+                                text="DistressEvent.outoffuel.o1.o1.c2"
+                                eventsprite="captain" speakertag="captain" dialogtype="Small" />
+
+                            <CheckItemAction targettag="triggerer_player"
+                                itemidentifiers="fuelrod">
+                                <!-- They don't have any fuel rods on them. -->
+                                <Failure>
+                                    <ConversationAction targettag="triggerer_player"
+                                        text="DistressEvent.outoffuel.o1.o1.o1.c1"
+                                        eventsprite="captain" continueconversation="true">
+                                        <!-- I'll be back -->
+                                        <Option text="DistressEvent.outoffuel.o1.o1.o1"
+                                            endconversation="true">
+                                            <GoTo name="rodloop" />
+                                        </Option>
+                                    </ConversationAction>
+                                </Failure>
+
+                                <Success>
+                                    <ConversationAction targettag="triggerer_player"
+                                        text="DistressEvent.outoffuel.o1.o1.o1.c1"
+                                        eventsprite="captain" continueconversation="true">
+                                        <Option text="DistressEvent.outoffuel.o1.o1.o1"
+                                            endconversation="true">
+                                            <GoTo name="rodloop" />
+                                        </Option>
+                                        <!-- Give Rod -->
+                                        <Option text="DistressEvent.outoffuel.o1.o1.o1.o2">
+                                            <GoTo name="giverod" />
+                                        </Option>
+                                        <!-- Intimidate -->
+                                        <Option text="DistressEvent.outoffuel.o1.o1.o1.o3">
+                                            <GoTo name="intimidate" />
+                                        </Option>
+
+                                    </ConversationAction>
+                                </Success>
+                            </CheckItemAction>
+
+
+                        </Option>
+
+                        <!-- Decline -->
+                        <Option text="DistressEvent.outoffuel.o1.o2">
+
+                        </Option>
+
+                    </ConversationAction>
+
+
+                </Option>
+            </ConversationAction>
+
+
+            <Label name="giverod" />
+            <CheckReputationAction targettype="faction" identifier="clowns" condition="gte 20">
+
+                <Success>
+                    <ConversationAction targettag="triggerer_player"
+                        text="DistressEvent.outoffuel.o1.o1.o1.o2.c1"
+                        eventsprite="Stowaway2">
+                        <Option text="DistressEvent.outoffuel.o1.o1.o1.o2.o1">
+                            <ConversationAction targettag="triggerer_player"
+                                text="DistressEvent.outoffuel.o1.o1.o1.o2.o1.c1"
+                                eventsprite="Stowaway2">
+                                <Option text="DistressEvent.outoffuel.o1.o1.o1.o2.o1.c1.o1">
+                                    <SetDataAction identifier="distress_outoffuel_side_clown"
+                                        value="true" />
+                                    <GoTo name="handoverrod" />
+                                </Option>
+                            </ConversationAction>
+                        </Option>
+                        <Option text="DistressEvent.outoffuel.o1.o1.o1.o2.o2">
+                            <AfflictionAction targettag="triggerer_player"
+                                affliction="psychosis" strength="40" />
+                            <GoTo name="handoverrod" />
+                        </Option>
+                    </ConversationAction>
+                </Success>
+
+                <Failure>
+                    <label name="handoverrod" />
+                    <RemoveItemAction targettag="triggerer_player"
+                        itemidentifier="fuelrod" />
+                    <ConversationAction targettag="triggerer_player"
+                        text="DistressEvent.outoffuel.end"
+                        eventsprite="captain" continueconversation="true">
+                        <Option text="DistressEvent.outoffuel.end.o1" endconversation="true">
+                            <CheckDataAction identifier="distress_outoffuel_side_clown"
+                                condition="eq true">
+                                <Failure>
+                                    <ReputationAction targettype="Location" increase="20" />
+                                </Failure>
+                                <Success>
+                                    <ReputationAction targettype="Faction" identifier="clowns"
+                                        increase="25" />
+                                </Success>
+                            </CheckDataAction>
+                            <GoTo name="end" />
+                        </Option>
+                    </ConversationAction>
+
+
+                </Failure>
+            </CheckReputationAction>
+
+
+            <Label name="intimidate" />
+
+            <SkillCheckAction requiredskill="helm" requiredlevel="80" targettag="triggerer_player">
+                <Success>
+                    <ConversationAction targettag="triggerer_player"
+                        text="DistressEvent.outoffuel.o1.o1.o1.o3.c1"
+                        eventsprite="captain" continueconversation="true">
+                        <Option text="DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1"
+                            endconversation="true">
+                            <MoneyAction amount="5000" targettag="triggerer_player" />
+                            <GoTo name="intimidate_wait" />
+                        </Option>
+                    </ConversationAction>
+
+                </Success>
+
+                <Failure>
+                    <ConversationAction targettag="triggerer_player"
+                        text="DistressEvent.outoffuel.o1.o1.o1.o3.c2"
+                        eventsprite="captain" continueconversation="true">
+                        <Option text="DistressEvent.outoffuel.o1.o1.o1.o3.c2.o1"
+                            endconversation="true">
+                            <CombatAction combatmode="offensive" npctag="captain"
+                                enemytag="triggerer_player" isinstigator="true" guardreaction="none"
+                                witnessreaction="none" />
+                            <GoTo name="end" />
+                        </Option>
+                    </ConversationAction>
+                </Failure>
+            </SkillCheckAction>
+
+            <Label name="intimidate_wait" />
+            <ConversationAction targettag="triggerer_player"
+                text="DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1"
+                eventsprite="captain" speakertag="captain" dialogtype="Small" />
+
+            <CheckItemAction targettag="triggerer_player"
+                itemidentifiers="fuelrod">
+                <Failure>
+                    <ConversationAction targettag="triggerer_player"
+                        text="DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o1"
+                        eventsprite="captain">
+                        <Option endconversation="true"
+                            text="DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o1">
+                            <GoTo name="intimidate_wait" />
+                        </Option>
+                    </ConversationAction>
+
+                </Failure>
+
+                <Success>
+                    <ConversationAction targettag="triggerer_player"
+                        text="DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o1"
+                        eventsprite="captain">
+                        <Option endconversation="true"
+                            text="DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o1">
+                            <GoTo name="intimidate_wait" />
+                        </Option>
+                        <Option text="DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2">
+                            <!-- Toss rod -->
+                            <RemoveItemAction targettag="triggerer_player"
+                                itemidentifier="fuelrod" />
+                            <ConversationAction targettag="triggerer_player"
+                                text="DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1"
+                                eventsprite="captain" continueconversation="true">
+                                <Option text="DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o1"
+                                    endconversation="true">
+                                    <GoTo name="end" />
+                                </Option>
+                                <Option text="DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o2">
+                                    <ConversationAction targettag="triggerer_player"
+                                        text="DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o2.c1"
+                                        eventsprite="captain" continueconversation="true">
+                                        <!-- Walk Away -->
+                                        <Option
+                                            text="DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o2.c1.o1"
+                                            endconversation="true">
+                                            <GoTo name="end" />
+                                        </Option>
+
+                                        <!-- Sure -->
+
+                                        <Option
+                                            text="DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o2.c1.o2">
+                                            <ConversationAction targettag="triggerer_player"
+                                                text="DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o2.c1.o2.c1"
+                                                eventsprite="captain" continueconversation="true">
+                                                <Option
+                                                    text="DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o2.c1.o2.c1.o1"
+                                                    endconversation="true">
+                                                    <GoTo name="end" />
+                                                </Option>
+                                            </ConversationAction>
+                                        </Option>
+                                    </ConversationAction>
+                                </Option>
+                            </ConversationAction>
+                        </Option>
+                    </ConversationAction>
+                </Success>
+            </CheckItemAction>
+
+
+            <Label name="end" />
+
+            <!--ConversationAction
+            targettag="triggerer_player" text="DistressEvent.outoffuel.c1"
+                eventsprite="captain">
+                <Option text="EventText.huskcultist.o1">
+                    <CheckItemAction targettag="triggerer_player" itemidentifiers="huskeggsbasic">
+                        <Success>
+                            <Label name="checkpockets" />
+                            <ConversationAction targettag="triggerer_player"
+                                text="EventText.huskcultist.o1.c1">
+                                <Option text="EventText.huskcultist.o1.o1">
+                                    <RemoveItemAction targettag="triggerer_player"
+                                        itemidentifier="huskeggsbasic" />
+                                    <ConversationAction targettag="triggerer_player"
+                                        text="EventText.huskcultist.o1.o1.c1" />
+                                    <MoneyAction amount="1000" />
+                                </Option>
+                                <Option text="EventText.huskcultist.o1.o2">
+                                    <RemoveItemAction targettag="triggerer_player"
+                                        itemidentifier="huskeggsbasic" />
+                                    <ConversationAction targettag="triggerer_player"
+                                        text="EventText.huskcultist.o1.o2.c1" />
+                                    <ReputationAction targettype="Faction" identifier="huskcult"
+                                        increase="5" />
+                                    <ReputationAction targettype="Faction" identifier="clowns"
+                                        increase="-3" />
+                                </Option>
+                                <Option text="EventText.huskcultist.o1.o3" />
+                            </ConversationAction>
+                        </Success>
+                        <Failure>
+                            <ConversationAction targettag="triggerer_player"
+                                text="EventText.huskcultist.o1.c2">
+                                <Option text="EventText.huskcultist.o1.o4">
+                                    <ConversationAction targettag="triggerer_player"
+                                        text="EventText.huskcultist.o1.o4.c1" />
+                                    <Label name="waitingforeggs" />
+                                    <ConversationAction text="EventText.huskcultist_return.c1"
+                                        eventsprite="cultist" speakertag="huskcultist"
+                                        dialogtype="Small">
+                                        <Option text="EventText.huskcultist_return.o1"
+                                            endconversation="true">
+                                            <CheckItemAction targettag="triggerer_player"
+                                                itemidentifiers="huskeggsbasic">
+                                                <Success>
+                                                    <GoTo name="checkpockets" />
+                                                </Success>
+                                                <Failure>
+                                                    <ConversationAction targettag="triggerer_player"
+                                                        waitforinteraction="false"
+                                                        text="EventText.huskcultist_return.o1.c2"
+                                                        eventsprite="cultist" dialogtype="Small" />
+                                                    <GoTo name="waitingforeggs" />
+                                                </Failure>
+                                            </CheckItemAction>
+                                        </Option>
+                                        <Option text="EventText.huskcultist_return.o2"
+                                            endconversation="true">
+                                            <GoTo name="waitingforeggs" />
+                                        </Option>
+                                    </ConversationAction>
+                                </Option>
+                                <Option text="EventText.huskcultist.o1.o5" />
+                            </ConversationAction>
+                        </Failure>
+                    </CheckItemAction>
+                </Option>
+                <Option text="EventText.huskcultist.o2" />
+            </ConversationAction-->
+        </ScriptedEvent>
+
         <ScriptedEvent identifier="distress_ghostship_bandit_2">
             <SpawnAction npcsetidentifier="abandonedoutpostnpcs" npcidentifier="bandit"
                 spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
@@ -505,11 +856,11 @@
         </ScriptedEvent>
 
         <ScriptedEvent identifier="distress_ghostship_prisonbreak">
-            <!-- Prisoner 1 -->
             <SpawnAction npcsetidentifier="mlc_distress_npcs" npcidentifier="prisoner"
                 spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
                 team="None" requirespawnpointtag="true" lootingisstealing="false"
                 targettag="prisoner1" />
+
             <StatusEffectAction targettag="prisoner1">
                 <StatusEffect>
                     <GiveTalentInfo giverandom="false"
@@ -517,7 +868,6 @@
                 </StatusEffect>
             </StatusEffectAction>
 
-            <!-- Prisoner 2 -->
             <SpawnAction npcsetidentifier="mlc_distress_npcs" npcidentifier="prisoner"
                 spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
                 team="None" requirespawnpointtag="true" lootingisstealing="false"
@@ -529,7 +879,7 @@
                 </StatusEffect>
             </StatusEffectAction>
 
-            <!-- Prisoner 3 -->
+
             <SpawnAction npcsetidentifier="mlc_distress_npcs" npcidentifier="prisonercrowbar"
                 spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
                 team="None" requirespawnpointtag="true" lootingisstealing="false"
@@ -541,7 +891,7 @@
                 </StatusEffect>
             </StatusEffectAction>
 
-            <!-- Prisoner 4 -->
+
             <SpawnAction npcsetidentifier="mlc_distress_npcs" npcidentifier="prisoner"
                 spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
                 team="None" requirespawnpointtag="true" lootingisstealing="false"
@@ -572,7 +922,6 @@
                 spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
                 team="None" requirespawnpointtag="true" lootingisstealing="false" />
         </ScriptedEvent>
-
 
         <ScriptedEvent identifier="distress_ghostship_crawlernest">
 
@@ -624,14 +973,18 @@
         </ScriptedEvent>
 
         <ScriptedEvent identifier="shuttle_clown">
-            <SpawnAction npcsetidentifier="mlc_distress_npcs" npcidentifier="clownmenace"
+            <SpawnAction npcsetidentifier="outpostnpcs1" npcidentifier="clown"
                 spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_shuttle"
                 team="None" requirespawnpointtag="true" lootingisstealing="false"
                 targettag="clownnpc1" />
+            <SpawnAction itemidentifier="toyhammer" targetinventory="clownnpc1" />
             <TagAction criteria="humanprefabidentifier:cuffedshuttlecaptain" tag="clownvictimnpc" />
+            <SpawnAction itemidentifier="toyhammer" targetinventory="clownnpc1" />
             <CombatAction combatmode="offensive" npctag="clownnpc1" enemytag="clownvictimnpc"
                 isinstigator="true" />
+
         </ScriptedEvent>
+
 
     </EventPrefabs>
 

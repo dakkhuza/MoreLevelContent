@@ -274,6 +274,7 @@ namespace MoreLevelContent.Missions
                 foreach (var affliction in config.GetChildElements("affliction"))
                 {
                     string identifier = affliction.GetAttributeString("identifier", null);
+                    LimbType limb = affliction.GetAttributeEnum("limb", LimbType.None);
                     float strength = affliction.GetAttributeFloat("strength", 1);
                     bool targetRandomLimb = affliction.GetAttributeBool("randomLimb", false);
                     bool randomStrength = affliction.GetAttributeBool("randomStrength", false);
@@ -284,6 +285,7 @@ namespace MoreLevelContent.Missions
                         for (int i = 0; i < count; i++)
                         {
                             Limb targetLimb = character.AnimController.MainLimb;
+                            if (limb != LimbType.None) targetLimb = character.AnimController.GetLimb(limb);
                             if (targetRandomLimb) targetLimb = character.AnimController.Limbs.GetRandomUnsynced();
                             if (randomStrength) strength = Rand.Range(10f, 70f, Rand.RandSync.Unsynced);
                             character.CharacterHealth.ApplyAffliction(targetLimb, new Affliction(prefab, strength));
@@ -296,7 +298,7 @@ namespace MoreLevelContent.Missions
                 character.CharacterHealth.ForceUpdateVisuals();
             });
             // Reputation stuff
-            damageTracker = new ReputationDamageTracker(ghostship, 1.0f, 20f, 1f);
+            damageTracker = new ReputationDamageTracker(ghostship, 1.0f, 20f, 1f, 2f);
         }
         void InitShip()
         {
@@ -385,6 +387,7 @@ namespace MoreLevelContent.Missions
                 finalSubSetup = true;
             }
             trackingSonarMarker.Update(deltaTime);
+
 
             bool crewMemberInSub = CrewInSub();
             switch (State)

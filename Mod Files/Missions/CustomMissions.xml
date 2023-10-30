@@ -460,16 +460,19 @@
                 <Characters>
                         <Item
                                 from="mlc_distress_corpses"
-                                identifier="captaincorpse1"
+                                identifier="distress_captain"
                                 minmoney="100"
                                 maxmoney="300"
                                 alive="false">
+                                <AdditionalItems>
+                                        <Item identifier="captains_notebook" />
+                                </AdditionalItems>
                                 <Affliction identifier="gunshotwound" randomLimb="true"
                                         randomStrength="true" count="4" />
                         </Item>
                         <Item
                                 from="mlc_distress_corpses"
-                                identifier="engineercorpse1"
+                                identifier="distress_engineer"
                                 minmoney="25"
                                 maxmoney="70"
                                 alive="false">
@@ -478,7 +481,7 @@
                         </Item>
                         <Item
                                 from="mlc_distress_corpses"
-                                identifier="mechaniccorpse1"
+                                identifier="distress_mechanic"
                                 minmoney="25"
                                 maxmoney="70"
                                 alive="false">
@@ -535,16 +538,20 @@
                 <Characters>
                         <Item
                                 from="mlc_distress_corpses"
-                                identifier="captaincorpse1"
+                                identifier="distress_captain"
                                 minmoney="100"
                                 maxmoney="300"
                                 alive="false">
+                                <AdditionalItems>
+                                        <Item identifier="captains_notebook" />
+                                </AdditionalItems>
+
                                 <Affliction identifier="gunshotwound" randomLimb="true"
                                         randomStrength="true" count="4" />
                         </Item>
                         <Item
                                 from="mlc_distress_corpses"
-                                identifier="engineercorpse1"
+                                identifier="distress_engineer"
                                 minmoney="25"
                                 maxmoney="70"
                                 alive="false">
@@ -553,7 +560,7 @@
                         </Item>
                         <Item
                                 from="mlc_distress_corpses"
-                                identifier="mechaniccorpse1"
+                                identifier="distress_mechanic"
                                 minmoney="25"
                                 maxmoney="70"
                                 alive="false">
@@ -611,16 +618,20 @@
                 <Characters>
                         <Item
                                 from="mlc_distress_corpses"
-                                identifier="captaincorpse1"
+                                identifier="distress_captain"
                                 minmoney="100"
                                 maxmoney="300"
                                 alive="false">
+                                <AdditionalItems>
+                                        <Item identifier="captains_notebook" />
+                                </AdditionalItems>
+
                                 <Affliction identifier="gunshotwound" randomLimb="true"
                                         randomStrength="true" count="4" />
                         </Item>
                         <Item
                                 from="mlc_distress_corpses"
-                                identifier="engineercorpse1"
+                                identifier="distress_engineer"
                                 minmoney="25"
                                 maxmoney="70"
                                 alive="false">
@@ -629,7 +640,7 @@
                         </Item>
                         <Item
                                 from="mlc_distress_corpses"
-                                identifier="mechaniccorpse1"
+                                identifier="distress_mechanic"
                                 minmoney="25"
                                 maxmoney="70"
                                 alive="false">
@@ -687,17 +698,21 @@
                         <!-- Husks -->
                         <Item
                                 from="mlc_distress_corpses"
-                                identifier="captaincorpse1"
+                                identifier="distress_captain"
                                 minmoney="100"
                                 maxmoney="300"
                                 alive="true">
+                                <AdditionalItems>
+                                        <Item identifier="captains_notebook" />
+                                </AdditionalItems>
+
                                 <Affliction identifier="huskinfection" strength="100" />
                                 <Affliction identifier="internaldamage" strength="99" />
                         </Item>
 
                         <Item
                                 from="mlc_distress_corpses"
-                                identifier="engineercorpse1"
+                                identifier="distress_engineer"
                                 minmoney="25"
                                 maxmoney="70"
                                 alive="true">
@@ -707,7 +722,7 @@
 
                         <Item
                                 from="mlc_distress_corpses"
-                                identifier="mechaniccorpse1"
+                                identifier="distress_mechanic"
                                 minmoney="25"
                                 maxmoney="70"
                                 alive="true">
@@ -717,7 +732,7 @@
 
                         <Item
                                 from="mlc_distress_corpses"
-                                identifier="mechaniccorpse1"
+                                identifier="distress_mechanic"
                                 minmoney="25"
                                 maxmoney="70"
                                 alive="true">
@@ -727,7 +742,7 @@
 
                         <Item
                                 from="mlc_distress_corpses"
-                                identifier="officercorpse1"
+                                identifier="distress_officer"
                                 minmoney="25"
                                 maxmoney="70"
                                 alive="true">
@@ -737,7 +752,7 @@
 
                         <Item
                                 from="mlc_distress_corpses"
-                                identifier="clowncorpse1"
+                                identifier="distress_clown"
                                 minmoney="1"
                                 maxmoney="1"
                                 alive="true">
@@ -749,7 +764,7 @@
                         <!-- Corpses -->
                         <Item
                                 from="mlc_distress_corpses"
-                                identifier="officercorpse1"
+                                identifier="distress_officer"
                                 minmoney="25"
                                 maxmoney="70"
                                 alive="false">
@@ -762,7 +777,7 @@
 
                         <Item
                                 from="mlc_distress_corpses"
-                                identifier="mediccorpse1"
+                                identifier="distress_medic"
                                 minmoney="25"
                                 maxmoney="70"
                                 alive="false">
@@ -818,10 +833,14 @@
                         <!-- Corpses -->
                         <Item
                                 from="mlc_distress_corpses"
-                                identifier="captaincorpse1"
+                                identifier="distress_captain"
                                 minmoney="100"
                                 maxmoney="300"
                                 alive="false">
+                                <AdditionalItems>
+                                        <Item identifier="captains_notebook" />
+                                </AdditionalItems>
+
                                 <Affliction identifier="bitewounds" randomLimb="true"
                                         randomStrength="true" count="6" />
                                 <Affliction identifier="bleeding" randomLimb="true"
@@ -830,7 +849,7 @@
 
                         <Item
                                 from="mlc_distress_corpses"
-                                identifier="engineercorpse1"
+                                identifier="distress_engineer"
                                 minmoney="25"
                                 maxmoney="70"
                                 alive="false">
@@ -842,7 +861,7 @@
 
                         <Item
                                 from="mlc_distress_corpses"
-                                identifier="mechaniccorpse1"
+                                identifier="distress_mechanic"
                                 minmoney="25"
                                 maxmoney="70"
                                 alive="false">
@@ -854,7 +873,7 @@
 
                         <Item
                                 from="mlc_distress_corpses"
-                                identifier="officercorpse1"
+                                identifier="distress_officer"
                                 minmoney="25"
                                 maxmoney="70"
                                 alive="false">
@@ -911,10 +930,14 @@
                         <!-- Corpses -->
                         <Item
                                 from="mlc_distress_corpses"
-                                identifier="captaincorpse1"
+                                identifier="distress_captain"
                                 minmoney="100"
                                 maxmoney="300"
                                 alive="false">
+                                <AdditionalItems>
+                                        <Item identifier="captains_notebook" />
+                                </AdditionalItems>
+
                                 <Affliction identifier="lacerations" randomLimb="true"
                                         randomStrength="true" count="6" />
                                 <Affliction identifier="blunttrauma" randomLimb="true"
@@ -925,7 +948,7 @@
 
                         <Item
                                 from="mlc_distress_corpses"
-                                identifier="officercorpse1"
+                                identifier="distress_officer"
                                 minmoney="25"
                                 maxmoney="70"
                                 alive="false">
@@ -981,10 +1004,14 @@
                         <!-- Corpses -->
                         <Item
                                 from="mlc_distress_corpses"
-                                identifier="captaincorpse1"
+                                identifier="distress_captain"
                                 minmoney="100"
                                 maxmoney="300"
                                 alive="false">
+                                <AdditionalItems>
+                                        <Item identifier="captains_notebook" />
+                                </AdditionalItems>
+
                                 <Affliction identifier="lacerations" randomLimb="true"
                                         randomStrength="true" count="4" />
                                 <Affliction identifier="blunttrauma" randomLimb="true"
@@ -995,7 +1022,7 @@
 
                         <Item
                                 from="mlc_distress_corpses"
-                                identifier="officercorpse1"
+                                identifier="distress_officer"
                                 minmoney="25"
                                 maxmoney="70"
                                 alive="false">
@@ -1042,26 +1069,25 @@
                         <Sub path="%ModDir%/Missions/dugong_alien.sub" />
                 </Submarines>
 
-                <Reputation
-                        identifier="location"
-                        amount="5" amountforopposingfaction="-5" />
-
-
                 <Characters>
                         <!-- Insane -->
                         <Item
                                 from="mlc_distress_corpses"
-                                identifier="captaincorpse1"
+                                identifier="distress_captain"
                                 minmoney="100"
                                 maxmoney="300"
                                 alive="true" team="none">
+                                <AdditionalItems>
+                                        <Item identifier="captains_notebook" />
+                                </AdditionalItems>
+
                                 <Affliction identifier="psychosis" strength="100" />
                                 <Affliction identifier="deliriuminepoisoning" strength="100" />
                         </Item>
 
                         <Item
                                 from="mlc_distress_corpses"
-                                identifier="officercorpse1"
+                                identifier="distress_officer"
                                 minmoney="25"
                                 maxmoney="70"
                                 alive="true" team="none">
@@ -1071,7 +1097,7 @@
 
                         <Item
                                 from="mlc_distress_corpses"
-                                identifier="engineercorpse1"
+                                identifier="distress_engineer"
                                 minmoney="25"
                                 maxmoney="70"
                                 alive="true" team="none">
@@ -1081,7 +1107,7 @@
 
                         <Item
                                 from="mlc_distress_corpses"
-                                identifier="mechaniccorpse1"
+                                identifier="distress_mechanic"
                                 minmoney="25"
                                 maxmoney="70"
                                 alive="true" team="none">

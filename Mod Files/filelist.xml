@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<contentpackage name="More Level Content" modversion="0.0.52" corepackage="False" steamworkshopid="2814493175" gameversion="1.1.18.1">
+<contentpackage name="More Level Content" modversion="0.0.53" corepackage="False" steamworkshopid="2814493175" gameversion="1.1.18.1">
   <Item file="%ModDir%/dummyitem.xml" />
   <Text file="%ModDir%/Language/English.xml" />
   <Text file="%ModDir%/Language/PatchNotes.xml" />

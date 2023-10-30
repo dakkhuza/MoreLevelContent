@@ -100,7 +100,7 @@ namespace MoreLevelContent.Missions
                     stayPos = WayPoint.GetRandom(SpawnType.Human, jobPrefab, submarine) ?? explicitStayInHullPos;
                 }
 
-                Character spawnedCharacter = CreateHuman(humanPrefab, characters, characterItems, submarine, team, stayPos, humanPrefabRandSync: randSync, additionalItems: config.GetChildElement("additionalitems").Elements());
+                Character spawnedCharacter = CreateHuman(humanPrefab, characters, characterItems, submarine, team, stayPos, humanPrefabRandSync: randSync, additionalItems: config?.GetChildElement("additionalitems")?.Elements());
                 spawnedCharacter.EnableDespawn = false; // don't let mission npcs despawn
                 spawnedCharacter.GiveIdCardTags(stayPos);
                 onCharacterCreated?.Invoke(spawnedCharacter, characterSpecificConfig);
@@ -127,15 +127,17 @@ namespace MoreLevelContent.Missions
             humanPrefab.InitializeCharacter(spawnedCharacter, positionToStayIn);
             _ = humanPrefab.GiveItems(spawnedCharacter, submarine, null, Rand.RandSync.ServerAndClient, createNetworkEvents: false);
 
-            foreach (var additionalItem in additionalItems)
+            if (additionalItems != null)
             {
-                int amount = additionalItem.GetAttributeInt("amount", 1);
-                for (int i = 0; i < amount; i++)
+                foreach (var additionalItem in additionalItems)
                 {
-                    HumanPrefab.InitializeItem(spawnedCharacter, additionalItem, submarine, null, createNetworkEvents: false);
+                    int amount = additionalItem.GetAttributeInt("amount", 1);
+                    for (int i = 0; i < amount; i++)
+                    {
+                        HumanPrefab.InitializeItem(spawnedCharacter, additionalItem, submarine, humanPrefab, createNetworkEvents: false);
+                    }
                 }
             }
-
             characters.Add(spawnedCharacter);
             characterItems.Add(spawnedCharacter, spawnedCharacter.Inventory.FindAllItems(recursive: true));
 

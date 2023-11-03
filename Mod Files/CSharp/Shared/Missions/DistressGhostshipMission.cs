@@ -298,7 +298,7 @@ namespace MoreLevelContent.Missions
                 character.CharacterHealth.ForceUpdateVisuals();
             });
             // Reputation stuff
-            damageTracker = new ReputationDamageTracker(ghostship, 1.0f, 20f, 1f, 2f);
+            damageTracker = new ReputationDamageTracker(ghostship, 2.0f, 20f, 1f, 2f);
         }
         void InitShip()
         {

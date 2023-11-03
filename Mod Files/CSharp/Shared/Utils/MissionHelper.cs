@@ -87,8 +87,10 @@ namespace MoreLevelContent.Shared.Utils
 
         private void OnStructureDamaged(Structure structure, float damageAmount, Character character)
         {
-            if (character == null || !character.IsPlayer) return;
+            if (character == null || !character.IsPlayer) { return; }
             if (structure?.Submarine == null || structure.Submarine != _sub) { return; }
+            // ignore interior walls so gun fights don't cause rep loss
+            if (structure.Prefab.Tags.Contains("inner")) { return; }
 
             _accumulatedDamage += MathHelper.Clamp(damageAmount, 0, MaxDamagePerFrame);
             _decayTimer = _decayDelay;
@@ -108,6 +110,7 @@ namespace MoreLevelContent.Shared.Utils
                         ChatMessageType.MessageBox, null);
                 }
 #endif
+                _accumulatedDamage = 0;
                 _displayedWarning = true;
                 Log.Debug("Showed warning message");
                 return;

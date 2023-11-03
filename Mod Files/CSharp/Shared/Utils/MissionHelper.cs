@@ -1,4 +1,5 @@
 ﻿using Barotrauma;
+using Barotrauma.Items.Components;
 using Barotrauma.Networking;
 using Microsoft.Xna.Framework;
 using System;
@@ -139,7 +140,7 @@ namespace MoreLevelContent.Shared.Utils
     {
         internal static void PositionSubmarine(Submarine submarine, PositionType positionType)
         {
-            float dist = Loaded.Size.X * 0.5f;
+            float dist = Sonar.DefaultSonarRange * 2;
             if (TryGetInterestingPosition(positionType, dist, out Point point))
             {
                 Vector2 spawnPos = point.ToVector2();

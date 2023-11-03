@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<contentpackage name="More Level Content" modversion="0.0.53" corepackage="False" steamworkshopid="2814493175" gameversion="1.1.18.1">
+<contentpackage name="More Level Content" modversion="0.0.54" corepackage="False" steamworkshopid="2814493175" gameversion="1.1.19.3">
   <Item file="%ModDir%/dummyitem.xml" />
   <Text file="%ModDir%/Language/English.xml" />
   <Text file="%ModDir%/Language/PatchNotes.xml" />
@@ -14,7 +14,6 @@
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_0-15.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_10-20.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_40-50.sub" />
-  <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_50-70.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o2_diff_20-30.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_15-25.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o3_diff_15-25.sub" />
@@ -37,4 +36,5 @@
   <Submarine file="%ModDir%/Missions/dugong_alien.sub" />
   <Submarine file="%ModDir%/Map/CargoPods/cargo_pod.sub" />
   <Submarine file="%ModDir%/barsuk_outbreak.sub" />
+  <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_50-70.sub" />
 </contentpackage>

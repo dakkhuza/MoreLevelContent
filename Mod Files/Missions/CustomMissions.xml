@@ -1147,7 +1147,7 @@
                         color="255,106,106" />
         </DistressGhostship>
 
-        <!--DistressGhostship
+        <DistressGhostship
                 identifier="distress_ghostship_outoffuel"
                 textidentifier="distressmission"
                 tags="distress, mlc"
@@ -1266,7 +1266,7 @@
                         texture="%ModDir%/Missions/Icons.png"
                         sourcerect="256,0,256,256"
                         color="255,106,106" />
-        </DistressGhostship-->
+        </DistressGhostship>
 
 
         <!--DistressOutpost 

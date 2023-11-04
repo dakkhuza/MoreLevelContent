@@ -1,0 +1,29 @@
+<Missions tags="MLC, mission">
+    <ConstructionMission
+    identifier="beaconconstruction"
+    textidentifier="beaconconstruction"
+    tags="beaconconstruction, mlc"
+    type="GoTo"
+    customType="BeaconConstruction"
+    commonness="10"
+    reward="2800">
+    <supplycosts>
+            <supply_utility price="1200" />
+            <supply_structural price="1000" />
+            <supply_electrical price="1400" />
+    </supplycosts>
+    <message
+            header="missionheader0.beaconconstruction"
+            text="missionmessage0.beaconconstruction" />
+    <Reputation
+            identifier="location"
+            amount="10" />
+    <Icon
+            texture="%ModDir%/Missions/Icons.png"
+            sourcerect="0,0,256,256"
+            color="243,146,55" />
+    <TriggerEvent state="0" delay="5" eventidentifier="constructionworkers"
+            campaignonly="true" />
+</ConstructionMission>
+
+</Missions>

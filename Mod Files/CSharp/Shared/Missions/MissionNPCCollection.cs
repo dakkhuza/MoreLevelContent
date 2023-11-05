@@ -102,7 +102,7 @@ namespace MoreLevelContent.Missions
 
                 Character spawnedCharacter = CreateHuman(humanPrefab, characters, characterItems, submarine, team, stayPos, humanPrefabRandSync: randSync, additionalItems: config?.GetChildElement("additionalitems")?.Elements());
                 spawnedCharacter.EnableDespawn = false; // don't let mission npcs despawn
-                spawnedCharacter.GiveIdCardTags(stayPos);
+                spawnedCharacter.GiveIdCardTags(stayPos, false);
                 onCharacterCreated?.Invoke(spawnedCharacter, characterSpecificConfig);
                 spawnedCharacter.MLC().NPCElement = characterSpecificConfig;
             }
@@ -110,7 +110,7 @@ namespace MoreLevelContent.Missions
             InitCharacters();
         }
 
-        internal Character CreateHuman(HumanPrefab humanPrefab, List<Character> characters, Dictionary<Character, List<Item>> characterItems, Submarine submarine, CharacterTeamType teamType, ISpatialEntity positionToStayIn = null, Rand.RandSync humanPrefabRandSync = Rand.RandSync.ServerAndClient, bool giveTags = true, IEnumerable<XElement> additionalItems = null)
+        internal Character CreateHuman(HumanPrefab humanPrefab, List<Character> characters, Dictionary<Character, List<Item>> characterItems, Submarine submarine, CharacterTeamType teamType, ISpatialEntity positionToStayIn = null, Rand.RandSync humanPrefabRandSync = Rand.RandSync.ServerAndClient, IEnumerable<XElement> additionalItems = null)
         {
             var characterInfo = humanPrefab.CreateCharacterInfo(Rand.RandSync.ServerAndClient);
             characterInfo.TeamID = teamType;

@@ -462,8 +462,6 @@
         <!--                          Distress Events                                  -->
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-        </ScriptedEvent>
-
         <ScriptedEvent identifier="distress_outofuel">
             <TagAction criteria="humanprefabidentifier:captain_dakota" tag="captain" />
             <TagAction criteria="crew" tag="player" />

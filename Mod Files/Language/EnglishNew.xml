@@ -7,6 +7,9 @@
 
     <distress.success.outoffuel>You remind yourself to take stock of your fuel rods.</distress.success.outoffuel>
 
+    <missionmessage1.quiet>It's eerily silent, is anyone alive?</missionmessage1.quiet>
+    <distress.success.clowns>Who knows what those harlequins were up to.</distress.success.clowns>
+
     <!-- Distress Events -->
     <charactername.captain_dakota>Captain Dakota</charactername.captain_dakota>
     <DistressEvent.outoffuel.c1>The look of relief on the captains face is palpable. "Oh thank Jove, someone actually came! I was beginning  to think we'd have to make a swim for it.", He lets out a stress filled chuckle.</DistressEvent.outoffuel.c1>

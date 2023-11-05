@@ -26,6 +26,8 @@ namespace MoreLevelContent.Shared.Generation
         internal delegate void OnSubmarineCreated(Submarine createdSubmarine);
         internal delegate void OnDecoCreated(List<Submarine> decoItems, Cave decoratedCave);
 
+        internal static void RequestSubmarine(SubmarineSpawnRequest info) =>
+            Instance.SubCreationQueue.Enqueue(info);
         internal static void RequestStaticSubmarine(ContentFile contentFile, OnSubmarineCreated onSubmarineCreated, bool autoFill = true) => 
             Instance.RequestStaticSub(contentFile, onSubmarineCreated, autoFill);
         internal static void RequestSubmarine(ContentFile contentFile, OnSubmarineCreated onSubmarineCreated, bool autoFill = true) => 
@@ -46,19 +48,30 @@ namespace MoreLevelContent.Shared.Generation
             }
         }
 
-        struct SubmarineSpawnRequest
+        internal struct SubmarineSpawnRequest
         {
             public ContentFile ContentFile;
             public OnSubmarineCreated Callback;
             public bool AutoFill;
+            public bool AllowStealing;
+            public AutoFillPrefix Prefix;
             public PositionType SpawnPosition;
 
-            public SubmarineSpawnRequest(ContentFile submarineFile, OnSubmarineCreated callback, bool autoFill)
+            public SubmarineSpawnRequest(ContentFile submarineFile, OnSubmarineCreated callback, bool autoFill, AutoFillPrefix prefix = AutoFillPrefix.None, bool allowStealing = true)
             {
                 ContentFile = submarineFile;
                 Callback = callback;
                 AutoFill = autoFill;
                 SpawnPosition = PositionType.Wreck;
+                Prefix = prefix;
+                AllowStealing = allowStealing;
+            }
+
+            public enum AutoFillPrefix
+            {
+                None,
+                Wreck,
+                Abandoned
             }
         }
 
@@ -91,7 +104,7 @@ namespace MoreLevelContent.Shared.Generation
         {
             while (SubCreationQueue.Count > 0)
             {
-                var request = SubCreationQueue.Dequeue();
+                SubmarineSpawnRequest request = SubCreationQueue.Dequeue();
                 string subName = System.IO.Path.GetFileNameWithoutExtension(request.ContentFile.Path.Value);
 
                 Submarine submarine = request.SpawnPosition == PositionType.Wreck
@@ -108,8 +121,18 @@ namespace MoreLevelContent.Shared.Generation
                         foreach (Item item in Item.ItemList)
                         {
                             if (item.Submarine != submarine) { continue; }
-                            if (item.GetRootInventoryOwner() is Character) { continue; }
                             if (item.NonInteractable) { continue; }
+                            item.AllowStealing = request.AllowStealing;
+                            if (item.GetRootInventoryOwner() is Character) { continue; }
+                            int len = item.Tags.Length;
+                            for (int i = 0; i < len; i++)
+                            {
+                                if (request.Prefix != SubmarineSpawnRequest.AutoFillPrefix.None)
+                                {
+                                    item.AddTag($"{request.Prefix}{item.Tags[i]}");
+                                }
+                            }
+
                             foreach (var container in item.GetComponents<ItemContainer>())
                             {
                                 container.AutoFill = true;

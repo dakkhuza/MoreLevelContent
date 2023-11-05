@@ -26,6 +26,7 @@ namespace MoreLevelContent.Missions
         private readonly XElement removeItems;
         private readonly XElement tagDevices;
         private readonly MissionNPCCollection missionNPCs;
+        private readonly bool AllowStealing;
 
         private readonly TravelTarget travelTarget;
         private readonly bool reactorActive;
@@ -58,6 +59,7 @@ namespace MoreLevelContent.Missions
             travelTarget = submarineConfig.GetAttributeEnum("TravelTarget", TravelTarget.Maintain);
             spawnPosition = submarineConfig.GetAttributeEnum("SpawnPosition", Level.PositionType.MainPath);
             reactorActive = submarineConfig.GetAttributeBool("ReactorActive", true);
+            AllowStealing = submarineConfig.GetAttributeBool("AllowStealing", true);
 
             // General
             defaultSonarLabel = TextManager.Get("missionname.distressmission");
@@ -112,7 +114,15 @@ namespace MoreLevelContent.Missions
                 return;
             }
 
-            MissionGenerationDirector.RequestSubmarine(file, OnSubCreated);
+            MissionGenerationDirector.RequestSubmarine(new MissionGenerationDirector.SubmarineSpawnRequest()
+            {
+                ContentFile = file,
+                Callback = OnSubCreated,
+                SpawnPosition = Level.PositionType.MainPath,
+                AutoFill = true,
+                Prefix = MissionGenerationDirector.SubmarineSpawnRequest.AutoFillPrefix.Abandoned,
+                AllowStealing = AllowStealing
+            });
         }
 
         void OnSubCreated(Submarine submarine)

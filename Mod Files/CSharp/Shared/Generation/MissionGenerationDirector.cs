@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using MoreLevelContent.Shared.Data;
 using MoreLevelContent.Shared.Generation.Interfaces;
 using MoreLevelContent.Shared.Store;
+using MoreLevelContent.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -153,7 +154,7 @@ namespace MoreLevelContent.Shared.Generation
         {
             if (Level.Loaded.LevelData.MLC().HasBeaconConstruction)
             {
-                Submarine beacon = SpawnSubOnPath("Beacon Station", BeaconConstStore.Instance.GetBeaconForLevel());
+                Submarine beacon = SpawnSubOnPath("Beacon Station", BeaconConstStore.Instance.GetBeaconForLevel(), ignoreCrushDepth: true);
                 Level.Loaded.MLC().BeaconConstructionStation = beacon;
                 Item storageItem = Item.ItemList.Find(it => it.Submarine == beacon && it.GetComponent<ItemContainer>() != null && it.Tags.Contains("dropoff"));
                 if (storageItem == null)
@@ -162,6 +163,7 @@ namespace MoreLevelContent.Shared.Generation
                     return;
                 }
                 Level.Loaded.MLC().DropOffPoint = storageItem;
+                
             }
         }
 

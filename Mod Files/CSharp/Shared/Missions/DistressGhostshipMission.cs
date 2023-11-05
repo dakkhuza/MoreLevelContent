@@ -24,6 +24,7 @@ namespace MoreLevelContent.Missions
         private readonly XElement decalConfig;
         private readonly XElement damageDevices;
         private readonly XElement removeItems;
+        private readonly XElement tagDevices;
         private readonly MissionNPCCollection missionNPCs;
 
         private readonly TravelTarget travelTarget;
@@ -51,6 +52,7 @@ namespace MoreLevelContent.Missions
             removeItems = prefab.ConfigElement.GetChildElement("removeitems");
             decalConfig = prefab.ConfigElement.GetChildElement("decals");
             damageDevices = prefab.ConfigElement.GetChildElement("damageDevices");
+            tagDevices = prefab.ConfigElement.GetChildElement("tagDevices");
 
             // Top level attributes
             travelTarget = submarineConfig.GetAttributeEnum("TravelTarget", TravelTarget.Maintain);
@@ -146,6 +148,18 @@ namespace MoreLevelContent.Missions
 
             // tag all sub waypoints
             submarine.TagSubmarineWaypoints("distress_ghostship");
+
+            foreach (var item in tagDevices.Elements())
+            {
+                Identifier targetItem = item.GetAttributeIdentifier("identifier", null);
+                Identifier tag = item.GetAttributeIdentifier("tag", null);
+                var items = submarine.GetItems(false).Where(i => i.Prefab.Identifier == targetItem);
+                items.ForEach((i) =>
+                {
+                    i.AddTag(tag);
+                    Log.Debug(i.Tags);
+                });
+            }
 
             // Init tracking sonar marker
             trackingSonarMarker = new TrackingSonarMarker(30, submarine, Prefab.SonarLabel.IsNullOrEmpty() ? defaultSonarLabel : Prefab.SonarLabel);
@@ -315,21 +329,6 @@ namespace MoreLevelContent.Missions
                     reactor.FuelConsumptionRate = 0;
                 }
 
-                if (removeItems != null)
-                {
-                    foreach (XElement item in removeItems.Elements())
-                    {
-                        Identifier tagToRemove = item.GetAttributeIdentifier("tag", null);
-                        if (tagToRemove != null)
-                        {
-                            foreach (var itemToRemove in ghostshipItems.FindAll(i => i.HasTag(tagToRemove)))
-                            {
-                                itemToRemove.Remove();
-                            }
-                        }
-                    }
-                }
-
                 // ItemPrefab rod = ItemPrefab.Find(null, "fuelrod".ToIdentifier());
 
 
@@ -377,14 +376,34 @@ namespace MoreLevelContent.Missions
 
         readonly float detectDist = Sonar.DefaultSonarRange;
         private bool finalSubSetup = false;
+        const float FINAL_SETUP_DELAY = 5;
+        float setupDelay = FINAL_SETUP_DELAY;
         protected override void UpdateMissionSpecific(float deltaTime)
         {
-            if (!finalSubSetup && !IsClient)
+            if (!finalSubSetup && !IsClient && setupDelay <= 0)
             {
                 SpawnDecals();
                 DamageDevices();
+                if (removeItems != null)
+                {
+                    foreach (XElement item in removeItems.Elements())
+                    {
+                        Identifier tagToRemove = item.GetAttributeIdentifier("tag", null);
+                        if (tagToRemove != null)
+                        {
+                            foreach (var itemToRemove in ghostship.GetItems(false).FindAll(i => i.HasTag(tagToRemove)))
+                            {
+                                Entity.Spawner.AddItemToRemoveQueue(itemToRemove);
+                            }
+                        }
+                    }
+                }
                 Log.InternalDebug("Preformed final sub setup");
                 finalSubSetup = true;
+            }
+            if (setupDelay > 0)
+            {
+                setupDelay -= deltaTime;
             }
             trackingSonarMarker.Update(deltaTime);
 

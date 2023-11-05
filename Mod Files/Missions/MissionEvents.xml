@@ -953,7 +953,7 @@
                                         range="500" />
                                 </StatusEffect>
                             </StatusEffectAction>
-
+                            <WaitAction time="1" />
                             <StatusEffectAction targettag="clown">
                                 <StatusEffect>
                                     <sound file="%ModDir%/Sounds/vanish.ogg"

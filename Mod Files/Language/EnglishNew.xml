@@ -59,7 +59,8 @@
     <DistressEvent.outoffuel.o1.o2>"Sorry, but we can't spare any."</DistressEvent.outoffuel.o1.o2>
     <DistressEvent.outoffuel.o1.o2.c1>"N-No!" A manic look fills his eyes, you notice his hand reaching for his revolver as his whole body tenses.</DistressEvent.outoffuel.o1.o2.c1>
     <DistressEvent.outoffuel.o1.o2.c1.o1>"Don't try it." [Weapons: HARD]</DistressEvent.outoffuel.o1.o2.c1.o1>
-    <DistressEvent.outoffuel.o1.o2.c1.o1.c1>He collapses back into the chair, defeated. "Maybe.. Maybe the next sub will help us?" He lets out a weak laugh before staring at the wall behind you, a blank expression on his face. You're not a charity, he chose this life.</DistressEvent.outoffuel.o1.o2.c1.o1.c1>
+    <DistressEvent.outoffuel.o1.o2.c1.o1.c1>He collapses back into the chair, defeated. "Maybe.. Maybe the next sub will help us?" He lets out a weak laugh before staring at the wall behind you, a blank expression on his face.</DistressEvent.outoffuel.o1.o2.c1.o1.c1>
+    <DistressEvent.outoffuel.o1.o2.c1.o1.c1.o1>You're not a charity, he chose this life.</DistressEvent.outoffuel.o1.o2.c1.o1.c1.o1>
 
     <!-- Loop back to main -->
     <DistressEvent.outoffuel.o1.o2.c1.o2>"Actually, we might have a spare. I'll have to check."</DistressEvent.outoffuel.o1.o2.c1.o2>

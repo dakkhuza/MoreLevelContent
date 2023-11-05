@@ -1135,7 +1135,8 @@
                         amount="5" amountforopposingfaction="-5" />
 
                 <Submarines floodtargets="roomname.commandroom, roomname.medbay"
-                        minfloodpercentage="0.05" maxfloodpercentage="0.10" travelTarget="Start">
+                        minfloodpercentage="0.05" maxfloodpercentage="0.10" travelTarget="Start"
+                        allowstealing="false">
                         <Sub path="Content/Submarines/Humpback.sub" commonness="100" />
                 </Submarines>
 
@@ -1148,7 +1149,7 @@
                 </Decals>
 
                 <TagDevices>
-                        <Item identifier="reactor1" tag="distress_reactor"/>
+                        <Item identifier="reactor1" tag="distress_reactor" />
                 </TagDevices>
 
 
@@ -1157,10 +1158,6 @@
                                 from="mlc_special_npcs"
                                 identifier="captain_dakota"
                                 alive="true">
-
-                                <Affliction identifier="bitewounds" limb="leftleg" strength="25" />
-                                <Affliction identifier="lacerations" randomLimb="true" strength="5"
-                                        amount="4" />
                         </Item>
 
                         <Item

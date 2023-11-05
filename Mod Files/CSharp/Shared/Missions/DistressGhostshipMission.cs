@@ -159,16 +159,19 @@ namespace MoreLevelContent.Missions
             // tag all sub waypoints
             submarine.TagSubmarineWaypoints("distress_ghostship");
 
-            foreach (var item in tagDevices.Elements())
+            if (tagDevices != null)
             {
-                Identifier targetItem = item.GetAttributeIdentifier("identifier", null);
-                Identifier tag = item.GetAttributeIdentifier("tag", null);
-                var items = submarine.GetItems(false).Where(i => i.Prefab.Identifier == targetItem);
-                items.ForEach((i) =>
+                foreach (var item in tagDevices.Elements())
                 {
-                    i.AddTag(tag);
-                    Log.Debug(i.Tags);
-                });
+                    Identifier targetItem = item.GetAttributeIdentifier("identifier", null);
+                    Identifier tag = item.GetAttributeIdentifier("tag", null);
+                    var items = submarine.GetItems(false).Where(i => i.Prefab.Identifier == targetItem);
+                    items.ForEach((i) =>
+                    {
+                        i.AddTag(tag);
+                        Log.Debug(i.Tags);
+                    });
+                }
             }
 
             // Init tracking sonar marker

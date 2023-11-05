@@ -1134,8 +1134,8 @@
                         identifier="location"
                         amount="5" amountforopposingfaction="-5" />
 
-                <Submarines floodtargets="roomname.airlockaccess, roomname.reactorroom"
-                        minfloodpercentage="0.15" maxfloodpercentage="0.25">
+                <Submarines floodtargets="roomname.commandroom, roomname.medbay"
+                        minfloodpercentage="0.05" maxfloodpercentage="0.10" travelTarget="Start">
                         <Sub path="Content/Submarines/Humpback.sub" commonness="100" />
                 </Submarines>
 
@@ -1146,6 +1146,10 @@
                 <Decals>
                         <Item prefab="blood" count="40" />
                 </Decals>
+
+                <TagDevices>
+                        <Item identifier="reactor1" tag="distress_reactor"/>
+                </TagDevices>
 
 
                 <Characters>

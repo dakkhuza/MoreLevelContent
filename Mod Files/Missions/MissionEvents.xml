@@ -462,9 +462,14 @@
         <!--                          Distress Events                                  -->
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
+        </ScriptedEvent>
+
         <ScriptedEvent identifier="distress_outofuel">
             <TagAction criteria="humanprefabidentifier:captain_dakota" tag="captain" />
             <TagAction criteria="crew" tag="player" />
+            <TagAction criteria="itemtag:distress_reactor" tag="reactor" />
+            <NPCWaitAction npctag="captain" wait="true" />
+
             <TriggerAction target1tag="player" target2tag="captain"
                 applytotarget1="triggerer_player" waitforinteraction="true" />
 
@@ -530,6 +535,7 @@
                             </CheckItemAction>
 
                             <Label name="rodloop" />
+                            <NPCWaitAction npctag="captain" wait="true" />
                             <ConversationAction targettag="triggerer_player"
                                 text="DistressEvent.outoffuel.o1.o1.c2"
                                 eventsprite="captain" speakertag="captain" dialogtype="Small" />
@@ -575,7 +581,36 @@
 
                         <!-- Decline -->
                         <Option text="DistressEvent.outoffuel.o1.o2">
-
+                            <ConversationAction targettag="triggerer_player"
+                                text="DistressEvent.outoffuel.o1.o2.c1"
+                                eventsprite="captain" continueconversation="true">
+                                <!-- Don't try it -->
+                                <Option text="DistressEvent.outoffuel.o1.o2.c1.o1">
+                                    <SkillCheckAction requiredskill="weapons" requiredlevel="80"
+                                        targettag="triggerer_player">
+                                        <Success>
+                                            <ConversationAction targettag="triggerer_player"
+                                                text="DistressEvent.outoffuel.o1.o2.c1.o1.c1"
+                                                eventsprite="captain">
+                                                <Option
+                                                    text="DistressEvent.outoffuel.o1.o2.c1.o1.c1.o1"
+                                                    endconversation="true">
+                                                    <GoTo name="end" />
+                                                </Option>
+                                            </ConversationAction>
+                                        </Success>
+                                        <Failure>
+                                            <ConversationAction targettag="triggerer_player"
+                                                text="DistressEvent.outoffuel.o1.o1.o1.o3.c2.o1"
+                                                eventsprite="captain" />
+                                            <GoTo name="attack" />
+                                        </Failure>
+                                    </SkillCheckAction>
+                                </Option>
+                                <Option text="DistressEvent.outoffuel.o1.o2.c1.o2">
+                                    <Label name="rodloop" />
+                                </Option>
+                            </ConversationAction>
                         </Option>
 
                     </ConversationAction>
@@ -583,7 +618,6 @@
 
                 </Option>
             </ConversationAction>
-
 
             <Label name="giverod" />
             <CheckReputationAction targettype="faction" identifier="clowns" condition="gte 20">
@@ -660,10 +694,7 @@
                         eventsprite="captain" continueconversation="true">
                         <Option text="DistressEvent.outoffuel.o1.o1.o1.o3.c2.o1"
                             endconversation="true">
-                            <CombatAction combatmode="offensive" npctag="captain"
-                                enemytag="triggerer_player" isinstigator="true" guardreaction="none"
-                                witnessreaction="none" />
-                            <GoTo name="end" />
+                            <GoTo name="attack" />
                         </Option>
                     </ConversationAction>
                 </Failure>
@@ -744,23 +775,30 @@
             <Label name="putrodinreactor" />
             <!--SpawnAction
             itemidentifier="fuelrod" targetinventory="captain" /-->
-            <!--NPCOperateItemAction
-            npctag="captain" targettag="distress_reactor"
-                        itemcomponentname="controller" operate="true" /-->
-            <NPCFollowAction npctag="captain" targettag="distress_reactor" follow="true" />
+            <!-- This is really dumb, for some reason the AI won't walk to the tagged reactor -->
+            <!-- So instead we tell the AI to walk to the ballast tank, due to the ship layout -->
+            <!-- The AI has to walk past the reactor, then we just stop the AI -->
+            <NPCWaitAction npctag="captain" wait="false" />
+            <NPCFollowAction npctag="captain" targettag="reactor" follow="true" />
             <TriggerAction target1tag="captain"
-                target2tag="distress_reactor"
-                radius="10"
+                target2tag="reactor"
+                radius="300"
                 waitforinteraction="false"
                 disableiftargetincapacitated="false" />
+
             <CheckDataAction identifier="distress_outoffuel_side_clown" condition="eq true">
                 <Failure>
-                    <WaitAction time="15" />
+                    <SpawnAction itemidentifier="fuelrod" targetinventory="reactor" />
+                    <WaitAction time="5" />
+                    <NPCWaitAction npctag="captain" wait="false" />
                 </Failure>
                 <!-- Sabotaged the rod -->
                 <Success>
+                    <SpawnAction itemidentifier="fuelrod" targetinventory="reactor" />
+                    <WaitAction time="5" />
+                    <NPCWaitAction npctag="captain" wait="false" />
                     <WaitAction time="15" />
-                    <StatusEffectAction targettag="distress_reactor">
+                    <StatusEffectAction targettag="reactor">
                         <StatusEffect target="This" FissionRate="0.0" disabledeltatime="true">
                             <sound file="Content/Items/Weapons/ExplosionLarge1.ogg" range="50000" />
                             <sound file="Content/Items/Weapons/ExplosionLarge2.ogg" range="50000" />
@@ -787,6 +825,12 @@
                     </StatusEffectAction>
                 </Success>
             </CheckDataAction>
+
+            <Label name="attack" />
+            <NPCWaitAction npctag="captain" wait="false" />
+            <CombatAction combatmode="Offensive" npctag="captain"
+                enemytag="triggerer_player" isinstigator="true"
+                guardreaction="none" witnessreaction="retreat" />
 
             <Label name="end" />
 

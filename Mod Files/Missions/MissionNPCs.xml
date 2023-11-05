@@ -509,19 +509,39 @@
             </ItemSet>
         </npc>
 
-        <npc identifier="captain_dakota" job="captain">
-            <Item identifier="idcard" equip="true" />
-            <Item identifier="captainscap1" equip="true" />
-            <Item identifier="captainsuniform1" equip="true" />
-            <Item identifier="headset" equip="true" />
-            <Item identifier="handcannon" equip="false">
-                <Item identifier="handcannonround" />
-                <Item identifier="handcannonround" />
-            </Item>
-            <Item identifier="divingknifeunique" />
+        <npc identifier="captain_dakota" job="captain" moduleflags="none" behavior="Passive">
+            <Character speciesname="human" gender="male" experiencepoints="0"
+                additionaltalentpoints="0" headspriteid="3" hairindex="10" beardindex="0"
+                facecolor="255,255,255,255" faceattachmentindex="0" personality="Fearful">
+                <job name="Captain" identifier="captain">
+                    <skill identifier="weapons" level="65" />
+                    <skill identifier="medical" level="25" />
+                    <skill identifier="helm" level="80" />
+                    <skill identifier="electrical" level="15" />
+                    <skill identifier="mechanical" level="15" />
+                </job>
+                <talents>
+                    <talent identifier="prodigy" />
+                    <talent identifier="downwiththeship" />
+                    <talent identifier="camaraderie" />
+                    <talent identifier="family" />
+                    <talent identifier="quickdraw" />
+                </talents>
+            </Character>
+            <ItemSet commonness="1">
+                <Item identifier="idcard" equip="true" />
+                <Item identifier="captainscap1" equip="true" />
+                <Item identifier="captainsuniform1" equip="true" />
+                <Item identifier="headset" equip="true" />
+                <Item identifier="handcannon" equip="false">
+                    <Item identifier="handcannonround" />
+                    <Item identifier="handcannonround" />
+                </Item>
+                <Item identifier="divingknifeunique" />
 
-            <Item identifier="rum" />
-            <Item identifier="captains_notebook" />
+                <Item identifier="rum" />
+                <Item identifier="captains_notebook" />
+            </ItemSet>
         </npc>
 
     </npcset>

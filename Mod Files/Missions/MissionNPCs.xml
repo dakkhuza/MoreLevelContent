@@ -502,10 +502,19 @@
 
     <npcset identifier="mlc_special_npcs">
         <npc identifier="clowncorpse" job="assistant">
+            <Character speciesname="human">
+                <job name="assistant" identifier="assistant">
+                    <skill identifier="weapons" level="0" />
+                    <skill identifier="medical" level="0" />
+                    <skill identifier="helm" level="0" />
+                    <skill identifier="electrical" level="0" />
+                    <skill identifier="mechanical" level="0" />
+                </job>
+            </Character>
+
             <ItemSet commonness="1">
                 <Item identifier="clownmask" equip="true" />
                 <Item identifier="clowncostume" equip="true" />
-                <Item identifier="bikehorn" />
             </ItemSet>
         </npc>
 

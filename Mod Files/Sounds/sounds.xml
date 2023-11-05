@@ -1,0 +1,5 @@
+<sounds>
+    <confetti file="%ModDir%/Sounds/confetti.ogg" volume="1.0" range="500"/>
+    <womp file="%ModDir%/Sounds/womp.ogg" volume="1.0" range="500"/>
+    <vanish file="%ModDir%/Sounds/vanish.ogg" volume="1.0" range="500"/>
+</sounds>

@@ -417,6 +417,43 @@
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
         <DistressGhostship
+                identifier="distress_ghostship_clowns"
+                textidentifier="distressmission"
+                tags="distress, mlc"
+                type="GoTo"
+                customType="DistressGhostship"
+                commonness="2"
+                reward="0"
+                successmessage="distress.success.clowns"
+        >
+                <Submarines>
+                        <Sub path="Content/Submarines/Barsuk.sub" commonness="100" />
+                </Submarines>
+
+                <Decals>
+                        <Item prefab="fruitsplatter_red" count="20" />
+                        <Item prefab="fruitsplatter_green" count="20" />
+                        <Item prefab="fruitsplatter_blue" count="20" />
+                        <Item prefab="fruitsplatter_black" count="20" />
+                        <Item prefab="fruitsplatter_white" count="20" />
+                </Decals>
+
+                <message header="missionheader0.distress_ghostship"
+                        text="missionmessage0.distress_ghostship" />
+
+                <message header="missionheader1.distress_ghostship"
+                        text="missionmessage1.quiet" />
+
+
+                <TriggerEvent state="0" delay="5" eventidentifier="distress_ghostship_clowns"
+                        campaignonly="true" />
+                <Icon
+                        texture="%ModDir%/Missions/Icons.png"
+                        sourcerect="256,0,256,256"
+                        color="255,106,106" />
+        </DistressGhostship>
+
+        <DistressGhostship
                 identifier="distress_ghostship_bandit"
                 textidentifier="distressmission"
                 tags="distress, mlc"

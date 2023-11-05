@@ -902,6 +902,110 @@
             </ConversationAction-->
         </ScriptedEvent>
 
+        <ScriptedEvent identifier="distress_ghostship_clowns">
+            <SetDataAction identifier="distress_clowns_reward" value="false" />
+            <TriggerEventAction identifier="suprise_clown" />
+            <WaitAction time="1" />
+            <TriggerEventAction identifier="suprise_clown" />
+            <WaitAction time="1" />
+            <TriggerEventAction identifier="suprise_clown" />
+            <WaitAction time="1" />
+            <TriggerEventAction identifier="suprise_clown" />
+            <WaitAction time="1" />
+            <TriggerEventAction identifier="suprise_clown" />
+        </ScriptedEvent>
+
+        <ScriptedEvent identifier="suprise_clown">
+            <TagAction criteria="crew" tag="player" />
+            <SpawnAction npcsetidentifier="mlc_special_npcs" npcidentifier="clowncorpse"
+                targettag="clown" spawnlocation="Any" spawnpointtype="Human"
+                spawnpointtag="distress_ghostship" team="None" requirespawnpointtag="true"
+                lootingisstealing="false" />
+            <AfflictionAction targettag="clown" affliction="bloodloss"
+                strength="1000" />
+            <TriggerAction target1tag="clown" target2tag="player"
+                radius="100" disableiftargetincapacitated="false" WaitForInteraction="true"
+                DisableInCombat="false" />
+            <CheckDataAction identifier="distress_clowns_reward" condition="eq true">
+                <Success>
+                    <!-- Clown Disapears -->
+                    <StatusEffectAction targettag="clown">
+                        <StatusEffect>
+                            <sound file="%ModDir%/Sounds/vanish.ogg"
+                                range="500" />
+                            <RemoveCharacter />
+                        </StatusEffect>
+                    </StatusEffectAction>
+
+                </Success>
+
+                <Failure>
+                    <RNGAction chance="0.25">
+                        <Success>
+                            <!-- Give money -->
+                            <MoneyAction amount="2500" targettag="triggerer_player" />
+                            <GiveExpAction amount="1000" targettag="triggerer_player" />
+                            <ReputationAction targettype="Faction" identifier="clowns" increase="15" />
+                            <SetDataAction identifier="distress_clowns_reward" value="true" />
+                            <StatusEffectAction targettag="clown">
+                                <StatusEffect>
+                                    <sound file="%ModDir%/Sounds/confetti.ogg"
+                                        range="500" />
+                                </StatusEffect>
+                            </StatusEffectAction>
+
+                            <StatusEffectAction targettag="clown">
+                                <StatusEffect>
+                                    <sound file="%ModDir%/Sounds/vanish.ogg"
+                                        range="500" />
+                                    <RemoveCharacter />
+                                </StatusEffect>
+                            </StatusEffectAction>
+
+                        </Success>
+
+                        <Failure>
+                            <!-- Explode -->
+                            <StatusEffectAction targettag="clown">
+                                <StatusEffect>
+                                    <sound file="%ModDir%/Sounds/womp.ogg"
+                                        range="500" />
+                                </StatusEffect>
+                            </StatusEffectAction>
+                            <StatusEffectAction targettag="clown">
+                                <StatusEffect>
+                                    <sound file="Content/Items/Weapons/ExplosionMedium1.ogg"
+                                        range="5000" />
+                                    <sound file="Content/Items/Weapons/ExplosionMedium2.ogg"
+                                        range="5000" />
+                                    <sound file="Content/Items/Weapons/ExplosionMedium3.ogg"
+                                        range="5000" />
+                                    <Explosion range="750.0" ballastfloradamage="100"
+                                        structuredamage="0" levelwalldamage="0" itemdamage="0"
+                                        force="30" severlimbsprobability="0" debris="true"
+                                        decal="explosion" decalsize="0.5">
+                                        <Affliction identifier="explosiondamage" strength="10" />
+                                        <Affliction identifier="bleeding" strength="10" />
+                                        <Affliction identifier="bleeding" strength="5"
+                                            probability="0.1" dividebylimbcount="false" />
+                                        <Affliction identifier="stun" strength="2" />
+                                    </Explosion>
+                                </StatusEffect>
+                            </StatusEffectAction>
+                            <WaitAction time="2" />
+                            <StatusEffectAction targettag="clown">
+                                <StatusEffect>
+                                    <sound file="%ModDir%/Sounds/vanish.ogg"
+                                        range="500" />
+                                    <RemoveCharacter />
+                                </StatusEffect>
+                            </StatusEffectAction>
+                        </Failure>
+                    </RNGAction>
+                </Failure>
+            </CheckDataAction>
+        </ScriptedEvent>
+
         <ScriptedEvent identifier="distress_ghostship_bandit_2">
             <SpawnAction npcsetidentifier="abandonedoutpostnpcs" npcidentifier="bandit"
                 spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"

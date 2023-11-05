@@ -123,10 +123,9 @@ namespace MoreLevelContent.Missions
             ghostship.Info.Type = (SubmarineType)7;
             submarine.PhysicsBody.FarseerBody.BodyType = FarseerPhysics.BodyType.Dynamic;
 
-            MissionUtils.PositionSubmarine(submarine, Level.PositionType.MainPath);
-
-            // ensure the sub doesn't get crushed
-            submarine.RealWorldCrushDepth = Math.Max(Submarine.MainSub.RealWorldCrushDepth, Level.Loaded.GetRealWorldDepth(submarine.Position.Y) + 1000);
+            SubPlacementUtils.PositionSubmarine(submarine, Level.PositionType.MainPath);
+            SubPlacementUtils.SetCrushDepth(submarine);
+            
 
             double minFlood = submarineConfig.GetAttributeDouble("minfloodpercentage", 0);
             double maxFlood = submarineConfig.GetAttributeDouble("maxfloodpercentage", 0);

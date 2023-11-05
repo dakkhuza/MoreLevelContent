@@ -42,7 +42,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
             characters.Clear();
             characterItems.Clear();
 
-            enemyBase = PirateOutpostDirector.Instance.SpawnSubOnPath("Pirate Outpost", selectedOutpost.ContentFile);
+            enemyBase = PirateOutpostDirector.Instance.SpawnSubOnPath("Pirate Outpost", selectedOutpost.ContentFile, ignoreCrushDepth: true);
             if (enemyBase == null)
             {
                 Log.Error("Failed to place pirate outpost! Skipping...");

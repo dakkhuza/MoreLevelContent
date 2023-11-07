@@ -27,7 +27,16 @@ namespace MoreLevelContent.Shared.XML
             {
                 // Skip non-xml files
                 if (Path.GetExtension(file.Path.RawValue) != ".xml") continue;
-                XDocument doc = XDocument.Parse(LuaCsFile.Read(file.Path.Value));
+                XDocument doc = null;
+                try
+                {
+                    doc = XDocument.Parse(LuaCsFile.Read(file.Path.Value));
+                } catch(Exception e) 
+                {
+                    Log.Error($"Failed to load file at path {file.Path.Value} due to {e.Message}");
+                    continue;
+                }
+                
                 if (doc == null) { continue; }
                 ContentXElement contentElement = doc.Root.FromPackage(file.ContentPackage);
                 var tags = contentElement.GetAttributeStringArray("tags", Array.Empty<string>(), convertToLowerInvariant: true);

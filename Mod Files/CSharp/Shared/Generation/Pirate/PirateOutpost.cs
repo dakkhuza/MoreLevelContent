@@ -48,6 +48,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
                 Log.Error("Failed to place pirate outpost! Skipping...");
                 return;
             }
+            enemyBase.PhysicsBody.BodyType = FarseerPhysics.BodyType.Static;
             enemyBase.Info.DisplayName = TextManager.Get("mlc.pirateoutpost");
             enemyBase.ShowSonarMarker = PirateOutpostDirector.Instance.Config.DisplaySonarMarker;
 

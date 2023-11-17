@@ -73,7 +73,7 @@ namespace MoreLevelContent.Shared.Generation
 
             Modules.Add(new ConstructionMapModule());
             Modules.Add(new DistressMapModule());
-            Modules.Add(new LostCargoMapModule());
+            //Modules.Add(new LostCargoMapModule());
 
 #if CLIENT
             NetUtil.Register(NetEvent.MAP_CONNECTION_EQUALITYCHECK_SENDCLIENT, ConnectionEqualityCheck);

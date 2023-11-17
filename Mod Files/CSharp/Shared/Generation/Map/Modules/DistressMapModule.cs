@@ -106,6 +106,13 @@ namespace MoreLevelContent.Shared.Generation
         private void TrySpawnDistress(Map __instance, bool force = false)
         {
             if (Main.IsClient) return;
+
+            if (__instance == null || __instance.Connections.Count == 0)
+            {
+                Log.Debug("Skipped trying to create a distress beacon as there was no map connections");
+                return;
+            }
+
             // Check if we're at the max
             int activeDistressCalls = __instance.Connections.Where(c => c.LevelData.MLC().HasDistress).Count();
             if (activeDistressCalls > ConfigManager.Instance.Config.NetworkedConfig.GeneralConfig.MaxActiveDistressBeacons)

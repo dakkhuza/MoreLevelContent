@@ -54,7 +54,7 @@
                         color="255,106,106" />
                 <Reputation
                         identifier="location"
-                        amount="5" amountforopposingfaction="-5" />
+                        amount="3" amountforopposingfaction="-1" />
         </DistressEscort>
 
         <DistressEscort
@@ -81,7 +81,7 @@
                         color="255,106,106" />
                 <Reputation
                         identifier="location"
-                        amount="5" amountforopposingfaction="-5" />
+                        amount="3" amountforopposingfaction="-1" />
         </DistressEscort>
 
         <DistressEscort
@@ -108,7 +108,7 @@
                         color="255,106,106" />
                 <Reputation
                         identifier="location"
-                        amount="5" amountforopposingfaction="-5" />
+                        amount="3" amountforopposingfaction="-1" />
         </DistressEscort>
 
         <DistressEscort
@@ -134,7 +134,7 @@
                         color="255,106,106" />
                 <Reputation
                         identifier="location"
-                        amount="5" amountforopposingfaction="-5" />
+                        amount="3" amountforopposingfaction="-1" />
         </DistressEscort>
 
         <!--DistressEscort
@@ -171,7 +171,7 @@
                         color="255,106,106" />
                 <Reputation
                         identifier="location"
-                        amount="5" amountforopposingfaction="-5" />
+                        amount="3" amountforopposingfaction="-1" />
         </DistressEscort>
 
         <DistressEscort
@@ -205,7 +205,7 @@
                 </Characters>
                 <Reputation
                         identifier="location"
-                        amount="5" amountforopposingfaction="-5" />
+                        amount="3" amountforopposingfaction="-1" />
                 <Icon
                         texture="%ModDir%/Missions/Icons.png"
                         sourcerect="256,0,256,256"
@@ -248,9 +248,11 @@
 
                 <message text="missionmessage0.distress_shiprescue" />
                 <message text="missionmessage1.distress_shiprescue" />
+
                 <Reputation
                         identifier="location"
-                        amount="5" amountforopposingfaction="-5" />
+                        amount="3" amountforopposingfaction="-1" />
+
                 <Icon
                         texture="%ModDir%/Missions/Icons.png"
                         sourcerect="256,0,256,256"
@@ -314,12 +316,13 @@
                         <Item from="outpostnpcs1" identifier="commoner" allowordering="true"
                                 payout="500" />
                 </Characters>
-                <Reputation
-                        identifier="location"
-                        amount="5" amountforopposingfaction="-5" />
 
                 <message text="missionmessage0.distress_shiprescue" />
                 <message text="missionmessage1.distress_shiprescue" />
+
+                <Reputation
+                identifier="location"
+                amount="3" amountforopposingfaction="-1" />
 
                 <Icon
                         texture="%ModDir%/Missions/Icons.png"
@@ -391,12 +394,17 @@
                                 payout="400" />
                 </Characters>
 
-                <Reputation
-                        identifier="location"
-                        amount="5" amountforopposingfaction="-5" />
-
                 <message text="missionmessage0.distress_shiprescue" />
                 <message text="missionmessage1.distress_shiprescue" />
+
+                <TriggerEvent state="1" delay="20" eventidentifier="hint_jumpstarter" />
+                <TriggerEvent state="2" delay="20" eventidentifier="hint_jumpstarter" />
+
+                <Reputation
+                identifier="location"
+                amount="3" amountforopposingfaction="-1" />
+
+                <TriggerEvent state="0" delay="5" eventidentifier="hint_jumpstarter" />
 
                 <Icon
                         texture="%ModDir%/Missions/Icons.png"
@@ -429,7 +437,7 @@
                 <message text="missionmessage1.distress_shiprescue" />
                 <Reputation
                         identifier="location"
-                        amount="5" amountforopposingfaction="-5" />
+                        amount="3" amountforopposingfaction="-1" />
 
                 <TriggerEvent state="0" delay="5" eventidentifier="shuttle_clown"
                         campaignonly="true" />
@@ -492,7 +500,7 @@
 
                 <Reputation
                         identifier="location"
-                        amount="5" amountforopposingfaction="-5" />
+                        amount="3" amountforopposingfaction="-1" />
 
 
                 <Decals>
@@ -532,7 +540,7 @@
 
                 <Reputation
                         identifier="location"
-                        amount="5" amountforopposingfaction="-5" />
+                        amount="3" amountforopposingfaction="-1" />
 
 
                 <Characters>
@@ -612,7 +620,7 @@
 
                 <Reputation
                         identifier="location"
-                        amount="5" amountforopposingfaction="-5" />
+                        amount="3" amountforopposingfaction="-1" />
 
 
                 <Characters>
@@ -691,7 +699,7 @@
 
                 <Reputation
                         identifier="location"
-                        amount="5" amountforopposingfaction="-5" />
+                        amount="3" amountforopposingfaction="-1" />
 
 
                 <Characters>
@@ -826,7 +834,7 @@
 
                 <Reputation
                         identifier="location"
-                        amount="5" amountforopposingfaction="-5" />
+                        amount="3" amountforopposingfaction="-1" />
 
 
                 <Characters>
@@ -923,7 +931,7 @@
 
                 <Reputation
                         identifier="location"
-                        amount="5" amountforopposingfaction="-5" />
+                        amount="3" amountforopposingfaction="-1" />
 
 
                 <Characters>
@@ -997,7 +1005,7 @@
 
                 <Reputation
                         identifier="location"
-                        amount="5" amountforopposingfaction="-5" />
+                        amount="3" amountforopposingfaction="-1" />
 
 
                 <Characters>
@@ -1159,7 +1167,7 @@
 
                 <Reputation
                         identifier="location"
-                        amount="5" amountforopposingfaction="-5" />
+                        amount="3" amountforopposingfaction="-1" />
 
                 <Submarines floodtargets="roomname.airlockaccess, roomname.reactorroom"
                         minfloodpercentage="0.15" maxfloodpercentage="0.25">

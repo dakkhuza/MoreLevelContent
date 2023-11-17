@@ -253,6 +253,9 @@
                         identifier="location"
                         amount="3" amountforopposingfaction="-1" />
 
+                <TriggerEvent state="1" delay="20" eventidentifier="hint_jumpstarter" />
+                <TriggerEvent state="2" delay="20" eventidentifier="hint_jumpstarter" />
+
                 <Icon
                         texture="%ModDir%/Missions/Icons.png"
                         sourcerect="256,0,256,256"
@@ -323,6 +326,9 @@
                 <Reputation
                 identifier="location"
                 amount="3" amountforopposingfaction="-1" />
+
+                <TriggerEvent state="1" delay="20" eventidentifier="hint_jumpstarter" />
+                <TriggerEvent state="2" delay="20" eventidentifier="hint_jumpstarter" />
 
                 <Icon
                         texture="%ModDir%/Missions/Icons.png"
@@ -441,6 +447,11 @@
 
                 <TriggerEvent state="0" delay="5" eventidentifier="shuttle_clown"
                         campaignonly="true" />
+
+                <TriggerEvent state="1" delay="20" eventidentifier="hint_jumpstarter" />
+                <TriggerEvent state="2" delay="20" eventidentifier="hint_jumpstarter" />
+        
+
                 <Icon
                         texture="%ModDir%/Missions/Icons.png"
                         sourcerect="256,0,256,256"

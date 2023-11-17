@@ -1,6 +1,24 @@
 <Randomevents>
     <EventPrefabs>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <!--                           Tutorials & Hints                               -->
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+
+        <ScriptedEvent identifier="hint_jumpstarter">
+            <CheckDataAction identifier="mlc-hints-jumpstarter-shown" condition="eq 1">
+                <Success>
+                    <!-- Do nothing -->
+                </Success>
+                <Failure>
+                    <TagAction criteria="player" tag="player" />
+                    <MessageBoxAction header="mlc.title" text="mlc.hint.jumpstarter" iconstyle="GUINotificationButton" targettag="player"/>
+                    <SetDataAction identifier="mlc-hints-jumpstarter-shown" value="1" />
+                </Failure>
+            </CheckDataAction>
+        </ScriptedEvent>
+
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <!--                        Construction Events                                -->
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 

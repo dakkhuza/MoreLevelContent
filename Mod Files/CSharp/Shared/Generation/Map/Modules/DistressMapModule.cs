@@ -50,7 +50,7 @@ namespace MoreLevelContent.Shared.Generation
         private void SendDistressUpdate(string updateType, LocationConnection connection)
         {
 #if CLIENT
-            string msg = TextManager.GetWithVariables(updateType, ("[location1]", $"‖color:gui.orange‖{connection.Locations[0].Name}‖end‖"), ("[location2]", $"‖color:gui.orange‖{connection.Locations[1].Name}‖end‖")).Value;
+            string msg = TextManager.GetWithVariables(updateType, ("[location1]", $"‖color:gui.orange‖{connection.Locations[0].DisplayName}‖end‖"), ("[location2]", $"‖color:gui.orange‖{connection.Locations[1].DisplayName}‖end‖")).Value;
             SendChatUpdate(msg);
 #endif
         }

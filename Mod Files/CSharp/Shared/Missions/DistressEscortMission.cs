@@ -79,16 +79,17 @@ namespace MoreLevelContent.Missions
         {
             missionNPCs.Clear();
 
-            if (!Loaded.TryGetInterestingPosition(false, spawnPositionType, 0, out spawnPosition))
+            if (!Loaded.TryGetInterestingPosition(false, spawnPositionType, 0, out InterestingPosition _spawnPos))
             {
                 Log.Error($"Failed to find a spawn position of type {spawnPositionType}! Falling back to any position.");
-                bool failed = Loaded.TryGetInterestingPosition(false, PositionType.MainPath | PositionType.SidePath | PositionType.Cave | PositionType.Wreck, 0, out spawnPosition);
+                bool failed = Loaded.TryGetInterestingPosition(false, PositionType.MainPath | PositionType.SidePath | PositionType.Cave | PositionType.Wreck, 0, out _spawnPos);
                 if (failed)
                 {
                     Log.Error("Could not find ANY position to spawn distress humans at!");
                     spawnPosition = Vector2.Zero;
                 }
             }
+            spawnPosition = _spawnPos.Position.ToVector2();
 
             CharacterTeamType team = hostile ? CharacterTeamType.None : CharacterTeamType.FriendlyNPC;
             missionNPCs.CreateHumansAtPosition(team, spawnPosition, OnCharacterCreated);

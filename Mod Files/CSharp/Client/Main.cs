@@ -35,7 +35,7 @@ namespace MoreLevelContent
             if (GameMain.IsSingleplayer) return;
 
             traitorProbabilityText = typeof(NetLobbyScreen).GetField("traitorProbabilityText", BindingFlags.Instance | BindingFlags.NonPublic);
-            CreateSettingsButton();
+            //CreateSettingsButton();
         }
 
 

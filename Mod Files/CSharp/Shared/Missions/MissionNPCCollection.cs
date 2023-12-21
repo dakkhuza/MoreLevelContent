@@ -183,7 +183,7 @@ namespace MoreLevelContent.Missions
         {
             if (element.Attribute("name") != null)
             {
-                DebugConsole.ThrowError("Error in mission \"" + mission.Name + "\" - use character identifiers instead of names to configure the characters.");
+                DebugConsole.ThrowError("Error in mission \"" + mission.Prefab.Identifier + "\" - use character identifiers instead of names to configure the characters.");
 
                 return null;
             }

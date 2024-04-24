@@ -1,0 +1,22 @@
+<CaveGenerationParameters>
+    <Cave
+        identifier="thalamuscave"
+        minwidth="1000"
+        maxwidth="5000"
+        minheight="2000"
+        maxheight="5000"
+        commonness="0"
+        minbranchcount="0"
+        maxbranchcount="0"
+        levelobjectamount="200"
+        destructiblewallratio="0">
+        <WallEdge
+            texture="%ModDir%/Map/Caves/Thalamus/LevelWallEdge.png" />
+        <WallDestroyed
+            texture="Content/Map/Biomes/DestructibleWall.png"
+            premultiplyalpha="false" />
+        <Wall
+            texture="%ModDir%/Map/Caves/Thalamus/LevelWall.png"
+            premultiplyalpha="false" />
+    </Cave>
+</CaveGenerationParameters>

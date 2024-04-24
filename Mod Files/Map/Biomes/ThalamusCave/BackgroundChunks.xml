@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<levelobjects>
+  <!-- a series of background chunks that spawn along walls -->
+  <BackgroundChunks identifier="thalamuscavebackgroundchunks" spawnpos="Wall" minsurfacewidth="0" minsize="2" maxsize="3" randomrotation="-180,180" commonness="0" depthrange="1200,2000" alignment="TopLeft, BottomRight" clusteringamount="0" clusteringgroup="0" alignwithsurface="False" swingamount="0" swingfrequency="0" scaleoscillation="0.2,0.2" scaleoscillationfrequency="0.1" sonardisruption="0" maxcount="2000" randomoffset="100,500">
+    <Sprite texture="%ModDir%/Map/Caves/Thalamus/BackgroundChunks.png" sourcerect="0,261,353,359" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Map/Caves/Thalamus/BackgroundChunks.png" sourcerect="0,620,400,404" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Map/Caves/Thalamus/BackgroundChunks.png" sourcerect="400,663,362,361" origin="0.5,0.5" />
+    <overridecommonness leveltype="thalamuscave" commonness="100" />
+  </BackgroundChunks>
+</levelobjects>

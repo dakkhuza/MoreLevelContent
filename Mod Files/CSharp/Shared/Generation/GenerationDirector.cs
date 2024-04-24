@@ -25,9 +25,9 @@ namespace MoreLevelContent.Shared.Generation
 
         public abstract bool Active { get; }
 
-        internal Submarine SpawnSubOnPath(string name, ContentFile sub, bool ignoreCrushDepth = false)
+        internal Submarine SpawnSubOnPath(string name, ContentFile sub, bool ignoreCrushDepth = false, SubmarineType submarineType = SubmarineType.EnemySubmarine)
         {
-            Submarine placedSub = SubPlacementUtils.SpawnSubOnPath(name, sub, SubmarineType.EnemySubmarine);
+            Submarine placedSub = SubPlacementUtils.SpawnSubOnPath(name, sub, submarineType);
             SubPlacementUtils.SetCrushDepth(placedSub, ignoreCrushDepth);
             return placedSub;
         }

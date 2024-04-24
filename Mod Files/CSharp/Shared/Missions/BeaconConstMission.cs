@@ -33,7 +33,7 @@ namespace MoreLevelContent.Missions
 
         // public override LocalizedString SonarLabel => base.SonarLabel.IsNullOrEmpty() ? sonarLabel : base.SonarLabel;
         public override int Reward => GetReward();
-        public override int GetReward(Submarine sub) => GetReward();
+        public override int GetBaseReward(Submarine sub) => GetReward();
 
         private int GetReward()
         {

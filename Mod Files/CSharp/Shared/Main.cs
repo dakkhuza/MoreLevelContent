@@ -22,6 +22,7 @@ namespace MoreLevelContent
     {
         public static bool IsCampaign => GameMain.GameSession?.Campaign != null || GameMain.IsSingleplayer;
         public static bool IsRunning => GameMain.GameSession?.IsRunning ?? false;
+
         public static bool IsClient => GameMain.NetworkMember != null && GameMain.NetworkMember.IsClient;
         public const string GUID = "com.dak.mlc";
         public static bool IsRelase = true;

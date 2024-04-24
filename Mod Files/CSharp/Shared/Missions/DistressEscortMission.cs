@@ -65,7 +65,7 @@ namespace MoreLevelContent.Missions
             if (descriptionWithoutReward != null) { description = descriptionWithoutReward.Replace("[reward]", rewardText); }
         }
 
-        public override int GetReward(Submarine sub)
+        public override int GetBaseReward(Submarine sub)
         {
             if (sub != missionSub)
             {

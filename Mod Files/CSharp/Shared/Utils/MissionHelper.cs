@@ -526,11 +526,12 @@ namespace MoreLevelContent.Shared.Utils
         {
             if (inf)
             {
-                sub.RealWorldCrushDepth = float.MaxValue;
+                sub.SetCrushDepth(float.MaxValue);
                 return;
             }
-            sub.RealWorldCrushDepth = Math.Max(sub.RealWorldCrushDepth, Submarine.MainSub.RealWorldCrushDepth);
-            sub.RealWorldCrushDepth = Math.Max(sub.RealWorldCrushDepth, Loaded.GetRealWorldDepth(sub.Position.Y) + 1000);
+            float depth = Math.Max(sub.RealWorldCrushDepth, Submarine.MainSub.RealWorldCrushDepth);
+            depth = Math.Max(depth, Loaded.GetRealWorldDepth(sub.Position.Y) + 1000);
+            sub.SetCrushDepth(depth);
         }
     }
 

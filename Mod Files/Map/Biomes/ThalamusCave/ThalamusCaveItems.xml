@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Items>
   <Item name="" identifier="fleshgunloader_cave" nameidentifier="fleshgunloader1" tags="thalamus,fleshgunequipment_cave" category="Thalamus" linkable="true" allowedlinks="fleshgun" scale="0.8" health="100" damagedbyexplosions="true" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyrepairtools="true" noninteractable="False">
-    <Sprite texture="%ModDir%/Map/Caves/Thalamus/CaveHazards.png" depth="0.51" sourcerect="405,184,524,142" origin="0.5,0.5" />
-    <BrokenSprite texture="%ModDir%/Map/Caves/Thalamus/CaveHazards.png" sourcerect="405,41,524,143" depth="0.51" maxcondition="0" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Map/Biomes/ThalamusCave/CaveHazards.png" depth="0.51" sourcerect="405,184,524,142" origin="0.5,0.5" />
+    <BrokenSprite texture="%ModDir%/Map/Biomes/ThalamusCave/CaveHazards.png" sourcerect="405,41,524,143" depth="0.51" maxcondition="0" origin="0.5,0.5" />
     <Body width="325" height="100" bodytype="Static" />
     <ItemContainer hideitems="true" drawinventory="true" capacity="1" slotsperrow="6" itempos="74,-281" iteminterval="0,0" itemrotation="0" canbeselected="false" containedspritedepth="0.79">
       <GuiFrame relativesize="0.15,0.2" anchor="Center" style="ItemUI" />
@@ -35,7 +35,7 @@
     </ItemContainer>
   </Item>
   <Item name="" identifier="cellspawnorgan_cave" nameidentifier="cellspawnorgan1" tags="thalamus,cellspawnorgan_cave" category="Thalamus" linkable="false" scale="0.8" health="100" damagedbyexplosions="true" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyrepairtools="true">
-    <Sprite texture="%ModDir%/Map/Caves/Thalamus/CaveHazards.png" depth="0.55" sourcerect="405,326,438,193" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Map/Biomes/ThalamusCave/CaveHazards.png" depth="0.55" sourcerect="405,326,438,193" origin="0.5,0.5" />
     <BrokenSprite texture="Content/Map/Thalamus/thalamus.png" sourcerect="538,384,448,192" depth="0.55" maxcondition="0" />
     <Body radius="80" bodytype="Static" />
     <ItemComponent>
@@ -64,8 +64,8 @@
     </ItemComponent>
   </Item>
   <Item name="" identifier="thalamusbrain_cave" nameidentifier="thalamusbrain1" tags="thalamus,thalamusbrain_cave" category="Thalamus" noninteractable="False" scale="0.8" health="150" damagedbyexplosions="true" damagedbyprojectiles="true" damagedbyrepairtools="true" damagedbymeleeweapons="true">
-    <Sprite texture="%ModDir%/Map/Caves/Thalamus/CaveHazards.png" sourcerect="0,606,470,419" depth="0.59" origin="0.5,0.5" />
-    <BrokenSprite texture="%ModDir%/Map/Caves/Thalamus/CaveHazards.png" sourcerect="470,606,473,418" depth="0.59" maxcondition="0" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Map/Biomes/ThalamusCave/CaveHazards.png" sourcerect="0,606,470,419" depth="0.59" origin="0.5,0.5" />
+    <BrokenSprite texture="%ModDir%/Map/Biomes/ThalamusCave/CaveHazards.png" sourcerect="470,606,473,418" depth="0.59" maxcondition="0" origin="0.5,0.5" />
     <Body radius="120" bodytype="Static" />
     <ItemComponent>
       <StatusEffect type="OnDeath" target="This">
@@ -100,8 +100,8 @@
     </ItemComponent>
   </Item>
   <Item name="" identifier="storageorgan_cave" nameidentifier="storageorgan1" tags="container,thalamus,storageorgan_cave" category="Thalamus" health="25" linkable="false" pickdistance="150" scale="1" damagedbyexplosions="true" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyrepairtools="true">
-    <Sprite texture="%ModDir%/Map/Caves/Thalamus/CaveHazards.png" depth="0.6" sourcerect="0,261,360,130" origin="0.5,0.5" />
-    <BrokenSprite texture="%ModDir%/Map/Caves/Thalamus/CaveHazards.png" depth="0.6" sourcerect="0,391,360,130" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Map/Biomes/ThalamusCave/CaveHazards.png" depth="0.6" sourcerect="0,261,360,130" origin="0.5,0.5" />
+    <BrokenSprite texture="%ModDir%/Map/Biomes/ThalamusCave/CaveHazards.png" depth="0.6" sourcerect="0,391,360,130" origin="0.5,0.5" />
     <Body width="325" height="80" bodytype="Static" />
     <ItemContainer capacity="4" slotsperrow="2" canbeselected="true" hideitems="true" msg="ItemMsgInteractSelect" accessonlywhenbroken="true">
       <GuiFrame relativesize="0.18,0.25" anchor="Center" style="ItemUI" />
@@ -127,12 +127,12 @@
     </ItemContainer>
   </Item>
   <Item name="" identifier="fleshgun_cave" nameidentifier="fleshgun1" variantof="fleshgun1" Tags="turret,thalamus,fleshgun_cave" category="Thalamus">
-    <Sprite texture="%ModDir%/Map/Caves/Thalamus/CaveHazards2.png" depth="0.51" sourcerect="11,95,420,190" origin="0.5,0.5" />
-    <BrokenSprite texture="%ModDir%/Map/Caves/Thalamus/CaveHazards2.png" sourcerect="460,95,420,190" depth="0.51" maxcondition="0" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Map/Biomes/ThalamusCave/CaveHazards2.png" depth="0.51" sourcerect="11,95,420,190" origin="0.5,0.5" />
+    <BrokenSprite texture="%ModDir%/Map/Biomes/ThalamusCave/CaveHazards2.png" sourcerect="460,95,420,190" depth="0.51" maxcondition="0" origin="0.5,0.5" />
   </Item>
   <Item name="" identifier="fleshspike_cave" nameidentifier="fleshspike1" variantof="fleshspike1" Tags="turret,thalamus,fleshspike_cave" category="Thalamus">
-    <Sprite texture="%ModDir%/Map/Caves/Thalamus/CaveHazards2.png" depth="0.51" sourcerect="11,0,320,96" origin="0.5,0.5" />
-    <BrokenSprite texture="%ModDir%/Map/Caves/Thalamus/CaveHazards2.png" sourcerect="373,0,320,96" depth="0.51" maxcondition="0" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Map/Biomes/ThalamusCave/CaveHazards2.png" depth="0.51" sourcerect="11,0,320,96" origin="0.5,0.5" />
+    <BrokenSprite texture="%ModDir%/Map/Biomes/ThalamusCave/CaveHazards2.png" sourcerect="373,0,320,96" depth="0.51" maxcondition="0" origin="0.5,0.5" />
   </Item>
   <Item name="" description="" identifier="fleshspike_cave_small" nameidentifier="fleshspike1" Tags="fleshspikesmall_cave,turret,thalamus,ignoreaimdelay" category="Thalamus" interactthroughwalls="true" Scale="0.4" interactdistance="10" spritecolor="1.0,1.0,1.0,1.0" focusonselected="true" offsetonselected="750" linkable="true" health="100">
     <Sprite texture="Content/Map/Thalamus/thalamus.png" depth="0.896" sourcerect="96,0,352,96" canflipy="false" origin="0.5,0.5" />

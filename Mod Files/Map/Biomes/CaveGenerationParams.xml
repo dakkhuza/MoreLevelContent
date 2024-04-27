@@ -11,12 +11,12 @@
         levelobjectamount="200"
         destructiblewallratio="0">
         <WallEdge
-            texture="%ModDir%/Map/Caves/Thalamus/LevelWallEdge.png" />
+            texture="%ModDir%/Map/Biomes/ThalamusCave/LevelWallEdge.png" />
         <WallDestroyed
             texture="Content/Map/Biomes/DestructibleWall.png"
             premultiplyalpha="false" />
         <Wall
-            texture="%ModDir%/Map/Caves/Thalamus/LevelWall.png"
+            texture="%ModDir%/Map/Biomes/ThalamusCave/LevelWall.png"
             premultiplyalpha="false" />
     </Cave>
 </CaveGenerationParameters>

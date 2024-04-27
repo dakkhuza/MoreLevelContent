@@ -44,7 +44,7 @@
     depthrange="-1,-0.1" alignment="TopLeft, BottomRight" clusteringamount="0" clusteringgroup="0"
     alignwithsurface="True" swingamount="0" swingfrequency="0" scaleoscillation="0,0"
     scaleoscillationfrequency="0" sonardisruption="0" maxcount="1000">
-    <Sprite texture="%ModDir%/Map/Caves/Thalamus/CaveHazards.png" sourcerect="0,184,309,77"
+    <Sprite texture="%ModDir%/Map/Biomes/ThalamusCave/CaveHazards.png" sourcerect="0,184,309,77"
       origin="0.5,0.5" />
     <Trigger randomtriggerinterval="10" randomtriggerprobability="0.5" staytriggereddelay="5"
       networksyncing="true">
@@ -78,7 +78,7 @@
     alignment="TopLeft, BottomRight" clusteringamount="0" clusteringgroup="0"
     alignwithsurface="True" swingamount="0" swingfrequency="0" scaleoscillation="0,0"
     scaleoscillationfrequency="0" sonardisruption="0" maxcount="5000">
-    <Sprite texture="%ModDir%/Map/Caves/Thalamus/CaveHazards.png" sourcerect="0,113,402,71"
+    <Sprite texture="%ModDir%/Map/Biomes/ThalamusCave/CaveHazards.png" sourcerect="0,113,402,71"
       origin="0.5,0.5" />
     <overridecommonness leveltype="thalamuscave" commonness="70" />
     <Trigger position="0,0" width="300" height="75" sensor="false" triggeredby="Human">

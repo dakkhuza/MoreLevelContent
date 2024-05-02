@@ -30,7 +30,7 @@ namespace MoreLevelContent.Shared.Generation
         private static PropertyInfo statusEffect_offset;
         private static PropertyInfo statusEffect_characterSpawn_offset;
 
-        private CaveAI ActiveThalaCave;
+        internal CaveAI ActiveThalaCave;
         public readonly List<CaveInitalCheckInfo> _InitialCaveCheckDebug = new();
         public readonly List<EdgeValidity> _EdgeValidtity = new();
 
@@ -89,6 +89,7 @@ namespace MoreLevelContent.Shared.Generation
             Log.Debug("transpiling...");
             Instance._InitialCaveCheckDebug.Clear();
             Instance._EdgeValidtity.Clear();
+            // This insertion point needs to be change to be between lines 1230 and 1232
             for (int i = 0; i < code.Count; i++) // -1 since we will be checking i + 1
             {
                 yield return code[i];
@@ -127,7 +128,7 @@ namespace MoreLevelContent.Shared.Generation
             }
 
 
-            const int REQUIRED_EDGE_COUNT = 4;
+            const int REQUIRED_EDGE_COUNT = 1;
             Log.Debug($"{Loaded.Caves.Count} Caves in level");
             
 
@@ -157,6 +158,7 @@ namespace MoreLevelContent.Shared.Generation
                     if (MakeThalaCave(cave))
                     {
                         cave_genparams.SetValue(cave, caveParams);
+                        Log.Debug("Updated generation params");
                     }
                     return;
                 }

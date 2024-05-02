@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace MoreLevelContent.Shared.AI
 {
@@ -40,6 +41,14 @@ namespace MoreLevelContent.Shared.AI
                 yield return CoroutineStatus.Running;
             }
             yield return CoroutineStatus.Success;
+        }
+
+        public void DebugDraw(SpriteBatch sb, Camera cam)
+        {
+            foreach (var item in turrets)
+            {
+                GUI.DrawString(sb, item.GetDrawPos(), "Test", Color.Red);
+            }
         }
 
         public void ClientEventRead(IReadMessage msg, float sendingTime)

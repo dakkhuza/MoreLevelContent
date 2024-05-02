@@ -72,6 +72,7 @@ namespace MoreLevelContent
             Hooks.Instance.Setup();
             Commands.Instance.Setup();
             CompatabilityHelper.Instance.Setup();
+            TurretReflectionInfo.Instance.Setup();
 
             if (!levelContentProducer.Active)
             {

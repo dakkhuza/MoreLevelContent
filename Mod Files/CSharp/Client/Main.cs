@@ -6,6 +6,7 @@ using Barotrauma.Networking;
 using HarmonyLib;
 using Microsoft.Xna.Framework;
 using MoreLevelContent.Shared;
+using MoreLevelContent.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,10 +20,10 @@ namespace MoreLevelContent
     /// </summary>
     partial class Main
     {
-        private GUIButton SettingsButton;
         public void InitClient()
         {
             MapUI.Instance.Setup();
+            Hooks.Instance.OnDebugDraw += ClientDebugDraw.Draw;
 
             // Exit if we're in an editor 
             if (Screen.Selected.IsEditor) return;
@@ -30,8 +31,6 @@ namespace MoreLevelContent
             MethodInfo info = typeof(GUI).GetMethod("TogglePauseMenu", BindingFlags.Static | BindingFlags.Public);
             Patch(info, postfix: new HarmonyMethod(AccessTools.Method(typeof(Main), "AddSettingsButton")));
         }
-
-
 
         private static void AddSettingsButton()
         {

@@ -87,11 +87,11 @@ namespace MoreLevelContent.Shared.Generation
             for (int i = 0; i < code.Count; i++) // -1 since we will be checking i + 1
             {
                 yield return code[i];
-                if (!finished)
+
+                if (!finished && code[i].opcode == OpCodes.Ldc_I4_S && (sbyte)code[i].operand == 14)
                 {
-                    if (i > 65 && code[i - 65].opcode == OpCodes.Newobj && code[i].opcode == OpCodes.Endfinally)
+                    if (code[i + 1].Calls(AccessTools.Method(typeof(Level), "GenerateEqualityCheckValue")))
                     {
-                        finished = true;
                         Log.Debug($"Found insertion point at {i}!");
                         // endfinally
                         i++;

@@ -26,12 +26,8 @@ namespace MoreLevelContent.Shared.Generation
             string diffStr1 = match.Groups[1].Value;
             string diffStr2 = match.Groups[2].Value;
 
-            Log.Verbose($"Diff 1: {diffStr1}");
-            Log.Verbose($"Diff 2: {diffStr2}");
-
             MinDiff = float.Parse(diffStr1);
             MaxDiff = float.Parse(diffStr2);
-            Log.Verbose($"Parsed diff for element with name {name} as {MinDiff}-{MaxDiff}%");
         }
 
         public override string ToString() => $"{MinDiff} - {MaxDiff}";

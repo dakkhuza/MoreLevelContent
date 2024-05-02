@@ -34,6 +34,15 @@ namespace MoreLevelContent.Shared.Generation
 
         public override void Setup()
         {
+            level_generatecave = AccessTools.Method(typeof(Level), "GenerateCave");
+            level_findawayfrompoint = AccessTools.Method(typeof(Level), "FindPosAwayFromMainPath");
+            level_calcdistfields = AccessTools.Method(typeof(Level), "CalculateTunnelDistanceField");
+            cave_genparams = AccessTools.Field(typeof(Cave), "CaveGenerationParams");
+            item_rotation = AccessTools.PropertySetter(typeof(Item), "RotationRad");
+            item_statusEffectList = AccessTools.Field(typeof(Item), "statusEffectLists");
+            statusEffect_offset = AccessTools.Property(typeof(StatusEffect), "Offset");
+            statusEffect_characterSpawn_offset = AccessTools.Property(typeof(StatusEffect.CharacterSpawnInfo), "Offset");
+
             MethodInfo Level_Generate = AccessTools.Method(typeof(Level), "Generate", new Type[] { typeof(bool), typeof(Location), typeof(Location) });
             _ = Main.Harmony.Patch(Level_Generate, transpiler: new HarmonyMethod(AccessTools.Method(typeof(CaveGenerationDirector), nameof(CaveGenerationDirector.SwapCavesTranspiler))));
 
@@ -45,15 +54,6 @@ namespace MoreLevelContent.Shared.Generation
 
             MethodInfo submarine_CullEntities = AccessTools.Method(typeof(Submarine), "CullEntities");
             _ = Main.Harmony.Patch(submarine_CullEntities, postfix: new HarmonyMethod(AccessTools.Method(typeof(CaveGenerationDirector), nameof(CaveGenerationDirector.OnCull))));
-
-            level_generatecave = AccessTools.Method(typeof(Level), "GenerateCave");
-            level_findawayfrompoint = AccessTools.Method(typeof(Level), "FindPosAwayFromMainPath"); 
-            level_calcdistfields = AccessTools.Method(typeof(Level), "CalculateTunnelDistanceField");
-            cave_genparams = AccessTools.Field(typeof(Cave), "CaveGenerationParams");
-            item_rotation = AccessTools.PropertySetter(typeof(Item), "RotationRad");
-            item_statusEffectList = AccessTools.Field(typeof(Item), "statusEffectLists");
-            statusEffect_offset = AccessTools.Property(typeof(StatusEffect), "Offset");
-            statusEffect_characterSpawn_offset = AccessTools.Property(typeof(StatusEffect.CharacterSpawnInfo), "Offset");
         }
 
         const float MIN_DIST = Sonar.DefaultSonarRange * 2;

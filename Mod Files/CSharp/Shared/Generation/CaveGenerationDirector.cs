@@ -58,6 +58,7 @@ namespace MoreLevelContent.Shared.Generation
             _ = Main.Harmony.Patch(submarine_CullEntities, postfix: new HarmonyMethod(AccessTools.Method(typeof(CaveGenerationDirector), nameof(CaveGenerationDirector.OnCull))));
         }
 
+
         const float MIN_DIST = Sonar.DefaultSonarRange * 2;
 
         static void OnCull(List<MapEntity> ___visibleEntities)
@@ -127,6 +128,8 @@ namespace MoreLevelContent.Shared.Generation
 
 
             const int REQUIRED_EDGE_COUNT = 4;
+            Log.Debug($"{Loaded.Caves.Count} Caves in level");
+            
 
             foreach (var cave in Loaded.Caves)
             {
@@ -137,6 +140,10 @@ namespace MoreLevelContent.Shared.Generation
                         c =>
                         {
                             bool result = CanSeeMainPath(c, out List<GraphEdge> edges);
+                            if (result)
+                            {
+                                Instance._InitialCaveCheckDebug.Add(new CaveInitalCheckInfo(c, edges));
+                            }
                             return result;
                         }
                     ).Count();
@@ -147,8 +154,10 @@ namespace MoreLevelContent.Shared.Generation
                 if (isValid)
                 {
                     Log.Debug("Valid cave found!");
-                    cave_genparams.SetValue(cave, caveParams);
-                    MakeThalaCave(cave);
+                    if (MakeThalaCave(cave))
+                    {
+                        cave_genparams.SetValue(cave, caveParams);
+                    }
                     return;
                 }
             }
@@ -159,11 +168,14 @@ namespace MoreLevelContent.Shared.Generation
         {
             validEdges = new List<GraphEdge>();
 
+            // This is a quick test done to see if we're likely to have a direct LOS to the main path
+            // We don't care if these edges are solid yet because these aren't the edges we'll be using for spawning
             foreach (var edge in cell.Edges.Where(e => e.NextToMainPath || e.NextToSidePath))
             {
-                return true;
+                validEdges.Add(edge);
             }
-            return false;
+
+            return validEdges.Any();
         }
 
         private static bool IsThalamus(MapEntityPrefab entityPrefab) => entityPrefab.HasSubCategory("thalamus");
@@ -185,11 +197,14 @@ namespace MoreLevelContent.Shared.Generation
             return closestPos;
         }
 
-        static void MakeThalaCave(Cave cave)
+        private readonly List<(Vector2, Vector2)> wallDebug = new List<(Vector2, Vector2)>();
+
+        static bool MakeThalaCave(Cave cave)
         {
-            // a1ek3WII <- seed
+            // PoCM3hEa <- seed
 
             List<VoronoiCell> caveWallCells = GetCaveWallCells(cave);
+            Log.Debug($"Wall Cells: {caveWallCells.Count}");
 
             // Spawn thalamus items
             List<Item> thalamusItems = new List<Item>();
@@ -204,13 +219,20 @@ namespace MoreLevelContent.Shared.Generation
             var pathPoint = ClosestPathPoint(cave);
             List<GraphEdge> entranceEdges = GetEdgesFacingPoint();
 
+            // Put some debugging test criteria here to see why the walls are failing the test
             var insideEdges = caveWallCells.SelectMany(c =>
-                c.Edges.Where(e =>
-                e.IsSolid &&
-                !CanEdgeSeePathPoint(e) &&
-                WideEnough(e) &&
-                !InsideExtraWall(e)
-                )).ToList();
+                c.Edges.Where((e) =>
+                {
+                    EdgeValidity validity = new EdgeValidity(e, pathPoint);
+                    Instance._EdgeValidtity.Add(validity);
+                    return validity.IsValidEdge;
+                })).ToList();
+
+            if (insideEdges.Count == 0)
+            {
+                Log.Warn("Failed to find any inside edges, spawn aborted.");
+                return false;
+            }
 
             GraphEdge brainEdge = null;
             float closestDist = float.PositiveInfinity;
@@ -235,6 +257,7 @@ namespace MoreLevelContent.Shared.Generation
 
             _ = Loaded.PositionsOfInterest.RemoveAll(poi => poi.Cave == cave);
 
+            return true;
 
 
             // Methods
@@ -328,7 +351,7 @@ namespace MoreLevelContent.Shared.Generation
                         statusEffect_offset.SetValue(effect, newOffset);
                         foreach (var spawnEffect in effect.SpawnCharacters)
                         {
-                            dist = spawnEffect.Offset.Y;
+                            dist = -spawnEffect.Offset.Y;
                             newOffset = new Vector2((float)Math.Cos(turretRotRad), (float)Math.Sin(turretRotRad)) * dist;
                             statusEffect_characterSpawn_offset.SetValue(spawnEffect, newOffset);
                         }
@@ -353,11 +376,6 @@ namespace MoreLevelContent.Shared.Generation
                 Vector2 dir = MLCUtils.PositionItemOnEdge(organ, edge, 60, true);
                 return organ;
             }
-
-
-
-
-
 
             GraphEdge GetEdge(List<GraphEdge> edges, bool removeClose = false)
             {
@@ -391,7 +409,10 @@ namespace MoreLevelContent.Shared.Generation
 
             bool FacingPathPoint(GraphEdge e) => Vector2.Dot(Vector2.Normalize(e.GetNormal(null)), Vector2.Normalize(e.Center - pathPoint)) >= 0;
             bool WideEnough(GraphEdge e, float size = 200) => Vector2.DistanceSquared(e.Point1, e.Point2) > size * size;
-            bool CanEdgeSeePathPoint(GraphEdge e) => !PhysUtil.RaycastWorld(e.SimPosition(), ConvertUnits.ToSimUnits(pathPoint), new List<Body> {  }).Hit;
+            bool CanEdgeSeePathPoint(GraphEdge e)
+            {
+                return !PhysUtil.RaycastWorld(e.SimPosition(), ConvertUnits.ToSimUnits(pathPoint), new List<Body> { }).Hit;
+            }
             bool CanPosSeePathPoint(Vector2 simPos) => !PhysUtil.RaycastWorld(simPos, ConvertUnits.ToSimUnits(pathPoint), new List<Body> { }).Hit;
             bool InsideExtraWall(GraphEdge e)
             {
@@ -435,6 +456,74 @@ namespace MoreLevelContent.Shared.Generation
             return caveWalls;
         }
     }
+
+    public struct CaveInitalCheckInfo
+    {
+        public CaveInitalCheckInfo(VoronoiCell cell, List<GraphEdge> validEdges)
+        {
+            Cell = cell;
+            ValidEdges = validEdges;
+        }
+        public List<GraphEdge> ValidEdges;
+        public VoronoiCell Cell;
+        public Vector2 GetEdgeDrawPosition(GraphEdge edge)
+        {
+            return new Vector2(edge.Center.X, -edge.Center.Y);
+        }
+    }
+
+    public struct EdgeValidity
+    {
+        //e.IsSolid &&
+        //    !CanEdgeSeePathPoint(e) &&
+        //    WideEnough(e) &&
+        //    !InsideExtraWall(e)
+        public EdgeValidity(GraphEdge e, Vector2 pathPoint)
+        {
+            IsValidEdge = false;
+            FailReason = "Valid";
+            Hit = default;
+            Position = new Vector2(e.Center.X, -e.Center.Y);
+
+            if (!e.IsSolid)
+            {
+                FailReason = "Not solid";
+                return;
+            }
+
+            if (CanEdgeSeePoint(e, pathPoint, out RayHit hit))
+            {
+                FailReason = "Not Inside";
+                Hit = hit;
+                return;
+            }
+
+            if (!WideEnough(e))
+            {
+                FailReason = "Too Small";
+                return;
+            }
+
+            IsValidEdge = true;
+        }
+
+        public static bool CanEdgeSeePoint(GraphEdge e, Vector2 point, out RayHit hit)
+        {
+            hit = PhysUtil.RaycastWorld(e.SimPosition(), ConvertUnits.ToSimUnits(point), new List<Body> { });
+            return !hit.Hit;
+        }
+
+        public static bool WideEnough(GraphEdge e, float size = 200) => Vector2.DistanceSquared(e.Point1, e.Point2) > size * size;
+
+        public RayHit Hit;
+
+        public string FailReason;
+
+        public bool IsValidEdge;
+
+        public Vector2 Position;
+    }
+
 
     public static class GraphEdgeExtensions
     {

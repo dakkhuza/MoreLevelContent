@@ -31,6 +31,8 @@ namespace MoreLevelContent.Shared.Generation
         private static PropertyInfo statusEffect_characterSpawn_offset;
 
         private CaveAI ActiveThalaCave;
+        public readonly List<CaveInitalCheckInfo> _InitialCaveCheckDebug = new();
+        public readonly List<EdgeValidity> _EdgeValidtity = new();
 
         public override void Setup()
         {
@@ -84,6 +86,8 @@ namespace MoreLevelContent.Shared.Generation
             var code = new List<CodeInstruction>(instructions);
             bool finished = false;
             Log.Debug("transpiling...");
+            Instance._InitialCaveCheckDebug.Clear();
+            Instance._EdgeValidtity.Clear();
             for (int i = 0; i < code.Count; i++) // -1 since we will be checking i + 1
             {
                 yield return code[i];

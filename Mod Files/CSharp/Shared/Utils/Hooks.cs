@@ -31,7 +31,11 @@ namespace MoreLevelContent.Shared.Utils
         private static void StructureDamaged(Structure structure, float damageAmount, Character character) => Instance.OnStructureDamaged?.Invoke(structure, damageAmount, character);
 
 #if CLIENT
-        private static void DebugDraw(SpriteBatch spriteBatch, Camera cam) => Instance.OnDebugDraw?.Invoke(spriteBatch, cam);
+        private static void DebugDraw(SpriteBatch spriteBatch, Camera cam)
+        {
+            if (!GameMain.DebugDraw) return;
+            Instance.OnDebugDraw?.Invoke(spriteBatch, cam);
+        }
 #endif
     }
 }

@@ -59,12 +59,14 @@ namespace MoreLevelContent.Shared.AI
 
         public CaveAI(List<Item> allThalamusItems, GraphEdge spawnEdge, Cave cave)
         {
+            Log.Debug($"it {allThalamusItems == null} se: {spawnEdge == null} cave: {cave == null}");
             this.cave = cave;
             DummySub = new Submarine(new SubmarineInfo(), showErrorMessages: false)
             {
                 TeamID = CharacterTeamType.None,
                 ShowSonarMarker = false,
             };
+            DummySub.PhysicsBody.BodyType = FarseerPhysics.BodyType.Static;
             allThalamusItems.ForEach(i => i.Submarine = DummySub);
 
             var thalamusPrefabs = ItemPrefab.Prefabs.Where(p => IsThalamus(p));
@@ -319,6 +321,7 @@ namespace MoreLevelContent.Shared.AI
         {
             foreach (var turret in turrets)
             {
+                //turret.GenericOperate(deltaTime, true, Config.Entity);
                 turret.UpdateAutoOperate(deltaTime, true, Config.Entity);
             }
         }

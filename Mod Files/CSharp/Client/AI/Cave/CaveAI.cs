@@ -4,10 +4,7 @@ using Barotrauma;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework.Graphics;
+using MoreLevelContent.Shared.Utils;
 
 namespace MoreLevelContent.Shared.AI
 {
@@ -43,11 +40,16 @@ namespace MoreLevelContent.Shared.AI
             yield return CoroutineStatus.Success;
         }
 
-        public void DebugDraw(SpriteBatch sb, Camera cam)
+        public void DebugDraw(Microsoft.Xna.Framework.Graphics.SpriteBatch sb, Camera cam)
         {
-            foreach (var item in turrets)
+            float lineThickness = 1f / Screen.Selected.Cam.Zoom;
+            foreach (var turret in turrets)
             {
-                GUI.DrawString(sb, item.GetDrawPos(), "Test", Color.Red);
+                const float coneRadius = 300.0f;
+                float radians = turret.GetMaxRotation() - turret.GetMinRotation();
+                float circleRadius = coneRadius / Screen.Selected.Cam.Zoom * GUI.Scale;
+              
+                sb.DrawSector(turret.GetDrawPos(), circleRadius, radians, (int)Math.Abs(90 * radians), GUIStyle.Green, offset: turret.GetMinRotation(), thickness: lineThickness);
             }
         }
 

@@ -60,6 +60,9 @@ namespace MoreLevelContent.Shared.Generation
 
 
         const float MIN_DIST = Sonar.DefaultSonarRange * 2;
+        const int REQUIRED_EDGE_COUNT = 1;
+        const float MIN_DIST_BETWEEN_ORGANS = 800;
+        const int MAX_OFFENSE_ITEMS = 8; //8;
 
         static void OnCull(List<MapEntity> ___visibleEntities)
         {
@@ -127,8 +130,6 @@ namespace MoreLevelContent.Shared.Generation
                 return;
             }
 
-
-            const int REQUIRED_EDGE_COUNT = 1;
             Log.Debug($"{Loaded.Caves.Count} Caves in level");
             
 
@@ -268,10 +269,17 @@ namespace MoreLevelContent.Shared.Generation
             {
                 Queue<Action> offensiveItems = new Queue<Action>();
                 // Limit offensive items to a max of 8
-                for (int i = 0; i < Math.Min(entranceEdges.Count, 8); i++)
+                for (int i = 0; i < Math.Min(entranceEdges.Count, MAX_OFFENSE_ITEMS); i++)
                 {
-                    if (i % 2 == 0) offensiveItems.Enqueue(SpawnFleshSpike);
-                    else offensiveItems.Enqueue(SpawnFleshGun);
+                    // Always spawn a flesh gun first
+                    if (i % 2 == 0)
+                    {
+                        offensiveItems.Enqueue(SpawnFleshGun);
+                    }
+                    else
+                    {
+                        offensiveItems.Enqueue(SpawnFleshSpike);
+                    }
                 }
                 while (offensiveItems.Count > 0)
                 {
@@ -279,7 +287,6 @@ namespace MoreLevelContent.Shared.Generation
                 }
             }
 
-            const float MIN_DIST_BETWEEN_ORGANS = 800;
             void CreateDefensiveItems()
             {
                 int totalSpawnLocations = insideEdges.Count;
@@ -292,6 +299,7 @@ namespace MoreLevelContent.Shared.Generation
                 foreach (var fleshgun in fleshGuns)
                 {
                     var ammosack = SpawnOrgan(ammosackPrefab, GetEdge(insideEdges, true));
+                    
                     fleshgun.AddLinked(ammosack);
                 }
                 // Ensure there is always 4 organs
@@ -315,8 +323,8 @@ namespace MoreLevelContent.Shared.Generation
                 GraphEdge edge = GetEdge(entranceEdges);
                 if (edge == null) return;
                 int radius = fleshgun.StaticBodyConfig.GetAttributeInt("radius", 0);
-                Vector2 dir = MLCUtils.PositionItemOnEdge(fleshgun, edge, radius + 50);
-                float angle = Angle(dir) - 90;
+                Vector2 dir = MLCUtils.PositionItemOnEdge(fleshgun, edge, radius);
+                float angle = Angle(dir);
                 Turret turret = fleshgun.GetComponent<Turret>();
                 turret.RotationLimits = new Vector2(-angle - 90, -angle + 90);
                 turret.AimDelay = false;
@@ -333,7 +341,7 @@ namespace MoreLevelContent.Shared.Generation
                 GraphEdge edge = GetEdge(entranceEdges);
                 if (edge == null) return;
                 int height = spike.StaticBodyConfig.GetAttributeInt("height", 0);
-                Vector2 dir = MLCUtils.PositionItemOnEdge(spike, edge, height + 15);
+                Vector2 dir = MLCUtils.PositionItemOnEdge(spike, edge, height);
                 float angle = Angle(dir);
                 spike.SpriteDepth = 1;
                 Turret turret = spike.GetComponent<Turret>();
@@ -347,7 +355,7 @@ namespace MoreLevelContent.Shared.Generation
                     foreach (var effect in effects)
                     {
                         float dist = effect.Offset.Y;
-                        float turretRot = -angle;
+                        float turretRot = angle;
                         float turretRotRad = MathHelper.ToRadians(turretRot);
                         Vector2 newOffset = new Vector2((float)Math.Cos(turretRotRad), (float)Math.Sin(turretRotRad)) * dist;
                         statusEffect_offset.SetValue(effect, newOffset);

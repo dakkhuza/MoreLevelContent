@@ -5,85 +5,119 @@ using FarseerPhysics;
 using FarseerPhysics.Dynamics;
 using HarmonyLib;
 using Microsoft.Xna.Framework;
+using Steamworks.Ugc;
 using System;
 using System.Reflection;
+using System.Security.Cryptography;
+using Item = Barotrauma.Item;
 
 namespace MoreLevelContent.Shared.Utils
 {
     internal static class TurretExtensions
     {
-        internal static void GenericOperate(this Turret turret, float deltaTime, bool targetHumans, bool targetOtherCreatures, bool targetSubmarines, bool ignoreDelay, Identifier friendlyGroup)
+        public static Rectangle TargetHull;
+        public static Vector2 Hit;
+        internal static void GenericOperate(this Turret turret, float deltaTime, bool ignorePower, Identifier friendlyTag = default)
         {
+            if (!ignorePower && !turret.HasPowerToShoot())
+            {
+                Log.Debug("No power");
+                return;
+            }
+
             turret.IsActive = true;
+
+            if (friendlyTag.IsEmpty)
+            {
+                friendlyTag = turret.FriendlyTag;
+            }
 
             if (GameMain.NetworkMember != null && GameMain.NetworkMember.IsClient)
             {
+                Log.Debug("Client");
                 return;
             }
-            float prevTargetRotation = turret.GetPrevTargetRotation();
-            float targetRotation = turret.GetTargetRotation();
-            if (turret.GetUpdatePending())
+            var updatePending = turret.GetUpdatePending();
+            if (updatePending)
             {
-                float updateTimer = turret.GetUpdateTimer();
+                var updateTimer = turret.GetUpdateTimer();
+                // Time for an update
                 if (updateTimer < 0.0f)
                 {
 #if SERVER
                     turret.Item.CreateServerEvent(turret);
 #endif
-                    prevTargetRotation = targetRotation;
+                    turret.SetPrevTargetRotation(turret.GetTargetRotation());
                     updateTimer = 0.25f;
                 }
-                updateTimer -= deltaTime;
-                turret.SetUpdateTimer(updateTimer);
+                turret.SetUpdateTimer(updateTimer -= deltaTime);
             }
 
-            float waitTimer = turret.GetWaitTimer();
-
-            if (!ignoreDelay && waitTimer > 0)
+            var waitTimer = turret.GetWaitTimer();
+            if (turret.AimDelay && waitTimer > 0)
             {
-                waitTimer -= deltaTime;
-                turret.SetWaitTimer(waitTimer);
+                turret.SetWaitTimer(waitTimer -= deltaTime);
+                Log.Debug("Waiting...");
                 return;
             }
+
             Submarine closestSub = null;
             float maxDistance = 10000.0f;
             float shootDistance = turret.AIRange;
             ISpatialEntity target = null;
             float closestDist = shootDistance * shootDistance;
-            if (targetHumans || targetOtherCreatures)
+            if (turret.TargetCharacters)
             {
                 foreach (var character in Character.CharacterList)
                 {
-                    if (character == null || character.Removed || character.IsDead) { continue; }
-                    if (character.Params.Group == friendlyGroup) { continue; }
-                    bool isHuman = character.IsHuman || character.Params.Group == CharacterPrefab.HumanSpeciesName;
-                    if (isHuman)
-                    {
-                        if (!targetHumans)
-                        {
-                            // Don't target humans if not defined to.
-                            continue;
-                        }
-                    }
-                    else if (!targetOtherCreatures)
-                    {
-                        // Don't target other creatures if not defined to.
-                        continue;
-                    }
+                    if (!GenericIsValidTarget(character)) { continue; }
+                    //float priority = turret.isSlowTurret ? character.Params.AISlowTurretPriority : character.Params.AITurretPriority;
+                    float priority = character.Params.AITurretPriority;
+                    if (priority <= 0) { continue; }
+                    if (!GenericIsValidTargetForAutoOperate(turret, character, friendlyTag)) { continue; }
                     float dist = Vector2.DistanceSquared(character.WorldPosition, turret.Item.WorldPosition);
                     if (dist > closestDist) { continue; }
+                    if (!turret.IsWithinAimingRadius(character.WorldPosition)) { continue; }
                     target = character;
-                    closestDist = dist;
+                    //if (currentTarget != null && target == currentTarget)
+                    //{
+                    //    priority *= GetTargetPriorityModifier();
+                    //}
+                    closestDist = dist / priority;
                 }
             }
-            if (targetSubmarines)
+            if (turret.TargetItems)
+            {
+                foreach (Item targetItem in Item.ItemList)
+                {
+                    if (!GenericIsValidTarget(targetItem)) { continue; }
+                    float priority = targetItem.Prefab.AITurretPriority;
+                    if (priority <= 0) { continue; }
+                    float dist = Vector2.DistanceSquared(turret.Item.WorldPosition, targetItem.WorldPosition);
+                    if (dist > closestDist) { continue; }
+                    if (dist > shootDistance * shootDistance) { continue; }
+                    if (!GenericIsTargetItemCloseEnough(targetItem, dist)) { continue; }
+                    if (!turret.IsWithinAimingRadius(targetItem.WorldPosition)) { continue; }
+                    target = targetItem;
+                    // if (currentTarget != null && target == currentTarget)
+                    // {
+                    //     priority *= GetTargetPriorityModifier();
+                    // }
+                    closestDist = dist / priority;
+                }
+            }
+            if (turret.TargetSubmarines)
             {
                 if (target == null || target.Submarine != null)
                 {
                     closestDist = maxDistance * maxDistance;
                     foreach (Submarine sub in Submarine.Loaded)
                     {
-                        if (sub.Info.Type != SubmarineType.Player) { continue; }
+                        if (sub == turret.Item.Submarine) { continue; }
+                        if (turret.Item.Submarine != null)
+                        {
+                            if (Character.IsOnFriendlyTeam(turret.Item.Submarine.TeamID, sub.TeamID)) { continue; }
+                        }
                         float dist = Vector2.DistanceSquared(sub.WorldPosition, turret.Item.WorldPosition);
                         if (dist > closestDist) { continue; }
                         closestSub = sub;
@@ -97,91 +131,123 @@ namespace MoreLevelContent.Shared.Utils
                             if (!closestSub.IsEntityFoundOnThisSub(hull, true)) { continue; }
                             float dist = Vector2.DistanceSquared(hull.WorldPosition, turret.Item.WorldPosition);
                             if (dist > closestDist) { continue; }
+                            // Don't check the angle, because it doesn't work on Thalamus spike. The angle check wouldn't be very important here anyway.
                             target = hull;
                             closestDist = dist;
                         }
                     }
                 }
             }
-            if (!ignoreDelay)
-            {
-                if (target == null)
-                {
-                    // Random movement
-                    waitTimer = Rand.Value(Rand.RandSync.Unsynced) < 0.98f ? 0f : Rand.Range(5f, 20f);
-                    //targetRotation =
-                    turret.SetTargetRotation(Rand.Range(turret.GetMinRotation(), turret.GetMaxRotation()));
-                    turret.SetUpdatePending(true);
-                    return;
-                }
-                float disorderTimer = turret.GetDisorderTimer();
-                if (disorderTimer < 0)
-                {
-                    // Random disorder
-                    disorderTimer = Rand.Range(0f, 3f);
-                    waitTimer = Rand.Range(0.25f, 1f);
-                    //targetRotation
-                    turret.SetTargetRotation(MathUtils.WrapAngleTwoPi(targetRotation += Rand.Range(-1f, 1f)));
-                    turret.SetUpdatePending(true);
-                    turret.SetDisorderTimer(disorderTimer);
-                    return;
-                }
-                else
-                {
-                    disorderTimer -= deltaTime;
-                    turret.SetDisorderTimer(disorderTimer);
-                }
-            }
-            if (target == null) { return; }
 
-            float fireTargetAngle = -MathUtils.VectorToAngle(target.WorldPosition - turret.Item.WorldPosition);
-            targetRotation = MathUtils.WrapAngleTwoPi(fireTargetAngle);
-
-            // set a pending update if the rotational difference is greater than 0.1
-            if (Math.Abs(targetRotation - prevTargetRotation) > 0.1f) { turret.SetUpdatePending(true); }
-            Vector2 barrelDir = new Vector2((float)Math.Cos(turret.Rotation), -(float)Math.Sin(turret.Rotation));
-            if (target is Hull targetHull)
+            if (target == null && turret.RandomMovement)
             {
-                // check if the current rotation intersects with the target hull
-                if (!MathUtils.GetLineRectangleIntersection(turret.Item.WorldPosition, turret.Item.WorldPosition + (barrelDir * turret.AIRange), targetHull.WorldRect, out _))
+                // Random movement while there's no target
+                turret.SetWaitTimer(Rand.Value(Rand.RandSync.Unsynced) < 0.98f ? 0f : Rand.Range(5f, 20f));
+                turret.SetTargetRotation(Rand.Range(turret.GetMinRotation(), turret.GetMaxRotation()));
+                turret.SetUpdatePending(true);
+                Log.Debug("Target null, doing random movement");
+                return;
+            }
+
+            if (turret.AimDelay)
+            {
+                if (turret.RandomAimAmount > 0)
                 {
-                    return;
+                    var ranAimTimer = turret.GetRandomAimTimer();
+                    if (ranAimTimer < 0)
+                    {
+                        turret.SetRandomAimTimer(Rand.Range(turret.RandomAimMinTime, turret.RandomAimMaxTime));
+                        turret.SetWaitTimer(Rand.Range(0.25f, 1f));
+                        float randomAim = MathHelper.ToRadians(turret.RandomAimAmount);
+                        float _targetRot = turret.GetTargetRotation();
+                        turret.SetTargetRotation(MathUtils.WrapAngleTwoPi(_targetRot += Rand.Range(-randomAim, randomAim)));
+                        turret.SetUpdatePending(true);
+                    } else
+                    {
+                        turret.SetRandomAimTimer(ranAimTimer -= deltaTime);
+                    }
                 }
             }
-            else
+            if (target == null)
             {
-                if (!turret.GenericCheckTurretAngle(fireTargetAngle)) {  return; }
-                float enemyAngle = MathUtils.VectorToAngle(target.WorldPosition - turret.Item.WorldPosition);
-                float turretAngle = -turret.GetRotation();
-                if (Math.Abs(MathUtils.GetShortestAngle(enemyAngle, turretAngle)) > 0.15f) { return; }
+                Log.Debug("Target null");
+                return;
             }
-            
-            // Make sure we're out of the wall by extending the start pos
-            Vector2 start = ConvertUnits.ToSimUnits(turret.Item.WorldPosition + (barrelDir * 4));
+            // currentTarget = target;
+
+            float angle = -MathUtils.VectorToAngle(target.WorldPosition - turret.Item.WorldPosition);
+            var targetRot = turret.GetTargetRotation();
+            targetRot = MathUtils.WrapAngleTwoPi(angle);
+            if (Math.Abs(targetRot - turret.GetPrevTargetRotation()) > 0.1f) { turret.SetUpdatePending(true); }
+            turret.SetTargetRotation(targetRot);
+
+            // We ignore this currently since for some reason the intersect always fails, no idea why, it should be the same code as the live version...
+            // if (target is Hull targetHull)
+            // {
+            //     Vector2 barrelDir = new Vector2((float)Math.Cos(turret.Rotation), -(float)Math.Sin(turret.Rotation));
+            //     if (!MathUtils.GetLineRectangleIntersection(turret.Item.WorldPosition, turret.Item.WorldPosition + (barrelDir * turret.AIRange), targetHull.WorldRect, out _))
+            //     {
+            //         TargetHull = targetHull.WorldRect;
+            //         Log.Debug("No intersection with hull");
+            //         return;
+            //     }
+            // }
+            // else
+            // {
+            //     if (!GenericIsWithinAimingRadius(turret, angle)) { Log.Debug("Not within aim radius");  return; }
+            //     if (!GenericIsPointingTowards(turret, target.WorldPosition)) { Log.Debug("Not pointing towards"); return; }
+            // }
+
+
+            Vector2 start = ConvertUnits.ToSimUnits(turret.Item.WorldPosition);
             Vector2 end = ConvertUnits.ToSimUnits(target.WorldPosition);
             // Check that there's not other entities that shouldn't be targeted (like a friendly sub) between us and the target.
             Body worldTarget = turret.GenericCheckLOS(start, end);
             bool shoot;
+
             if (target.Submarine != null)
             {
                 start -= target.Submarine.SimPosition;
                 end -= target.Submarine.SimPosition;
-                Body transformedTarget = turret.GenericCheckLOS(start, end);// CheckLineOfSight(start, end);
-                shoot = turret.GenericCanShoot(transformedTarget, friendlyGroup, user: null, targetSubmarines) && (worldTarget == null || turret.GenericCanShoot(worldTarget, friendlyGroup, user: null, targetSubmarines));
+                Body transformedTarget = turret.GenericCheckLOS(start, end);
+                shoot = turret.GenericCanShoot(transformedTarget, user: null, friendlyTag, turret.TargetSubmarines) && (worldTarget == null || GenericCanShoot(turret, worldTarget, user: null, friendlyTag, turret.TargetSubmarines));
             }
             else
             {
-                shoot = turret.GenericCanShoot(worldTarget, null, targetSubmarines: targetSubmarines);
+                shoot = GenericCanShoot(turret, worldTarget, user: null, friendlyTag, turret.TargetSubmarines);
             }
             if (shoot)
             {
-                turret.PublicTryLaunch(deltaTime, null, true);
+                turret.PublicTryLaunch(deltaTime, ignorePower: ignorePower);
+                Log.Debug("We're trying to shoot!!");
+            } else
+            {
+                Log.Debug("Can't shoot");
             }
-        } 
+        }
 
-        internal static bool GenericCanShoot(this Turret turret, Body targetBody, Identifier friendlyGroup, Character user = null, bool targetSubmarines = true)
+        internal static Body GenericCheckLOS(this Turret turret, Vector2 start, Vector2 end)
         {
-            if (targetBody == null) { return false; }
+            var collisionCategories = Physics.CollisionWall | Physics.CollisionCharacter | Physics.CollisionItem | Physics.CollisionLevel | Physics.CollisionProjectile;
+            Body pickedBody = Submarine.PickBody(start, end, null, collisionCategories, allowInsideFixture: true,
+               customPredicate: (Fixture f) =>
+               {
+                   if (f.UserData is Item i && i.GetComponent<Turret>() != null) { return false; }
+                   if (f.UserData is Hull) { return false; }
+                   return !turret.Item.StaticFixtures.Contains(f);
+               });
+            Hit = pickedBody.Position;
+            return pickedBody;
+        }
+
+        internal static bool GenericCanShoot(this Turret turret, Body targetBody, Character user = null, Identifier friendlyTag = default, bool targetSubmarines = true, bool allowShootingIfNothingInWay = false)
+        {
+            if (targetBody == null)
+            {
+                //nothing in the way (not even the target we're trying to shoot) -> no point in firing at thin air
+                Log.Debug("Nothing in way, not even target");
+                return allowShootingIfNothingInWay;
+            }
             Character targetCharacter = null;
             if (targetBody.UserData is Character c)
             {
@@ -191,60 +257,45 @@ namespace MoreLevelContent.Shared.Utils
             {
                 targetCharacter = limb.character;
             }
-            if (targetCharacter != null)
+            if (targetCharacter != null && !targetCharacter.Removed)
             {
                 if (user != null)
                 {
                     if (HumanAIController.IsFriendly(user, targetCharacter))
                     {
+                        Log.Debug("Target human friendly");
                         return false;
                     }
                 }
-                if (targetCharacter.Params.Group == friendlyGroup)
+                else if (!GenericIsValidTargetForAutoOperate(turret, targetCharacter, friendlyTag))
                 {
+                    Log.Debug("Not valid target for auto operate");
+                    // Note that Thalamus runs this even when AutoOperate is false.
                     return false;
                 }
             }
             else
             {
-                if (targetBody.UserData is ISpatialEntity targetEntity)
+                if (targetBody.UserData is ISpatialEntity e)
                 {
-                    if (targetEntity is Structure s && s.Indestructible) { return false; }
-                    Submarine sub = targetEntity.Submarine ?? targetEntity as Submarine;
-                    if (!targetSubmarines && targetEntity is Submarine) { return false; }
-
-                    // if there's no sub, exit
-                    if (sub == null) { return false; }
-
-                    // don't target things on the same sub as us
-                    if (sub == turret.Item.Submarine) { return false; }
-
-                    // don't target outposts, wrecks and beacons
-                    if (sub.Info.IsOutpost || sub.Info.IsWreck || sub.Info.IsBeacon) { return false; }
-
-                    // don't target subs on the same team as us
-                    if (sub.TeamID == turret.Item.Submarine?.TeamID) { return false; }
+                    if (e is Structure { Indestructible: true }) { Log.Debug("Target indestructable"); return false; }
+                    if (!targetSubmarines && e is Submarine) { Log.Debug("Target is a sub and we don't target those"); return false; }
+                    Submarine sub = e.Submarine ?? e as Submarine;
+                    if (sub == null) { return true; }
+                    if (sub == turret.Item.Submarine) { Log.Debug("Hit our own sub"); return false; }
+                    if (sub.Info.IsOutpost || sub.Info.IsWreck || sub.Info.IsBeacon) { Log.Debug("Hit a outpost/wreck/beacon"); return false; }
+                    if (sub.TeamID == turret.Item.Submarine.TeamID) { Log.Debug("Sub is on our team"); return false; }
                 }
-                else if (!(targetBody.UserData is Voronoi2.VoronoiCell cell && cell.IsDestructible))
+                else if (targetBody.UserData is not Voronoi2.VoronoiCell { IsDestructible: true })
                 {
                     // Hit something else, probably a level wall
+                    Log.Debug("Target is level wall");
                     return false;
                 }
             }
             return true;
         }
 
-        internal static Body GenericCheckLOS(this Turret turret, Vector2 start, Vector2 end)
-        {
-            var collisionCategories = Physics.CollisionWall | Physics.CollisionCharacter | Physics.CollisionItem | Physics.CollisionLevel;
-            Body pickedBody = Submarine.PickBody(start, end, null, collisionCategories, allowInsideFixture: true,
-               customPredicate: (Fixture f) =>
-               {
-                   if (f.UserData is Item i && i.GetComponent<Turret>() != null) { return false; }
-                   return !turret.Item.StaticFixtures.Contains(f);
-               });
-            return pickedBody;
-        }
 
         // Check if the angle we need to aim at is a valid angle for this turret
         internal static bool GenericCheckTurretAngle(this Turret turret, float angle)
@@ -254,6 +305,87 @@ namespace MoreLevelContent.Shared.Utils
             while (midRotation - angle > MathHelper.Pi) { angle += MathHelper.TwoPi; }
             return angle >= turret.GetMinRotation() && angle <= turret.GetMaxRotation();
         }
+
+        internal static bool GenericIsValidTarget(ISpatialEntity target)
+        {
+            if (target == null) { return false; }
+            if (target is Character targetCharacter)
+            {
+                if (!targetCharacter.Enabled || targetCharacter.Removed || targetCharacter.IsDead || targetCharacter.AITurretPriority <= 0)
+                {
+                    return false;
+                }
+            }
+            else if (target is Item targetItem)
+            {
+                if (targetItem.Removed || targetItem.Condition <= 0 || !targetItem.Prefab.IsAITurretTarget || targetItem.Prefab.AITurretPriority <= 0 || targetItem.HiddenInGame)
+                {
+                    return false;
+                }
+                if (targetItem.Submarine != null)
+                {
+                    return false;
+                }
+                if (targetItem.ParentInventory != null)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        internal static bool GenericIsValidTargetForAutoOperate(Turret turret, Character target, Identifier friendlyTag)
+        {
+            if (!friendlyTag.IsEmpty)
+            {
+                if (target.SpeciesName.Equals(friendlyTag) || target.Group.Equals(friendlyTag)) { Log.Debug("In Group"); return false; }
+            }
+            bool isHuman = target.IsHuman || target.Group == CharacterPrefab.HumanSpeciesName;
+            if (isHuman)
+            {
+                if (turret.Item.Submarine != null)
+                {
+                    if (turret.Item.Submarine.Info.IsOutpost) { Log.Debug("Outpost"); return false; }
+                    // Check that the target is not in the friendly team, e.g. pirate or a hostile player sub (PvP).
+                    var valid = !target.IsOnFriendlyTeam(turret.Item.Submarine.TeamID) && turret.TargetHumans;
+                    Log.Debug("Target is on a friendly sub");
+                    return valid;
+                }
+                return turret.TargetHumans;
+            }
+            else
+            {
+                Log.Debug($"Target monsters? {turret.TargetMonsters}");
+                // Shouldn't check the team here, because all the enemies are in the same team (None).
+                return turret.TargetMonsters;
+            }
+        }
+
+        internal static bool GenericIsTargetItemCloseEnough(Item target, float sqrDist) => float.IsPositiveInfinity(target.Prefab.AITurretTargetingMaxDistance) || sqrDist < MathUtils.Pow2(target.Prefab.AITurretTargetingMaxDistance);
+
+        internal static bool GenericIsWithinAimingRadius(Turret turret, float angle)
+        {
+            float min = turret.GetMinRotation(), max = turret.GetMaxRotation();
+            float midRotation = (min + max) / 2.0f;
+            while (midRotation - angle < -MathHelper.Pi) { angle -= MathHelper.TwoPi; }
+            while (midRotation - angle > MathHelper.Pi) { angle += MathHelper.TwoPi; }
+            return angle >= min && angle <= max;
+        }
+
+        internal static bool GenericIsPointingTowards(Turret turret, Vector2 targetPos)
+        {
+            float enemyAngle = MathUtils.VectorToAngle(targetPos - turret.Item.WorldPosition);
+            float turretAngle = -turret.GetRotation();
+            float maxAngleError = MathHelper.ToRadians(turret.MaxAngleOffset);
+            // if (turret.MaxChargeTime > 0.0f && currentChargingState == ChargingState.WindingUp && FiringRotationSpeedModifier > 0.0f)
+            // {
+            //     //larger margin of error if the weapon needs to be charged (-> the bot can start charging when the turret is still rotating towards the target)
+            //     maxAngleError *= 2.0f;
+            // }
+            return Math.Abs(MathUtils.GetShortestAngle(enemyAngle, turretAngle)) <= maxAngleError;
+        }
+
+
 
         // TODO: Rework this to use a condition weak table for values specific to the method
 
@@ -277,8 +409,9 @@ namespace MoreLevelContent.Shared.Utils
         internal static float GetTargetRotation(this Turret turret) => (float)TurretReflectionInfo.Instance.targetRotation.GetValue(turret);
         internal static void SetTargetRotation(this Turret turret, float val) => TurretReflectionInfo.Instance.targetRotation.SetValue(turret, val);
 
-        internal static float GetDisorderTimer(this Turret turret) => (float)TurretReflectionInfo.Instance.disorderTimer.GetValue(turret);
-        internal static void SetDisorderTimer(this Turret turret, float val) => TurretReflectionInfo.Instance.disorderTimer.SetValue(turret, val);
+        internal static float GetRandomAimTimer(this Turret turret) => (float)TurretReflectionInfo.Instance.randomAimTimer.GetValue(turret);
+        internal static void SetRandomAimTimer(this Turret turret, float val) => TurretReflectionInfo.Instance.randomAimTimer.SetValue(turret, val);
+
 
         // Priate method access
         internal static bool PublicTryLaunch(this Turret turret, float deltaTime, Character character = null, bool ignorePower = false) => 
@@ -295,7 +428,7 @@ namespace MoreLevelContent.Shared.Utils
         public FieldInfo updateTimer;
         public FieldInfo prevTargetRotation;
         public FieldInfo targetRotation;
-        public FieldInfo disorderTimer;
+        public FieldInfo randomAimTimer;
 
         public MethodInfo tryLaunch;
 
@@ -310,7 +443,7 @@ namespace MoreLevelContent.Shared.Utils
             updateTimer = AccessTools.Field(typeof(Turret), "updateTimer");
             prevTargetRotation = AccessTools.Field(typeof(Turret), "prevTargetRotation");
             targetRotation = AccessTools.Field(typeof(Turret), "targetRotation");
-            disorderTimer = AccessTools.Field(typeof(Turret), "disorderTimer");
+            randomAimTimer = AccessTools.Field(typeof(Turret), "randomAimTimer");
 
             // Methods
             tryLaunch = AccessTools.Method(typeof(Turret), "TryLaunch");

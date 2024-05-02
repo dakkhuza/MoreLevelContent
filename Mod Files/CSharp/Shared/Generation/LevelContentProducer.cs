@@ -4,6 +4,7 @@ using Barotrauma.Items.Components;
 using Microsoft.Xna.Framework;
 using MoreLevelContent.Shared.Generation.Interfaces;
 using MoreLevelContent.Shared.Generation.Pirate;
+using MoreLevelContent.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace MoreLevelContent.Shared.Generation
             Log.Verbose("LevelContentProducer::ctr..");
             AddDirector(PirateOutpostDirector.Instance);
             AddDirector(MissionGenerationDirector.Instance);
+            AddDirector(CaveGenerationDirector.Instance);
             // AddDirector(PirateEncounterDirector.Instance);
         }
 

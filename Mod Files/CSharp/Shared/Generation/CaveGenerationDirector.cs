@@ -366,7 +366,7 @@ namespace MoreLevelContent.Shared.Generation
                         statusEffect_offset.SetValue(effect, newOffset);
                         foreach (var spawnEffect in effect.SpawnCharacters)
                         {
-                            dist = -spawnEffect.Offset.Y;
+                            dist = spawnEffect.Offset.Y;
                             newOffset = new Vector2((float)Math.Cos(turretRotRad), (float)Math.Sin(turretRotRad)) * dist;
                             statusEffect_characterSpawn_offset.SetValue(spawnEffect, newOffset);
                         }

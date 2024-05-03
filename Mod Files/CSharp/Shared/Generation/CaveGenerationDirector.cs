@@ -29,6 +29,7 @@ namespace MoreLevelContent.Shared.Generation
         internal static MethodInfo item_rotation;
         internal static PropertyInfo statusEffect_offset;
         internal static PropertyInfo statusEffect_characterSpawn_offset;
+        internal static PropertyInfo subbody_visibleBorders;
 
         internal CaveAI ActiveThalaCave;
         public readonly List<CaveInitalCheckInfo> _InitialCaveCheckDebug = new();
@@ -44,6 +45,7 @@ namespace MoreLevelContent.Shared.Generation
             item_statusEffectList = AccessTools.Field(typeof(Item), "statusEffectLists");
             statusEffect_offset = AccessTools.Property(typeof(StatusEffect), "Offset");
             statusEffect_characterSpawn_offset = AccessTools.Property(typeof(StatusEffect.CharacterSpawnInfo), "Offset");
+            subbody_visibleBorders = AccessTools.Property(typeof(SubmarineBody), "VisibleBorders");
 
             MethodInfo Level_Generate = AccessTools.Method(typeof(Level), "Generate", new Type[] { typeof(bool), typeof(Location), typeof(Location) });
             _ = Main.Harmony.Patch(Level_Generate, transpiler: new HarmonyMethod(AccessTools.Method(typeof(CaveGenerationDirector), nameof(CaveGenerationDirector.SwapCavesTranspiler))));

@@ -285,17 +285,26 @@ namespace MoreLevelContent.Shared.Generation
             {
                 int totalSpawnLocations = insideEdges.Count;
                 int cellSpawns = totalSpawnLocations / 4;
-                for (int i = 0; i < cellSpawns; i++)
-                {
-                    SpawnCellSpawner(GetEdge(insideEdges, true));
-                }
-
+                // Spawn fleshgun ammo sacks before we spawn any cell spawners
+                // since they're required for the fleshguns to work
                 foreach (var fleshgun in fleshGuns)
                 {
                     var ammosack = SpawnOrgan(ammosackPrefab, GetEdge(insideEdges, true));
-                    
                     fleshgun.AddLinked(ammosack);
                 }
+
+                for (int i = 0; i < cellSpawns; i++)
+                {
+                    if (i % 2 == 0)
+                    {
+                        SpawnCellSpawner(GetEdge(insideEdges, true));
+                    }
+                    else
+                    {
+                        SpawnSmallFleshSpike();
+                    }
+                }
+
                 // Ensure there is always 4 organs
                 int organCount = Math.Max(insideEdges.Count / 8, 4);
 
@@ -327,13 +336,25 @@ namespace MoreLevelContent.Shared.Generation
                 Log.Debug($"Placed fleshgun at {fleshgun.Position}");
             }
 
+            void SpawnSmallFleshSpike()
+            {
+                Item spike = new Item(smallSpikePrefab, Vector2.Zero, null);
+                GraphEdge edge = GetEdge(insideEdges);
+                ConfigureFleshSpike(spike, edge);
+                Log.Debug($"Placed spike at {spike.Position}");
+            }
+
             void SpawnFleshSpike()
             {
                 Item spike = new Item(largeSpikePrefab, Vector2.Zero, null);
-                
-                thalamusItems.Add(spike);
-
                 GraphEdge edge = GetEdge(entranceEdges);
+                ConfigureFleshSpike(spike, edge);
+                Log.Debug($"Placed spike at {spike.Position}");
+            }
+
+            void ConfigureFleshSpike(Item spike, GraphEdge edge)
+            {
+                thalamusItems.Add(spike);
                 if (edge == null) return;
                 int height = spike.StaticBodyConfig.GetAttributeInt("height", 0);
                 Vector2 dir = MLCUtils.PositionItemOnEdge(spike, edge, height);
@@ -362,9 +383,6 @@ namespace MoreLevelContent.Shared.Generation
                         }
                     }
                 }
-
-                Log.Debug($"Placed spike at {spike.Position}");
-
             }
 
             void SpawnCellSpawner(GraphEdge edge)

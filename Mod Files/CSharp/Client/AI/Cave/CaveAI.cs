@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using MoreLevelContent.Shared.Utils;
+using System.Reflection.Metadata;
+using MoreLevelContent.Shared.Generation;
 
 namespace MoreLevelContent.Shared.AI
 {
@@ -43,6 +45,7 @@ namespace MoreLevelContent.Shared.AI
         public void DebugDraw(Microsoft.Xna.Framework.Graphics.SpriteBatch sb, Camera cam)
         {
             float lineThickness = 1f / Screen.Selected.Cam.Zoom;
+            sb.DrawPoint(new Vector2(cave.StartPos.X, -cave.StartPos.Y), Color.Pink, 10 / Screen.Selected.Cam.Zoom);
             foreach (var turret in turrets)
             {
                 const float coneRadius = 300.0f;
@@ -50,6 +53,24 @@ namespace MoreLevelContent.Shared.AI
                 float circleRadius = coneRadius / Screen.Selected.Cam.Zoom * GUI.Scale;
               
                 sb.DrawSector(turret.GetDrawPos(), circleRadius, radians, (int)Math.Abs(90 * radians), GUIStyle.Green, offset: turret.GetMinRotation(), thickness: lineThickness);
+
+                Dictionary<ActionType, List<StatusEffect>> dic = (Dictionary<ActionType, List<StatusEffect>>)CaveGenerationDirector.item_statusEffectList.GetValue(turret.Item);
+                if (dic?.TryGetValue(ActionType.OnUse, out List<StatusEffect> effects) ?? false)
+                {
+                    foreach (var effect in effects)
+                    {
+                        var pos = turret.Item.Position + new Vector2(effect.Offset.X, effect.Offset.Y);
+                        pos = new Vector2(pos.X, -pos.Y);
+                        GUI.DrawRectangle(sb, pos, 100, 100, 0, Color.Aqua, thickness: lineThickness);
+                        foreach (var spawnEffect in effect.SpawnCharacters)
+                        {
+                            var pos2 = turret.Item.Position + new Vector2(spawnEffect.Offset.X, spawnEffect.Offset.Y);
+                            pos2 = new Vector2(pos2.X, -pos2.Y);
+                            GUI.DrawRectangle(sb, pos2, 50, 50, 0, Color.Orange, thickness: lineThickness);
+                        }
+                    }
+                }
+
             }
         }
 

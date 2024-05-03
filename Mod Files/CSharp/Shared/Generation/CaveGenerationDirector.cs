@@ -88,20 +88,17 @@ namespace MoreLevelContent.Shared.Generation
             {
                 yield return code[i];
 
-                if (!finished && code[i].opcode == OpCodes.Ldc_I4_S && (sbyte)code[i].operand == 14)
+                if (i == 2942)
                 {
-                    if (code[i + 1].Calls(AccessTools.Method(typeof(Level), "GenerateEqualityCheckValue")))
-                    {
-                        Log.Debug($"Found insertion point at {i}!");
-                        // endfinally
-                        i++;
-                        yield return code[i]; // ldc.i4.0
-                        i++;
-                        yield return code[i]; // stloc.s
-                        i++;
-                        yield return code[i]; //br
-                        yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(CaveGenerationDirector), nameof(CaveGenerationDirector.TrySpawnThalaCave))); // index of cell around curIndex
-                    }
+                    Log.Debug($"Found insertion point at {i}!");
+                    // endfinally
+                    i++;
+                    yield return code[i]; // ldc.i4.0
+                    i++;
+                    yield return code[i]; // stloc.s
+                    i++;
+                    yield return code[i]; //br
+                    yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(CaveGenerationDirector), nameof(CaveGenerationDirector.TrySpawnThalaCave))); // index of cell around curIndex
                 }
             }
         }

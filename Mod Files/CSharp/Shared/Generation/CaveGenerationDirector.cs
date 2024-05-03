@@ -59,7 +59,7 @@ namespace MoreLevelContent.Shared.Generation
         }
 
 
-        const float MIN_DIST = Sonar.DefaultSonarRange * 2;
+        public const float MIN_DIST_FROM_START = Sonar.DefaultSonarRange * 2;
         const int REQUIRED_EDGE_COUNT = 1;
         const float MIN_DIST_BETWEEN_ORGANS = 800;
         const int MAX_OFFENSE_ITEMS = 8; //8;
@@ -135,6 +135,11 @@ namespace MoreLevelContent.Shared.Generation
 
             foreach (var cave in Loaded.Caves)
             {
+                if (Vector2.DistanceSquared(cave.StartPos.ToVector2(), Loaded.StartPosition) <= MIN_DIST_FROM_START * MIN_DIST_FROM_START)
+                {
+                    // Skip caves too close to the start of the level
+                    continue;
+                }
                 // find valid caves
                 bool isValid = cave.Tunnels.Where(
                     t => {
@@ -170,7 +175,7 @@ namespace MoreLevelContent.Shared.Generation
         static bool CanSeeMainPath(VoronoiCell cell, out List<GraphEdge> validEdges)
         {
             validEdges = new List<GraphEdge>();
-
+            
             // This is a quick test done to see if we're likely to have a direct LOS to the main path
             // We don't care if these edges are solid yet because these aren't the edges we'll be using for spawning
             foreach (var edge in cell.Edges.Where(e => e.NextToMainPath || e.NextToSidePath))

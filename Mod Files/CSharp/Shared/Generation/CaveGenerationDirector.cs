@@ -53,9 +53,6 @@ namespace MoreLevelContent.Shared.Generation
 
             MethodInfo level_remove = AccessTools.Method(typeof(Level), "Remove");
             _ = Main.Harmony.Patch(level_remove, postfix: new HarmonyMethod(AccessTools.Method(typeof(CaveGenerationDirector), nameof(CaveGenerationDirector.Remove))));
-
-            MethodInfo submarine_CullEntities = AccessTools.Method(typeof(Submarine), "CullEntities");
-            _ = Main.Harmony.Patch(submarine_CullEntities, postfix: new HarmonyMethod(AccessTools.Method(typeof(CaveGenerationDirector), nameof(CaveGenerationDirector.OnCull))));
         }
 
 
@@ -63,14 +60,6 @@ namespace MoreLevelContent.Shared.Generation
         const int REQUIRED_EDGE_COUNT = 1;
         const float MIN_DIST_BETWEEN_ORGANS = 800;
         const int MAX_OFFENSE_ITEMS = 8; //8;
-
-        static void OnCull(List<MapEntity> ___visibleEntities)
-        {
-            if (Instance.ActiveThalaCave != null)
-            {
-                ___visibleEntities.AddRange(Instance.ActiveThalaCave.ThalamusItems);
-            }
-        }
 
         static void Update(float deltaTime)
         {

@@ -21,14 +21,14 @@ namespace MoreLevelContent.Shared.Generation
     {
         public override bool Active => true;
 
-        private static MethodInfo level_findawayfrompoint;
-        private static MethodInfo level_generatecave;
-        private static MethodInfo level_calcdistfields;
-        private static FieldInfo cave_genparams;
-        private static FieldInfo item_statusEffectList;
-        private static MethodInfo item_rotation;
-        private static PropertyInfo statusEffect_offset;
-        private static PropertyInfo statusEffect_characterSpawn_offset;
+        internal static MethodInfo level_findawayfrompoint;
+        internal static MethodInfo level_generatecave;
+        internal static MethodInfo level_calcdistfields;
+        internal static FieldInfo cave_genparams;
+        internal static FieldInfo item_statusEffectList;
+        internal static MethodInfo item_rotation;
+        internal static PropertyInfo statusEffect_offset;
+        internal static PropertyInfo statusEffect_characterSpawn_offset;
 
         internal CaveAI ActiveThalaCave;
         public readonly List<CaveInitalCheckInfo> _InitialCaveCheckDebug = new();

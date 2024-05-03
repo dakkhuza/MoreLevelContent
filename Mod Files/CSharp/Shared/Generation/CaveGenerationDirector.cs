@@ -128,6 +128,7 @@ namespace MoreLevelContent.Shared.Generation
                     // Skip caves too close to the start of the level
                     continue;
                 }
+
                 // find valid caves
                 bool isValid = cave.Tunnels.Where(
                     t => {
@@ -321,6 +322,7 @@ namespace MoreLevelContent.Shared.Generation
                 Turret turret = fleshgun.GetComponent<Turret>();
                 turret.RotationLimits = new Vector2(-angle - 90, -angle + 90);
                 turret.AimDelay = false;
+                turret.AIRange = Sonar.DefaultSonarRange / 2;
 
                 Log.Debug($"Placed fleshgun at {fleshgun.Position}");
             }

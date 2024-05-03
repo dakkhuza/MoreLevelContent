@@ -67,6 +67,10 @@ namespace MoreLevelContent.Shared.AI
                 ShowSonarMarker = false,
             };
             DummySub.PhysicsBody.BodyType = FarseerPhysics.BodyType.Static;
+            // Dumb
+            CaveGenerationDirector.subbody_visibleBorders.SetValue(DummySub.SubBody, new Rectangle(0, 0, int.MaxValue, int.MaxValue));
+            
+
             allThalamusItems.ForEach(i => i.Submarine = DummySub);
 
             var thalamusPrefabs = ItemPrefab.Prefabs.Where(p => IsThalamus(p));

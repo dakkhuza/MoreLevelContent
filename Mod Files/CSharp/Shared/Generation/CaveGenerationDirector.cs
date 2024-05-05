@@ -88,6 +88,7 @@ namespace MoreLevelContent.Shared.Generation
             {
                 yield return code[i];
 
+#if CLIENT
                 if (i == 2942)
                 {
                     Log.Debug($"Found insertion point at {i}!");
@@ -100,6 +101,14 @@ namespace MoreLevelContent.Shared.Generation
                     yield return code[i]; //br
                     yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(CaveGenerationDirector), nameof(CaveGenerationDirector.TrySpawnThalaCave))); // index of cell around curIndex
                 }
+#else
+                if (!finished && code[i + 1].opcode == OpCodes.Ldc_I4_S && (sbyte)code[i + 1].operand == 13)
+                {
+                    Log.Debug($"Found insertion point at {i}!");
+                    yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(CaveGenerationDirector), nameof(CaveGenerationDirector.TrySpawnThalaCave))); // index of cell around curIndex
+                    finished = true;
+                }
+#endif
             }
         }
 

@@ -208,7 +208,7 @@ namespace MoreLevelContent.Shared.Generation
             var thalamusPrefabs = ItemPrefab.Prefabs.Where(p => IsThalamus(p));
             var gunPrefab = thalamusPrefabs.Where(p => p.Tags.Contains("fleshgun_cave") && p.Tags.Contains("turret")).FirstOrDefault();
             var largeSpikePrefab = thalamusPrefabs.Where(p => p.Tags.Contains("fleshspike_cave")).FirstOrDefault();
-            var smallSpikePrefab = thalamusPrefabs.Where(p => p.Tags.Contains("fleshspike_cave_small")).FirstOrDefault();
+            var smallSpikePrefab = thalamusPrefabs.Where(p => p.Tags.Contains("fleshspikesmall_cave")).FirstOrDefault();
             var spawnerPrefab = thalamusPrefabs.Where(p => p.Tags.Contains("cellspawnorgan_cave")).FirstOrDefault();
             var ammosackPrefab = thalamusPrefabs.Where(p => p.Tags.Contains("fleshgunequipment_cave")).FirstOrDefault();
             var storageOrgan = thalamusPrefabs.Where(p => p.Tags.Contains("storageorgan_cave")).FirstOrDefault();

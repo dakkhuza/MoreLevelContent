@@ -1,5 +1,6 @@
 ﻿using Barotrauma;
 using Barotrauma.MoreLevelContent.Shared.Utils;
+using Microsoft.Xna.Framework;
 using MoreLevelContent.Networking;
 using MoreLevelContent.Shared;
 using MoreLevelContent.Shared.Data;
@@ -15,6 +16,7 @@ namespace MoreLevelContent
             CommandUtils.AddCommand("mlc_debugmissions", "Prints a debug output of all active missions", _debugMissions);
             CommandUtils.AddCommand("mlc_stepworld", "Fakes a world step", _stepWorld, isCheat: true);
             CommandUtils.AddCommand("mlc_createdistressbeacon", "Tries to create a new distress beacon", _createDistress, isCheat: true);
+            CommandUtils.AddCommand("mlc_forcedistress", "Toggles forcing every level to spawn a distress mission, does nothing in multiplayer", _forceDistress, isCheat: true);
             // CommandUtils.AddCommand("mlc_togglemapteleport", "Toggles debug teleporting on the campaign map", _toggleMapTP);
         }
 
@@ -29,6 +31,28 @@ namespace MoreLevelContent
                     $"Sonar Position: {item.SonarLabels.FirstOrDefault().Position}\n" +
                     $"Beacon: {Level.Loaded.MLC().BeaconConstructionStation.WorldPosition}");
             }
+        }
+
+        private void _forceDistress(object[] args)
+        {//ForcedMissionIdentifier
+            string additional = "";
+            string[] arg = (string[])args[0];
+
+            if (arg.Length > 0 && arg[0].ToString().Length > 0)
+            {
+                DistressMapModule.ForceSpawnDistress = true;
+                DistressMapModule.ForcedMissionIdentifier = arg[0].ToString();
+                additional = " , forced to: " + DistressMapModule.ForcedMissionIdentifier;
+            } else
+            {
+                DistressMapModule.ForceSpawnDistress = !DistressMapModule.ForceSpawnDistress;
+                if (!DistressMapModule.ForceSpawnDistress)
+                {
+                    DistressMapModule.ForcedMissionIdentifier = "";
+                }
+            }
+
+            DebugConsole.NewMessage((DistressMapModule.ForceSpawnDistress ? "Enabled" : "Disabled") + " forceing of distress mission" + additional, Color.White);
         }
 
         private void _stepWorld(object[] args)

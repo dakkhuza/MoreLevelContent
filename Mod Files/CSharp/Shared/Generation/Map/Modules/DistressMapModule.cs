@@ -12,6 +12,9 @@ namespace MoreLevelContent.Shared.Generation
     // Shared
     internal partial class DistressMapModule : MapModule
     {
+        public static bool ForceSpawnDistress = false;
+        public static string ForcedMissionIdentifier = "";
+
         private readonly List<Mission> _internalMissionStore = new();
         private static DistressMapModule _instance;
         private static bool _spawnStartingBeacon = false;
@@ -65,13 +68,13 @@ namespace MoreLevelContent.Shared.Generation
             TrySpawnDistress(GameMain.GameSession.Map, _spawnStartingBeacon);
             _spawnStartingBeacon = false;
 
-            if (!levelData.MLC().HasDistress)
+            if (!levelData.MLC().HasDistress && !ForceSpawnDistress)
             {
                 Log.Debug("Level has no distress mission");
                 return;
             }
-
-            if (TryGetMissionByTag("distress", levelData, out MissionPrefab prefab))
+                
+            if (TryGetMissionByTag("distress", levelData, out MissionPrefab prefab, ForcedMissionIdentifier))
             {
                 Log.Debug("Adding distress mission");
                 Mission inst = prefab.Instantiate(GameMain.GameSession.Map.SelectedConnection.Locations, Submarine.MainSub);

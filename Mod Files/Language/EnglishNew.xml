@@ -2,6 +2,12 @@
     <mlc.title>More Level Content</mlc.title>
 
     <!-- Distress Missions -->
+    <distress.new0>A distress beacon has been activated between [location1] and [location2]</distress.new0>
+
+    <distress.faint0>The signal from the distress beacon between [location1] and [location2] is growing faint.</distress.faint0>
+
+    <distress.lost0>The distress signal between [location1] and [location2] can no longer be detected over background noise.</distress.lost0>
+
 
     <missionmessage1.quiet>It's eerily silent, is anyone alive?</missionmessage1.quiet>
     <distress.success.clowns>Who knows what those harlequins were up to.</distress.success.clowns>
@@ -72,7 +78,7 @@
     <mlc.cargopodhidden>Cargo Pod?</mlc.cargopodhidden>
     <mlc.cargopod>Cargo Pod</mlc.cargopod>
 
-    <mlc.lostcargonew>Lost cargo has been reported between [location1] and [location2].</mlc.lostcargonew>
+    <mlc.lostcargonew0>Lost cargo has been reported between [location1] and [location2].</mlc.lostcargonew0>
 
     <mlc.lostcargotooltip>A freighter submarine has ditched some of it's cargo due to 'complications' in this passage.</mlc.lostcargotooltip>
     

@@ -204,6 +204,7 @@ namespace MoreLevelContent.Shared.Generation
 
         protected override void HandleUpdate(LevelData_MLCData data, LocationConnection connection)
         {
+            if (!data.HasDistress) return;
             data.DistressStepsLeft--;
             if (data.DistressStepsLeft == 3) AddNewsStory("distress.faint", connection);
 

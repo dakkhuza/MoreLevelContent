@@ -72,7 +72,8 @@ namespace MoreLevelContent.Shared.Generation
             _ = Main.Harmony.Patch(map_progressworld, postfix: new HarmonyMethod(AccessTools.Method(typeof(MapDirector), nameof(OnProgressWorld))));
 
             Modules.Add(new ConstructionMapModule());
-            Modules.Add(new DistressMapModule());
+            Modules.Add(new NewDistressMapModule());
+            //Modules.Add(new DistressMapModule());
             //Modules.Add(new LostCargoMapModule());
 
 #if CLIENT

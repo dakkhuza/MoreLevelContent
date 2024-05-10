@@ -26,4 +26,8 @@ namespace MoreLevelContent.Shared.Generation
             CreateDistress(connection, steps);
         }
     }
+
+    internal partial class NewDistressMapModule : TimedEventMapModule
+    {
+    }
 }

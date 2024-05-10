@@ -30,7 +30,7 @@ namespace MoreLevelContent.Shared.Generation
 
         // Config
         protected abstract int MaxActiveEvents { get; }
-        protected abstract int EventSpawnChance { get; }
+        protected abstract float EventSpawnChance { get; }
         protected abstract int MinDistance { get; }
         protected abstract int MaxDistance { get; }
         protected abstract int MinEventDuration { get; }

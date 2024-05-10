@@ -22,4 +22,9 @@ namespace MoreLevelContent.Shared.Generation
             ForceDistress();
         }
     }
+
+    internal partial class NewDistressMapModule : TimedEventMapModule
+    {
+        protected override void InitProjSpecific() { }
+    }
 }

@@ -6,6 +6,7 @@ using System.Linq;
 using MoreLevelContent.Shared.Data;
 using Barotrauma.MoreLevelContent.Config;
 using MoreLevelContent.Networking;
+using MoreLevelContent.Shared.Utils;
 
 namespace MoreLevelContent.Shared.Generation
 {
@@ -171,5 +172,47 @@ namespace MoreLevelContent.Shared.Generation
             Log.Debug("Force creating distress beacon");
             _instance.TrySpawnDistress(GameMain.GameSession.Map, true);
         }
+    }
+
+    internal partial class NewDistressMapModule : TimedEventMapModule
+    {
+        protected override NetEvent EventCreated => NetEvent.MAP_SEND_NEWDISTRESS;
+
+        protected override string NewEventText => "mlc.distress.new";
+
+        protected override string EventTag => "distress";
+
+        protected override int MaxActiveEvents => ConfigManager.Instance.Config.NetworkedConfig.GeneralConfig.MaxActiveDistressBeacons;
+
+        protected override float EventSpawnChance => ConfigManager.Instance.Config.NetworkedConfig.GeneralConfig.DistressSpawnPercentage;
+
+        protected override int MinDistance => 1;
+
+        protected override int MaxDistance => 3;
+
+        protected override int MinEventDuration => 4;
+
+        protected override int MaxEventDuration => 8;
+
+        protected override bool ShouldSpawnEventAtStart => true;
+
+        protected override void HandleEventCreation(LevelData_MLCData data, int eventDuration)
+        {
+            data.HasDistress = true;
+            data.DistressStepsLeft = eventDuration;
+        }
+
+        protected override void HandleUpdate(LevelData_MLCData data, LocationConnection connection)
+        {
+            data.DistressStepsLeft--;
+            if (data.CargoStepsLeft <= 0)
+            {
+                data.HasLostCargo = false;
+                string textTag = MLCUtils.GetRandomTag("mlc.distress.lost", connection.LevelData);
+                SendEventUpdate(textTag, connection);
+            }
+        }
+
+        protected override bool LevelHasEvent(LevelData_MLCData data) => data.HasDistress;
     }
 }

@@ -16,13 +16,13 @@ namespace MoreLevelContent.Shared.Generation
 
         //protected override NetEvent EventUpdated => throw new NotImplementedException();
 
-        protected override string NewEventText => "mlc.lostcargonew";
+        protected override string NewEventText => "mlc.lostcargo.new";
 
         protected override string EventTag => "lostcargo";
 
         protected override int MaxActiveEvents => 5;
 
-        protected override int EventSpawnChance => 100;
+        protected override float EventSpawnChance => 1;
 
         protected override int MinDistance => 1;
 

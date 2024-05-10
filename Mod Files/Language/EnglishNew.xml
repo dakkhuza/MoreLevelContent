@@ -2,10 +2,6 @@
     <mlc.title>More Level Content</mlc.title>
 
     <!-- Distress Missions -->
-    <entityname.captains_notebook>Captain's Notebook</entityname.captains_notebook>
-    <entitydescription.captains_notebook>A small, wellworn paper book. Typically used by sub captains to record their travels. Can be sold for a high price at stations or read to garner some experience.</entitydescription.captains_notebook>
-
-    <missionmessage1.distress_shiprescue>The shuttle crew has perished, an all too common fate. They won't be paying for this rescue anymore but the shuttle can still be claimed as salvage if navigated out of this cave.</missionmessage1.distress_shiprescue>
 
     <missionmessage1.quiet>It's eerily silent, is anyone alive?</missionmessage1.quiet>
     <distress.success.clowns>Who knows what those harlequins were up to.</distress.success.clowns>
@@ -93,5 +89,4 @@
     <missionmessage0.lostcargo>Cargo pod spotted! Dock with the pod and find out what's inside!</missionmessage0.lostcargo>
 
     <!-- Hint -->
-    <mlc.hint.jumpstarter>A ‖color:gui.orange‖Jump Starter‖end‖ can be used to temporarily power dead electrical devices. They can be crafted or bought at outposts.</mlc.hint.jumpstarter>
 </infotexts>

@@ -28,6 +28,7 @@
 
     <missionheader0.distress_shiprescue>Lost Shuttle</missionheader0.distress_shiprescue>
     <missionmessage0.distress_shiprescue>The distress beacon leads to a lost shuttle, based on radio chatter they're not having a good time. Navigating them and the shuttle out.</missionmessage0.distress_shiprescue>
+    <missionmessage1.distress_shiprescue>The shuttle crew has perished, an all too common fate. They won't be paying for this rescue anymore but the shuttle can still be claimed as salvage if navigated out of this cave.</missionmessage1.distress_shiprescue>
 
     <missionheader1.distress_shiprescue>Lost Shuttle</missionheader1.distress_shiprescue>
 

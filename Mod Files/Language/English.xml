@@ -35,6 +35,9 @@
     <entitydescription.jumpstarter>Battery powered electrical device used to jump start dead systems.</entitydescription.jumpstarter>
     <itemmsgdetachcrowbar>[[use]] Detach (Crowbar)</itemmsgdetachcrowbar>
 
+    <entityname.captains_notebook>Captain's Notebook</entityname.captains_notebook>
+    <entitydescription.captains_notebook>A small, wellworn paper book. Typically used by sub captains to record their travels. Can be sold for a high price at stations or read to garner some experience.</entitydescription.captains_notebook>
+
     <!-- Beacon Construction -->
     <entityname.mlc_beaconutilitysupplies>Beacon Utility Supplies</entityname.mlc_beaconutilitysupplies>
     <entitydescription.mlc_beaconutilitysupplies>A box of various utility supplies for use in constructing beacons. Degrades when in water. Store on a shelf for safe keeping.</entitydescription.mlc_beaconutilitysupplies>
@@ -145,4 +148,8 @@
     <mlc.config.debuginternal>Internal Logging</mlc.config.debuginternal>
     <mlc.config.debuginternaltooltip>Enable internal logging, which logs internal debugging messages to console</mlc.config.debuginternaltooltip>
     <!-- Talents -->
+
+    <!-- Hints -->
+    <mlc.hint.jumpstarter>A ‖color:gui.orange‖Jump Starter‖end‖ can be used to temporarily power dead electrical devices. They can be crafted or bought at outposts.</mlc.hint.jumpstarter>
+
 </infotexts>

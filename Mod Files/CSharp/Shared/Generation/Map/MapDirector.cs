@@ -76,13 +76,10 @@ namespace MoreLevelContent.Shared.Generation
             //Modules.Add(new DistressMapModule());
             //Modules.Add(new LostCargoMapModule());
 
-#if CLIENT
-            NetUtil.Register(NetEvent.MAP_CONNECTION_EQUALITYCHECK_SENDCLIENT, ConnectionEqualityCheck);
-#endif
-#if SERVER
-            NetUtil.Register(NetEvent.MAP_CONNECTION_EQUALITYCHECK_REQUEST, RequestConnectionEquality);
-#endif
+            SetupProjSpecific();
         }
+
+        partial void SetupProjSpecific();
 
 #if CLIENT
         private void ConnectionEqualityCheck(object[] args)

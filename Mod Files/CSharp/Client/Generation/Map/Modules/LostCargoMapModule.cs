@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MoreLevelContent.Shared.Generation
 {
+    // Client
     internal partial class LostCargoMapModule : TimedEventMapModule
     {
     }

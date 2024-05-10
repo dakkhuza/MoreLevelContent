@@ -178,7 +178,7 @@ namespace MoreLevelContent.Shared.Generation
     {
         protected override NetEvent EventCreated => NetEvent.MAP_SEND_NEWDISTRESS;
 
-        protected override string NewEventText => "mlc.distress.new";
+        protected override string NewEventText => "distress.new";
 
         protected override string EventTag => "distress";
 

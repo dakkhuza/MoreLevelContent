@@ -205,11 +205,12 @@ namespace MoreLevelContent.Shared.Generation
         protected override void HandleUpdate(LevelData_MLCData data, LocationConnection connection)
         {
             data.DistressStepsLeft--;
-            if (data.CargoStepsLeft <= 0)
+            if (data.DistressStepsLeft <= 0)
             {
-                data.HasLostCargo = false;
+                data.HasDistress = false;
                 string textTag = MLCUtils.GetRandomTag("mlc.distress.lost", connection.LevelData);
-                SendEventUpdate(textTag, connection);
+                AddNewsStory(textTag, connection);
+                // SendEventUpdate(textTag, connection);
             }
         }
 

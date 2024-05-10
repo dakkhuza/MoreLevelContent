@@ -134,6 +134,12 @@ namespace MoreLevelContent.Shared.Generation
             }
 #endif
         }
+        protected void AddNewsStory(string textTag, LocationConnection connection)
+        {
+#if CLIENT
+            
+#endif
+        }
 
         public virtual void OnAddExtraMissions(CampaignMode __instance, LevelData levelData) { }
         public virtual void OnRoundStart(LevelData levelData) { }

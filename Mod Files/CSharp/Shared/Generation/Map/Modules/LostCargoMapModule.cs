@@ -47,7 +47,7 @@ namespace MoreLevelContent.Shared.Generation
             {
                 data.HasLostCargo = false;
                 string textTag = MLCUtils.GetRandomTag("mlc.lostcargo.tooslow", connection.LevelData);
-                SendEventUpdate(textTag, connection);
+                AddNewsStory(textTag, connection);
             }
 
         }

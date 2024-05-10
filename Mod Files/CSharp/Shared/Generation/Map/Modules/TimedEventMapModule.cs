@@ -42,6 +42,8 @@ namespace MoreLevelContent.Shared.Generation
             set => GameMain.GameSession.Campaign.CampaignMetadata.SetValue($"{EventTag}SpawnedStart", value);
         }
 
+        private readonly List<Mission> _internalMissionStore = new();
+
         public override void OnProgressWorld(Map __instance)
         {
             foreach (LocationConnection connection in __instance.Connections)
@@ -50,6 +52,16 @@ namespace MoreLevelContent.Shared.Generation
                 if (GameMain.GameSession.Campaign.Map.CurrentLocation.Connections.Contains(connection)) continue;
                 HandleUpdate(connection.LevelData.MLC(), connection);
             }
+
+            if (ShouldSpawnEventAtStart && !SpawnedEventAtStart)
+            {
+                TrySpawnEvent(GameMain.GameSession.Map, true);
+                SpawnedEventAtStart = true;
+            }
+            else
+            {
+                TrySpawnEvent(GameMain.GameSession.Map, false);
+            }
         }
 
         public override void OnRoundStart(LevelData levelData)
@@ -57,15 +69,6 @@ namespace MoreLevelContent.Shared.Generation
             if (levelData == null) return;
             if (!Main.IsCampaign) return;
             
-            if (ShouldSpawnEventAtStart && !SpawnedEventAtStart)
-            {
-                TrySpawnEvent(GameMain.GameSession.Map, true);
-                SpawnedEventAtStart = true;
-            } else
-            {
-                TrySpawnEvent(GameMain.GameSession.Map, false);
-            }
-
             if (!LevelHasEvent(levelData.MLC()))
             {
                 Log.Debug($"Level has no {EventTag}");
@@ -76,8 +79,8 @@ namespace MoreLevelContent.Shared.Generation
             {
                 Log.Debug($"Adding {EventTag} mission");
                 Mission inst = prefab.Instantiate(GameMain.GameSession.Map.SelectedConnection.Locations, Submarine.MainSub);
-                AddExtraMission(inst); // weird
-                // _internalMissionStore.Add(inst);
+                AddExtraMission(inst); // we have to double add missions to make them work correctly
+                _internalMissionStore.Add(inst);
                 Log.Debug($"Added {EventTag} mission to extra missions!");
             }
             else
@@ -92,6 +95,16 @@ namespace MoreLevelContent.Shared.Generation
             List<Mission> _extraMissions = (List<Mission>)Instance.extraMissions.GetValue(GameMain.GameSession.GameMode);
             _extraMissions.Add(mission);
             Instance.extraMissions.SetValue(GameMain.GameSession.GameMode, _extraMissions);
+        }
+
+        public override void OnAddExtraMissions(CampaignMode __instance, LevelData levelData)
+        {
+            if (!_internalMissionStore.Any()) return;
+            foreach (Mission mission in _internalMissionStore)
+            {
+                AddExtraMission(mission);
+            }
+            _internalMissionStore.Clear();
         }
 
         protected abstract void HandleUpdate(LevelData_MLCData data, LocationConnection connection);

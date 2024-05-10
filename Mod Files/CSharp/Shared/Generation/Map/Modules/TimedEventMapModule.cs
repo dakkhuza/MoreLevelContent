@@ -162,16 +162,8 @@ namespace MoreLevelContent.Shared.Generation
         protected void CreateEvent(LocationConnection connection, int eventDuration)
         {
             HandleEventCreation(connection.LevelData.MLC(), eventDuration);
-            SendEventUpdate(NewEventText, connection);
+            AddNewsStory(NewEventText, connection);
         }
         protected abstract void HandleEventCreation(LevelData_MLCData data, int eventDuration);
-
-        protected virtual void SendEventUpdate(string updateType, LocationConnection connection)
-        {
-#if CLIENT
-            string msg = TextManager.GetWithVariables(updateType, ("[location1]", $"‖color:gui.orange‖{connection.Locations[0].DisplayName}‖end‖"), ("[location2]", $"‖color:gui.orange‖{connection.Locations[1].DisplayName}‖end‖")).Value;
-            SendChatUpdate(msg);
-#endif
-        }
     }
 }

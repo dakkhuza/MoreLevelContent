@@ -1,5 +1,6 @@
 ﻿using Barotrauma;
 using Microsoft.Xna.Framework;
+using MoreLevelContent.Shared.Utils;
 using System;
 using System.Linq;
 using System.Xml.Linq;
@@ -134,10 +135,13 @@ namespace MoreLevelContent.Shared.Generation
             }
 #endif
         }
-        protected void AddNewsStory(string textTag, LocationConnection connection)
+        protected void AddNewsStory(string tag, LocationConnection connection)
         {
 #if CLIENT
-            
+            string randomTag = MLCUtils.GetRandomTag(tag, connection.LevelData);
+            string msg = TextManager.GetWithVariables(randomTag, ("[location1]", $"‖color:gui.orange‖{connection.Locations[0].DisplayName}‖end‖"), ("[location2]", $"‖color:gui.orange‖{connection.Locations[1].DisplayName}‖end‖")).Value;
+            Log.Debug($"Added text tag {randomTag} : {msg} to news ticket");
+            MapDirector.Instance.AddNewsStory(msg);
 #endif
         }
 

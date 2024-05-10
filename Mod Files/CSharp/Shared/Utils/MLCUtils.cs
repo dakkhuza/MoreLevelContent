@@ -34,7 +34,7 @@ namespace MoreLevelContent.Shared.Utils
             {
                 maxIndex++;
             }
-            return "mlc.lostcargo.tooslow" + rand.Next(0, maxIndex);
+            return baseTag + rand.Next(0, maxIndex);
         }
 
 

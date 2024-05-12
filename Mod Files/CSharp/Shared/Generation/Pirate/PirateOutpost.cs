@@ -32,6 +32,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
             selectedOutpost = filePath.IsNullOrEmpty()
                 ? PirateStore.Instance.GetPirateOutpostForDiff(spawnData.PirateDifficulty)
                 : PirateStore.Instance.FindOutpostWithPath(filePath);
+
             Log.Verbose($"Selected NPC set {selectedPirateSet.Prefab.Name}");
             Log.Verbose($"Selected outpost {selectedOutpost.SubInfo.FilePath}");
             pirateDiff = spawnData.PirateDifficulty;
@@ -45,7 +46,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
             characters.Clear();
             characterItems.Clear();
 
-            enemyBase = PirateOutpostDirector.Instance.SpawnSubOnPath("Pirate Outpost", selectedOutpost.SubInfo.FilePath, ignoreCrushDepth: true);
+            enemyBase = PirateOutpostDirector.Instance.SpawnSubOnPath("Pirate Outpost", selectedOutpost.SubInfo.FilePath, ignoreCrushDepth: true, placementType: selectedOutpost.PlacementType);
             if (enemyBase == null)
             {
                 Log.Error("Failed to place pirate outpost! Skipping...");

@@ -78,6 +78,9 @@ namespace MoreLevelContent.Shared.Generation
                 return;
             }
 
+            // Never try to spawn a timed event on an outpost level
+            if (levelData.Type == LevelData.LevelType.Outpost) return;
+
             if (TryGetMissionByTag(EventTag, levelData, out MissionPrefab prefab, ForcedMissionIdentifier))
             {
                 Log.Debug($"Adding {EventTag} mission");

@@ -5,6 +5,7 @@ using System.Text;
 using Barotrauma;
 using Barotrauma.Extensions;
 using MoreLevelContent.Shared.Generation;
+using static Barotrauma.Level;
 
 namespace MoreLevelContent.Shared.Store
 {
@@ -35,12 +36,14 @@ namespace MoreLevelContent.Shared.Store
                     var path = outpost.GetAttributeContentPath("path");
                     var min = outpost.GetAttributeInt("mindiff", 0);
                     var max = outpost.GetAttributeInt("maxdiff", 100);
+                    var placement = outpost.GetAttributeEnum("placement", PlacementType.Bottom);
                     SubmarineInfo subInfo = new SubmarineInfo(path.Value);
                     if (subInfo.OutpostModuleInfo != null)
                     {
                         if (subInfo.OutpostModuleInfo.AllowedLocationTypes.Contains("ilo_PirateOutpost"))
                             pirateOutposts.Add(new PirateOutpostDef(subInfo, min, max));
                     }
+                    pirateOutposts.Add(new PirateOutpostDef(subInfo, min, max, placement));
                 }
             }
 

@@ -229,9 +229,9 @@ namespace MoreLevelContent.Shared.Utils
     // trying to patch local methods through IL code is fuckin ass
     public static class SubPlacementUtils
     {
-        internal static Submarine SpawnSubOnPath(string subName, ContentFile contentFile, SubmarineType type) => SpawnSubOnPath(subName, contentFile.Path.Value, type);
+        internal static Submarine SpawnSubOnPath(string subName, ContentFile contentFile, SubmarineType type, PlacementType placementType = PlacementType.Bottom) => SpawnSubOnPath(subName, contentFile.Path.Value, type, placementType);
 
-        internal static Submarine SpawnSubOnPath(string subName, string path, SubmarineType type)
+        internal static Submarine SpawnSubOnPath(string subName, string path, SubmarineType type, PlacementType placementType = PlacementType.Bottom)
         {
             var tempSW = new Stopwatch();
             FieldInfo _levelCells = AccessTools.Field(typeof(Level), "cells");
@@ -253,9 +253,6 @@ namespace MoreLevelContent.Shared.Utils
                 Type = type
             };
 
-            //place downwards by default
-            var placement = info.BeaconStationInfo?.Placement ?? PlacementType.Bottom;
-
             // Add some margin so that the sub doesn't block the path entirely. It's still possible that some larger subs can't pass by.
             Point paddedDimensions = new Point(subBorders.Width + 3000, subBorders.Height + 3000);
 
@@ -275,7 +272,7 @@ namespace MoreLevelContent.Shared.Utils
                 attemptsLeft--;
                 if (TryGetSpawnPoint(out spawnPoint))
                 {
-                    success = TryPositionSub(subBorders, subName, placement, ref spawnPoint);
+                    success = TryPositionSub(subBorders, subName, placementType, ref spawnPoint);
                     if (success)
                     {
                         break;

@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<contentpackage name="More Level Content" modversion="0.0.55" corepackage="False"
-  steamworkshopid="2814493175" gameversion="1.1.18.1">
+<contentpackage name="More Level Content" modversion="0.0.56" corepackage="False" steamworkshopid="2814493175" gameversion="1.4.6.0">
   <Item file="%ModDir%/dummyitem.xml" />
   <Text file="%ModDir%/Language/English.xml" />
   <Text file="%ModDir%/Language/PatchNotes.xml" />
@@ -29,7 +28,6 @@
   <Talents file="%ModDir%/Pirate/pirate_talents.xml" />
   <NPCSets file="%ModDir%/Pirate/pirate_npcset.xml" />
   <Missions file="%ModDir%/Pirate/pirate_missions.xml" />
-  <Submarine file="%ModDir%/Missions/barsuk_monster.sub" />
   <Missions file="%ModDir%/Missions/DistressMissions.xml" />
   <Missions file="%ModDir%/Missions/GenericMissions.xml" />
   <Missions file="%ModDir%/Missions/LostCargoMissions.xml" />
@@ -45,4 +43,5 @@
   <Submarine file="%ModDir%/Map/CargoPods/cargo_pod.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_50-70.sub" />
   <Submarine file="%ModDir%/barsuk_outbreak.sub" />
+  <Submarine file="%ModDir%/Missions/barsuk_monster.sub" />
 </contentpackage>

@@ -27,7 +27,7 @@ namespace MoreLevelContent.Shared.Generation
         }
     }
 
-    internal partial class NewDistressMapModule : TimedEventMapModule
+    internal partial class DistressMapModule : TimedEventMapModule
     {
     }
 }

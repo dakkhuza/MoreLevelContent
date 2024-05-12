@@ -174,7 +174,7 @@ namespace MoreLevelContent.Shared.Generation
         }
     }
 
-    internal partial class NewDistressMapModule : TimedEventMapModule
+    internal partial class DistressMapModule : TimedEventMapModule
     {
         protected override NetEvent EventCreated => NetEvent.MAP_SEND_NEWDISTRESS;
 

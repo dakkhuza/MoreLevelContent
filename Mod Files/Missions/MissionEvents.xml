@@ -879,7 +879,7 @@
                 <Success>
                     <!-- Clown Disapears -->
                     <StatusEffectAction targettag="clown">
-                        <StatusEffect>
+                        <StatusEffect target="This">
                             <sound file="%ModDir%/Sounds/vanish.ogg"
                                 range="500" />
                             <RemoveCharacter />
@@ -897,14 +897,14 @@
                             <ReputationAction targettype="Faction" identifier="clowns" increase="15" />
                             <SetDataAction identifier="distress_clowns_reward" value="true" />
                             <StatusEffectAction targettag="clown">
-                                <StatusEffect>
+                                <StatusEffect target="This">
                                     <sound file="%ModDir%/Sounds/confetti.ogg"
                                         range="500" />
                                 </StatusEffect>
                             </StatusEffectAction>
                             <WaitAction time="1" />
                             <StatusEffectAction targettag="clown">
-                                <StatusEffect>
+                                <StatusEffect target="This">
                                     <sound file="%ModDir%/Sounds/vanish.ogg"
                                         range="500" />
                                     <RemoveCharacter />
@@ -916,13 +916,13 @@
                         <Failure>
                             <!-- Explode -->
                             <StatusEffectAction targettag="clown">
-                                <StatusEffect>
+                                <StatusEffect target="This">
                                     <sound file="%ModDir%/Sounds/womp.ogg"
                                         range="500" />
                                 </StatusEffect>
                             </StatusEffectAction>
                             <StatusEffectAction targettag="clown">
-                                <StatusEffect>
+                                <StatusEffect target="This">
                                     <sound file="Content/Items/Weapons/ExplosionMedium1.ogg"
                                         range="5000" />
                                     <sound file="Content/Items/Weapons/ExplosionMedium2.ogg"
@@ -943,7 +943,7 @@
                             </StatusEffectAction>
                             <WaitAction time="2" />
                             <StatusEffectAction targettag="clown">
-                                <StatusEffect>
+                                <StatusEffect target="This">
                                     <sound file="%ModDir%/Sounds/vanish.ogg"
                                         range="500" />
                                     <RemoveCharacter />

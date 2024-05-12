@@ -229,7 +229,9 @@ namespace MoreLevelContent.Shared.Utils
     // trying to patch local methods through IL code is fuckin ass
     public static class SubPlacementUtils
     {
-        internal static Submarine SpawnSubOnPath(string subName, ContentFile contentFile, SubmarineType type)
+        internal static Submarine SpawnSubOnPath(string subName, ContentFile contentFile, SubmarineType type) => SpawnSubOnPath(subName, contentFile.Path.Value, type);
+
+        internal static Submarine SpawnSubOnPath(string subName, string path, SubmarineType type)
         {
             var tempSW = new Stopwatch();
             FieldInfo _levelCells = AccessTools.Field(typeof(Level), "cells");
@@ -244,9 +246,9 @@ namespace MoreLevelContent.Shared.Utils
                 !Loaded.IsCloseToStart(wp.WorldPosition, minDistance) &&
                 !Loaded.IsCloseToEnd(wp.WorldPosition, minDistance)).ToList();
 
-            var subDoc = SubmarineInfo.OpenFile(contentFile.Path.Value);
+            var subDoc = SubmarineInfo.OpenFile(path);
             Rectangle subBorders = Submarine.GetBorders(subDoc.Root);
-            SubmarineInfo info = new SubmarineInfo(contentFile.Path.Value)
+            SubmarineInfo info = new SubmarineInfo(path)
             {
                 Type = type
             };

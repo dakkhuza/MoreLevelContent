@@ -24,6 +24,7 @@
   <Missions file="%ModDir%/Missions/DistressMissions.xml" />
   <Missions file="%ModDir%/Missions/GenericMissions.xml" />
   <Missions file="%ModDir%/Missions/LostCargoMissions.xml" />
+  <Missions file="%ModDir%/Pirate/PirateOutposts.xml"/>
   <NPCSets file="%ModDir%/Missions/MissionNPCs.xml" />
   <RandomEvents file="%ModDir%/Missions/MissionEvents.xml" />
   <Submarine file="%ModDir%/Map/ConstructionSites/BeaconConstruction_worksite.sub" />

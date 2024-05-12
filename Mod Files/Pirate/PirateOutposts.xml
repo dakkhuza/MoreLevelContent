@@ -1,0 +1,33 @@
+<Missions tags="MLC, pirateoutposts">
+    <PirateOutposts
+        identifier="pirateoutpost_set0"
+        tags="mlc, pirateoutpostset"
+        type="GoTo">
+        <PirateOutpost path="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_0-10.sub" mindiff="0"
+            maxdiff="10" />
+        <PirateOutpost path="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_0-15.sub" mindiff="0"
+            maxdiff="15" />
+        <PirateOutpost path="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_5-15.sub" mindiff="5"
+            maxdiff="15" />
+        <PirateOutpost path="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_10-20.sub" mindiff="10"
+            maxdiff="20" />
+        <PirateOutpost path="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_15-25.sub" mindiff="15"
+            maxdiff="25" />
+        <PirateOutpost path="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_20-30.sub" mindiff="20"
+            maxdiff="30" />
+        <PirateOutpost path="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_25-35.sub" mindiff="25"
+            maxdiff="35" />
+        <PirateOutpost path="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_40-50.sub" mindiff="40"
+            maxdiff="50" />
+        <PirateOutpost path="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_50-70.sub" mindiff="50"
+            maxdiff="70" />
+        <PirateOutpost path="%ModDir%/Pirate/Outposts/mlc_pirate_o2_diff_20-30.sub" mindiff="20"
+            maxdiff="30" />
+        <PirateOutpost path="%ModDir%/Pirate/Outposts/mlc_pirate_o3_diff_15-25.sub" mindiff="15"
+            maxdiff="25" />
+        <PirateOutpost path="%ModDir%/Pirate/Outposts/mlc_pirate_o4_diff_15-25.sub" mindiff="15"
+            maxdiff="25" />
+
+
+    </PirateOutposts>
+</Missions>

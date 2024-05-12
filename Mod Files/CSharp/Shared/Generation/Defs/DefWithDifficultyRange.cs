@@ -8,6 +8,7 @@ namespace MoreLevelContent.Shared.Generation
     public abstract class DefWithDifficultyRange : IComparable<DefWithDifficultyRange>
     {
         protected DefWithDifficultyRange(string stringContainingDiff) => DifficultyRange = new DifficultyRange(stringContainingDiff);
+        protected DefWithDifficultyRange(float min, float max) => DifficultyRange = new DifficultyRange(min, max);
 
         public float MinDifficulty => DifficultyRange.MinDiff;
         public float MaxDifficulty => DifficultyRange.MaxDiff;

@@ -26,23 +26,25 @@ namespace MoreLevelContent.Shared.Store
         private bool FindAndScoreOutpostFiles()
         {
             Log.Debug("Collecting pirate outposts...");
-            var outpostModuleFiles = ContentPackageManager.EnabledPackages.All
-            .SelectMany(p => p.GetFiles<OutpostModuleFile>())
-            .OrderBy(f => f.UintIdentifier).ToList();
-
-            foreach (var outpostModuleFile in outpostModuleFiles)
+            var pirateOutpostSets = MissionPrefab.Prefabs.Where(m => m.Tags.Contains("pirateoutpostset"));
+            Log.Debug($"outposts: {pirateOutpostSets.Count()}");
+            foreach (var item in pirateOutpostSets)
             {
-                SubmarineInfo subInfo = new SubmarineInfo(outpostModuleFile.Path.Value);
-                if (subInfo.OutpostModuleInfo != null)
+                foreach (var outpost in item.ConfigElement.GetChildElements("PirateOutpost"))
                 {
-                    if (subInfo.OutpostModuleInfo.AllowedLocationTypes.Contains("ilo_PirateOutpost"))
-                        pirateOutposts.Add(new PirateOutpostDef(outpostModuleFile, subInfo));
+                    var path = outpost.GetAttributeContentPath("path");
+                    var min = outpost.GetAttributeInt("mindiff", 0);
+                    var max = outpost.GetAttributeInt("maxdiff", 100);
+                    SubmarineInfo subInfo = new SubmarineInfo(path.Value);
+                    if (subInfo.OutpostModuleInfo != null)
+                    {
+                        if (subInfo.OutpostModuleInfo.AllowedLocationTypes.Contains("ilo_PirateOutpost"))
+                            pirateOutposts.Add(new PirateOutpostDef(subInfo, min, max));
+                    }
                 }
             }
 
-            Log.Debug("Sorting modules by their diff ranges...");
             pirateOutposts.Sort();
-
             foreach (var item in pirateOutposts)
             {
                 Log.Verbose(item.DifficultyRange.ToString());

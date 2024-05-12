@@ -12,6 +12,12 @@ namespace MoreLevelContent.Shared.Generation
 
         private static readonly Regex diffRegex = new Regex("diff_([0-9.]+)-([0-9.]+)");
 
+        public DifficultyRange(float min, float max)
+        {
+            MinDiff = min;
+            MaxDiff = max;
+        }
+
         public DifficultyRange(string name)
         {
             Match match = diffRegex.Match(name);

@@ -35,6 +35,7 @@
   <Submarine file="%ModDir%/Map/CargoPods/cargo_pod.sub" />
   <Submarine file="%ModDir%/barsuk_outbreak.sub" />
   <Submarine file="%ModDir%/Missions/barsuk_monster.sub" />
+  <OutpostModule file="%ModDir%/PirateOutpost_Ceiling01.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_0-10.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_0-15.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_10-20.sub" />

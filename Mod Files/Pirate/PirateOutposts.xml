@@ -27,6 +27,8 @@
             maxdiff="25" />
         <PirateOutpost path="%ModDir%/Pirate/Outposts/mlc_pirate_o4_diff_15-25.sub" mindiff="15"
             maxdiff="25" />
+        <PirateOutpost path="%ModDir%/Pirate/Outposts/PirateOutpost_Ceiling01.sub" mindiff="5"
+            maxdiff="15" placement="Top" />
 
 
     </PirateOutposts>

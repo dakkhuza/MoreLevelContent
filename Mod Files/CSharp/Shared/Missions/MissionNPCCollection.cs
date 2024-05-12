@@ -107,6 +107,15 @@ namespace MoreLevelContent.Missions
                 spawnedCharacter.GiveIdCardTags(stayPos);
                 onCharacterCreated?.Invoke(spawnedCharacter, characterSpecificConfig);
                 spawnedCharacter.MLC().NPCElement = characterSpecificConfig;
+#if CLIENT
+                if (GameMain.IsSingleplayer)
+                {
+                    if (characterSpecificConfig.GetAttributeBool("allowordering", false))
+                    {
+                        _ = GameMain.GameSession.CrewManager.AddCharacterToCrewList(spawnedCharacter);
+                    }
+                }
+#endif
             }
             Log.Debug("end");
             InitCharacters();

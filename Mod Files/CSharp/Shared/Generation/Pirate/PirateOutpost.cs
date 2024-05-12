@@ -23,12 +23,15 @@ namespace MoreLevelContent.Shared.Generation.Pirate
         readonly PirateSpawnData _spawnData;
         private bool _generated = false;
 
-        public PirateOutpost(PirateSpawnData spawnData)
+        public PirateOutpost(PirateSpawnData spawnData, string filePath = "")
         {
             characters = new List<Character>();
             characterItems = new Dictionary<Character, List<Item>>();
             selectedPirateSet = PirateStore.Instance.GetNPCSetForDiff(spawnData.PirateDifficulty);
-            selectedOutpost = PirateStore.Instance.GetPirateOutpostForDiff(spawnData.PirateDifficulty);
+
+            selectedOutpost = filePath.IsNullOrEmpty()
+                ? PirateStore.Instance.GetPirateOutpostForDiff(spawnData.PirateDifficulty)
+                : PirateStore.Instance.FindOutpostWithPath(filePath);
             Log.Verbose($"Selected NPC set {selectedPirateSet.Prefab.Name}");
             Log.Verbose($"Selected outpost {selectedOutpost.SubInfo.FilePath}");
             pirateDiff = spawnData.PirateDifficulty;

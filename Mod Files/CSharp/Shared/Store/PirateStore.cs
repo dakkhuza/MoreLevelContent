@@ -20,10 +20,27 @@ namespace MoreLevelContent.Shared.Store
             pirateSets = new List<PirateNPCSetDef>();
             HasContent = FindAndScoreOutpostFiles() && FindAndScoreNPCs();
         }
+        internal PirateOutpostDef FindOutpostWithPath(string path)
+        {
+            return pirateOutposts.Find(p => p.SubInfo.FilePath == path);
+        }
+        internal void DumpPirateOutposts()
+        {
+            if (pirateOutposts.Count == 0)
+            {
+                Log.Warn("No pirate outposts found!");
+                return; 
+            }
+            foreach (var item in pirateOutposts)
+            {
+                Log.Debug(item.SubInfo.FilePath);
+            }
+        }
 
         public PirateNPCSetDef GetNPCSetForDiff(float diff) => GetElementWithPreferedDifficulty(diff, pirateSets);
 
         internal PirateOutpostDef GetPirateOutpostForDiff(float diff) => GetElementWithPreferedDifficulty(diff, pirateOutposts);
+
         private bool FindAndScoreOutpostFiles()
         {
             Log.Debug("Collecting pirate outposts...");

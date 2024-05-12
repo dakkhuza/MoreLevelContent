@@ -14,6 +14,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
 {
     public class PirateOutpostDirector : GenerationDirector<PirateOutpostDirector>, IGenerateSubmarine, IGenerateNPCs, ILevelStartGenerate
     {
+        public string ForcedPirateOutpost = "";
         public bool ForceSpawn { get; set; } = false;
         public bool ForceHusk { get; set; } = false;
 
@@ -45,7 +46,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
             levelSpawnData = GetSpawnData(levelData);
             if (levelSpawnData.WillSpawn)
             {
-                enemyOutpost = new PirateOutpost(levelSpawnData);
+                enemyOutpost = new PirateOutpost(levelSpawnData, ForcedPirateOutpost);
                 Log.Verbose("Set pirate outpost");
             }
         }

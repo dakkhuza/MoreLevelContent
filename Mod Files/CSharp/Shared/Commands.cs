@@ -5,6 +5,8 @@ using MoreLevelContent.Networking;
 using MoreLevelContent.Shared;
 using MoreLevelContent.Shared.Data;
 using MoreLevelContent.Shared.Generation;
+using MoreLevelContent.Shared.Generation.Pirate;
+using MoreLevelContent.Shared.Store;
 using System.Linq;
 
 namespace MoreLevelContent
@@ -14,10 +16,11 @@ namespace MoreLevelContent
         public override void Setup()
         {
             CommandUtils.AddCommand("mlc_debugmissions", "Prints a debug output of all active missions", _debugMissions);
+            CommandUtils.AddCommand("mlc_dumppirateoutposts", "Dumps the file paths of all pirate outposts", _dumpPirateOutposts, isCheat: true);
             CommandUtils.AddCommand("mlc_stepworld", "Fakes a world step", _stepWorld, isCheat: true);
             CommandUtils.AddCommand("mlc_createdistressbeacon", "Tries to create a new distress beacon", _createDistress, isCheat: true);
             CommandUtils.AddCommand("mlc_forcedistress", "Toggles forcing every level to spawn a distress mission, does nothing in multiplayer", _forceDistress, isCheat: true);
-            // CommandUtils.AddCommand("mlc_togglemapteleport", "Toggles debug teleporting on the campaign map", _toggleMapTP);
+            CommandUtils.AddCommand("mlc_forcepirate", "Toggles forcing a specific pirate base to spawn", _forcePirate, isCheat: true);
         }
 
         private void _debugMissions(object[] args)
@@ -45,6 +48,35 @@ namespace MoreLevelContent
 
 
             DebugConsole.NewMessage((force ? "Enabled" : "Disabled") + " forceing of distress mission" + additional, Color.White);
+        }
+
+        private void _forcePirate(object[] args)
+        {//ForcedMissionIdentifier
+            string additional = "";
+            string[] arg = (string[])args[0];
+            string identifier = arg.Length == 2 ? arg[1] : "";
+
+            if (arg.Length == 0) return;
+            if (!bool.TryParse(arg[0], out bool force)) return;
+
+            PirateOutpostDirector.Instance.ForceSpawn = force;
+            PirateOutpostDirector.Instance.ForcedPirateOutpost = identifier;
+            if (!identifier.IsNullOrEmpty())
+            {
+                additional = ", all outpost will be " + identifier;
+            }
+            if (!force)
+            {
+                PirateOutpostDirector.Instance.ForcedPirateOutpost = "";
+                additional = ", all outpost will be random";
+            }
+
+            DebugConsole.NewMessage((force ? "Enabled" : "Disabled") + " forceing of pirate outposts" + additional, Color.White);
+        }
+
+        private void _dumpPirateOutposts(object[] args)
+        {
+            PirateStore.Instance.DumpPirateOutposts();
         }
 
         private void _stepWorld(object[] args)

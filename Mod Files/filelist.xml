@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<contentpackage name="More Level Content dev" modversion="0.0.57" corepackage="False" steamworkshopid="2814493175" gameversion="1.4.6.0">
+<contentpackage name="More Level Content dev" modversion="0.0.58" corepackage="False" steamworkshopid="2814493175" gameversion="1.4.6.0">
   <Item file="%ModDir%/dummyitem.xml" />
   <Text file="%ModDir%/Language/English.xml" />
   <Text file="%ModDir%/Language/PatchNotes.xml" />
@@ -8,8 +8,6 @@
   <UIStyle file="%ModDir%/Style/map.xml" />
   <UIStyle file="%ModDir%/Style/menu.xml" />
   <LocationTypes file="%ModDir%/Map/LocationDefs.xml" />
-  <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_0-10.sub" />
-  <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_5-15.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_15-25.sub" />
   <CaveGenerationParameters file="%ModDir%/Map/Biomes/CaveGenerationParams.xml" />
   <LevelObjectPrefabs file="%ModDir%/Map/Biomes/ThalamusCave/BackgroundChunks.xml" />
@@ -24,7 +22,7 @@
   <Missions file="%ModDir%/Missions/DistressMissions.xml" />
   <Missions file="%ModDir%/Missions/GenericMissions.xml" />
   <Missions file="%ModDir%/Missions/LostCargoMissions.xml" />
-  <Missions file="%ModDir%/Pirate/PirateOutposts.xml"/>
+  <Missions file="%ModDir%/Pirate/PirateOutposts.xml" />
   <NPCSets file="%ModDir%/Missions/MissionNPCs.xml" />
   <RandomEvents file="%ModDir%/Missions/MissionEvents.xml" />
   <Submarine file="%ModDir%/Map/ConstructionSites/BeaconConstruction_worksite.sub" />
@@ -37,12 +35,16 @@
   <Submarine file="%ModDir%/Map/CargoPods/cargo_pod.sub" />
   <Submarine file="%ModDir%/barsuk_outbreak.sub" />
   <Submarine file="%ModDir%/Missions/barsuk_monster.sub" />
+  <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_0-10.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_0-15.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_10-20.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_25-35.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_40-50.sub" />
+  <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_5-15.sub" />
+  <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_15-25.sub"/>
+  <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_20-30.sub"/>
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_50-70.sub" />
-  <OutpostModule file="%ModDir%/mlc_pirate_o2_diff_15-25.sub" />
+  <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o2_diff_15-25.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o2_diff_20-30.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o3_diff_15-25.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o4_diff_15-25.sub" />

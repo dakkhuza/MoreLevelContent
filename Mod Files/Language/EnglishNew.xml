@@ -2,15 +2,16 @@
     <mlc.title>More Level Content</mlc.title>
 
     <!-- Distress Missions -->
-    <distress.new0>Listening stations have detected a distress beacon between [location1] and [location2]</distress.new0>
-    <distress.new1>A distress beacon has been picked up between [location1] and [location2]</distress.new1>
-    <distress.new2>[location1] has reported a new distress beacon in the caves leading to [location2]</distress.new2>
+    <distress.new0>Listening stations have detected a ‖color:gui.Red‖distress beacon‖end‖ between [location1] and [location2]</distress.new0>
+    <distress.new1>A ‖color:gui.Red‖distress beacon‖end‖ has been reported between [location1] and [location2]</distress.new1>
+    <distress.new2>[location1] has reported a new ‖color:gui.Red‖distress beacon‖end‖ in the caves leading to [location2]</distress.new2>
 
-    <distress.faint0>Listening stations report the distress beacon between [location1] and [location2] is growing faint</distress.faint0>
-    <distress.faint1>Projected ice movement will soon leave the distress beacon between [location1] and [location2] unaccessable</distress.faint1>
+    <distress.faint0>Listening stations report the ‖color:gui.Red‖distress beacon‖end‖ between [location1] and [location2] is growing faint</distress.faint0>
+    <distress.faint1>Projected ice movement will soon leave the ‖color:gui.Red‖distress beacon‖end‖ between [location1] and [location2] unaccessable</distress.faint1>
 
-    <distress.lost0>The distress signal between [location1] and [location2] can no longer be detected over background noise.</distress.lost0>
-
+    <distress.lost0>The ‖color:gui.Red‖distress beacon‖end‖ between [location1] and [location2] can no longer be detected</distress.lost0>
+    <distress.lost1>Ice drift has rendered the ‖color:gui.Red‖distress beacon‖end‖ between [location1] and [location2] inaccessible</distress.lost1>
+    <distress.lost2>A submarine crew passing through [location1] to [location2] report there were no survivors at the ‖color:gui.Red‖distress beacon‖end‖</distress.lost2>
 
     <missionmessage1.quiet>It's eerily silent, is anyone alive?</missionmessage1.quiet>
     <distress.success.clowns>Who knows what those harlequins were up to.</distress.success.clowns>

@@ -37,22 +37,14 @@ namespace MoreLevelContent
         {//ForcedMissionIdentifier
             string additional = "";
             string[] arg = (string[])args[0];
+            string identifier = arg.Length == 2 ? arg[1] : "";
 
-            if (arg.Length > 0 && arg[0].ToString().Length > 0)
-            {
-                OldDistressMapModule.ForceSpawnDistress = true;
-                OldDistressMapModule.ForcedMissionIdentifier = arg[0].ToString();
-                additional = " , forced to: " + OldDistressMapModule.ForcedMissionIdentifier;
-            } else
-            {
-                OldDistressMapModule.ForceSpawnDistress = !OldDistressMapModule.ForceSpawnDistress;
-                if (!OldDistressMapModule.ForceSpawnDistress)
-                {
-                    OldDistressMapModule.ForcedMissionIdentifier = "";
-                }
-            }
+            if (arg.Length == 0) return;
+            if (!bool.TryParse(arg[0], out bool force)) return;
+            MapDirector.Instance.SetForcedDistressMission(force, identifier);
 
-            DebugConsole.NewMessage((OldDistressMapModule.ForceSpawnDistress ? "Enabled" : "Disabled") + " forceing of distress mission" + additional, Color.White);
+
+            DebugConsole.NewMessage((force ? "Enabled" : "Disabled") + " forceing of distress mission" + additional, Color.White);
         }
 
         private void _stepWorld(object[] args)

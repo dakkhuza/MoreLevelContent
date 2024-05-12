@@ -79,6 +79,13 @@ namespace MoreLevelContent.Shared.Generation
             SetupProjSpecific();
         }
 
+        public void SetForcedDistressMission(bool force, string identifier)
+        {
+            var distressModule = (DistressMapModule)Modules.Find(m => m.GetType() == typeof(DistressMapModule));
+            distressModule.ForceSpawnMission = force;
+            distressModule.ForcedMissionIdentifier = identifier;
+        }
+
         partial void SetupProjSpecific();
 
 #if CLIENT

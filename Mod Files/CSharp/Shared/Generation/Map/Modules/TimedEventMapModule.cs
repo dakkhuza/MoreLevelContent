@@ -19,6 +19,9 @@ namespace MoreLevelContent.Shared.Generation
             InitProjSpecific();
         }
 
+        public string ForcedMissionIdentifier;
+        public bool ForceSpawnMission;
+
         // Networking
         protected abstract NetEvent EventCreated { get; }
         //protected abstract NetEvent EventUpdated { get; }
@@ -69,13 +72,13 @@ namespace MoreLevelContent.Shared.Generation
             if (levelData == null) return;
             if (!Main.IsCampaign) return;
             
-            if (!LevelHasEvent(levelData.MLC()))
+            if (!LevelHasEvent(levelData.MLC()) && !ForceSpawnMission)
             {
                 Log.Debug($"Level has no {EventTag}");
                 return;
             }
 
-            if (TryGetMissionByTag(EventTag, levelData, out MissionPrefab prefab))
+            if (TryGetMissionByTag(EventTag, levelData, out MissionPrefab prefab, ForcedMissionIdentifier))
             {
                 Log.Debug($"Adding {EventTag} mission");
                 Mission inst = prefab.Instantiate(GameMain.GameSession.Map.SelectedConnection.Locations, Submarine.MainSub);

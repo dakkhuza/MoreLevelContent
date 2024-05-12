@@ -40,19 +40,19 @@ namespace MoreLevelContent
 
             if (arg.Length > 0 && arg[0].ToString().Length > 0)
             {
-                DistressMapModule.ForceSpawnDistress = true;
-                DistressMapModule.ForcedMissionIdentifier = arg[0].ToString();
-                additional = " , forced to: " + DistressMapModule.ForcedMissionIdentifier;
+                OldDistressMapModule.ForceSpawnDistress = true;
+                OldDistressMapModule.ForcedMissionIdentifier = arg[0].ToString();
+                additional = " , forced to: " + OldDistressMapModule.ForcedMissionIdentifier;
             } else
             {
-                DistressMapModule.ForceSpawnDistress = !DistressMapModule.ForceSpawnDistress;
-                if (!DistressMapModule.ForceSpawnDistress)
+                OldDistressMapModule.ForceSpawnDistress = !OldDistressMapModule.ForceSpawnDistress;
+                if (!OldDistressMapModule.ForceSpawnDistress)
                 {
-                    DistressMapModule.ForcedMissionIdentifier = "";
+                    OldDistressMapModule.ForcedMissionIdentifier = "";
                 }
             }
 
-            DebugConsole.NewMessage((DistressMapModule.ForceSpawnDistress ? "Enabled" : "Disabled") + " forceing of distress mission" + additional, Color.White);
+            DebugConsole.NewMessage((OldDistressMapModule.ForceSpawnDistress ? "Enabled" : "Disabled") + " forceing of distress mission" + additional, Color.White);
         }
 
         private void _stepWorld(object[] args)
@@ -73,7 +73,7 @@ namespace MoreLevelContent
             }
             Log.Debug("Creating distress");
             if (Main.IsClient) _createDistressClient();
-            else DistressMapModule.ForceDistress();
+            else OldDistressMapModule.ForceDistress();
         }
 
 

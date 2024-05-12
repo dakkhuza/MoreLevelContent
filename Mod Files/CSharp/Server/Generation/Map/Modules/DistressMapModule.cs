@@ -12,7 +12,7 @@ using Barotrauma.MoreLevelContent.Config;
 namespace MoreLevelContent.Shared.Generation
 {
     // Server
-    internal partial class DistressMapModule
+    internal partial class OldDistressMapModule
     {
         protected override void InitProjSpecific() => NetUtil.Register(NetEvent.COMMAND_CREATEDISTRESS, Command_CreateDistress);
 

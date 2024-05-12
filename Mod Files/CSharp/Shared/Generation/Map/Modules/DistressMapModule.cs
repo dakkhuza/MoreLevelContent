@@ -11,19 +11,19 @@ using MoreLevelContent.Shared.Utils;
 namespace MoreLevelContent.Shared.Generation
 {
     // Shared
-    internal partial class DistressMapModule : MapModule
+    internal partial class OldDistressMapModule : MapModule
     {
         public static bool ForceSpawnDistress = false;
         public static string ForcedMissionIdentifier = "";
 
         private readonly List<Mission> _internalMissionStore = new();
-        private static DistressMapModule _instance;
+        private static OldDistressMapModule _instance;
         private static bool _spawnStartingBeacon = false;
         const int MAX_DISTRESS_CREATE_ATTEMPTS = 5;
         const int DISTRESS_MIN_DIST = 1;
         const int DISTRESS_MAX_DIST = 3;
 
-        public DistressMapModule()
+        public OldDistressMapModule()
         {
             _instance = this;
             InitProjSpecific();

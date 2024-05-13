@@ -80,6 +80,11 @@ namespace Barotrauma.MoreLevelContent.Client.UI
                 DrawIcon("DebugBlackMarket", (int)(28 * zoom), RichString.Rich("Black Market"));
             }
 
+            if (data.PirateData.HasPirateOutpost)
+            {
+                DrawIcon("DebugBlackMarket", (int)(28 * zoom), RichString.Rich("Pirate Base: " + $"{data.PirateData.Status}"));
+            }
+
             void DrawIcon(string iconStyle, int iconSize, RichString tooltipText)
             {
                 Vector2 iconPos = (connectionStart.Value + connectionEnd.Value) / 2;

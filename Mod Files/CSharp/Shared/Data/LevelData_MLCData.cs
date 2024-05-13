@@ -1,4 +1,5 @@
 ﻿using Barotrauma;
+using MoreLevelContent.Shared.Generation.Pirate;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -36,6 +37,9 @@ namespace MoreLevelContent.Shared.Data
 
         [SaveData(0)]
         public int RequestedE;
+
+        [SaveData(default)]
+        public PirateData PirateData;
 
         public LocalizedString GetRequestedSupplies()
         {
@@ -86,5 +90,47 @@ namespace MoreLevelContent.Shared.Data
                 levelData_data.Add(levelData, additional);
             } catch(Exception e) { Log.Error(e.ToString()); }
         }
+    }
+
+    public enum PirateOutpostStatus
+    {
+        None,
+        Active,
+        Destroyed
+    }
+
+    public struct PirateData
+    {
+        public PirateData()
+        {
+            Status = PirateOutpostStatus.None;
+            Difficulty = 0;
+            Husked = false;
+        }
+
+        public PirateData(PirateSpawnData spawnData)
+        {
+            Husked = false;
+            Difficulty = 0;
+            Status = PirateOutpostStatus.None;
+
+            if (spawnData.WillSpawn)
+            {
+                Status = PirateOutpostStatus.Active;
+                Difficulty = spawnData.PirateDifficulty;
+
+                if (spawnData.Husked)
+                {
+                    Status = PirateOutpostStatus.Destroyed;
+                    Husked = true;
+                }
+            }
+        }
+
+        public PirateOutpostStatus Status;
+        public float Difficulty;
+        public bool Husked;
+
+        public bool HasPirateOutpost => Status == PirateOutpostStatus.Destroyed || Status == PirateOutpostStatus.Active;
     }
 }

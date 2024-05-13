@@ -73,7 +73,8 @@ namespace MoreLevelContent.Shared.Generation
 
             Modules.Add(new ConstructionMapModule());
             Modules.Add(new DistressMapModule());
-            //Modules.Add(new DistressMapModule());
+            Modules.Add(new PirateOutpostMapModule());
+            //Modules.Add(new DistressMapModule()); 
             //Modules.Add(new LostCargoMapModule());
 
             SetupProjSpecific();
@@ -240,6 +241,14 @@ namespace MoreLevelContent.Shared.Generation
             Log.Debug("OnMapSave");
         }
 
+        internal void OnLevelGenerate(LevelData levelData, bool mirror)
+        {
+            foreach (var item in Modules)
+            {
+                item.OnLevelGenerate(levelData, mirror);
+            }
+        }
+
 
         private static void GenerateConnectionLookup(Map map)
         {
@@ -252,11 +261,6 @@ namespace MoreLevelContent.Shared.Generation
                 ConnectionIdLookup.Add(connection, i);
             }
         }
-    }
-
-    internal class BlackMarketModule
-    {
-
     }
 
     internal static class MapExtensions

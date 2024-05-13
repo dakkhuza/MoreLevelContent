@@ -152,5 +152,6 @@ namespace MoreLevelContent.Shared.Generation
         public virtual void OnLevelDataLoad(LevelData __instance, XElement element) { }
         public virtual void OnLevelDataSave(LevelData __instance, XElement parentElement) { }
         public virtual void OnMapLoad(Map __instance) { }
+        public virtual void OnLevelGenerate(LevelData levelData, bool mirror) { }
     }
 }

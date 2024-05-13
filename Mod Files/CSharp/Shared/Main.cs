@@ -62,6 +62,7 @@ namespace MoreLevelContent
             var level_onSpawnNPC = typeof(Level).GetMethod(nameof(Level.SpawnNPCs));
             var level_generate = typeof(Level).GetMethod(nameof(Level.Generate));
             var gameSession_before_startRound = typeof(GameSession).GetMethod(nameof(GameSession.StartRound), new Type[] { typeof(LevelData), typeof(bool), typeof(SubmarineInfo), typeof(SubmarineInfo) });
+            var eventManager_TriggerOnEndRoundActions = AccessTools.Method(typeof(EventManager), "TriggerOnEndRoundActions");
             Harmony = new Harmony("com.mlc.dak");
 
             MoveRuins.Init();
@@ -109,6 +110,13 @@ namespace MoreLevelContent
                 OnBeforeStartRound,
                 LuaCsHook.HookMethodType.Before,
                 this);
+
+            GameMain.LuaCs.Hook.HookMethod(
+                "mlc.singleplayer.roundend",
+                eventManager_TriggerOnEndRoundActions,
+                OnRoundEnd,
+                LuaCsHook.HookMethodType.Before);
+
             Log.Verbose("Done!");
         }
 
@@ -128,12 +136,19 @@ namespace MoreLevelContent
         public object OnLevelGenerate(object self, Dictionary<string, object> args)
         {
             levelContentProducer.LevelGenerate(args["levelData"] as LevelData, args["mirror"] as bool? ?? false);
+            MapDirector.Instance.OnLevelGenerate(args["levelData"] as LevelData, args["mirror"] as bool? ?? false);
             return null;
         }
 
         public object OnBeforeStartRound(object self, Dictionary<string, object> args)
         {
             levelContentProducer.StartRound();
+            return null;
+        }
+
+        public object OnRoundEnd(object self, Dictionary<string, object> args)
+        {
+            levelContentProducer.EndRound();
             return null;
         }
 

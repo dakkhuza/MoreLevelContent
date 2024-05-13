@@ -56,8 +56,8 @@ namespace MoreLevelContent.Shared.Generation
             Check(campaignmode_AddExtraMissions, "campaignmode_addextramissions");
 
             // Map data
-            _ = Main.Harmony.Patch(map_ctr_1, postfix: new HarmonyMethod(GetType().GetMethod(nameof(OnNewMap), BindingFlags.Static | BindingFlags.NonPublic)));
-            _ = Main.Harmony.Patch(map_ctr_2, postfix: new HarmonyMethod(GetType().GetMethod(nameof(OnNewMap), BindingFlags.Static | BindingFlags.NonPublic)));
+            _ = Main.Harmony.Patch(map_ctr_1, postfix: new HarmonyMethod(GetType().GetMethod(nameof(OnMapLoad), BindingFlags.Static | BindingFlags.NonPublic)));
+            _ = Main.Harmony.Patch(map_ctr_2, postfix: new HarmonyMethod(GetType().GetMethod(nameof(OnMapLoad), BindingFlags.Static | BindingFlags.NonPublic)));
             
             // Level data
             _ = Main.Harmony.Patch(leveldata_ctr_load, postfix: new HarmonyMethod(GetType().GetMethod(nameof(OnLevelDataLoad), BindingFlags.Static | BindingFlags.NonPublic)));
@@ -222,7 +222,7 @@ namespace MoreLevelContent.Shared.Generation
             }
         }
 
-        private static void OnNewMap(Map __instance)
+        private static void OnMapLoad(Map __instance)
         {
             Log.Debug("OnMapLoad:Postfix");
 
@@ -231,7 +231,7 @@ namespace MoreLevelContent.Shared.Generation
 
             foreach (var item in Instance.Modules)
             {
-                item.OnNewMap(__instance);
+                item.OnMapLoad(__instance);
             }
         }
 

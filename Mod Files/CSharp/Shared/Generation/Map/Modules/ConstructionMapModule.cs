@@ -43,12 +43,11 @@ namespace MoreLevelContent.Shared.Generation
         }
         public override void OnLevelDataLoad(LevelData __instance, XElement element) { }
         public override void OnLevelDataSave(LevelData __instance, XElement parentElement) { }
-        public override void OnNewMap(Map __instance)
+        public override void OnMapLoad(Map __instance)
         {
-
             if (!__instance.Connections.Any(c => c.LevelData.MLC().HasBeaconConstruction))
             {
-                Log.Debug("Migrating old save...");
+                Log.Debug("Map has no construction sites, adding some...");
                 for (int i = 0; i < __instance.Connections.Count; i++)
                 {
                     var connection = __instance.Connections[i];

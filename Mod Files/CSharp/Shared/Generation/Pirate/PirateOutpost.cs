@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using Barotrauma;
+using Barotrauma.Extensions;
 using Barotrauma.Items.Components;
 using Barotrauma.MoreLevelContent.Shared.Utils;
 using Microsoft.Xna.Framework;
 using MoreLevelContent.Shared.Data;
 using MoreLevelContent.Shared.Store;
 using MoreLevelContent.Shared.Utils;
+using static Barotrauma.Networking.NetEntityEvent;
 
 namespace MoreLevelContent.Shared.Generation.Pirate
 {
@@ -84,14 +86,28 @@ namespace MoreLevelContent.Shared.Generation.Pirate
 
         void SetupDestroyed()
         {
-            _Sub.Info.IsManuallyOutfitted = true;
-            // new Explosion(500, 0, 0, 200, 200, 100).Explode()
+            _Sub.Info.Type = SubmarineType.Outpost;
+            if (_Sub.GetItems(alsoFromConnectedSubs: false).Find(i => i.HasTag("reactor") && !i.NonInteractable)?.GetComponent<Reactor>() is Reactor reactor)
+            {
+                reactor.AutoTemp = false;
+                reactor.PowerOn = false;
+            }
+
+            var waypoints = _Sub.GetWaypoints(false).Where(wp => wp.SpawnType == SpawnType.Human || wp.SpawnType == SpawnType.Cargo);
+            foreach (var wp in waypoints)
+            {
+                Level.Loaded.PositionsOfInterest.Add(new Level.InterestingPosition(wp.WorldPosition.ToPoint(), Level.PositionType.Wreck));
+            }
         }
 
         public void Populate()
         {
             // Don't spawn crew on destroyed outposts
-            if (_Data.Status == PirateOutpostStatus.Destroyed) return;
+            if (_Data.Status == PirateOutpostStatus.Destroyed)
+            {
+                PopulateDestroyed();
+                return;
+            }
             bool commanderAssigned = false;
             Log.InternalDebug("Spawning Pirates");
 
@@ -188,7 +204,14 @@ namespace MoreLevelContent.Shared.Generation.Pirate
 
         void PopulateDestroyed()
         {
-
+            if (Main.IsClient) return;
+            var waypoints = _Sub.GetWaypoints(false);
+            Random rand = new MTRandom(ToolBox.StringToInt(Level.Loaded.LevelData.Seed));
+            for (int i = 0; i < 5; i++)
+            {
+                var selected = waypoints.GetRandom(rand);
+                new Explosion(range: 500, 0, 0, structureDamage: 500, itemDamage: 0, empStrength: 1000).Explode(selected.WorldPosition, null);
+            }
         }
 
         internal void OnRoundEnd(LevelData levelData)
@@ -196,8 +219,8 @@ namespace MoreLevelContent.Shared.Generation.Pirate
             var success = GameMain.GameSession.CrewManager.GetCharacters().Any(c => !c.IsDead);
             if (!success) return;
 
-            // If more than half of the crew or the commander is dead, the outpost is destroyed
-            if (characters.Select(c => c.IsDead || c.Removed).Count() > characters.Count / 2 || (_Commander.IsDead || _Commander.Removed))
+            // If more than half of the crew or the commander is dead / incapacited / arrested, the outpost is destroyed
+            if (characters.Select(c => c.IsDead || c.Removed || c.IsIncapacitated || c.IsArrested).Count() > characters.Count / 2 || _Commander.IsDead || _Commander.Removed || _Commander.IsArrested)
             {
                 levelData.MLC().PirateData.Status = PirateOutpostStatus.Destroyed;
             }

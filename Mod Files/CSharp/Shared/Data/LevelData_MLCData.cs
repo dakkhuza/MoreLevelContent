@@ -75,6 +75,29 @@ namespace MoreLevelContent.Shared.Data
                     return null;
             }
         }
+
+        protected override void LoadSpecific(XElement saveFile)
+        {
+            var pirateData = saveFile.GetChildElement("PirateData");
+            if (pirateData != null)
+            {
+                PirateData = new PirateData()
+                {
+                    Status = pirateData.GetAttributeEnum("status", PirateOutpostStatus.None),
+                    Difficulty = pirateData.GetAttributeFloat("difficulty", 0),
+                    Husked = pirateData.GetAttributeBool("husked", false)
+                };
+            }
+        }
+
+        protected override void SaveSpecific(XElement saveFile)
+        {
+            var data = new XElement("PirateData",
+                new XAttribute("status", PirateData.Status),
+                new XAttribute("difficulty", PirateData.Difficulty),
+                new XAttribute("husked", PirateData.Husked));
+            saveFile.Add(data);
+        }
     }
 
     public static partial class MLCData

@@ -1,5 +1,5 @@
 ﻿using Barotrauma;
-using MoreLevelContent.Shared.Generation.Pirate;
+using MoreLevelContent.Shared.Generation;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;

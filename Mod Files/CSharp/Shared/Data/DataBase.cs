@@ -16,6 +16,7 @@ namespace MoreLevelContent.Shared.Data
             {
                 saveFile.SetAttributeValue(field.Name, field.GetValue(this));
             }
+            SaveSpecific(saveFile);
         }
 
         public void LoadData(XElement saveFile)
@@ -25,16 +26,23 @@ namespace MoreLevelContent.Shared.Data
             {
                 XAttribute attr = saveFile.GetAttribute(field.Name);
                 if (attr != null) field.SetValue(this, Convert.ChangeType(attr.Value, field.FieldType));
-                else field.SetValue(this, ((SaveData)field.GetCustomAttribute(typeof(SaveData))).DefaultFieldValue);
+                else field.SetValue(this, ((AttributeSaveData)field.GetCustomAttribute(typeof(AttributeSaveData))).DefaultFieldValue);
             }
+            LoadSpecific(saveFile);
         }
 
-        private IEnumerable<FieldInfo> GetSaveFields() => GetType().GetFields().Where(f => f.IsDefined(typeof(SaveData), false));
+        protected virtual void LoadSpecific(XElement saveFile) { }
+        protected virtual void SaveSpecific(XElement saveFile) { }
+
+        private IEnumerable<FieldInfo> GetSaveFields() => GetType().GetFields().Where(f => f.IsDefined(typeof(AttributeSaveData), false));
     }
 
-    public class SaveData : Attribute
+    /// <summary>
+    /// Simple data that can be stringified into an xml attribute
+    /// </summary>
+    public class AttributeSaveData : Attribute
     {
-        public SaveData(object defaultValue) => DefaultFieldValue = defaultValue;
+        public AttributeSaveData(object defaultValue) => DefaultFieldValue = defaultValue;
 
         public object DefaultFieldValue;
     }

@@ -3,42 +3,42 @@ using MoreLevelContent.Shared.Generation.Pirate;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Xml.Linq;
 
 namespace MoreLevelContent.Shared.Data
 {
     public class LevelData_MLCData : DataBase
     {
-        [SaveData(false)]
+        [AttributeSaveData(false)]
         public bool HasBeaconConstruction;
 
-        [SaveData(false)]
+        [AttributeSaveData(false)]
         public bool HasDistress;
 
-        [SaveData(7)]
+        [AttributeSaveData(7)]
         public int DistressStepsLeft;
 
-        [SaveData(false)]
+        [AttributeSaveData(false)]
         public bool HasPirateActivity;
 
-        [SaveData(false)]
+        [AttributeSaveData(false)]
         public bool HasBlackMarket;
 
-        [SaveData(false)]
+        [AttributeSaveData(false)]
         public bool HasLostCargo;
 
-        [SaveData(4)]
+        [AttributeSaveData(4)]
         public int CargoStepsLeft;
 
-        [SaveData(0)]
+        [AttributeSaveData(0)]
         public int RequestedU;
 
-        [SaveData(0)]
+        [AttributeSaveData(0)]
         public int RequestedS;
 
-        [SaveData(0)]
+        [AttributeSaveData(0)]
         public int RequestedE;
 
-        [SaveData(default)]
         public PirateData PirateData;
 
         public LocalizedString GetRequestedSupplies()

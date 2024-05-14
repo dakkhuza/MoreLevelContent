@@ -30,7 +30,7 @@ namespace MoreLevelContent
 
 
         public static Main Instance;
-        public static string Version = "0.0.6";
+        public static string Version = "0.0.7";
         private LevelContentProducer levelContentProducer;
         internal static Harmony Harmony;
 

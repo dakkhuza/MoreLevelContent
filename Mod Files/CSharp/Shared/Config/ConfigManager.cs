@@ -57,6 +57,7 @@ namespace Barotrauma.MoreLevelContent.Config
         {
             Config.NetworkedConfig.GeneralConfig.DistressSpawnChance = 35;
             Config.NetworkedConfig.GeneralConfig.MaxActiveDistressBeacons = 5;
+            Config.NetworkedConfig.PirateConfig.PeakSpawnChance = 35;
         }
 
         private void DefaultConfig()

@@ -35,7 +35,7 @@ namespace MoreLevelContent.Shared.Store
             Log.Verbose($"Filtered sets of '{nameof(Element)}' to choose from {filtered.Count}");
 
             filtered = filtered.OrderBy(e => e.AverageDifficulty).ToList();
-            var rand = MLCUtils.GetLevelRandom();
+            var rand = new MTRandom(ToolBox.StringToInt(seed));
             Element selectedElement = ToolBox.SelectWeightedRandom(filtered, (elm) =>
             {
                 return elm.AverageDifficulty > preferedDifficulty

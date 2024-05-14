@@ -2,6 +2,7 @@
 using Barotrauma.MoreLevelContent.Shared.Utils;
 using MoreLevelContent.Shared.Generation;
 using MoreLevelContent.Shared.Generation.Pirate;
+using MoreLevelContent.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,12 +35,13 @@ namespace MoreLevelContent.Shared.Store
             Log.Verbose($"Filtered sets of '{nameof(Element)}' to choose from {filtered.Count}");
 
             filtered = filtered.OrderBy(e => e.AverageDifficulty).ToList();
+            var rand = MLCUtils.GetLevelRandom();
             Element selectedElement = ToolBox.SelectWeightedRandom(filtered, (elm) =>
             {
                 return elm.AverageDifficulty > preferedDifficulty
                     ? preferedDifficulty / elm.AverageDifficulty
                     : elm.AverageDifficulty / preferedDifficulty;
-            }, Rand.RandSync.ServerAndClient);
+            }, rand);
 
             return selectedElement;
         }

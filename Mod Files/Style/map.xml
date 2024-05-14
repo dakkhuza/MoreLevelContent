@@ -1,21 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <style>
-    <BeaconConst color="250,215,107,255" hovercolor="255,231,178,255">
-        <Sprite name="BeaconConst" texture="%ModDir%/Style/map_icons.png" tile="false" sourcerect="0,0,72,75" maintainaspectratio="true"/>
-    </BeaconConst>
-
-    <DistressBeacon color="255,106,106,255" hovercolor="255,156,156,255">
-        <Sprite name="Distress" texture="%ModDir%/Style/map_icons.png" tile="false" sourcerect="72,0,72,75" maintainaspectratio="true"/>
-    </DistressBeacon>
-
-    <DistressBeaconFaint color="150,60,60,255" hovercolor="150,75,75,255">
-        <Sprite name="DistressFaint" texture="%ModDir%/Style/map_icons.png" tile="false" sourcerect="144,0,72,75" maintainaspectratio="true"/>
-    </DistressBeaconFaint>
-
-    <LostCargo color="66,135,245,255" hovercolor="66,66,245,255">
-        <Sprite name="LostCargo" texture="%ModDir%/Style/map_icons.png" tile="false" sourcerect="216,0,72,75" maintainaspectratio="true"/>
-    </LostCargo>
-
-    <DebugBlackMarket color="0,0,0,255" hovercolor="10,10,10,255">
-        <Sprite name="Blackmarket" texture="%ModDir%/Style/map_icons.png" tile="false" sourcerect="113,21,72,75" maintainaspectratio="true"/>
-    </DebugBlackMarket>
+  <BeaconConst color="250,215,107,255" hovercolor="255,231,178,255">
+    <Sprite name="BeaconConst" texture="%ModDir%/Style/map_icons.png" tile="false" sourcerect="0,0,72,75" maintainaspectratio="true" />
+  </BeaconConst>
+  <DistressBeacon color="255,106,106,255" hovercolor="255,156,156,255">
+    <Sprite name="Distress" texture="%ModDir%/Style/map_icons.png" tile="false" sourcerect="72,0,72,75" maintainaspectratio="true" />
+  </DistressBeacon>
+  <DistressBeaconFaint color="150,60,60,255" hovercolor="150,75,75,255">
+    <Sprite name="DistressFaint" texture="%ModDir%/Style/map_icons.png" tile="false" sourcerect="144,0,72,75" maintainaspectratio="true" />
+  </DistressBeaconFaint>
+  <LostCargo color="66,135,245,255" hovercolor="66,66,245,255">
+    <Sprite name="LostCargo" texture="%ModDir%/Style/map_icons.png" tile="false" sourcerect="216,0,72,75" maintainaspectratio="true" />
+  </LostCargo>
+  <DebugBlackMarket color="255,106,106,255" hovercolor="255,156,156,255">
+    <Sprite name="PirateOupost" texture="%ModDir%/Style/map_icons.png" tile="false" sourcerect="288,0,72,75" maintainaspectratio="true" origin="0.5,0.5" />
+  </DebugBlackMarket>
 </style>

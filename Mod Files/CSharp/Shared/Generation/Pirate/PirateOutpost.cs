@@ -10,12 +10,12 @@ using Microsoft.Xna.Framework;
 using MoreLevelContent.Shared.Data;
 using MoreLevelContent.Shared.Store;
 using MoreLevelContent.Shared.Utils;
-using static Barotrauma.Networking.NetEntityEvent;
 
 namespace MoreLevelContent.Shared.Generation.Pirate
 {
-    public class PirateOutpost
+    internal class PirateOutpost
     {
+        public PirateBaseRelationStatus Status { get; private set; }
         private readonly List<Character> characters;
         private readonly Dictionary<Character, List<Item>> characterItems;
         private readonly PirateNPCSetDef selectedPirateSet;
@@ -25,15 +25,16 @@ namespace MoreLevelContent.Shared.Generation.Pirate
         private Character _Commander;
         readonly PirateData _Data;
         private bool _Generated = false;
+        
 
-        public PirateOutpost(PirateData data, string filePath)
+        public PirateOutpost(PirateData data, string filePath, string seed)
         {
             characters = new List<Character>();
             characterItems = new Dictionary<Character, List<Item>>();
-            selectedPirateSet = PirateStore.Instance.GetNPCSetForDiff(data.Difficulty);
+            selectedPirateSet = PirateStore.Instance.GetNPCSetForDiff(data.Difficulty, seed);
 
             _SelectedSubmarine = filePath.IsNullOrEmpty()
-                ? PirateStore.Instance.GetPirateOutpostForDiff(data.Difficulty)
+                ? PirateStore.Instance.GetPirateOutpostForDiff(data.Difficulty, seed)
                 : PirateStore.Instance.FindOutpostWithPath(filePath);
 
             Log.Verbose($"Selected NPC set {selectedPirateSet.Prefab.Name}");
@@ -55,12 +56,19 @@ namespace MoreLevelContent.Shared.Generation.Pirate
                 Log.Error("Failed to place pirate outpost! Skipping...");
                 return;
             }
+            
             _Sub.PhysicsBody.BodyType = FarseerPhysics.BodyType.Static;
             _Sub.Info.DisplayName = TextManager.Get("mlc.pirateoutpost");
             _Sub.ShowSonarMarker = PirateOutpostDirector.Config.DisplaySonarMarker;
             _Sub.TeamID = CharacterTeamType.None;
             _Sub.Info.Type = SubmarineType.EnemySubmarine;
+            Status = PirateBaseRelationStatus.Hostile;
 
+            
+            if (CompatabilityHelper.Instance.DynamicEuropaInstalled)
+            {
+                SetupDE();
+            }
 
             if (_Data.Status == PirateOutpostStatus.Active)
             {
@@ -71,6 +79,23 @@ namespace MoreLevelContent.Shared.Generation.Pirate
             }
 
             Log.InternalDebug($"Spawned a pirate base with name {_Sub.Info.Name}");
+
+            void SetupDE()
+            {
+                switch (CompatabilityHelper.Instance.BanditFaction.Reputation.Value)
+                {
+                    case >= +13:
+                        Status = PirateBaseRelationStatus.Friendly;
+                        break;
+                    case <= -13:
+                        Status = PirateBaseRelationStatus.Hostile;
+                        break;
+                    default:
+                        Status = PirateBaseRelationStatus.Neutral;
+                        break;
+                }
+                Log.Debug($"Base status: {Status}, rep: {CompatabilityHelper.Instance.BanditFaction.Reputation.Value}");
+            }
         }
 
         void SetupActive()
@@ -102,11 +127,12 @@ namespace MoreLevelContent.Shared.Generation.Pirate
 
         public void Populate()
         {
-            // Don't spawn crew on destroyed outposts
-            if (_Data.Status == PirateOutpostStatus.Destroyed)
+            if (_Data.Status == PirateOutpostStatus.Destroyed || _Data.Status == PirateOutpostStatus.Husked)
             {
-                PopulateDestroyed();
-                return;
+                DestroyOutpost();
+
+                // Don't spawn crew on destroyed outposts
+                if (_Data.Status == PirateOutpostStatus.Destroyed) return;
             }
             bool commanderAssigned = false;
             Log.InternalDebug("Spawning Pirates");
@@ -174,7 +200,12 @@ namespace MoreLevelContent.Shared.Generation.Pirate
                         continue;
                     }
 
-                    Character spawnedCharacter = CharacterUtils.CreateHuman(character, characters, characterItems, _Sub, CharacterTeamType.None, null);
+                    var team = Status == PirateBaseRelationStatus.Friendly ? CharacterTeamType.FriendlyNPC : CharacterTeamType.None;
+
+                    Character spawnedCharacter = CharacterUtils.CreateHuman(character, characters, characterItems, _Sub, team, null);
+
+                    if (CompatabilityHelper.Instance.DynamicEuropaInstalled) DESetup();
+
                     if (!commanderAssigned)
                     {
                         if (isCommander && spawnedCharacter.AIController is HumanAIController humanAIController)
@@ -186,23 +217,43 @@ namespace MoreLevelContent.Shared.Generation.Pirate
                         }
                     }
 
-                    
-
                     foreach (Item item in spawnedCharacter.Inventory.AllItems)
                     {
                         if (item?.Prefab.Identifier == "idcard")
                         {
                             item.AddTag("id_pirate");
                         }
+
+                        // Why are you stealing from your friends :(
+                        if (Status == PirateBaseRelationStatus.Friendly)
+                        {
+                            item.AllowStealing = false;
+                            item.SpawnedInCurrentOutpost = true;
+                        }
                     }
                     currentSpawns++;
+
+                    void DESetup()
+                    {
+                        spawnedCharacter.Faction = "bandits";
+                    }
+                }
+            }
+
+            if (Status == PirateBaseRelationStatus.Friendly)
+            {
+                foreach (var item in _Sub.GetItems(true))
+                {
+                    if (item.Container?.Prefab.AllowStealingContainedItems ?? false) continue;
+                    item.AllowStealing = false;
+                    item.SpawnedInCurrentOutpost = true;
                 }
             }
 
             HuskOutpost();
         }
 
-        void PopulateDestroyed()
+        void DestroyOutpost()
         {
             if (Main.IsClient) return;
             var waypoints = _Sub.GetWaypoints(false);
@@ -228,7 +279,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
 
         private void HuskOutpost()
         {
-            if (!_Data.Husked) return;
+            if (_Data.Status != PirateOutpostStatus.Husked) return;
             Log.InternalDebug("You've met with a terrible fate, haven't you?");
             if (!AfflictionHelper.TryGetAffliction("huskinfection", out AfflictionPrefab husk))
             {
@@ -253,5 +304,12 @@ namespace MoreLevelContent.Shared.Generation.Pirate
                     ), 
                 minAmount);
 
+    }
+
+    public enum PirateBaseRelationStatus
+    {
+        Hostile,
+        Neutral,
+        Friendly
     }
 }

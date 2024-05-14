@@ -82,7 +82,7 @@ namespace Barotrauma.MoreLevelContent.Client.UI
 
             if (data.PirateData.HasPirateOutpost)
             {
-                DrawIcon("DebugBlackMarket", (int)(28 * zoom), RichString.Rich("Pirate Base: " + $"{data.PirateData.Status}"));
+                DrawIcon("DebugBlackMarket", (int)(28 * zoom), RichString.Rich("Pirate Base: " + $"{data.PirateData.Status} Diff: {data.PirateData.Difficulty}"));
             }
 
             void DrawIcon(string iconStyle, int iconSize, RichString tooltipText)

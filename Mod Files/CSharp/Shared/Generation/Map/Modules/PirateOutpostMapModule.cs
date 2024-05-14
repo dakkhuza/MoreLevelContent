@@ -14,7 +14,7 @@ namespace MoreLevelContent.Shared.Generation
     {
         protected override void InitProjSpecific() { }
 
-        public override void OnLevelDataGenerate(LevelData __instance, LocationConnection locationConnection) => SetPirateData(locationConnection.LevelData, locationConnection.LevelData.MLC(), locationConnection);
+        public override void OnLevelDataGenerate(LevelData __instance, LocationConnection locationConnection) => SetPirateData(__instance, __instance.MLC(), locationConnection);
 
         public override void OnMapLoad(Map __instance)
         {
@@ -32,25 +32,23 @@ namespace MoreLevelContent.Shared.Generation
 
         void SetPirateData(LevelData levelData, LevelData_MLCData additionalData, LocationConnection locationConnection)
         {
-            Random rand = new MTRandom(ToolBox.StringToInt(levelData.Seed));
-            PirateSpawnData spawnData = new PirateSpawnData(rand, levelData.Difficulty);
+            PirateSpawnData spawnData = new PirateSpawnData(levelData, locationConnection);
             additionalData.PirateData = new PirateData(spawnData);
         }
     }
 
-    public class PirateSpawnData
+    internal class PirateSpawnData
     {
-        public PirateSpawnData(Random rand, float levelDiff)
+        public PirateSpawnData(LevelData levelData, LocationConnection connection)
         {
-            UpdatePirateSpawnData(levelDiff, rand);
+            Random rand = new MTRandom(ToolBox.StringToInt(levelData.Seed));
+            UpdatePirateSpawnData(rand, levelData, connection);
 
             int spawnInt = rand.Next(100);
             int huskInt = rand.Next(100);
 
-            WillSpawn = PirateOutpostDirector.Instance.ForceSpawn ? PirateOutpostDirector.Instance.ForceSpawn : modifiedSpawnChance > spawnInt;
-            Husked = modifiedHuskChance > huskInt;
-
-            Log.InternalDebug($"spawn int {spawnInt}, husk int {huskInt}");
+            WillSpawn = PirateOutpostDirector.Instance.ForceSpawn ? PirateOutpostDirector.Instance.ForceSpawn : _ModifiedSpawnChance > spawnInt;
+            Husked = _ModifiedHuskChance > huskInt;
         }
 
         public bool WillSpawn { get; set; }
@@ -59,24 +57,94 @@ namespace MoreLevelContent.Shared.Generation
 
         public override string ToString() => $"Will Spawn: {WillSpawn}, Is Husked: {Husked}";
 
-        private float modifiedSpawnChance;
-        private float modifiedHuskChance;
+        private float _ModifiedSpawnChance;
+        private float _ModifiedHuskChance;
 
-        private void UpdatePirateSpawnData(float levelDiff, Random rand)
+        private void UpdatePirateSpawnData(Random rand, LevelData levelData, LocationConnection connection)
         {
-            float baseChance = levelDiff < 100 ?
-                MathF.Min(levelDiff / 2, (levelDiff / 5) + 15) :
-                100f;
-            float spawnOffset = MathHelper.Lerp(-PirateOutpostDirector.Config.SpawnChanceNoise, PirateOutpostDirector.Config.SpawnChanceNoise, (float)rand.NextDouble());
+            var levelDiff = levelData.Difficulty;
+            float a = PirateOutpostDirector.Config.PeakSpawnChance;
+            float b = a / 2500;
+            float c = MathF.Pow(levelDiff - 50.0f, 2);
+            var spawnChance = (-b * c) + a;
+            var huskChance = MathF.Max(PirateOutpostDirector.Config.BaseHuskChance, levelDiff / 10);
+            ModifyChances();
 
-            modifiedSpawnChance = baseChance + spawnOffset + PirateOutpostDirector.Config.BasePirateSpawnChance;
-            if (PirateOutpostDirector.Config.BasePirateSpawnChance == 100) modifiedSpawnChance = 100;
+            _ModifiedSpawnChance = spawnChance;
+            _ModifiedHuskChance = huskChance;
 
-            float diffOffset = Math.Abs(MathHelper.Lerp(-PirateOutpostDirector.Config.DifficultyNoise, PirateOutpostDirector.Config.DifficultyNoise, (float)rand.NextDouble()));
-            PirateDifficulty = levelDiff + diffOffset;
+            float difficultyNoise = Math.Abs(MathHelper.Lerp(-PirateOutpostDirector.Config.DifficultyNoise, PirateOutpostDirector.Config.DifficultyNoise, (float)rand.NextDouble()));
+            PirateDifficulty = levelDiff + difficultyNoise;
 
-            modifiedHuskChance = MathF.Max(PirateOutpostDirector.Config.BaseHuskChance, levelDiff / 10);
+            void ModifyChances()
+            {
+                // Don't spawn bases on routes with an abyss creature
+                if (levelData.HasHuntingGrounds)
+                {
+                    spawnChance = 0;
+                    Log.Debug("Set spawn chance to 0 due to hunting grounds");
+                    return;
+                }
+
+                foreach (var location in connection.Locations)
+                {
+                    var identifier = location.Type.Identifier;
+                    if (CompatabilityHelper.Instance.DynamicEuropaInstalled)
+                    {
+                        // Double spawn chance on routes leading to pirate outposts
+                        ModifySpawn("PirateOutpost", 2);
+
+                        // Don't spawn on areas leading to military
+                        ModifySpawn("Camp", 0);
+
+                        ModifySpawn("Base", 0);
+
+                        ModifySpawn("Blockade", 0);
+
+                        ModifyHusk("HuskgroundsDE", 10f);
+
+                        ModifyHusk("OuterHuskLair", 5f);
+                    }
+
+
+                    // Increased chance to spawn next to natural formations
+                    ModifySpawn("None", 1.5f);
+
+                    // Increased chance to spawn next to abandoned outposts
+                    ModifySpawn("Abandoned", 1.3f);
+
+                    // Never spawn if one of the connections is a military outpost
+                    ModifySpawn("Military", 0);
+
+                    // Low chance to spawn on the route to a city
+                    ModifySpawn("City", 0.25f);
+
+                    // Slightly reduced chance if leading to a outpost
+                    ModifySpawn("Outpost", 0.75f);
+
+                    // Slightly reduced chance if leading to a research outpost
+                    ModifySpawn("Research", 0.75f);
+
+                    // Slightly reduced chance if leading to a research outpost
+                    ModifySpawn("Mine", 0.75f);
+
+                    // Never spawn leading to the end
+                    ModifySpawn("EndLocation", 0);
+
+
+                    void ModifySpawn(string input, float multi)
+                    {
+                        if (identifier == input) spawnChance *= multi;
+                        //Log.Debug($"M SC {input}: {spawnChance}");
+                    }
+
+                    void ModifyHusk(string input, float multi)
+                    {
+                        if (identifier == input) spawnChance *= multi;
+                        //Log.Debug($"M HC {input}: {spawnChance}");
+                    }
+                }
+            }
         }
-
     }
 }

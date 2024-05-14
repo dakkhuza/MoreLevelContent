@@ -39,7 +39,7 @@ namespace MoreLevelContent.Shared.Data
         [AttributeSaveData(0)]
         public int RequestedE;
 
-        public PirateData PirateData;
+        internal PirateData PirateData;
 
         public LocalizedString GetRequestedSupplies()
         {
@@ -85,7 +85,6 @@ namespace MoreLevelContent.Shared.Data
                 {
                     Status = pirateData.GetAttributeEnum("status", PirateOutpostStatus.None),
                     Difficulty = pirateData.GetAttributeFloat("difficulty", 0),
-                    Husked = pirateData.GetAttributeBool("husked", false)
                 };
             }
         }
@@ -94,8 +93,7 @@ namespace MoreLevelContent.Shared.Data
         {
             var data = new XElement("PirateData",
                 new XAttribute("status", PirateData.Status),
-                new XAttribute("difficulty", PirateData.Difficulty),
-                new XAttribute("husked", PirateData.Husked));
+                new XAttribute("difficulty", PirateData.Difficulty));
             saveFile.Add(data);
         }
     }
@@ -119,21 +117,20 @@ namespace MoreLevelContent.Shared.Data
     {
         None,
         Active,
-        Destroyed
+        Destroyed,
+        Husked
     }
 
-    public struct PirateData
+    internal struct PirateData
     {
         public PirateData()
         {
             Status = PirateOutpostStatus.None;
             Difficulty = 0;
-            Husked = false;
         }
 
         public PirateData(PirateSpawnData spawnData)
         {
-            Husked = false;
             Difficulty = 0;
             Status = PirateOutpostStatus.None;
 
@@ -144,16 +141,14 @@ namespace MoreLevelContent.Shared.Data
 
                 if (spawnData.Husked)
                 {
-                    Status = PirateOutpostStatus.Destroyed;
-                    Husked = true;
+                    Status = PirateOutpostStatus.Husked;
                 }
             }
         }
 
         public PirateOutpostStatus Status;
         public float Difficulty;
-        public bool Husked;
 
-        public bool HasPirateOutpost => Status == PirateOutpostStatus.Destroyed || Status == PirateOutpostStatus.Active;
+        public bool HasPirateOutpost => Status != PirateOutpostStatus.None;
     }
 }

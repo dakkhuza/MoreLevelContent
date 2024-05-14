@@ -99,4 +99,9 @@
     <missionmessage0.lostcargo>Cargo pod spotted! Dock with the pod and find out what's inside!</missionmessage0.lostcargo>
 
     <!-- Hint -->
+
+    <!-- Config -->
+    <mlc.config.pirate.peakspawnchance>Peak spawn chance</mlc.config.pirate.peakspawnchance>
+    <mlc.config.pirate.peakspawnchance.tooltip>The peak percentage chance for a pirate base to be generated. Bases are most common at 50% level difficulty. For instance if this is set to 100%, if the level difficulty is exactly 50% a pirate base will be guaranteed to be generated.</mlc.config.pirate.peakspawnchance.tooltip>
+
 </infotexts>

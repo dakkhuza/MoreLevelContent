@@ -238,9 +238,10 @@ namespace MoreLevelContent.Shared.Generation.Pirate
 
             foreach (Character character in characters)
             {
-                character.CharacterHealth.ApplyAffliction(character.AnimController.MainLimb, new Affliction(husk, 200));
-                character.CharacterHealth.ApplyAffliction(character.AnimController.MainLimb, new Affliction(AfflictionPrefab.InternalDamage, 99));
-                character.CharacterHealth.ApplyAffliction(character.AnimController.MainLimb, new Affliction(AfflictionPrefab.Stun, 100));
+                var huskAffliction = new Affliction(husk, 200);
+                character.CharacterHealth.ApplyAffliction(character.AnimController.MainLimb, huskAffliction);
+                character.CharacterHealth.Update((float)Timing.Step);
+                character.Kill(CauseOfDeathType.Affliction, huskAffliction);
             }
         }
 

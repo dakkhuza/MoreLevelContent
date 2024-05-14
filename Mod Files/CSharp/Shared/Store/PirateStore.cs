@@ -59,7 +59,8 @@ namespace MoreLevelContent.Shared.Store
                 }
             }
 
-            pirateOutposts.Sort();
+            pirateOutposts = pirateOutposts.OrderBy(o => o.SubInfo.Name).ToList();
+
             foreach (var item in pirateOutposts)
             {
                 Log.Verbose(item.DifficultyRange.ToString());

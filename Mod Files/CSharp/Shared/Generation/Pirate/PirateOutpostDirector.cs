@@ -44,7 +44,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
             var pirateData = levelData.MLC().PirateData;
             if (pirateData.HasPirateOutpost)
             {
-                _PirateOutpost = new PirateOutpost(pirateData, ForcedPirateOutpost);
+                _PirateOutpost = new PirateOutpost(pirateData, ForcedPirateOutpost, levelData.Seed);
                 Log.Verbose("Set pirate outpost");
             }
         }

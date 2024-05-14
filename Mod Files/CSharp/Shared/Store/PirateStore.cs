@@ -37,9 +37,9 @@ namespace MoreLevelContent.Shared.Store
             }
         }
 
-        public PirateNPCSetDef GetNPCSetForDiff(float diff) => GetElementWithPreferedDifficulty(diff, pirateSets);
+        public PirateNPCSetDef GetNPCSetForDiff(float diff, string seed) => GetElementWithPreferedDifficulty(diff, pirateSets, seed);
 
-        internal PirateOutpostDef GetPirateOutpostForDiff(float diff) => GetElementWithPreferedDifficulty(diff, pirateOutposts);
+        internal PirateOutpostDef GetPirateOutpostForDiff(float diff, string seed) => GetElementWithPreferedDifficulty(diff, pirateOutposts, seed);
 
         private bool FindAndScoreOutpostFiles()
         {

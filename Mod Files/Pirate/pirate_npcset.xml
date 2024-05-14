@@ -833,6 +833,11 @@
           <Item identifier="shotgunslugexplosive" showpreview="false"/>
           <Item identifier="shotgunslugexplosive" showpreview="false"/>
         </Item>
+        
+        <Item identifier="shotgunslugexplosive" showpreview="false"/>
+        <Item identifier="shotgunslugexplosive" showpreview="false"/>
+        <Item identifier="shotgunslugexplosive" showpreview="false"/>
+        <Item identifier="shotgunslugexplosive" showpreview="false"/>
 
         <Item identifier="steroids"/>
         <Item identifier="antidama1"/>
@@ -1016,14 +1021,14 @@
           <Item identifier="shotgunslugexplosive"/>
           <Item identifier="shotgunslugexplosive"/>
         </Item>
-        <Item identifier="shotgunslug"/>
-        <Item identifier="shotgunslug"/>
-        <Item identifier="shotgunslug"/>
-        <Item identifier="shotgunslug"/>
-        <Item identifier="shotgunslug"/>
-        <Item identifier="shotgunslug"/>
-        <Item identifier="shotgunslug"/>
-        <Item identifier="shotgunslug"/>
+        <Item identifier="shotgunslugexplosive"/>
+        <Item identifier="shotgunslugexplosive"/>
+        <Item identifier="shotgunslugexplosive"/>
+        <Item identifier="shotgunslugexplosive"/>
+        <Item identifier="shotgunslugexplosive"/>
+        <Item identifier="shotgunslugexplosive"/>
+        <Item identifier="shotgunslugexplosive"/>
+        <Item identifier="shotgunslugexplosive"/>
 
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />

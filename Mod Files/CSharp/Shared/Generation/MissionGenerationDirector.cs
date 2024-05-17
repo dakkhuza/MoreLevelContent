@@ -51,21 +51,19 @@ namespace MoreLevelContent.Shared.Generation
 
         internal struct SubmarineSpawnRequest
         {
-            public ContentFile ContentFile;
+            public ContentFile File;
             public OnSubmarineCreated Callback;
-            public bool AutoFill;
-            public bool AllowStealing;
-            public AutoFillPrefix Prefix;
-            public PositionType SpawnPosition;
+            public bool AutoFill = false;
+            public bool AllowStealing = true;
+            public AutoFillPrefix Prefix = AutoFillPrefix.None;
+            public PositionType SpawnPosition = PositionType.Wreck;
+            public PlacementType PlacementType = PlacementType.Bottom;
+            public bool IgnoreCrushDpeth = true;
 
-            public SubmarineSpawnRequest(ContentFile submarineFile, OnSubmarineCreated callback, bool autoFill, AutoFillPrefix prefix = AutoFillPrefix.None, bool allowStealing = true)
+            public SubmarineSpawnRequest()
             {
-                ContentFile = submarineFile;
-                Callback = callback;
-                AutoFill = autoFill;
-                SpawnPosition = PositionType.Wreck;
-                Prefix = prefix;
-                AllowStealing = allowStealing;
+                File = null;
+                Callback = null;
             }
 
             public enum AutoFillPrefix
@@ -78,13 +76,23 @@ namespace MoreLevelContent.Shared.Generation
 
         void RequestStaticSub(ContentFile contentFile, OnSubmarineCreated onSubmarineCreated, bool autoFill)
         {
-            SubCreationQueue.Enqueue(new SubmarineSpawnRequest(contentFile, onSubmarineCreated, autoFill));
+            SubCreationQueue.Enqueue(new SubmarineSpawnRequest() 
+            { 
+                File = contentFile, 
+                Callback = onSubmarineCreated,
+                AutoFill = autoFill
+            });
             Log.Debug("Enqueued spawn request for submarine");
         }
 
         void RequestSub(ContentFile contentFile, OnSubmarineCreated onSubmarineCreated, bool autoFill)
         {
-            SubCreationQueue.Enqueue(new SubmarineSpawnRequest(contentFile, onSubmarineCreated, autoFill) { SpawnPosition = PositionType.MainPath });
+            SubCreationQueue.Enqueue(new SubmarineSpawnRequest() { 
+                File = contentFile,
+                Callback = onSubmarineCreated,
+                AutoFill = autoFill,
+                SpawnPosition = PositionType.MainPath 
+            });
             Log.Debug("Enqueued spawn request for submarine on path");
         }
 
@@ -106,11 +114,11 @@ namespace MoreLevelContent.Shared.Generation
             while (SubCreationQueue.Count > 0)
             {
                 SubmarineSpawnRequest request = SubCreationQueue.Dequeue();
-                string subName = System.IO.Path.GetFileNameWithoutExtension(request.ContentFile.Path.Value);
+                string subName = System.IO.Path.GetFileNameWithoutExtension(request.File.Path.Value);
 
                 Submarine submarine = request.SpawnPosition == PositionType.Wreck
-                    ? SpawnSubOnPath(subName, request.ContentFile)
-                    : SpawnSub(request.ContentFile);
+                    ? SpawnSubOnPath(subName, request.File, ignoreCrushDepth: request.IgnoreCrushDpeth, placementType: request.PlacementType)
+                    : SpawnSub(request.File);
 
                 if (submarine != null)
                 {

@@ -116,7 +116,7 @@ namespace MoreLevelContent.Missions
 
             MissionGenerationDirector.RequestSubmarine(new MissionGenerationDirector.SubmarineSpawnRequest()
             {
-                ContentFile = file,
+                File = file,
                 Callback = OnSubCreated,
                 SpawnPosition = Level.PositionType.MainPath,
                 AutoFill = true,

@@ -60,5 +60,10 @@ namespace MoreLevelContent.Shared.Utils
 
             return new MTRandom(ToolBox.StringToInt(Level.Loaded.LevelData.Seed));
         }
+
+        internal static Random GetRandomFromString(string seed)
+        {
+            return new MTRandom(ToolBox.StringToInt(seed));
+        }
     }
 }

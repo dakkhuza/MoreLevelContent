@@ -44,7 +44,7 @@
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_50-70.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o2_diff_20-30.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_15-25.sub" />
-  <OutpostModule file="%ModDir%/Pirate/Outposts/PirateOutpost_Ceiling01.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o3_diff_15-25.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o4_diff_15-25.sub" />
+  <OutpostModule file="%ModDir%/Pirate/Outposts/PirateOutpost_Ceiling01.sub" />
 </contentpackage>

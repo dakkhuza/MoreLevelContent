@@ -37,7 +37,7 @@
 
     <missionheader0.distress_ghostship>Adrift Submarine</missionheader0.distress_ghostship>
     <missionheader1.distress_ghostship>Adrift Submarine</missionheader1.distress_ghostship>
-    <missionmessage0.distress_ghostship>The source of the distress signal appears to be a drifting submarine. Standard coalition protocol is to board the sub to investigate.</missionmessage0.distress_ghostship>
+    <missionmessage0.distress_ghostship>The source of the distress signal appears to be a drifting submarine. Standard maritime protocol is to board the sub to investigate.</missionmessage0.distress_ghostship>
     <distress.ghostship.damagenotification>Doing excessive damage to a scuttled vessel may result in reputation loss!</distress.ghostship.damagenotification>
 
     <!-- Mission Specific -->

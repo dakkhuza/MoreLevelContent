@@ -26,13 +26,28 @@
                         campaignonly="true" />
         </ConstructionMission>
 
-        <PirateOutpost
-                identifier="mlcpirateoutpost"
-                tags="mlc, pirateoutpost"
+        <CabelMission
+                identifier="cablepuzzle"
+                textidentifier="cablepuzzle"
+                tags="cablepuzzle, mlc"
                 type="GoTo"
-                customType="pirateoutpost"
-                reward="0">
+                customType="CablePuzzle"
+                commonness="10"
+                reward="2800">
+                <message
+                        header="missionheader0.beaconconstruction"
+                        text="missionmessage0.beaconconstruction" />
 
-        </PirateOutpost>
+                <Submarine path="%ModDir%/Missions/WirePuzzle.sub" />
+
+                <Reputation
+                        identifier="location"
+                        amount="15" />
+                <Icon
+                        texture="%ModDir%/Missions/Icons.png"
+                        sourcerect="0,0,256,256"
+                        color="243,146,55" />
+        </CabelMission>
+
 
 </Missions>

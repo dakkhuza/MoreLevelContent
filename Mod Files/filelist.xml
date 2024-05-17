@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<contentpackage name="More Level Content dev" modversion="0.0.62" corepackage="False" steamworkshopid="2814493175" gameversion="1.4.6.0">
+<contentpackage name="More Level Content dev" modversion="0.0.65" corepackage="False" steamworkshopid="2814493175" gameversion="1.4.6.0">
   <Item file="%ModDir%/dummyitem.xml" />
   <Text file="%ModDir%/Language/English.xml" />
   <Text file="%ModDir%/Language/PatchNotes.xml" />
@@ -47,5 +47,5 @@
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o3_diff_15-25.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o4_diff_15-25.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/PirateOutpost_Ceiling01.sub" />
-  <Outpost file="%ModDir%/Missions/WirePuzzle.sub" />
+  <Submarine file="%ModDir%/Missions/WirePuzzle.sub" />
 </contentpackage>

@@ -74,6 +74,7 @@ namespace MoreLevelContent.Shared.Generation
             Modules.Add(new ConstructionMapModule());
             Modules.Add(new DistressMapModule());
             Modules.Add(new PirateOutpostMapModule());
+            Modules.Add(new CablePuzzleMapModule());
             //Modules.Add(new DistressMapModule()); 
             //Modules.Add(new LostCargoMapModule());
 

@@ -25,6 +25,9 @@ namespace MoreLevelContent.Shared.Data
         public bool HasBlackMarket;
 
         [AttributeSaveData(false)]
+        public bool HasRelayStation;
+
+        [AttributeSaveData(false)]
         public bool HasLostCargo;
 
         [AttributeSaveData(4)]

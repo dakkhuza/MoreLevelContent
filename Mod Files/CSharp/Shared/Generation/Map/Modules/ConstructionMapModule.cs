@@ -39,10 +39,9 @@ namespace MoreLevelContent.Shared.Generation
         public override void OnLevelDataGenerate(LevelData __instance, LocationConnection locationConnection)
         {
             LevelData_MLCData levelData = __instance.MLC();
+            if (levelData.HasRelayStation) return;
             TrySpawnBeaconConstruction(__instance, levelData, locationConnection);
         }
-        public override void OnLevelDataLoad(LevelData __instance, XElement element) { }
-        public override void OnLevelDataSave(LevelData __instance, XElement parentElement) { }
         public override void OnMapLoad(Map __instance)
         {
             if (!__instance.Connections.Any(c => c.LevelData.MLC().HasBeaconConstruction))
@@ -62,7 +61,6 @@ namespace MoreLevelContent.Shared.Generation
                 Log.Debug("Map has construction sites");
             }
         }
-        public override void OnProgressWorld(Map __instance) { }
 
         private void TrySpawnBeaconConstruction(LevelData levelData, LevelData_MLCData extraData, LocationConnection locationConnection)
         {

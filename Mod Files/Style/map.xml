@@ -1,32 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <style>
   <BeaconConst color="250,215,107,255" hovercolor="255,231,178,255">
-    <Sprite name="BeaconConst" texture="%ModDir%/Style/map_icons.png" tile="false"
-      sourcerect="0,0,72,75" maintainaspectratio="true" />
+    <Sprite name="BeaconConst" texture="%ModDir%/Style/map_icons.png" tile="false" sourcerect="0,0,72,75" maintainaspectratio="true" origin="0.5,0.5" />
   </BeaconConst>
-  
   <DistressBeacon color="255,106,106,255" hovercolor="255,156,156,255">
-    <Sprite name="Distress" texture="%ModDir%/Style/map_icons.png" tile="false"
-      sourcerect="72,0,72,75" maintainaspectratio="true" />
+    <Sprite name="Distress" texture="%ModDir%/Style/map_icons.png" tile="false" sourcerect="72,0,72,75" maintainaspectratio="true" origin="0.5,0.5" />
   </DistressBeacon>
-
   <DistressBeaconFaint color="150,60,60,255" hovercolor="150,75,75,255">
-    <Sprite name="DistressFaint" texture="%ModDir%/Style/map_icons.png" tile="false"
-      sourcerect="144,0,72,75" maintainaspectratio="true" />
+    <Sprite name="DistressFaint" texture="%ModDir%/Style/map_icons.png" tile="false" sourcerect="144,0,72,75" maintainaspectratio="true" origin="0.5,0.5" />
   </DistressBeaconFaint>
-
   <LostCargo color="66,135,245,255" hovercolor="66,66,245,255">
-    <Sprite name="LostCargo" texture="%ModDir%/Style/map_icons.png" tile="false"
-      sourcerect="216,0,72,75" maintainaspectratio="true" />
+    <Sprite name="LostCargo" texture="%ModDir%/Style/map_icons.png" tile="false" sourcerect="576,0,72,75" maintainaspectratio="true" origin="0.5,0.5" />
   </LostCargo>
-
-  <DebugBlackMarket color="255,106,106,255" hovercolor="255,156,156,255">
-    <Sprite name="PirateOupost" texture="%ModDir%/Style/map_icons.png" tile="false"
-      sourcerect="288,0,72,75" maintainaspectratio="true" origin="0.5,0.5" />
-  </DebugBlackMarket>
-
+  <BlackMarket color="255,106,106,255" hovercolor="255,156,156,255">
+    <Sprite name="BlackMarket" texture="%ModDir%/Style/map_icons.png" tile="false" sourcerect="432,0,72,75" maintainaspectratio="true" origin="0.5,0.5" />
+  </BlackMarket>
+  <PirateBase color="255,106,106,255" hovercolor="255,156,156,255">
+    <Sprite name="PirateBase" texture="%ModDir%/Style/map_icons.png" tile="false" sourcerect="288,0,72,75" maintainaspectratio="true" origin="0.5,0.5" />
+  </PirateBase>
   <RelayStation color="138,193,75,255" hovercolor="126,243,103,255">
-    <Sprite name="RelayStation" texture="%ModDir%/Style/map_icons.png" tile="false"
-      sourcerect="288,0,72,75" maintainaspectratio="true" origin="0.5,0.5" />
+    <Sprite name="RelayStation" texture="%ModDir%/Style/map_icons.png" tile="false" sourcerect="360,0,72,75" maintainaspectratio="true" origin="0.5,0.5" />
   </RelayStation>
 </style>

@@ -99,8 +99,10 @@
     <missionmessage0.lostcargo>Cargo pod spotted! Dock with the pod and find out what's inside!</missionmessage0.lostcargo>
 
     <!-- Relay Repair -->
+    <mlc.relaystationtooltip>An old ‖color:gui.Orange‖relay station‖end‖ between [location1] and [location2] has stopped transmitting signals. Bringing it back online will help local communication.</mlc.relaystationtooltip>
+
     <missionname.relayrepair>Relay Repair</missionname.relayrepair>
-    <missiondescription.relayrepair>An old relay station between [location1] and [location2] has recently stopped functioning. Getting it back online will help location communication.</missiondescription.relayrepair>
+    <missiondescription.relayrepair>An old relay station between [location1] and [location2] has recently stopped functioning. Bringing it back online will help local communication.</missiondescription.relayrepair>
     <relaysonarlabel>Relay Station</relaysonarlabel>
 
     <missionheader0.relayrepair>Relay Repair</missionheader0.relayrepair>

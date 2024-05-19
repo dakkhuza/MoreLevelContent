@@ -85,6 +85,16 @@ namespace Barotrauma.MoreLevelContent.Client.UI
                 DrawIcon("DebugBlackMarket", (int)(28 * zoom), RichString.Rich("Pirate Base: " + $"{data.PirateData.Status} Diff: {data.PirateData.Difficulty}"));
             }
 
+            if (data.HasRelayStation)
+            {
+                //mlc.relaystationtooltip
+                LocalizedString localizedString = 
+                    TextManager.GetWithVariables("mlc.relaystationtooltip", 
+                    ("[location1]", $"‖color:gui.Orange‖{connection.Locations[0].DisplayName}‖end‖"), 
+                    ("[location2]", $"‖color:gui.Orange‖{connection.Locations[1].DisplayName}‖end‖"));
+                DrawIcon("RelayStation", (int)(28 * zoom), RichString.Rich(localizedString));
+            }
+
             void DrawIcon(string iconStyle, int iconSize, RichString tooltipText)
             {
                 Vector2 iconPos = (connectionStart.Value + connectionEnd.Value) / 2;

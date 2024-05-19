@@ -21,12 +21,15 @@ namespace MoreLevelContent.Shared.Generation
             // Map has no pirate outposts, lets generate some
             if (!__instance.Connections.Any(c => c.LevelData.MLC().PirateData.HasPirateOutpost))
             {
-                Log.Debug("Map has no pirate outposts, adding some...");
+                Log.Debug("Map has no pirate bases, adding some...");
                 for (int i = 0; i < __instance.Connections.Count; i++)
                 {
                     var connection = __instance.Connections[i];
                     SetPirateData(connection.LevelData, connection.LevelData.MLC(), connection);
                 }
+            } else
+            {
+                Log.Debug("Map has pirate bases");
             }
         }
 
@@ -116,17 +119,17 @@ namespace MoreLevelContent.Shared.Generation
                     // Never spawn if one of the connections is a military outpost
                     ModifySpawn("Military", 0);
 
-                    // Low chance to spawn on the route to a city
-                    ModifySpawn("City", 0.25f);
+                    // No chance if city
+                    ModifySpawn("City", 0f);
 
                     // Slightly reduced chance if leading to a outpost
-                    ModifySpawn("Outpost", 0.75f);
+                    ModifySpawn("Outpost", 0.25f);
 
                     // Slightly reduced chance if leading to a research outpost
-                    ModifySpawn("Research", 0.75f);
+                    ModifySpawn("Research", 0.25f);
 
                     // Slightly reduced chance if leading to a research outpost
-                    ModifySpawn("Mine", 0.75f);
+                    ModifySpawn("Mine", 0.25f);
 
                     // Never spawn leading to the end
                     ModifySpawn("EndLocation", 0);

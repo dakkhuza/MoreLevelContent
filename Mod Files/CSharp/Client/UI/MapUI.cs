@@ -77,12 +77,12 @@ namespace Barotrauma.MoreLevelContent.Client.UI
 
             if (data.HasBlackMarket && !Main.IsRelase)
             {
-                DrawIcon("DebugBlackMarket", (int)(28 * zoom), RichString.Rich("Black Market"));
+                DrawIcon("BlackMarket", (int)(28 * zoom), RichString.Rich("Black Market"));
             }
 
             if (data.PirateData.HasPirateOutpost)
             {
-                DrawIcon("DebugBlackMarket", (int)(28 * zoom), RichString.Rich("Pirate Base: " + $"{data.PirateData.Status} Diff: {data.PirateData.Difficulty}"));
+                DrawIcon("PirateBase", (int)(28 * zoom), RichString.Rich("Pirate Base: " + $"{data.PirateData.Status} Diff: {data.PirateData.Difficulty}"));
             }
 
             if (data.HasRelayStation)

@@ -270,6 +270,8 @@ namespace MoreLevelContent.Shared.Generation.Pirate
             var success = GameMain.GameSession.CrewManager.GetCharacters().Any(c => !c.IsDead);
             if (!success) return;
 
+            if (levelData.MLC().PirateData.Status == PirateOutpostStatus.Destroyed) return;
+
             // If more than half of the crew or the commander is dead / incapacited / arrested, the outpost is destroyed
             if (characters.Select(c => c.IsDead || c.Removed || c.IsIncapacitated || c.IsArrested).Count() > characters.Count / 2 || _Commander.IsDead || _Commander.Removed || _Commander.IsArrested)
             {

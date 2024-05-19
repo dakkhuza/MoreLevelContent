@@ -10,7 +10,7 @@ namespace MoreLevelContent.Missions
     // Client
     internal partial class CablePuzzleMission : Mission
     {
-        public override bool DisplayAsCompleted => false;
+        public override bool DisplayAsCompleted => State == 2;
 
         public override bool DisplayAsFailed => false;
     }

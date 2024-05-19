@@ -98,7 +98,21 @@
     <missionheader0.lostcargo>Lost Cargo</missionheader0.lostcargo>
     <missionmessage0.lostcargo>Cargo pod spotted! Dock with the pod and find out what's inside!</missionmessage0.lostcargo>
 
+    <!-- Relay Repair -->
+    <missionname.relayrepair>Relay Repair</missionname.relayrepair>
+    <missiondescription.relayrepair>An old relay station between [location1] and [location2] has recently stopped functioning. Getting it back online will help location communication.</missiondescription.relayrepair>
+    <relaysonarlabel>Relay Station</relaysonarlabel>
+
+    <missionheader0.relayrepair>Relay Repair</missionheader0.relayrepair>
+    <missionmessage0.relayrepair>Unlike modern Beacon stations, Relay stations operate by modulating the incoming signal before sending it. The given input must match the expected target value to bring the station back online.</missionmessage0.relayrepair>
+
+    <missionheader1.relayrepair>Relay Repaired</missionheader1.relayrepair>
+    <missionmessage1.relayrepair>The station is back online and relaying signals again.</missionmessage1.relayrepair>
+
+    <missionsuccess.relayrepair>The relay station was repaired.</missionsuccess.relayrepair>
+    <missionfailure.relayrepair>The relay station remains offline.</missionfailure.relayrepair>
     <!-- Hint -->
+    <relayrepair.terminal>KONETCO RELAY v[version]\nStation [station]\n------------------------\n\nCalibration Table\nIN [input0] | [step10] - [step20] - [step30] | OUT [output0]\nIN [input1] | [step11] - [step21] - [step31] | OUT [output1]\nIN [input2] | [step12] - [step22] - [step32] | OUT [output2]</relayrepair.terminal>
 
     <!-- Config -->
     <mlc.config.pirate.peakspawnchance>Peak spawn chance</mlc.config.pirate.peakspawnchance>

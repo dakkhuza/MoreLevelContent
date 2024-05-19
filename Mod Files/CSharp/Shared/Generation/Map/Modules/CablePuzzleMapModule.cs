@@ -14,7 +14,10 @@ namespace MoreLevelContent.Shared.Generation
 
         public override void OnAddExtraMissions(CampaignMode __instance, LevelData levelData)
         {
-            var missions = MissionPrefab.Prefabs.Where(m => m.Tags.Contains("cablepuzzle")).OrderBy(m => m.UintIdentifier);
+            if (levelData.Type == LevelData.LevelType.Outpost) return; // Ignore outpost levels
+            LevelData_MLCData data = levelData.MLC();
+
+            var missions = MissionPrefab.Prefabs.Where(m => m.Tags.Contains("relayrepair")).OrderBy(m => m.UintIdentifier);
             if (!missions.Any())
             {
                 Log.Error("Failed to find any cable puzzle missions!");

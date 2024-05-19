@@ -26,28 +26,33 @@
                         campaignonly="true" />
         </ConstructionMission>
 
-        <CabelMission
-                identifier="cablepuzzle"
-                textidentifier="cablepuzzle"
-                tags="cablepuzzle, mlc"
+        <RelayRepair
+                identifier="relayrepair1"
+                textidentifier="relayrepair"
+                tags="relayrepair, mlc"
                 type="GoTo"
                 customType="CablePuzzle"
                 commonness="10"
                 reward="2800">
                 <message
-                        header="missionheader0.beaconconstruction"
-                        text="missionmessage0.beaconconstruction" />
+                        header="missionheader0.relayrepair"
+                        text="missionmessage0.relayrepair" />
+
+                <message
+                        header="missionheader1.relayrepair"
+                        text="missionmessage1.relayrepair" />
+
 
                 <Submarine path="%ModDir%/Missions/WirePuzzle.sub" />
 
                 <Reputation
                         identifier="location"
-                        amount="15" />
+                        amount="10" />
                 <Icon
                         texture="%ModDir%/Missions/Icons.png"
                         sourcerect="0,0,256,256"
                         color="243,146,55" />
-        </CabelMission>
+        </RelayRepair>
 
 
 </Missions>

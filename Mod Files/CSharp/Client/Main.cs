@@ -24,6 +24,7 @@ namespace MoreLevelContent
         {
             MapUI.Instance.Setup();
             Hooks.Instance.OnDebugDraw += ClientDebugDraw.Draw;
+            SonarExtensions.Instance.Setup();
 
             // Exit if we're in an editor 
             if (Screen.Selected.IsEditor) return;

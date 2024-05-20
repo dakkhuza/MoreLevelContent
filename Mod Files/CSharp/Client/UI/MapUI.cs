@@ -75,12 +75,12 @@ namespace Barotrauma.MoreLevelContent.Client.UI
                 DrawIcon("LostCargo", (int)(28 * zoom), RichString.Rich(TextManager.Get("mlc.lostcargotooltip")));
             }
 
-            if (data.HasBlackMarket && !Main.IsRelase)
+            if (data.HasBlackMarket && GameMain.DebugDraw)
             {
                 DrawIcon("BlackMarket", (int)(28 * zoom), RichString.Rich("Black Market"));
             }
 
-            if (data.PirateData.HasPirateOutpost)
+            if (data.PirateData.HasPirateOutpost && GameMain.DebugDraw)
             {
                 DrawIcon("PirateBase", (int)(28 * zoom), RichString.Rich("Pirate Base: " + $"{data.PirateData.Status} Diff: {data.PirateData.Difficulty}"));
             }

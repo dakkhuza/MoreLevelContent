@@ -2,7 +2,7 @@
 <Items>
   <Item name="Sonar Jammer" identifier="sonarjammer" tags="command" category="Machine,Weapon" spritecolor="255,255,255,255" Scale="1">
     <Sprite texture="%ModDir%/Pirate/pirate_weapons.png" sourcerect="2,0,158,147" depth="0.8" origin="0.5,0.5" />
-    <SonarJammer PowerConsumption="800" minvoltage="0.5"/>
+    <SonarJammer PowerConsumption="800" strength="1" minvoltage="0.5"/>
     <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver">
       <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
       <requireditem items="screwdriver" type="Equipped" />

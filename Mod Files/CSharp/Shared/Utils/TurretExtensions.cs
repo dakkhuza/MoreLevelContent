@@ -21,6 +21,8 @@ namespace MoreLevelContent.Shared.Utils
         {
             disruptionStrength = Math.Min(disruptionStrength, 10.0f);
             Vector2 dir = disruptionPos - pingSource;
+            float disruptionDist = Vector2.Distance(pingSource, disruptionPos);
+            sonar.GetDisruptedDirections().Add(((disruptionPos - pingSource) / disruptionDist, disruptionStrength));
             for (int i = 0; i < disruptionStrength * 10.0f; i++)
             {
                 Vector2 pos = disruptionPos + Rand.Vector(Rand.Range(0.0f, Level.GridCellSize * 4 * disruptionStrength));
@@ -32,7 +34,6 @@ namespace MoreLevelContent.Shared.Utils
                     BlipType.Disruption);
                 List<SonarBlip> blips = (List<SonarBlip>)ReflectionInfo.Instance.sonarBlips.GetValue(sonar);
                 blips.Add(blip);
-                //sonarBlips.Add(blip);
             }
 
         }

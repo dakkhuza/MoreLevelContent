@@ -120,4 +120,8 @@
     <mlc.config.pirate.peakspawnchance>Peak spawn chance</mlc.config.pirate.peakspawnchance>
     <mlc.config.pirate.peakspawnchance.tooltip>The peak percentage chance for a pirate base to be generated. Bases are most common at 50% level difficulty. For instance if this is set to 100%, if the level difficulty is exactly 50% a pirate base will be guaranteed to be generated.</mlc.config.pirate.peakspawnchance.tooltip>
 
+    <!-- Pirate -->
+    <entityname.sonarjammer>Sonar Jammer</entityname.sonarjammer>
+    <entitydescription.sonarjammer>Produces powerful, high amplitude frequences that disrupt sonar.</entitydescription.sonarjammer>
+
 </infotexts>

@@ -126,4 +126,5 @@
 
     <!-- Machines -->
     <entityname.autotrader>Auto-Trader</entityname.autotrader>
+    <autotrader.instock>[count] in stock</autotrader.instock>
 </infotexts>

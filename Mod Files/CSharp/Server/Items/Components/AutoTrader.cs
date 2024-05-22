@@ -73,11 +73,11 @@ namespace MoreLevelContent.Items
             UInt16 userId = fabricatedItem is null || user is null ? (UInt16)0 : user.ID;
             msg.WriteUInt16(userId);
 
-            var reachedLimits = fabricationLimits.Where(kvp => kvp.Value <= 0);
-            msg.WriteUInt16((ushort)reachedLimits.Count());
-            foreach (var kvp in reachedLimits)
+            msg.WriteUInt16((ushort)fabricationLimits.Count);
+            foreach (var kvp in fabricationLimits)
             {
                 msg.WriteUInt32(kvp.Key);
+                msg.WriteUInt32((uint)kvp.Value);
             }
         }
     }

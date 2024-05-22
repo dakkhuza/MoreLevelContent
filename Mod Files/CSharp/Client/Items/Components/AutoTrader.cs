@@ -4,10 +4,12 @@ using Barotrauma.Items.Components;
 using Barotrauma.Networking;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MoreLevelContent.Shared;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using static Steamworks.InventoryItem;
 
 namespace MoreLevelContent.Items
 {
@@ -358,6 +360,13 @@ namespace MoreLevelContent.Items
                     TextManager.Get(FabricationLimitReachedText), font: GUIStyle.SmallFont, textAlignment: Alignment.BottomRight)
                 {
                     UserData = nameof(FabricationLimitReachedText),
+                    Visible = false
+                };
+
+                new GUITextBlock(new RectTransform(new Vector2(0.85f, 1f), frame.RectTransform, Anchor.BottomRight),
+                    "Test", font: GUIStyle.SmallFont, textAlignment: Alignment.BottomRight)
+                {
+                    UserData = "StockDisplay",
                     Visible = false
                 };
             }
@@ -1087,7 +1096,16 @@ namespace MoreLevelContent.Items
                     childContainer.GetChild<GUIImage>().Color = recipe.TargetItem.InventoryIconColor * (canBeFabricated ? 1.0f : 0.5f);
 
                     var limitReachedText = child.FindChild(nameof(FabricationLimitReachedText));
-                    limitReachedText.Visible = !canBeFabricated && fabricationLimits.TryGetValue(recipe.RecipeHash, out int amount) && amount <= 0;
+                    var limitDisplayText = (GUITextBlock)child.FindChild("StockDisplay");
+                    if (fabricationLimits.TryGetValue(recipe.RecipeHash, out int amount))
+                    {
+                        var stockText = TextManager.GetWithVariable("autotrader.instock", "[count]", amount.ToString());
+                        Log.Debug($"{stockText.Value} {amount}");
+                        limitDisplayText.Text = stockText;
+                    }
+                    var limitReached = !canBeFabricated && amount <= 0;
+                    limitReachedText.Visible = limitReached;
+                    limitDisplayText.Visible = !limitReached;
                 }
             }
         }
@@ -1124,10 +1142,10 @@ namespace MoreLevelContent.Items
             UInt16 userID = msg.ReadUInt16();
             Character user = Entity.FindEntityByID(userID) as Character;
 
-            ushort reachedLimitCount = msg.ReadUInt16();
-            for (int i = 0; i < reachedLimitCount; i++)
+            ushort limitCount = msg.ReadUInt16();
+            for (int i = 0; i < limitCount; i++)
             {
-                fabricationLimits[msg.ReadUInt32()] = 0;
+                fabricationLimits[msg.ReadUInt32()] = msg.ReadInt32();
             }
             State = newState;
             //don't touch the amount unless another character changed it or the fabricator is running

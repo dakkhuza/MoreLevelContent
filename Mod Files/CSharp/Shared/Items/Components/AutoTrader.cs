@@ -259,6 +259,7 @@ namespace MoreLevelContent.Items
             IsActive = false;
             this.user = null;
             currPowerConsumption = 0.0f;
+            hasSoundPlayed = false;
 
             progressState = 0.0f;
             timeUntilReady = 0.0f;
@@ -341,9 +342,6 @@ namespace MoreLevelContent.Items
                 }
             }
 
-            ApplyStatusEffects(ActionType.OnActive, deltaTime);
-
-
             float fabricationSpeedIncrease = 1f + tinkeringStrength * TinkeringSpeedIncrease;
 
             timeUntilReady -= deltaTime * fabricationSpeedIncrease * Math.Min(powerConsumption <= 0 ? 1 : Voltage, MaxOverVoltageFactor);
@@ -353,8 +351,17 @@ namespace MoreLevelContent.Items
             if (timeUntilReady <= 0.0f)
             {
                 Fabricate();
+#if CLIENT
+                if (!hasSoundPlayed)
+                {
+                    PlaySound(ActionType.OnUse, user);
+                    hasSoundPlayed = true;
+                }
+#endif
             }
         }
+
+        bool hasSoundPlayed = false;
 
         private Client GetUsingClient()
         {
@@ -487,6 +494,7 @@ namespace MoreLevelContent.Items
                     else
                     {
                         fabricationLimits[fabricatedItem.RecipeHash] -= amount;
+                        Log.Debug($"New fab limit: {fabricationLimits[fabricatedItem.RecipeHash]}");
                     }
                 }
 
@@ -494,12 +502,6 @@ namespace MoreLevelContent.Items
                 for (int i = 0; i < amount; i++)
                 {
                     float outCondition = fabricatedItem.OutCondition;
-                    if (fabricatedItem.TargetItem.ContentPackage == ContentPackageManager.VanillaCorePackage &&
-                        /* we don't need info of every fabricated item, we can get a good sample size just by logging 5% */
-                        Rand.Range(0.0f, 1.0f) < 0.05f)
-                    {
-                        GameAnalyticsManager.AddDesignEvent("ItemFabricated:" + (GameMain.GameSession?.GameMode?.Preset.Identifier.Value ?? "none") + ":" + fabricatedItem.TargetItem.Identifier);
-                    }
                     if (i < amountFittingContainer)
                     {
                         Entity.Spawner.AddItemToSpawnQueue(fabricatedItem.TargetItem, outputContainer.Inventory, fabricatedItem.TargetItem.Health * outCondition, quality,

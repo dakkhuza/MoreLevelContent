@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<contentpackage name="More Level Content dev" modversion="0.0.68" corepackage="False" steamworkshopid="2814493175" gameversion="1.4.6.0">
+<contentpackage name="More Level Content dev" modversion="0.0.70" corepackage="False" steamworkshopid="2814493175" gameversion="1.4.6.0">
   <Item file="%ModDir%/dummyitem.xml" />
   <Text file="%ModDir%/Language/English.xml" />
   <Text file="%ModDir%/Language/PatchNotes.xml" />
@@ -50,4 +50,5 @@
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_40-50.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_50-70.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/PirateBase_Ceiling_2.sub" />
+  <Submarine file="%ModDir%/AutoTrader.sub" />
 </contentpackage>

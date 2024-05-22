@@ -1,0 +1,34 @@
+<Items>
+    <!-- If you would like to add your item to this, you can do it the same way you'd add it to a
+    vending machine! -->
+    <Item name="" identifier="autotrader" allowattachitems="true" width="128" height="271"
+        texturescale="1.0,1.0" scale="0.5" category="Machine">
+        <sprite texture="Content/Map/Outposts/Art/Storage.png" sourcerect="1103,0,128,271"
+            depth="0.97" premultiplyalpha="false" origin="0.5,0.5" />
+        <SimpleStore canbeselected="true" powerconsumption="0.0" msg="ItemMsgInteractSelect"
+            createbuttontext="campaignstoretab.buy">
+            <GuiFrame relativesize="0.4,0.5" style="ItemUI" anchor="Center" />
+            <sound file="Content/Items/Fabricators/Fabricator.ogg" type="OnActive" range="200.0"
+                loop="true" />
+            <SellableItem identifier="spear" requiredtime="1" requiredmoney="5"
+                fabricationlimitmin="10" fabricationlimitmax="30" />
+            <SellableItem identifier="alienspear" requiredtime="1" requiredmoney="40"
+                fabricationlimitmin="5" fabricationlimitmax="15" />
+            <SellableItem identifier="explosivespear" requiredtime="1" requiredmoney="50"
+                fabricationlimitmin="10" fabricationlimitmax="15" />
+            <SellableItem identifier="harpoongun" requiredtime="1" requiredmoney="170"
+                fabricationlimitmin="0" fabricationlimitmax="5" quality="3" />
+            <SellableItem identifier="revolverround" requiredtime="1" requiredmoney="10"
+                fabricationlimitmin="10" fabricationlimitmax="30" />
+            <SellableItem identifier="revolver" requiredtime="1" requiredmoney="200"
+                fabricationlimitmin="0" fabricationlimitmax="5" quality="3" />
+
+
+        </SimpleStore>
+        <ItemContainer capacity="0" canbeselected="false" hideitems="true" slotsperrow="1"
+            uilabel="" allowuioverlap="true" />
+        <ItemContainer capacity="1" canbeselected="true" hideitems="true" slotsperrow="1" uilabel=""
+            allowuioverlap="true" />
+
+    </Item>
+</Items>

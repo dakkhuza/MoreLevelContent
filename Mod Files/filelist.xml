@@ -15,6 +15,7 @@
   <Sounds file="%ModDir%/Sounds/sounds.xml" />
   <Item file="%ModDir%/Pirate/pirate_items.xml" />
   <Item file="%ModDir%/Missions/MissionItems.xml" />
+  <Item file="%ModDir%/Map/MapItems.xml" />
   <Talents file="%ModDir%/Pirate/pirate_talents.xml" />
   <NPCSets file="%ModDir%/Pirate/pirate_npcset.xml" />
   <Missions file="%ModDir%/Pirate/pirate_missions.xml" />

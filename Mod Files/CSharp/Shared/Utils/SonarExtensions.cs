@@ -11,7 +11,9 @@ namespace MoreLevelContent.Shared.Utils
 
         public override void Setup()
         {
+#if CLIENT
             Hooks.Instance.OnUpdateSonarDisruption += Instance_OnUpdateSonarDisruption;
+#endif
         }
 
         internal void Add(Item source, float strength)

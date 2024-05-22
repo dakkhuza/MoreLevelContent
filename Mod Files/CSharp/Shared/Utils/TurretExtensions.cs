@@ -19,6 +19,7 @@ namespace MoreLevelContent.Shared.Utils
     
         internal static void AddSonarDisruption(this Sonar sonar, Vector2 pingSource, Vector2 disruptionPos, float disruptionStrength)
         {
+#if CLIENT
             disruptionStrength = Math.Min(disruptionStrength, 10.0f);
             Vector2 dir = disruptionPos - pingSource;
             float disruptionDist = Vector2.Distance(pingSource, disruptionPos);
@@ -35,7 +36,7 @@ namespace MoreLevelContent.Shared.Utils
                 List<SonarBlip> blips = (List<SonarBlip>)ReflectionInfo.Instance.sonarBlips.GetValue(sonar);
                 blips.Add(blip);
             }
-
+#endif
         }
     }
 

@@ -102,7 +102,8 @@ namespace MoreLevelContent.Items
         public SimpleStore(Item item, ContentXElement element)
             : base(item, element)
         {
-            var fabricationRecipes = new Dictionary<uint, FabricationRecipe>();
+            var fabricationRecipes = new List<(uint id, FabricationRecipe fabricationRecipe)>();
+            int maxSellables = element.GetAttributeInt("maxsellables", 8);
 
             
             foreach (var subElement in element.GetChildElements("sellableitem"))
@@ -114,7 +115,8 @@ namespace MoreLevelContent.Items
                     continue;
                 }
                 FabricationRecipe recipe = new FabricationRecipe(subElement, itemToFab);
-                fabricationRecipes.Add(recipe.RecipeHash, recipe);
+                
+                fabricationRecipes.Add((recipe.RecipeHash, recipe));
                 if (recipe.FabricationLimitMax >= 0)
                 {
                     fabricationLimits.Add(recipe.RecipeHash, Rand.Range(recipe.FabricationLimitMin, recipe.FabricationLimitMax + 1));
@@ -149,19 +151,31 @@ namespace MoreLevelContent.Items
                     }
                     if (recipeInvalid) { continue; }
 
-                    if (fabricationRecipes.TryGetValue(recipe.RecipeHash, out var duplicateRecipe))
-                    {
-                        DebugConsole.ThrowError($"Error in the fabrication recipe for \"{itemPrefab.Name}\". Duplicate recipe in \"{duplicateRecipe.TargetItem.Identifier}\".",
-                            contentPackage: packageToLog);
-                        continue;
-                    }
-                    fabricationRecipes.Add(recipe.RecipeHash, recipe);
+                    // if (fabricationRecipes.TryGetValue(recipe.RecipeHash, out var duplicateRecipe))
+                    // {
+                    //     DebugConsole.ThrowError($"Error in the fabrication recipe for \"{itemPrefab.Name}\". Duplicate recipe in \"{duplicateRecipe.TargetItem.Identifier}\".",
+                    //         contentPackage: packageToLog);
+                    //     continue;
+                    // }
+                    fabricationRecipes.Add((recipe.RecipeHash, recipe));
                     if (recipe.FabricationLimitMax >= 0)
                     {
                         fabricationLimits.Add(recipe.RecipeHash, Rand.Range(recipe.FabricationLimitMin, recipe.FabricationLimitMax + 1));
                     }
                 }
             }
+
+            // When loaded into a level, remove some of the items until we only have 
+            if (Level.Loaded != null)
+            {
+                Random rnd = MLCUtils.GetLevelRandom();
+                fabricationRecipes = fabricationRecipes.OrderBy(r => r.id).ToList();
+                while (fabricationRecipes.Count > maxSellables)
+                {
+                    _ = fabricationRecipes.Remove(fabricationRecipes.GetRandom(rnd));
+                }
+            }
+
             this.fabricationRecipes = fabricationRecipes.ToImmutableDictionary();
 
             state = SimpleStoreState.Stopped;

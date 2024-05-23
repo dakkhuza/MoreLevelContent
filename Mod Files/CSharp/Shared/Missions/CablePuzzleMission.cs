@@ -3,6 +3,7 @@ using Barotrauma.Extensions;
 using Barotrauma.Items.Components;
 using Microsoft.Xna.Framework;
 using MoreLevelContent.Shared;
+using MoreLevelContent.Shared.Data;
 using MoreLevelContent.Shared.Generation;
 using MoreLevelContent.Shared.Utils;
 using System;
@@ -69,15 +70,15 @@ namespace MoreLevelContent.Missions
                 Log.Error($"Failed to find submarine at path {subPath}");
                 return;
             }
-
-            MissionGenerationDirector.RequestSubmarine(new MissionGenerationDirector.SubmarineSpawnRequest()
-            {
-                File = file,
-                Callback = OnSubCreated,
-                SpawnPosition = Level.PositionType.Wreck,
-                AllowStealing = true,
-                PlacementType = Level.PlacementType.Top
-            });
+            Level.Loaded.MLC().RelayStationFile = file;
+            // MissionGenerationDirector.RequestSubmarine(new MissionGenerationDirector.SubmarineSpawnRequest()
+            // {
+            //     File = file,
+            //     Callback = OnSubCreated,
+            //     SpawnPosition = Level.PositionType.Wreck,
+            //     AllowStealing = true,
+            //     PlacementType = Level.PlacementType.Top
+            // });
             Log.Debug("Added sub to request queue");
         }
 

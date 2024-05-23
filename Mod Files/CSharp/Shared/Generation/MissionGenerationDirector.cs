@@ -105,6 +105,7 @@ namespace MoreLevelContent.Shared.Generation
         public void GenerateSub()
         {
             SpawnConstructionSite();
+            SpawnRelayStation();
             SpawnRequestedSubs();
             DecorateCaves();
         }
@@ -162,7 +163,7 @@ namespace MoreLevelContent.Shared.Generation
         {
             if (Level.Loaded.LevelData.MLC().HasBeaconConstruction)
             {
-                Submarine beacon = SpawnSubOnPath("Beacon Station", BeaconConstStore.Instance.GetBeaconForLevel(), ignoreCrushDepth: true, SubmarineType.EnemySubmarine);
+                Submarine beacon = SpawnSubOnPath("Construction Site", BeaconConstStore.Instance.GetBeaconForLevel(), ignoreCrushDepth: true, SubmarineType.EnemySubmarine);
                 beacon.PhysicsBody.BodyType = BodyType.Static;
                 Level.Loaded.MLC().BeaconConstructionStation = beacon;
                 Item storageItem = Item.ItemList.Find(it => it.Submarine == beacon && it.GetComponent<ItemContainer>() != null && it.Tags.Contains("dropoff"));
@@ -174,6 +175,14 @@ namespace MoreLevelContent.Shared.Generation
                 Level.Loaded.MLC().DropOffPoint = storageItem;
                 
             }
+        }
+
+        void SpawnRelayStation()
+        {
+            if (!Level.Loaded.LevelData.MLC().HasRelayStation) return;
+            Submarine relayStation = SpawnSubOnPath("Relay Station", Level.Loaded.MLC().RelayStationFile, ignoreCrushDepth: true, SubmarineType.EnemySubmarine, PlacementType.Top);
+            relayStation.PhysicsBody.BodyType = BodyType.Static;
+            Level.Loaded.MLC().RelayStation = relayStation;
         }
 
         void DecorateCaves()

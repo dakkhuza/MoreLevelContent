@@ -1,7 +1,6 @@
 <Items>
-    <!-- If you would like to add your item to this, you can do it the same way you'd add it to a
-    vending machine! -->
-    <Item name="autotrader" identifier="autotrader" allowattachitems="true" width="128" height="271"
+    <Item name="Auto-Trader (Weapons)" identifier="autotrader_weapons" allowattachitems="true"
+        width="128" height="271"
         texturescale="1.0,1.0" scale="0.5" category="Machine">
         <sprite texture="Content/Map/Outposts/Art/Storage.png" sourcerect="1103,0,128,271"
             depth="0.97" premultiplyalpha="false" origin="0.5,0.5" />
@@ -11,12 +10,15 @@
             <sound file="%ModDir%/Sounds/cash-register.ogg" type="OnUse" range="200.0"
                 loop="false" />
             <!-- Weapons -->
-            <SellableItem identifier="revolver" requiredtime="1" requiredmoney="200"
-                fabricationlimitmin="0" fabricationlimitmax="5" quality="2" />
+            <SellableItem identifier="revolver" requiredtime="1" requiredmoney="250"
+                fabricationlimitmin="0" fabricationlimitmax="4" quality="3" />
             <SellableItem identifier="rifle" requiredtime="1" requiredmoney="500"
-                fabricationlimitmin="0" fabricationlimitmax="5" quality="3" />
-            <SellableItem identifier="harpoongun" requiredtime="1" requiredmoney="170"
-                fabricationlimitmin="0" fabricationlimitmax="5" quality="3" />
+                fabricationlimitmin="0" fabricationlimitmax="1" quality="2" />
+            <SellableItem identifier="harpooncoilrifle" requiredtime="1" requiredmoney="370"
+                fabricationlimitmin="0" fabricationlimitmax="2" quality="2" />
+            <SellableItem identifier="smg" requiredtime="1" requiredmoney="170"
+                fabricationlimitmin="0" fabricationlimitmax="1" quality="2" />
+
 
             <!-- Gun Ammo -->
             <SellableItem identifier="smgmagazine" requiredtime="1" requiredmoney="60"
@@ -44,12 +46,60 @@
                 fabricationlimitmin="0" fabricationlimitmax="4" />
 
 
-            <!-- Large Ammo -->
+            <!-- Flak Ammo -->
             <SellableItem identifier="flakcannonammobox" requiredtime="1" requiredmoney="130"
                 fabricationlimitmin="0" fabricationlimitmax="4" />
             <SellableItem identifier="flakcannondirectionalammobox" requiredtime="1"
                 requiredmoney="250"
                 fabricationlimitmin="0" fabricationlimitmax="4" />
+            <SellableItem identifier="flakcannonammoboxexplosive" requiredtime="1"
+                requiredmoney="395"
+                fabricationlimitmin="0" fabricationlimitmax="2" />
+            <SellableItem identifier="flakcannonammoboxphysicorium" requiredtime="1"
+                requiredmoney="450"
+                fabricationlimitmin="0" fabricationlimitmax="2" />
+
+            <!-- Coilgun -->
+            <SellableItem identifier="coilgunammobox" requiredtime="1"
+                requiredmoney="120"
+                fabricationlimitmin="0" fabricationlimitmax="16" />
+            <SellableItem identifier="physicoriumammobox" requiredtime="1"
+                requiredmoney="330"
+                fabricationlimitmin="0" fabricationlimitmax="2" />
+            <SellableItem identifier="coilgunammoboxexplosive" requiredtime="1"
+                requiredmoney="350"
+                fabricationlimitmin="0" fabricationlimitmax="2" />
+            <SellableItem identifier="coilgunammoboxpiercing" requiredtime="1"
+                requiredmoney="260"
+                fabricationlimitmin="0" fabricationlimitmax="2" />
+
+            <!-- Chaingun -->
+            <SellableItem identifier="chaingunammobox" requiredtime="1"
+                requiredmoney="180"
+                fabricationlimitmin="0" fabricationlimitmax="8" />
+            <SellableItem identifier="chaingunammoboxshredder" requiredtime="1"
+                requiredmoney="300"
+                fabricationlimitmin="0" fabricationlimitmax="4" />
+            <SellableItem identifier="chaingunammoboxphysicorium" requiredtime="1"
+                requiredmoney="410"
+                fabricationlimitmin="0" fabricationlimitmax="2" />
+
+            <!-- Laser -->
+            <SellableItem identifier="pulselaserammobox" requiredtime="1"
+                requiredmoney="250"
+                fabricationlimitmin="0" fabricationlimitmax="6" />
+            <SellableItem identifier="pulselaserammoboxtrilaser" requiredtime="1"
+                requiredmoney="435"
+                fabricationlimitmin="0" fabricationlimitmax="2" />
+
+
+            <!-- Depth Charges -->
+            <SellableItem identifier="depthchargeshell" requiredtime="1"
+                requiredmoney="120"
+                fabricationlimitmin="0" fabricationlimitmax="4" />
+            <SellableItem identifier="nucleardepthcharge" requiredtime="1"
+                requiredmoney="450"
+                fabricationlimitmin="0" fabricationlimitmax="2" />
 
 
         </SimpleStore>

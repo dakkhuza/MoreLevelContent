@@ -125,6 +125,6 @@
     <entitydescription.sonarjammer>Produces powerful, high amplitude frequences that disrupt sonar.</entitydescription.sonarjammer>
 
     <!-- Machines -->
-    <entityname.autotrader>Auto-Trader</entityname.autotrader>
+    <entityname.autotrader_weapons>Auto-Trader (Weapons)</entityname.autotrader_weapons>
     <autotrader.instock>[count] in stock</autotrader.instock>
 </infotexts>

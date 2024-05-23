@@ -1100,7 +1100,6 @@ namespace MoreLevelContent.Items
                     if (fabricationLimits.TryGetValue(recipe.RecipeHash, out int amount))
                     {
                         var stockText = TextManager.GetWithVariable("autotrader.instock", "[count]", amount.ToString());
-                        Log.Debug($"{stockText.Value} {amount}");
                         limitDisplayText.Text = stockText;
                     }
                     var limitReached = !canBeFabricated && amount <= 0;

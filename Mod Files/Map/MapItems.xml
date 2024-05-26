@@ -109,4 +109,24 @@
             allowuioverlap="true" />
 
     </Item>
+
+    <Item name="Auto-Trader (Supplies)" identifier="autotrader_supplies" allowattachitems="true"
+        width="128" height="271"
+        texturescale="1.0,1.0" scale="0.5" category="Machine">
+        <sprite texture="Content/Map/Outposts/Art/Storage.png" sourcerect="1103,0,128,271"
+            depth="0.97" premultiplyalpha="false" origin="0.5,0.5" />
+        <SimpleStore canbeselected="true" powerconsumption="0.0" msg="ItemMsgInteractSelect"
+            createbuttontext="campaignstoretab.buy">
+            <GuiFrame relativesize="0.4,0.5" style="ItemUI" anchor="Center" />
+            <sound file="%ModDir%/Sounds/cash-register.ogg" type="OnUse" range="200.0"
+                loop="false" />
+
+
+        </SimpleStore>
+        <ItemContainer capacity="0" canbeselected="false" hideitems="true" slotsperrow="1"
+            uilabel="" allowuioverlap="true" />
+        <ItemContainer capacity="1" canbeselected="true" hideitems="true" slotsperrow="1" uilabel=""
+            allowuioverlap="true" />
+
+    </Item>
 </Items>

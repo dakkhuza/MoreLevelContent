@@ -1,0 +1,10 @@
+<Missions tags="MLC, mapfeatureset">
+    <MapFeatures
+        identifier="mapfeatures_0"
+        tags="mlc, mapfeatureset"
+        type="GoTo">
+        <MapFeature path="%ModDir%/Map/MapFeatures/AutoTrader_Weapons.sub" featureName="AutoTrader"
+            spawnPosition="MainPath, SidePath" placement="Top">
+        </MapFeature>
+    </MapFeatures>
+</Missions>

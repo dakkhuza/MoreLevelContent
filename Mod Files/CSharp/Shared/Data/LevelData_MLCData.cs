@@ -43,6 +43,9 @@ namespace MoreLevelContent.Shared.Data
         [AttributeSaveData(0)]
         public int RequestedE;
 
+        [AttributeSaveData("")]
+        public string MapFeature;
+
         internal PirateData PirateData;
 
         public bool HasRelayStation => RelayStationStatus != RelayStationStatus.None;

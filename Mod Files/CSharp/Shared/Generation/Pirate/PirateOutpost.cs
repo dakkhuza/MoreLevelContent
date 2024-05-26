@@ -112,7 +112,8 @@ namespace MoreLevelContent.Shared.Generation.Pirate
         void SetupDestroyed()
         {
             _Sub.Info.Type = SubmarineType.Outpost;
-            if (_Sub.GetItems(alsoFromConnectedSubs: false).Find(i => i.HasTag("reactor") && !i.NonInteractable)?.GetComponent<Reactor>() is Reactor reactor)
+            var baseItems = _Sub.GetItems(alsoFromConnectedSubs: false);
+            if (baseItems.Find(i => i.HasTag("reactor") && !i.NonInteractable)?.GetComponent<Reactor>() is Reactor reactor)
             {
                 reactor.AutoTemp = false;
                 reactor.PowerOn = false;
@@ -123,17 +124,35 @@ namespace MoreLevelContent.Shared.Generation.Pirate
             {
                 Level.Loaded.PositionsOfInterest.Add(new Level.InterestingPosition(wp.WorldPosition.ToPoint(), Level.PositionType.Wreck));
             }
+
+            if (Main.IsClient) return;
+
+            //break powered items
+            foreach (Item item in baseItems.Where(it => it.Components.Any(c => c is Powered) && it.Components.Any(c => c is Repairable)))
+            {
+                if (item.NonInteractable || item.InvulnerableToDamage) { continue; }
+                if (Rand.Range(0f, 1f, Rand.RandSync.Unsynced) < 0.5f)
+                {
+                    item.Condition *= Rand.Range(0.6f, 0.8f, Rand.RandSync.Unsynced);
+                }
+            }
+
+            //poke holes in the walls
+            foreach (Structure structure in Structure.WallList.Where(s => s.Submarine == _Sub))
+            {
+                if (Rand.Range(0f, 1f, Rand.RandSync.Unsynced) < 0.5f)
+                {
+                    int sectionIndex = Rand.Range(0, structure.SectionCount - 1, Rand.RandSync.Unsynced);
+                    structure.AddDamage(sectionIndex, Rand.Range(structure.MaxHealth * 0.2f, structure.MaxHealth, Rand.RandSync.Unsynced));
+                }
+            }
         }
 
         public void Populate()
         {
-            if (_Data.Status == PirateOutpostStatus.Destroyed || _Data.Status == PirateOutpostStatus.Husked)
-            {
-                DestroyOutpost();
+            // Don't spawn crew on destroyed outposts
+            if (_Data.Status == PirateOutpostStatus.Destroyed) return;
 
-                // Don't spawn crew on destroyed outposts
-                if (_Data.Status == PirateOutpostStatus.Destroyed) return;
-            }
             bool commanderAssigned = false;
             Log.InternalDebug("Spawning Pirates");
 
@@ -251,18 +270,6 @@ namespace MoreLevelContent.Shared.Generation.Pirate
             }
 
             HuskOutpost();
-        }
-
-        void DestroyOutpost()
-        {
-            if (Main.IsClient) return;
-            var waypoints = _Sub.GetWaypoints(false);
-            Random rand = new MTRandom(ToolBox.StringToInt(Level.Loaded.LevelData.Seed));
-            for (int i = 0; i < 5; i++)
-            {
-                var selected = waypoints.GetRandom(rand);
-                new Explosion(range: 500, 0, 0, structureDamage: 500, itemDamage: 0, empStrength: 1000).Explode(selected.WorldPosition, null);
-            }
         }
 
         internal void OnRoundEnd(LevelData levelData)

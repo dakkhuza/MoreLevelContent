@@ -38,6 +38,24 @@ namespace MoreLevelContent.Shared.Utils
             }
 #endif
         }
+
+        internal static void AddSonarCircle(this Sonar sonar, Vector2 pingSource, BlipType type)
+        {
+#if CLIENT
+            for (int i = 0; i < 10; i++)
+            {
+                Vector2 dir = Rand.Vector(1.0f);
+                var longRangeBlip = new SonarBlip(pingSource, Rand.Range(1.9f, 2.1f), Rand.Range(1.0f, 1.5f), type)
+                {
+                    Velocity = dir * MathUtils.Round(Rand.Range(4000.0f, 6000.0f), 1000.0f),
+                    Rotation = (float)Math.Atan2(-dir.Y, dir.X)
+                };
+                longRangeBlip.Size.Y *= 4.0f;
+                List<SonarBlip> blips = (List<SonarBlip>)ReflectionInfo.Instance.sonarBlips.GetValue(sonar);
+                blips.Add(longRangeBlip);
+            }
+#endif
+        }
     }
 
     public class ReflectionInfo : Singleton<ReflectionInfo>
@@ -46,6 +64,7 @@ namespace MoreLevelContent.Shared.Utils
         public FieldInfo maxRotation;
         public FieldInfo disruptedDirections;
         public FieldInfo sonarBlips;
+        public FieldInfo blipColorGradient;
         
         public override void Setup()
         {
@@ -54,6 +73,7 @@ namespace MoreLevelContent.Shared.Utils
             maxRotation = AccessTools.Field(typeof(Turret), "maxRotation");
             disruptedDirections = AccessTools.Field(typeof(Sonar), "disruptedDirections");
             sonarBlips = AccessTools.Field(typeof(Sonar), "sonarBlips");
+            blipColorGradient = AccessTools.Field(typeof(Sonar), "blipColorGradient");
             Log.Debug("Setup field references");
         }
     }

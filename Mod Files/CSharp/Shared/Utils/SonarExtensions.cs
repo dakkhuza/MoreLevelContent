@@ -1,7 +1,9 @@
 ﻿using Barotrauma;
 using Barotrauma.MoreLevelContent.Shared.Utils;
+using HarmonyLib;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using static Barotrauma.Items.Components.Sonar;
 
 namespace MoreLevelContent.Shared.Utils
 {
@@ -13,6 +15,11 @@ namespace MoreLevelContent.Shared.Utils
         {
 #if CLIENT
             Hooks.Instance.OnUpdateSonarDisruption += Instance_OnUpdateSonarDisruption;
+            Dictionary<BlipType, Color[]> sonarBlips = (Dictionary<BlipType, Color[]>)ReflectionInfo.Instance.blipColorGradient.GetValue(null);
+            if (!sonarBlips.ContainsKey((BlipType)5))
+            {
+                sonarBlips.Add((BlipType)5, new Color[] { Color.TransparentBlack, Color.TransparentBlack, new Color(0, 68, 65) * 0.8f, Color.TransparentBlack });
+            }
 #endif
         }
 

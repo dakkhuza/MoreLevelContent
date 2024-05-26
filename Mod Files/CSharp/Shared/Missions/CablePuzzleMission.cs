@@ -16,6 +16,11 @@ namespace MoreLevelContent.Missions
     // Shared
     internal partial class CablePuzzleMission : Mission
     {
+        /// <summary>
+        /// This sucks ass but we should /NEVER/ have more than one relay station in one level
+        /// </summary>
+        public static SubmarineFile SubmarineFile { get; private set; }
+
         const float INTERVAL = 2.5f;
         const int RANGE_MIN = 50;
         const int RANGE_MAX = 200;
@@ -31,7 +36,11 @@ namespace MoreLevelContent.Missions
         {
             _SubmarineConfig = prefab.ConfigElement.GetChildElement("Submarine");
             defaultSonarLabel = TextManager.Get("relaysonarlabel");
-            Log.Debug("Cable puzzle init'd");
+            LevelData levelData = locations[0].Connections.Where(c => c.Locations.Contains(locations[1])).FirstOrDefault()?.LevelData ?? locations[0]?.LevelData;
+            if (levelData != null)
+            {
+                SetLevel(levelData);
+            }
         }
 
         public override IEnumerable<(LocalizedString Label, Vector2 Position)> SonarLabels
@@ -59,27 +68,13 @@ namespace MoreLevelContent.Missions
                 return;
             }
 
-            SubmarineFile file = ContentPackageManager.EnabledPackages.All.SelectMany(p => p.GetFiles<SubmarineFile>()).Where(f =>
-            {
-                Log.Debug(f.Path.Value);
-                return f.Path.Value == subPath;
-            }).FirstOrDefault();
-
+            SubmarineFile file = ContentPackageManager.EnabledPackages.All.SelectMany(p => p.GetFiles<SubmarineFile>()).Where(f => f.Path.Value == subPath).FirstOrDefault();
             if (file == null)
             {
                 Log.Error($"Failed to find submarine at path {subPath}");
                 return;
             }
-            Level.Loaded.MLC().RelayStationFile = file;
-            // MissionGenerationDirector.RequestSubmarine(new MissionGenerationDirector.SubmarineSpawnRequest()
-            // {
-            //     File = file,
-            //     Callback = OnSubCreated,
-            //     SpawnPosition = Level.PositionType.Wreck,
-            //     AllowStealing = true,
-            //     PlacementType = Level.PlacementType.Top
-            // });
-            Log.Debug("Added sub to request queue");
+            SubmarineFile = file;
         }
 
 
@@ -127,19 +122,21 @@ namespace MoreLevelContent.Missions
             }
         }
 
-        void OnSubCreated(Submarine submarine)
+
+        protected override void StartMissionSpecific(Level level)
         {
-            _Station = submarine;
+            _Station = level.MLC().RelayStation;
 
-            submarine.PhysicsBody.FarseerBody.BodyType = FarseerPhysics.BodyType.Static;
-            submarine.TeamID = CharacterTeamType.FriendlyNPC;
-            submarine.ShowSonarMarker = false;
-            
+            if (_Station == null)
+            {
+                Log.Error("Failed to spawn relay station!!");
+                return;
+            }
+
             if (IsClient) return;
-
-            var items = submarine.GetItems(false);
+            var items = _Station.GetItems(false);
             var rand = MLCUtils.GetRandomFromString(_LevelData.Seed);
-
+            var memoryComps = new List<MemoryComponent>();
             foreach (var item in items)
             {
                 if (item.HasTag("wp_input")) _WpInput = item.GetComponent<MemoryComponent>();
@@ -162,10 +159,12 @@ namespace MoreLevelContent.Missions
                     }
                     int val = rand.Next(low, high);
                     comp.Value = val.ToString();
+                    memoryComps.Add(comp);
+
                     _Operations.Add(new SignalOperation(type, val));
                 }
             }
-            
+
             if (_Operations.Count == 0)
             {
                 Log.Error("Failed to collect any operations!");
@@ -212,7 +211,18 @@ namespace MoreLevelContent.Missions
                 ).Value;
 
             Log.Debug("Sub created");
+
+#if SERVER
+            // Have the server send these changes to the client
+            _WpHint.SyncHistory();
+            foreach (var comp in memoryComps)
+            {
+                comp.Item.CreateServerEvent(comp);
+            }
+#endif
         }
+
+
 
         private int GetStepForInput(int input, int stepCount)
         {
@@ -229,7 +239,6 @@ namespace MoreLevelContent.Missions
             }
             return input;
         }
-
         private int[] GetStepsForInput(int input)
         {
             int[] output = new int[_Sequence.Length + 1];
@@ -242,6 +251,7 @@ namespace MoreLevelContent.Missions
             return output;
         }
         int successfulCycles = 0;
+
         protected override void UpdateMissionSpecific(float deltaTime)
         {
             if (IsClient) return;
@@ -264,6 +274,13 @@ namespace MoreLevelContent.Missions
             var input = Rand.Range(RANGE_MIN, RANGE_MAX, Rand.RandSync.Unsynced);
             _WpInput.Value = input.ToString();
             _WpTarget.Value = GetStepForInput(input, 4).ToString();
+
+#if SERVER
+            // Have the server send the info to the client
+            _WpInput.Item.CreateServerEvent(_WpInput);
+            _WpTarget.Item.CreateServerEvent(_WpTarget);
+#endif
+
             _Timer = INTERVAL;
 
             if (State == 1)

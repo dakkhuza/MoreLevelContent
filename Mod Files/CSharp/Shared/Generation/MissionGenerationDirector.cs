@@ -4,6 +4,7 @@ using Barotrauma.Extensions;
 using Barotrauma.Items.Components;
 using FarseerPhysics;
 using Microsoft.Xna.Framework;
+using MoreLevelContent.Missions;
 using MoreLevelContent.Shared.Data;
 using MoreLevelContent.Shared.Generation.Interfaces;
 using MoreLevelContent.Shared.Store;
@@ -180,8 +181,13 @@ namespace MoreLevelContent.Shared.Generation
         void SpawnRelayStation()
         {
             if (!Level.Loaded.LevelData.MLC().HasRelayStation) return;
-            Submarine relayStation = SpawnSubOnPath("Relay Station", Level.Loaded.MLC().RelayStationFile, ignoreCrushDepth: true, SubmarineType.EnemySubmarine, PlacementType.Top);
-            relayStation.PhysicsBody.BodyType = BodyType.Static;
+            
+            Log.Debug("Trying to spawn relay station");
+            Submarine relayStation = SpawnSubOnPath("Relay Station", CablePuzzleMission.SubmarineFile, ignoreCrushDepth: true, SubmarineType.EnemySubmarine, PlacementType.Top);
+            Log.Debug("Spawned relay station");
+            relayStation.PhysicsBody.FarseerBody.BodyType = FarseerPhysics.BodyType.Static;
+            relayStation.TeamID = CharacterTeamType.FriendlyNPC;
+            relayStation.ShowSonarMarker = false;
             Level.Loaded.MLC().RelayStation = relayStation;
         }
 

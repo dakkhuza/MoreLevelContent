@@ -13,70 +13,9 @@
     <distress.lost1>Ice drift has rendered the ‖color:gui.Red‖distress beacon‖end‖ between [location1] and [location2] inaccessible</distress.lost1>
     <distress.lost2>A submarine crew passing through [location1] to [location2] report there were no survivors at the ‖color:gui.Red‖distress beacon‖end‖</distress.lost2>
 
-    <missionmessage1.quiet>It's eerily silent, is anyone alive?</missionmessage1.quiet>
-    <distress.success.clowns>Who knows what those harlequins were up to.</distress.success.clowns>
-
     <!-- Distress Events -->
     <charactername.captain_dakota>Captain Dakota</charactername.captain_dakota>
-    <DistressEvent.outoffuel.c1>The look of relief on the captains face is palpable. "Oh thank Jove, someone actually came! I was beginning  to think we'd have to make a swim for it.", He lets out a stress filled chuckle.</DistressEvent.outoffuel.c1>
-    <DistressEvent.outoffuel.o1>"What happened?"</DistressEvent.outoffuel.o1>
-
-    <DistressEvent.outoffuel.o1.c1>The captain paces restlessly, he walks with a noticable limp. He flinches slightly every time his foot hits the floor. "Dan, my previous engineer, got mauled by mudraptors, Jove rest his soul. Now I'm not one to fiddle with electronics and after my mechanic almost shocked himself to death I knew we had to hire another one." He rests a hand on his hip, "So we hired a new one at the outpost we'd docked to. It wasn't until we were underway that I found out I'd hired one of those honkmother clowns."</DistressEvent.outoffuel.o1.c1>
-    <DistressEvent.outoffuel.o1.c2>"We're not even a week out of port when we got jumped by a swarm of crawlers. During the chaos I hear a single bike horn honk and all the lights go out. When we finally got the situation under control, we found out our new engineer was gone." The captain collapses into his chair, clearly tired and possibly reconsidering his career choices. "As well as all our fuel rods."</DistressEvent.outoffuel.o1.c2>
-    <DistressEvent.outoffuel.o1.c3>"That's the last time I'm letting a big-shoe on my boat.." The captain glances up from you, he looks small in his chair. "You.. You wouldn't happen to have a fuel rod to spare?"</DistressEvent.outoffuel.o1.c3>
-
-    <DistressEvent.outoffuel.o1.o1>"I'll see what I can do."</DistressEvent.outoffuel.o1.o1>
-    <DistressEvent.outoffuel.o1.o1.c1>A twinge of hope fills the captains weary eyes. "You're a saint, you know that?"</DistressEvent.outoffuel.o1.o1.c1>
-    <DistressEvent.outoffuel.o1.o1.c2>"O-Oh, you're back. I was starting to think.. Well- uh, ha ha, you're here now anyway."</DistressEvent.outoffuel.o1.o1.c2>
-
-    <DistressEvent.outoffuel.o1.o1.o1>I'll be back.</DistressEvent.outoffuel.o1.o1.o1>
-
-    <DistressEvent.outoffuel.o1.o1.o1.c1>"You have the rod yet?"</DistressEvent.outoffuel.o1.o1.o1.c1>
-    <DistressEvent.outoffuel.o1.o1.o1.o1>"Not Yet."</DistressEvent.outoffuel.o1.o1.o1.o1>
-    <DistressEvent.outoffuel.o1.o1.o1.o2>"Yes, here you go." [+Location Rep]</DistressEvent.outoffuel.o1.o1.o1.o2>
-    <DistressEvent.outoffuel.o1.o1.o1.o3>"We might have a spare, if you throw in some marks for my efforts." [Helm: HARD]</DistressEvent.outoffuel.o1.o1.o1.o3>
-
-    <!-- Intimidation success -->
-    <DistressEvent.outoffuel.o1.o1.o1.o3.c1>"I- I.." He pauses, his leg begins jiggle up and down. "Here, this is everything I've got. Please."</DistressEvent.outoffuel.o1.o1.o1.o3.c1>
-    <DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1>"I'll see if I can find a rod."</DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1>
-
-    <DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1>The captain has shrunk back into his seat. He doesn't meet your gaze as a sense of shame fills the air. What a sad, little man.</DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1>
-    <DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o1>...</DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o1>
-    <DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2>Give him the rod.</DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2>
-    <DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1>You toss the rod at him and he doesn't move to grab it. It clatters loudly to the floor loudly, echoing in the empty sub.</DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1>
-    <DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o1>Whatever.</DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o1>
-    <DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o2>"Well? You paid good money for that, aren't you going to use it?"</DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o2>
-    <DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o2.c1>The captain is eerily still, his body limp in a chair too big for him. You turn to leave before he suddenly blurts out, "When I was a kid, me and Dan would always watch the subs leaving Meltwater. Even if you weren't near a porthole, you could hear them through the walls if you got your ear close enough. If you really strained, you could almost fool yourself into thinking you could hear a moloch herd." He goes silent, seemingly lost in though. "D-Do you think, if- If I submerged my head.. Would I hear the molochs?"</DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o2.c1>
-    <DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o2.c1.o1>Walk Away</DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o2.c1.o1>
-    <DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o2.c1.o2>"Sure."</DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o2.c1.o2>
-    <DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o2.c1.o2.c1>He gives you a weak smile, his eyes focusing on you again. "It's a nice thought, t-to hold onto anyways.." He's completly off his rocker.</DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o2.c1.o2.c1>
-    <DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o2.c1.o2.c1.o1>Time to leave.</DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o2.c1.o2.c1.o1>
-
-    <!-- Intimidation failure -->
-    <DistressEvent.outoffuel.o1.o1.o1.o3.c2>"..F-Fuck you! Do you just, just go answering peoples distress calls to extort them? You're no saint! You're the wolf in sheep's clothing, the devil offering me a hand with a knife behind his back! Your heart is cold as the ice sheets, your heart as black as the abyss! You'll get exactly what you deserve, the only thing you deserve!"</DistressEvent.outoffuel.o1.o1.o1.o3.c2>
-    <DistressEvent.outoffuel.o1.o1.o1.o3.c2.o1>Uh oh.</DistressEvent.outoffuel.o1.o1.o1.o3.c2.o1>
-
-    <!-- High clown rep -->
-    <DistressEvent.outoffuel.o1.o1.o1.o2.c1>Before you hand over the rod you pause. You hear a faint whisper, in the back of your mind. "This man is down in the dumps, you shouldn't just give him the rod, you should also cheer him up! Everyone loves surprises, what better way to lighten his day!"</DistressEvent.outoffuel.o1.o1.o1.o2.c1>
-    <DistressEvent.outoffuel.o1.o1.o1.o2.o1>Good point voice. [+Clown Rep]</DistressEvent.outoffuel.o1.o1.o1.o2.o1>
-    <DistressEvent.outoffuel.o1.o1.o1.o2.o1.c1>Before you hand over the fuel rod, you decide to rig a surprise for the captain when he puts it into the reactor. An unseen force guides your hands as you deftly sabotage the fuel rod.</DistressEvent.outoffuel.o1.o1.o1.o2.o1.c1>
-    <DistressEvent.outoffuel.o1.o1.o1.o2.o1.c1.o1>This should brighten his day! You get the premonition you should leave before he puts it into the reactor.</DistressEvent.outoffuel.o1.o1.o1.o2.o1.c1.o1>
-
-    <DistressEvent.outoffuel.o1.o1.o1.o2.o2>Not today voice. [+Location Rep]</DistressEvent.outoffuel.o1.o1.o1.o2.o2>
-
-    <!-- Refuse -->
-    <DistressEvent.outoffuel.o1.o2>"Sorry, but we can't spare any."</DistressEvent.outoffuel.o1.o2>
-    <DistressEvent.outoffuel.o1.o2.c1>"N-No!" A manic look fills his eyes, you notice his hand reaching for his revolver as his whole body tenses.</DistressEvent.outoffuel.o1.o2.c1>
-    <DistressEvent.outoffuel.o1.o2.c1.o1>"Don't try it." [Weapons: HARD]</DistressEvent.outoffuel.o1.o2.c1.o1>
-    <DistressEvent.outoffuel.o1.o2.c1.o1.c1>He collapses back into the chair, defeated. "Maybe.. Maybe the next sub will help us?" He lets out a weak laugh before staring at the wall behind you, a blank expression on his face.</DistressEvent.outoffuel.o1.o2.c1.o1.c1>
-    <DistressEvent.outoffuel.o1.o2.c1.o1.c1.o1>You're not a charity, he chose this life.</DistressEvent.outoffuel.o1.o2.c1.o1.c1.o1>
-
-    <!-- Loop back to main -->
-    <DistressEvent.outoffuel.o1.o2.c1.o2>"Actually, we might have a spare. I'll have to check."</DistressEvent.outoffuel.o1.o2.c1.o2>
-
-    <!-- End Text -->
-    <DistressEvent.outoffuel.end>The captain thanks you for the rod and heads to stick it into the reactor.</DistressEvent.outoffuel.end>
-    <DistressEvent.outoffuel.end.o1>Looks like your job here is done.</DistressEvent.outoffuel.end.o1>
+    <charactername.clowncorpse>Clown Corpse</charactername.clowncorpse>
 
     <!-- Lost Cargo -->
     <mlc.cargopodhidden>Cargo Pod?</mlc.cargopodhidden>
@@ -90,29 +29,10 @@
     <mlc.lostcargo.tooslow1>Long range listening stations can no longer detect the lost cargo between [location1] and [location2].</mlc.lostcargo.tooslow1>
     <mlc.lostcargo.tooslow2>Based on projected currents and ice movement, the lost cargo between [location1] and [location2] is no longer recoverable.</mlc.lostcargo.tooslow2>
 
-    <missionname.lostcargo>Lost Cargo</missionname.lostcargo>
-    <mismissionfailure.lostcargo>The cargo remains unclaimed.</mismissionfailure.lostcargo>
-
-    <missiondescription.lostcargo>A freighter submarine has ditched some of it's cargo pods due to 'complications' in this passage. Seems like free salvage if you can find the pods.</missiondescription.lostcargo>
-    
-    <missionheader0.lostcargo>Lost Cargo</missionheader0.lostcargo>
-    <missionmessage0.lostcargo>Cargo pod spotted! Dock with the pod and find out what's inside!</missionmessage0.lostcargo>
-
     <!-- Relay Repair -->
-    <mlc.relaystationtooltip>An old ‖color:gui.Orange‖relay station‖end‖ between [location1] and [location2] has stopped transmitting signals. Bringing it back online will help local communication.</mlc.relaystationtooltip>
-
-    <missionname.relayrepair>Relay Repair</missionname.relayrepair>
-    <missiondescription.relayrepair>An old relay station between [location1] and [location2] has recently stopped functioning. Bringing it back online will help local communication.</missiondescription.relayrepair>
-    <relaysonarlabel>Relay Station</relaysonarlabel>
-
-    <missionheader0.relayrepair>Relay Repair</missionheader0.relayrepair>
-    <missionmessage0.relayrepair>Unlike modern Beacon stations, Relay stations operate by modulating the incoming signal before sending it. The given input must match the expected target value to bring the station back online.</missionmessage0.relayrepair>
-
-    <missionheader1.relayrepair>Relay Repaired</missionheader1.relayrepair>
-    <missionmessage1.relayrepair>The station is back online and relaying signals again.</missionmessage1.relayrepair>
-
-    <missionsuccess.relayrepair>The relay station was repaired.</missionsuccess.relayrepair>
-    <missionfailure.relayrepair>The relay station remains offline.</missionfailure.relayrepair>
+    <mlc.relaystationtooltip.inactive>An old ‖color:gui.Orange‖relay station‖end‖ in this passage has stopped transmitting signals. Bringing it back online will help local communication.</mlc.relaystationtooltip.inactive>
+    <mlc.relaystationtooltip.active>There's an active ‖color:gui.Orange‖relay station‖end‖ in this passage.</mlc.relaystationtooltip.active>
+    
     <!-- Hint -->
     <relayrepair.terminal>KONETCO RELAY v[version]\nStation [station]\n------------------------\n\nCalibration Table\nIN [input0] | [step10] - [step20] - [step30] | OUT [output0]\nIN [input1] | [step11] - [step21] - [step31] | OUT [output1]\nIN [input2] | [step12] - [step22] - [step32] | OUT [output2]</relayrepair.terminal>
 
@@ -127,4 +47,11 @@
     <!-- Machines -->
     <entityname.autotrader_weapons>Auto-Trader (Weapons)</entityname.autotrader_weapons>
     <autotrader.instock>[count] in stock</autotrader.instock>
+
+    <!-- Loading Tips -->
+    <loadingscreentip>Distress beacons won't last forever, they will disapear from the map after some time.</loadingscreentip>
+    <loadingscreentip>Jump starters can be used to restart shuttles that have run out of power.</loadingscreentip>
+    <loadingscreentip>If you take your time getting to a distress beacon, whoever activated it might be dead by the time you show up.</loadingscreentip>
+    <loadingscreentip>If you have Dynamic Europa installed, having high reputation with the Bandit faction will turn pirate bases passive.</loadingscreentip>
+    <loadingscreentip>There have been reports of pirate bases using an unknown technology to jam sonnar.</loadingscreentip>
 </infotexts>

@@ -63,5 +63,30 @@
     <label.insanerant5>IT</label.insanerant5>
     <label.insanerant6>CALL?</label.insanerant6>
 
-    <charactername.clowncorpse>Clown Corpse</charactername.clowncorpse>
+    <missionmessage1.quiet>It's eerily silent, is anyone alive?</missionmessage1.quiet>
+    <distress.success.clowns>Who knows what those harlequins were up to.</distress.success.clowns>
+
+    <!-- Lost Cargo -->
+    <missionname.lostcargo>Lost Cargo</missionname.lostcargo>
+    <mismissionfailure.lostcargo>The cargo remains unclaimed.</mismissionfailure.lostcargo>
+
+    <missiondescription.lostcargo>A freighter submarine has ditched some of it's cargo pods due to 'complications' in this passage. Seems like free salvage if you can find the pods.</missiondescription.lostcargo>
+    
+    <missionheader0.lostcargo>Lost Cargo</missionheader0.lostcargo>
+    <missionmessage0.lostcargo>Cargo pod spotted! Dock with the pod and find out what's inside!</missionmessage0.lostcargo>
+
+    <!-- Relay Repair -->
+    <missionname.relayrepair>Relay Repair</missionname.relayrepair>
+    <missiondescription.relayrepair>An old relay station between [location1] and [location2] has recently stopped functioning. Bringing it back online will help local communication.</missiondescription.relayrepair>
+    <relaysonarlabel>Relay Station</relaysonarlabel>
+
+    <missionheader0.relayrepair>Relay Repair</missionheader0.relayrepair>
+    <missionmessage0.relayrepair>Unlike modern Beacon stations, Relay stations operate by modulating the incoming signal before sending it. The given input must match the expected target value to bring the station back online.</missionmessage0.relayrepair>
+
+    <missionheader1.relayrepair>Relay Repaired</missionheader1.relayrepair>
+    <missionmessage1.relayrepair>The station is back online and relaying signals again.</missionmessage1.relayrepair>
+
+    <missionsuccess.relayrepair>The relay station was repaired.</missionsuccess.relayrepair>
+    <missionfailure.relayrepair>The relay station remains offline.</missionfailure.relayrepair>
+
 </infotexts>

@@ -72,7 +72,7 @@ namespace MoreLevelContent.Shared.Generation
             {
                 double roll = rand.NextDouble();
                 // Relay stations have a 15% chance to spawn on any connection
-                extraData.HasRelayStation = roll < 0.15f;
+                extraData.RelayStationStatus = roll < 0.15f ? RelayStationStatus.Inactive : RelayStationStatus.None;
             }
         }
 

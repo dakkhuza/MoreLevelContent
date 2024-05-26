@@ -180,8 +180,7 @@ namespace MoreLevelContent.Shared.Generation
 
         void SpawnRelayStation()
         {
-            if (!Level.Loaded.LevelData.MLC().HasRelayStation) return;
-            
+            if (!Loaded.LevelData.MLC().HasRelayStation) return;
             Log.Debug("Trying to spawn relay station");
             Submarine relayStation = SpawnSubOnPath("Relay Station", CablePuzzleMission.SubmarineFile, ignoreCrushDepth: true, SubmarineType.EnemySubmarine, PlacementType.Top);
             Log.Debug("Spawned relay station");

@@ -87,12 +87,13 @@ namespace Barotrauma.MoreLevelContent.Client.UI
 
             if (data.HasRelayStation)
             {
-                //mlc.relaystationtooltip
+                var iconName = data.RelayStationStatus == RelayStationStatus.Active ? "RelayStationActive" : "RelayStationInactive";
+                var locString = data.RelayStationStatus == RelayStationStatus.Active ? "mlc.relaystationtooltip.active" : "mlc.relaystationtooltip.inactive";
                 LocalizedString localizedString = 
-                    TextManager.GetWithVariables("mlc.relaystationtooltip", 
+                    TextManager.GetWithVariables(locString,
                     ("[location1]", $"‖color:gui.Orange‖{connection.Locations[0].DisplayName}‖end‖"), 
                     ("[location2]", $"‖color:gui.Orange‖{connection.Locations[1].DisplayName}‖end‖"));
-                DrawIcon("RelayStation", (int)(28 * zoom), RichString.Rich(localizedString));
+                DrawIcon(iconName, (int)(28 * zoom), RichString.Rich(localizedString));
             }
 
             void DrawIcon(string iconStyle, int iconSize, RichString tooltipText)

@@ -1,4 +1,5 @@
 ﻿using Barotrauma;
+using Microsoft.CodeAnalysis;
 using MoreLevelContent.Shared.Generation;
 using System;
 using System.Collections.Generic;
@@ -24,8 +25,8 @@ namespace MoreLevelContent.Shared.Data
         [AttributeSaveData(false)]
         public bool HasBlackMarket;
 
-        [AttributeSaveData(false)]
-        public bool HasRelayStation;
+        [AttributeSaveData(RelayStationStatus.None)]
+        public RelayStationStatus RelayStationStatus;
 
         [AttributeSaveData(false)]
         public bool HasLostCargo;
@@ -43,6 +44,8 @@ namespace MoreLevelContent.Shared.Data
         public int RequestedE;
 
         internal PirateData PirateData;
+
+        public bool HasRelayStation => RelayStationStatus != RelayStationStatus.None;
 
         public LocalizedString GetRequestedSupplies()
         {
@@ -122,6 +125,13 @@ namespace MoreLevelContent.Shared.Data
         Active,
         Destroyed,
         Husked
+    }
+
+    public enum RelayStationStatus
+    {
+        None,
+        Inactive,
+        Active
     }
 
     internal struct PirateData

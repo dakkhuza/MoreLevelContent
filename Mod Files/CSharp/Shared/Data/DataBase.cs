@@ -25,8 +25,19 @@ namespace MoreLevelContent.Shared.Data
             foreach (var field in saveFields)
             {
                 XAttribute attr = saveFile.GetAttribute(field.Name);
-                if (attr != null) field.SetValue(this, Convert.ChangeType(attr.Value, field.FieldType));
-                else field.SetValue(this, ((AttributeSaveData)field.GetCustomAttribute(typeof(AttributeSaveData))).DefaultFieldValue);
+                if (attr != null)
+                {
+                    if (field.FieldType.IsEnum)
+                    {
+                        field.SetValue(this, Enum.Parse(field.FieldType, attr.Value));
+                        continue;
+                    }
+                    field.SetValue(this, Convert.ChangeType(attr.Value, field.FieldType));
+                }
+                else
+                {
+                    field.SetValue(this, ((AttributeSaveData)field.GetCustomAttribute(typeof(AttributeSaveData))).DefaultFieldValue);
+                }
             }
             LoadSpecific(saveFile);
         }

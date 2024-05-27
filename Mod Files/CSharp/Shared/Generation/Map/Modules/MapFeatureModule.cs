@@ -24,7 +24,7 @@ namespace MoreLevelContent.Shared.Generation
                 var config = item.ConfigElement;
                 foreach (var elm in config.GetChildElements("MapFeature"))
                 {
-                    var feature = new MapFeature(elm);
+                    var feature = new MapFeature(elm, item.ContentPackage);
                     if (featureDict.ContainsKey(feature.Name))
                     {
                         DebugConsole.ThrowError($"ContentPackage {item.ContentPackage.Name} contains a duplicate map feature with identifier {feature.Name}, skipping...");
@@ -45,6 +45,43 @@ namespace MoreLevelContent.Shared.Generation
             if (!_IdentifierToFeature.ContainsKey(name)) return false;
             feature = _IdentifierToFeature[name];
             return true;
+        }
+
+        public override void OnLevelGenerate(LevelData levelData, bool mirror)
+        {
+            var data = levelData.MLC();
+            if (data.MapFeatureData.Name.IsEmpty) return;
+            if (!TryGetFeature(data.MapFeatureData.Name, out MapFeature feature))
+            {
+                Log.Error($"Tried to spawn non-existant map feature with identifier {data.MapFeatureData.Name}");
+                return;
+            }
+
+            SubmarineFile file = ContentPackageManager.EnabledPackages.All.SelectMany(p => p.GetFiles<SubmarineFile>()).Where(f => f.Path.Value == feature.SubFile).FirstOrDefault();
+            if (file == null)
+            {
+                Log.Error($"Failed to find submarine at path {feature.SubFile}");
+                return;
+            }
+
+            // We need a custom placement thing for this
+            MissionGenerationDirector.RequestSubmarine(new MissionGenerationDirector.SubmarineSpawnRequest()
+            {
+                AutoFill = true,
+                File = file,
+                IgnoreCrushDpeth = true,
+                PlacementType = feature.PlacementType,
+                AllowStealing = false,
+                SpawnPosition = PositionType.Wreck,
+                Callback = OnSubSpawned
+            });
+
+            static void OnSubSpawned(Submarine sub)
+            {
+                sub.PhysicsBody.FarseerBody.BodyType = FarseerPhysics.BodyType.Static;
+                sub.TeamID = CharacterTeamType.FriendlyNPC;
+                sub.ShowSonarMarker = false;
+            }
         }
 
         public override void OnLevelDataGenerate(LevelData __instance, LocationConnection locationConnection)
@@ -88,9 +125,9 @@ namespace MoreLevelContent.Shared.Generation
 
     internal class MapFeature
     {
-        public MapFeature(XElement element)
+        public MapFeature(XElement element, ContentPackage package)
         {
-            SubFile = element.GetAttributeContentPath("path", null);
+            SubFile = element.GetAttributeContentPath("path", package);
             Name = element.GetAttributeIdentifier("identifier", "");
             SpawnLocation = element.GetAttributeEnum("spawnPosition", SpawnLocation.MainPath);
             PlacementType = element.GetAttributeEnum("placement", PlacementType.Bottom);

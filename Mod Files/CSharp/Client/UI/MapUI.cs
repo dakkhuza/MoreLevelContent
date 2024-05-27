@@ -1,18 +1,12 @@
 ﻿using Barotrauma.MoreLevelContent.Shared.Utils;
 using System.Reflection;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using MoreLevelContent;
 using HarmonyLib;
 using MoreLevelContent.Shared.Data;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MoreLevelContent.Shared;
-using OpenAL;
-using System.Linq;
 using MoreLevelContent.Shared.Generation;
-using SharpDX.DirectWrite;
 
 namespace Barotrauma.MoreLevelContent.Client.UI
 {

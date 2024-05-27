@@ -4,8 +4,8 @@
         tags="mlc, mapfeatureset"
         type="GoTo">
         <MapFeature path="%ModDir%/Map/MapFeatures/AutoTrader_Weapons.sub"
-            identifier="autotrader_weapons"
-            spawnPosition="MainPath, SidePath" placement="Top" commonness="10" chance="0.2f">
+            identifier="autotrader_weapons" spawnPosition="MainPath, SidePath"
+            placement="Top" commonness="10" chance="0.2f" allowstealing="false">
             <Display icon="Market" tooltip="mapfeature.autotrader" hideuntilrevealed="false" />
         </MapFeature>
     </MapFeatures>

@@ -11,6 +11,8 @@ using Microsoft.Xna.Framework.Graphics;
 using MoreLevelContent.Shared;
 using OpenAL;
 using System.Linq;
+using MoreLevelContent.Shared.Generation;
+using SharpDX.DirectWrite;
 
 namespace Barotrauma.MoreLevelContent.Client.UI
 {
@@ -91,6 +93,21 @@ namespace Barotrauma.MoreLevelContent.Client.UI
                 var locString = data.RelayStationStatus == RelayStationStatus.Active ? "mlc.relaystationtooltip.active" : "mlc.relaystationtooltip.inactive";
                 LocalizedString localizedString = TextManager.Get(locString);
                 DrawIcon(iconName, (int)(28 * zoom), RichString.Rich(localizedString));
+            }
+
+            DrawMapFeature(data);
+
+            void DrawMapFeature(LevelData_MLCData data)
+            {
+                if (data.MapFeatureData.Name.IsEmpty) return;
+                if (!data.MapFeatureData.Revealed && !GameMain.DebugDraw) return;
+                if (!MapFeatureModule.TryGetFeature(data.MapFeatureData.Name, out MapFeature feature))
+                {
+                    Log.Error($"Failed to find map feature with identifier {data.MapFeatureData.Name}!!");
+                    return;
+                }
+                var tooltip = TextManager.Get(feature.Display.Tooltip);
+                DrawIcon(feature.Display.Icon, (int)(28 * zoom), RichString.Rich(tooltip));
             }
 
             void DrawIcon(string iconStyle, int iconSize, RichString tooltipText)

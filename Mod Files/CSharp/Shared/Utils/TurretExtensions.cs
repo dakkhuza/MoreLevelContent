@@ -3,6 +3,7 @@ using Barotrauma.Items.Components;
 using Barotrauma.MoreLevelContent.Shared.Utils;
 using HarmonyLib;
 using Microsoft.Xna.Framework;
+using Steamworks.Ugc;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -40,21 +41,45 @@ namespace MoreLevelContent.Shared.Utils
         }
 
 #if CLIENT
-
-        internal static void AddSonarCircle(this Sonar sonar, Vector2 pingSource, BlipType type, int amount = 10)
+        // Still doesn't work
+        internal static void AddSonarCircle(this Sonar sonar, Vector2 pingSource, BlipType type, int blipCount = 10, float range = 0)
         {
-            for (int i = 0; i < amount; i++)
+            Vector2 sonarPos = sonar.Item.Submarine != null && sonar.Item.body == null ? sonar.Item.Submarine.WorldPosition : sonar.Item.WorldPosition; 
+            Vector2 targetVector = pingSource - sonarPos;
+            if (targetVector.LengthSquared() > MathUtils.Pow2(range)) return;
+
+            float dist = targetVector.Length();
+            Vector2 targetDir = targetVector / dist;
+            for (int i = 0; i < blipCount; i++)
             {
-                Vector2 dir = Rand.Vector(1.0f);
-                var longRangeBlip = new SonarBlip(pingSource, Rand.Range(1.9f, 2.1f), Rand.Range(1.0f, 1.5f), type)
+                float angle = Rand.Range(-0.5f, 0.5f);
+                Vector2 blipDir = MathUtils.RotatePoint(targetDir, angle);
+                Vector2 invBlipDir = MathUtils.RotatePoint(targetDir, -angle);
+                var longRangeBlip = new SonarBlip(sonarPos + blipDir * sonar.Range * 0.9f, Rand.Range(1.9f, 2.1f), Rand.Range(1.0f, 1.5f), type)
                 {
-                    Velocity = dir * MathUtils.Round(Rand.Range(4000.0f, 6000.0f), 1000.0f),
-                    Rotation = (float)Math.Atan2(-dir.Y, dir.X)
+                    Velocity = -invBlipDir * (MathUtils.Round(Rand.Range(8000.0f, 15000.0f), 2000.0f) - Math.Abs(angle * angle * 10000.0f)),
+                    Rotation = (float)Math.Atan2(-invBlipDir.Y, invBlipDir.X),
+                    Alpha = MathUtils.Pow2((range - dist) / range)
                 };
                 longRangeBlip.Size.Y *= 4.0f;
                 List<SonarBlip> blips = (List<SonarBlip>)ReflectionInfo.Instance.sonarBlips.GetValue(sonar);
                 blips.Add(longRangeBlip);
             }
+
+
+
+            // for (int i = 0; i < amount; i++)
+            // {
+            //     Vector2 dir = Rand.Vector(1.0f);
+            //     var longRangeBlip = new SonarBlip(pingSource, Rand.Range(1.9f, 2.1f), Rand.Range(1.0f, 1.5f), type)
+            //     {
+            //         Velocity = dir * MathUtils.Round(Rand.Range(4000.0f, 6000.0f), 1000.0f),
+            //         Rotation = (float)Math.Atan2(-dir.Y, dir.X)
+            //     };
+            //     longRangeBlip.Size.Y *= 4.0f;
+            //     List<SonarBlip> blips = (List<SonarBlip>)ReflectionInfo.Instance.sonarBlips.GetValue(sonar);
+            //     blips.Add(longRangeBlip);
+            // }
         }
 #endif
 

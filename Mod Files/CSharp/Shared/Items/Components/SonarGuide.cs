@@ -11,10 +11,12 @@ namespace MoreLevelContent.Items
     {
         private readonly float _PingInterval;
         private float _Interval;
+        private readonly float _Range;
         public SonarGuide(Item item, ContentXElement element) : base(item, element)
         {
             IsActive = true;
             _PingInterval = element.GetAttributeFloat("interval", 10f);
+            _Range = element.GetAttributeFloat("range", Sonar.DefaultSonarRange);
         }
 
         public override void Update(float deltaTime, Camera cam)
@@ -34,7 +36,7 @@ namespace MoreLevelContent.Items
                 _Interval = _PingInterval;
                 foreach (Item item in Item.ItemList)
                 {
-                    item.GetComponent<Sonar>()?.AddSonarCircle(Item.WorldPosition, (Sonar.BlipType)5, 50);
+                    item.GetComponent<Sonar>()?.AddSonarCircle(Item.WorldPosition, (Sonar.BlipType)5, blipCount: 100, range: _Range);
                 }
             }
 #endif

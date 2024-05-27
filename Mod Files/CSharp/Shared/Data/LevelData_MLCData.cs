@@ -43,8 +43,7 @@ namespace MoreLevelContent.Shared.Data
         [AttributeSaveData(0)]
         public int RequestedE;
 
-        [AttributeSaveData("")]
-        public string MapFeature;
+        public MapFeatureData MapFeatureData;
 
         internal PirateData PirateData;
 
@@ -96,15 +95,36 @@ namespace MoreLevelContent.Shared.Data
                     Difficulty = pirateData.GetAttributeFloat("difficulty", 0),
                 };
             }
+            var mapFeatureData = saveFile.GetChildElement("MapFeatureData");
+            if (mapFeatureData != null)
+            {
+                MapFeatureData = new MapFeatureData()
+                {
+                    Name = mapFeatureData.GetAttributeIdentifier("name", null),
+                    Revealed = mapFeatureData.GetAttributeBool("revealed", false)
+                };
+            }
         }
 
         protected override void SaveSpecific(XElement saveFile)
         {
-            var data = new XElement("PirateData",
+            var pirateData = new XElement("PirateData",
                 new XAttribute("status", PirateData.Status),
                 new XAttribute("difficulty", PirateData.Difficulty));
-            saveFile.Add(data);
+
+            var mapFeatureData = new XElement("MapFeatureData",
+                new XAttribute("name", MapFeatureData.Name),
+                new XAttribute("revealed", MapFeatureData.Revealed));
+
+            saveFile.Add(pirateData);
+            saveFile.Add(mapFeatureData);
         }
+    }
+
+    public struct MapFeatureData
+    {
+        public Identifier Name;
+        public bool Revealed;
     }
 
     public static partial class MLCData

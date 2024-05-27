@@ -39,10 +39,11 @@ namespace MoreLevelContent.Shared.Utils
 #endif
         }
 
-        internal static void AddSonarCircle(this Sonar sonar, Vector2 pingSource, BlipType type)
-        {
 #if CLIENT
-            for (int i = 0; i < 10; i++)
+
+        internal static void AddSonarCircle(this Sonar sonar, Vector2 pingSource, BlipType type, int amount = 10)
+        {
+            for (int i = 0; i < amount; i++)
             {
                 Vector2 dir = Rand.Vector(1.0f);
                 var longRangeBlip = new SonarBlip(pingSource, Rand.Range(1.9f, 2.1f), Rand.Range(1.0f, 1.5f), type)
@@ -54,8 +55,9 @@ namespace MoreLevelContent.Shared.Utils
                 List<SonarBlip> blips = (List<SonarBlip>)ReflectionInfo.Instance.sonarBlips.GetValue(sonar);
                 blips.Add(longRangeBlip);
             }
-#endif
         }
+#endif
+
     }
 
     public class ReflectionInfo : Singleton<ReflectionInfo>

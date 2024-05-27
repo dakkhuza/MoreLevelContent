@@ -32,10 +32,9 @@ namespace MoreLevelContent.Items
                 }
 
                 _Interval = _PingInterval;
-                Log.Debug("ping");
                 foreach (Item item in Item.ItemList)
                 {
-                    item.GetComponent<Sonar>()?.AddSonarCircle(Item.WorldPosition, (Sonar.BlipType)5);
+                    item.GetComponent<Sonar>()?.AddSonarCircle(Item.WorldPosition, (Sonar.BlipType)5, 50);
                 }
             }
 #endif

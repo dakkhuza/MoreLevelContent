@@ -66,7 +66,8 @@ namespace MoreLevelContent.Shared.Generation
 
             // Campaign
             _ = Main.Harmony.Patch(campaignmode_AddExtraMissions, postfix: new HarmonyMethod(AccessTools.Method(typeof(MapDirector), nameof(OnAddExtraMissions))));
-            _ = Main.Harmony.Patch(gamesession_StartRound, prefix: new HarmonyMethod(AccessTools.Method(typeof(MapDirector), nameof(OnRoundStart))));
+            _ = Main.Harmony.Patch(gamesession_StartRound, prefix: new HarmonyMethod(AccessTools.Method(typeof(MapDirector), nameof(OnPreRoundStart))));
+            _ = Main.Harmony.Patch(gamesession_StartRound, postfix: new HarmonyMethod(AccessTools.Method(typeof(MapDirector), nameof(OnPostRoundStart))));
             extraMissions = AccessTools.Field(typeof(CampaignMode), "extraMissions");
 
             _ = Main.Harmony.Patch(map_progressworld, postfix: new HarmonyMethod(AccessTools.Method(typeof(MapDirector), nameof(OnProgressWorld))));
@@ -159,7 +160,7 @@ namespace MoreLevelContent.Shared.Generation
         internal FieldInfo extraMissions;
         internal List<MapModule> Modules = new();
 
-        private static void OnRoundStart(GameSession __instance, LevelData levelData)
+        private static void OnPreRoundStart(GameSession __instance, LevelData levelData)
         {
 #if CLIENT
             if (!_validatedConnectionLookup && GameMain.IsMultiplayer)
@@ -171,9 +172,18 @@ namespace MoreLevelContent.Shared.Generation
 
             foreach (var item in Instance.Modules)
             {
-                item.OnRoundStart(levelData);
+                item.OnPreRoundStart(levelData);
             }
         }
+
+        private static void OnPostRoundStart(GameSession __instance, LevelData levelData)
+        {
+            foreach (var item in Instance.Modules)
+            {
+                item.OnPreRoundStart(levelData);
+            }
+        }
+
 
         private static void OnAddExtraMissions(CampaignMode __instance, LevelData levelData)
         {

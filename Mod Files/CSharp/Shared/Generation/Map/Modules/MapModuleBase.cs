@@ -146,7 +146,8 @@ namespace MoreLevelContent.Shared.Generation
         }
 
         public virtual void OnAddExtraMissions(CampaignMode __instance, LevelData levelData) { }
-        public virtual void OnRoundStart(LevelData levelData) { }
+        public virtual void OnPreRoundStart(LevelData levelData) { }
+        public virtual void OnPostRoundStart(LevelData levelData) { }
         public virtual void OnLevelDataGenerate(LevelData __instance, LocationConnection locationConnection) { }
         public virtual void OnProgressWorld(Map __instance) { }
         public virtual void OnLevelDataLoad(LevelData __instance, XElement element) { }

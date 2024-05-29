@@ -67,7 +67,7 @@ namespace MoreLevelContent.Shared.Generation
             }
         }
 
-        public override void OnRoundStart(LevelData levelData)
+        public override void OnPreRoundStart(LevelData levelData)
         {
             if (levelData == null) return;
             if (!Main.IsCampaign) return;

@@ -59,7 +59,7 @@ namespace MoreLevelContent.Shared.Generation
 #endif
         }
 
-        public override void OnRoundStart(LevelData levelData)
+        public override void OnPreRoundStart(LevelData levelData)
         {
             _internalMissionStore.Clear();
 

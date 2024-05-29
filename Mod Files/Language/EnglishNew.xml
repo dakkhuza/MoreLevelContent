@@ -49,7 +49,9 @@
     <autotrader.instock>[count] in stock</autotrader.instock>
 
     <!-- Map Feature Tooltips -->
-    <mapfeature.autotrader>There's an automatic trading station somewhere in this passage</mapfeature.autotrader>
+    <mapfeature.autotrader_weapons>There's an automatic trading station selling weapons somewhere in this passage.</mapfeature.autotrader_weapons>
+    <mapfeature.autotrader_supplies>There's an automatic trading station selling supplies somewhere in this passage.</mapfeature.autotrader_supplies>
+    <mapfeature.waystation>There's a waystation somewhere in this passage.</mapfeature.waystation>
 
     <!-- Loading Tips -->
     <loadingscreentip>Distress beacons won't last forever, they will disapear from the map after some time.</loadingscreentip>

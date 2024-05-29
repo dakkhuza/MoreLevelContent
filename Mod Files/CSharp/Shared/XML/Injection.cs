@@ -3,6 +3,8 @@ using Barotrauma.MoreLevelContent.Shared.Utils;
 using HarmonyLib;
 using MoreLevelContent.Custom.Missions;
 using MoreLevelContent.Shared.Content;
+using MoreLevelContent.Shared.Data;
+using MoreLevelContent.Shared.Generation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +17,8 @@ namespace MoreLevelContent.Shared.XML
         public override void Setup()
         {
             missionPrefab_constructor = AccessTools.Field(typeof(MissionPrefab), "constructor");
+            npcConversation_GetCurrentFlags = AccessTools.Method(typeof(NPCConversation), "GetCurrentFlags");
+            _ = Main.Harmony.Patch(npcConversation_GetCurrentFlags, postfix: new HarmonyMethod(AccessTools.Method(typeof(InjectionManager), nameof(AddNPCConcersationFlags))));
             InjectMissions();
         }
         
@@ -27,7 +31,28 @@ namespace MoreLevelContent.Shared.XML
             // }
         }
 
+        private void AddNPCConcersationFlags(Character speaker, ref List<Identifier> __result)
+        {
+            if (speaker == null) return;
+            if (speaker.MLC().IsDistressShuttle) __result.Add("DistressShuttle");
+            if (speaker.MLC().IsDistressDiver) __result.Add("DistressDiver");
+
+            if (speaker.TeamID == CharacterTeamType.FriendlyNPC)
+            {
+                if (speaker.Submarine == MapFeatureModule.MapFeatureSub)
+                {
+                    __result.Add(MapFeatureModule.CurrentMapFeature);
+                }
+                if (Submarine.MainSub != null && speaker.Submarine == Submarine.MainSub)
+                {
+                    __result.Add("MainSub");
+                }
+            }
+
+        }
+
         FieldInfo missionPrefab_constructor;
+        MethodInfo npcConversation_GetCurrentFlags;
 
         private void InjectMissions()
         {

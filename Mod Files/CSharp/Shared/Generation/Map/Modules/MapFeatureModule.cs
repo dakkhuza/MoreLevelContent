@@ -146,7 +146,6 @@ namespace MoreLevelContent.Shared.Generation
             // Check if there's already a map featue nearby
             if (connection.Locations.Any(l => _DisallowedLocations.Contains(l)))
             {
-                Log.Debug("Skipped due to having a map feature nearby");
                 return;
             }
 
@@ -161,7 +160,6 @@ namespace MoreLevelContent.Shared.Generation
                 data.MLC().MapFeatureData.Name = feature.Name;
                 data.MLC().MapFeatureData.Revealed = feature.Display.HideUntilRevealed;
                 _DisallowedLocations.AddRange(connection.Locations);
-                Log.Debug($"Added feature {feature.Name}");
             }
         }
     }

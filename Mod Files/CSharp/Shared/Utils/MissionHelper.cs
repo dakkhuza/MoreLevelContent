@@ -371,6 +371,15 @@ namespace MoreLevelContent.Shared.Utils
                             return false;
                         }
                     }
+                    if (Vector2.DistanceSquared(Loaded.StartPosition, sp) < minDistance * minDistance)
+                    {
+                        return false;
+                    }
+                    if (Vector2.DistanceSquared(Loaded.EndPosition, sp) < minDistance * minDistance)
+                    {
+                        return false;
+                    }
+
                 }
                 return !isBlocked && bottomFound;
 

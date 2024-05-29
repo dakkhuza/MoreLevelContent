@@ -12,7 +12,7 @@
   <LostCargo color="66,135,245,255" hovercolor="66,66,245,255">
     <Sprite name="LostCargo" texture="%ModDir%/Style/map_icons.png" tile="false" sourcerect="576,0,72,75" maintainaspectratio="true" origin="0.5,0.5" />
   </LostCargo>
-  <Market color="255,106,106,255" hovercolor="255,156,156,255">
+  <Market color="138,193,75,255" hovercolor="126,243,103,255">
     <Sprite name="Market" texture="%ModDir%/Style/map_icons.png" tile="false" sourcerect="432,0,72,75" maintainaspectratio="true" origin="0.5,0.5" />
   </Market>
   <PirateBase color="255,106,106,255" hovercolor="255,156,156,255">
@@ -24,4 +24,7 @@
   <RelayStationActive color="138,193,75,255" hovercolor="126,243,103,255">
     <Sprite name="RelayStationActive" texture="%ModDir%/Style/map_icons.png" tile="false" sourcerect="360,0,72,75" maintainaspectratio="true" origin="0.5,0.5" />
   </RelayStationActive>
+  <WayStation color="66,135,245,255" hovercolor="66,66,245,255">
+    <Sprite name="WayStation" texture="%ModDir%/Style/map_icons.png" tile="false" sourcerect="720,0,72,75" maintainaspectratio="true" origin="0.5,0.5" />
+  </WayStation>
 </style>

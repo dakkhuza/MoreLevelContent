@@ -109,6 +109,38 @@ namespace MoreLevelContent.Shared.Generation
             }
         }
 
+        public override void OnRoundStart(LevelData levelData)
+        {
+            if (!TryGetFeature(levelData.MLC().MapFeatureData.Name, out MapFeature feature))
+            {
+                return;
+            }
+            if (GameMain.GameSession?.EventManager == null)
+            {
+                Log.Error("Event manager was null");
+                return;
+            }
+
+            var rand = new MTRandom(GameMain.GameSession.EventManager.RandomSeed);
+            var mapEvent = ToolBox.SelectWeightedRandom(feature.PossibleEvents, e => e.Commonness, rand);
+            if (rand.NextDouble() > mapEvent.Probability) return;
+
+            var eventPrefab = EventSet.GetAllEventPrefabs().Find(p => p.Identifier == mapEvent.EventIdentifier);
+            if (eventPrefab == null)
+            {
+                DebugConsole.ThrowError($"Map Feature \"{feature.Name}\" failed to trigger an event (couldn't find an event with the identifier \"{mapEvent.EventIdentifier}\").",
+                    contentPackage: feature.Package);
+                return;
+            }
+
+            if (GameMain.GameSession?.EventManager != null)
+            {
+                var newEvent = eventPrefab.CreateInstance(GameMain.GameSession.EventManager.RandomSeed);
+                GameMain.GameSession.EventManager.ActivateEvent(newEvent);
+            }
+
+        }
+
         void RollForFeature(LevelData data, LocationConnection connection)
         {
             // Check if there's already a map featue nearby
@@ -138,6 +170,7 @@ namespace MoreLevelContent.Shared.Generation
     {
         public MapFeature(XElement element, ContentPackage package)
         {
+            Package = package;
             SubFile = element.GetAttributeContentPath("path", package);
             Name = element.GetAttributeIdentifier("identifier", "");
             SpawnLocation = element.GetAttributeEnum("spawnPosition", SpawnLocation.MainPath);
@@ -145,15 +178,22 @@ namespace MoreLevelContent.Shared.Generation
             Chance = element.GetAttributeFloat("chance", 0);
             Commonness = element.GetAttributeFloat("commonness", 0);
             Display = new MapFeatureDisplay(element.GetChildElement("Display"));
+            PossibleEvents = new();
+            foreach (var item in element.GetChildElements("ScriptedEvent"))
+            {
+                PossibleEvents.Add(new MapFeatureEvent(item));
+            }
         }
 
-        public ContentPath SubFile;
-        public Identifier Name;
-        public SpawnLocation SpawnLocation;
-        public PlacementType PlacementType;
-        public float Chance;
-        public float Commonness;
-        public MapFeatureDisplay Display;
+        public ContentPackage Package { get; private set; }
+        public ContentPath SubFile { get; private set; }
+        public Identifier Name { get; private set; }
+        public SpawnLocation SpawnLocation { get; private set; }
+        public PlacementType PlacementType { get; private set; }
+        public float Chance { get; private set; }
+        public float Commonness { get; private set; }
+        public MapFeatureDisplay Display { get; private set; }
+        public List<MapFeatureEvent> PossibleEvents { get; private set; }
 
         public struct MapFeatureDisplay
         {
@@ -166,6 +206,19 @@ namespace MoreLevelContent.Shared.Generation
             public string Icon { get; private set; }
             public string Tooltip { get; private set; }
             public bool HideUntilRevealed { get; private set; }
+        }
+
+        public struct MapFeatureEvent
+        {
+            public MapFeatureEvent(XElement element)
+            {
+                Probability = element.GetAttributeFloat("probability", 0);
+                Commonness = element.GetAttributeFloat("commonness", 0);
+                EventIdentifier = element.GetAttributeIdentifier("identifier", "");
+            }
+            public float Probability { get; private set; }
+            public float Commonness { get; private set; }
+            public Identifier EventIdentifier { get; private set; }
         }
     }
 

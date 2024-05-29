@@ -180,7 +180,7 @@ namespace MoreLevelContent.Shared.Generation
         {
             foreach (var item in Instance.Modules)
             {
-                item.OnPreRoundStart(levelData);
+                item.OnPostRoundStart(levelData);
             }
         }
 

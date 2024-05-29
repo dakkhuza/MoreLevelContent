@@ -109,7 +109,7 @@ namespace MoreLevelContent.Shared.Generation
             }
         }
 
-        public override void OnPreRoundStart(LevelData levelData)
+        public override void OnPostRoundStart(LevelData levelData)
         {
             if (!TryGetFeature(levelData.MLC().MapFeatureData.Name, out MapFeature feature))
             {

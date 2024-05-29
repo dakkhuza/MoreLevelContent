@@ -1004,7 +1004,7 @@
                 targettag="prisoner1" />
 
             <StatusEffectAction targettag="prisoner1">
-                <StatusEffect>
+                <StatusEffect target="This">
                     <GiveTalentInfo giverandom="false"
                         talentidentifiers="swole, crustyseaman, stonewall" />
                 </StatusEffect>
@@ -1015,7 +1015,7 @@
                 team="None" requirespawnpointtag="true" lootingisstealing="false"
                 targettag="prisoner2" />
             <StatusEffectAction targettag="prisoner2">
-                <StatusEffect>
+                <StatusEffect target="This">
                     <GiveTalentInfo giverandom="false"
                         talentidentifiers="swole, inordinateexsanguination, implacable" />
                 </StatusEffect>
@@ -1027,7 +1027,7 @@
                 team="None" requirespawnpointtag="true" lootingisstealing="false"
                 targettag="prisoner3" />
             <StatusEffectAction targettag="prisoner3">
-                <StatusEffect>
+                <StatusEffect target="This">
                     <GiveTalentInfo giverandom="false"
                         talentidentifiers="swole, phdinnuclearphysics, multifunctional" />
                 </StatusEffect>
@@ -1039,7 +1039,7 @@
                 team="None" requirespawnpointtag="true" lootingisstealing="false"
                 targettag="prisoner4" />
             <StatusEffectAction targettag="prisoner4">
-                <StatusEffect>
+                <StatusEffect target="This">
                     <GiveTalentInfo giverandom="false"
                         talentidentifiers="swole, berserker, foolhardy" />
                 </StatusEffect>

@@ -13,10 +13,13 @@ namespace MoreLevelContent.Shared.Generation
     {
         private static List<MapFeature> _Features = new();
         private static Dictionary<Identifier, MapFeature> _IdentifierToFeature = new();
+        private List<Location> _DisallowedLocations;
+
         protected override void InitProjSpecific()
         {
             // Build table of map features
             _Features.Clear();
+            _DisallowedLocations = new();
             var features = MissionPrefab.Prefabs.Where(m => m.Tags.Contains("mapfeatureset"));
             var featureDict = new Dictionary<Identifier, MapFeature>();
             foreach (var item in features)
@@ -86,7 +89,7 @@ namespace MoreLevelContent.Shared.Generation
 
         public override void OnLevelDataGenerate(LevelData __instance, LocationConnection locationConnection)
         {
-            RollForFeature(__instance);
+            RollForFeature(__instance, locationConnection);
         }
 
         public override void OnMapLoad(Map __instance)
@@ -97,7 +100,7 @@ namespace MoreLevelContent.Shared.Generation
                 for (int i = 0; i < __instance.Connections.Count; i++)
                 {
                     var connection = __instance.Connections[i];
-                    RollForFeature(connection.LevelData);
+                    RollForFeature(connection.LevelData, connection);
                 }
             }
             else
@@ -106,8 +109,15 @@ namespace MoreLevelContent.Shared.Generation
             }
         }
 
-        void RollForFeature(LevelData data)
+        void RollForFeature(LevelData data, LocationConnection connection)
         {
+            // Check if there's already a map featue nearby
+            if (connection.Locations.Any(l => _DisallowedLocations.Contains(l)))
+            {
+                Log.Debug("Skipped due to having a map feature nearby");
+                return;
+            }
+
             var rand = MLCUtils.GetRandomFromString(data.Seed);
 
             // Select feature to try and spawn
@@ -118,6 +128,7 @@ namespace MoreLevelContent.Shared.Generation
             {
                 data.MLC().MapFeatureData.Name = feature.Name;
                 data.MLC().MapFeatureData.Revealed = feature.Display.HideUntilRevealed;
+                _DisallowedLocations.AddRange(connection.Locations);
                 Log.Debug($"Added feature {feature.Name}");
             }
         }

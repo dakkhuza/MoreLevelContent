@@ -945,7 +945,7 @@
                 reward="0"
                 successmessage="distress.success.distress_ghostship_prisonbreak"
         >
-                <Submarines>
+                <Submarines traveltarget="Start">
                         <Sub path="Content/Submarines/Venture.sub" />
                         <Sub path="Content/Submarines/Hemulen.sub" />
                 </Submarines>
@@ -1019,7 +1019,7 @@
                 reward="0"
                 successmessage="distress.success.distress_ghostship_prisonbreak"
         >
-                <Submarines>
+                <Submarines traveltarget="Start">
                         <Sub path="Content/Submarines/Venture.sub" />
                         <Sub path="Content/Submarines/Hemulen.sub" />
                 </Submarines>

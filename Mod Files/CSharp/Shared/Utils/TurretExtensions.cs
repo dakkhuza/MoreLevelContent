@@ -59,7 +59,7 @@ namespace MoreLevelContent.Shared.Utils
                 {
                     Velocity = -invBlipDir * (MathUtils.Round(Rand.Range(8000.0f, 15000.0f), 2000.0f) - Math.Abs(angle * angle * 10000.0f)),
                     Rotation = (float)Math.Atan2(-invBlipDir.Y, invBlipDir.X),
-                    Alpha = MathUtils.Pow2((range - dist) / range)
+                    Alpha = MathUtils.Pow2((range - dist) / range) * 0.25f
                 };
                 longRangeBlip.Size.Y *= 4.0f;
                 List<SonarBlip> blips = (List<SonarBlip>)ReflectionInfo.Instance.sonarBlips.GetValue(sonar);

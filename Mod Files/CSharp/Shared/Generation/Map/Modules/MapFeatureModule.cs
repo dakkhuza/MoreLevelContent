@@ -14,7 +14,8 @@ namespace MoreLevelContent.Shared.Generation
         private static List<MapFeature> _Features = new();
         private static Dictionary<Identifier, MapFeature> _IdentifierToFeature = new();
         private List<Location> _DisallowedLocations;
-        private Submarine _MapFeatureSub;
+        public static Submarine MapFeatureSub { get; private set; }
+        public static Identifier CurrentMapFeature { get; private set; }
 
         protected override void InitProjSpecific()
         {
@@ -82,7 +83,8 @@ namespace MoreLevelContent.Shared.Generation
 
             void OnSubSpawned(Submarine sub)
             {
-                _MapFeatureSub = sub;
+                MapFeatureSub = sub;
+                CurrentMapFeature = feature.Name;
                 sub.PhysicsBody.FarseerBody.BodyType = FarseerPhysics.BodyType.Static;
                 sub.TeamID = CharacterTeamType.FriendlyNPC;
                 sub.ShowSonarMarker = false;
@@ -122,7 +124,7 @@ namespace MoreLevelContent.Shared.Generation
             // Set allow stealing
             if (!feature.AllowStealing)
             {
-                foreach (var item in _MapFeatureSub.GetItems(true))
+                foreach (var item in MapFeatureSub.GetItems(true))
                 {
                     if (item.Container?.Prefab.AllowStealingContainedItems ?? false) continue;
                     item.AllowStealing = false;

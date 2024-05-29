@@ -68,7 +68,7 @@ namespace MoreLevelContent.Shared.Generation
         private void RollForRelay(LevelData levelData, LevelData_MLCData extraData, LocationConnection locationConnection)
         {
             var rand = new MTRandom(ToolBox.StringToInt(levelData.Seed));
-            if (!levelData.IsBeaconActive)
+            if (!levelData.HasBeaconStation && !levelData.MLC().HasBeaconConstruction)
             {
                 double roll = rand.NextDouble();
                 // Relay stations have a 15% chance to spawn on any connection

@@ -13,6 +13,8 @@ namespace MoreLevelContent
 {
     public class Commands : Singleton<Commands>
     {
+        public static bool DisplayAllMapLocations = false;
+
         public override void Setup()
         {
             CommandUtils.AddCommand("mlc_debugmissions", "Prints a debug output of all active missions", _debugMissions);
@@ -21,7 +23,10 @@ namespace MoreLevelContent
             CommandUtils.AddCommand("mlc_createdistressbeacon", "Tries to create a new distress beacon", _createDistress, isCheat: true);
             CommandUtils.AddCommand("mlc_forcedistress", "Toggles forcing every level to spawn a distress mission, does nothing in multiplayer", _forceDistress, isCheat: true);
             CommandUtils.AddCommand("mlc_forcepirate", "Toggles forcing a specific pirate base to spawn", _forcePirate, isCheat: true);
+            CommandUtils.AddCommand("mlc_toggleMapDisplay", "Toggles if all map locations should be shown, even if they are not discovered yet", _toggleMapDisplay, isCheat: true);
         }
+
+        private void _toggleMapDisplay(object[] args) => DisplayAllMapLocations = !DisplayAllMapLocations;
 
         private void _debugMissions(object[] args)
         {

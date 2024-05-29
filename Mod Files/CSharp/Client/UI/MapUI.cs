@@ -71,12 +71,12 @@ namespace Barotrauma.MoreLevelContent.Client.UI
                 DrawIcon("LostCargo", (int)(28 * zoom), RichString.Rich(TextManager.Get("mlc.lostcargotooltip")));
             }
 
-            if (data.HasBlackMarket && GameMain.DebugDraw)
+            if (data.HasBlackMarket && (GameMain.DebugDraw || Commands.DisplayAllMapLocations))
             {
                 DrawIcon("BlackMarket", (int)(28 * zoom), RichString.Rich("Black Market"));
             }
 
-            if (data.PirateData.HasPirateOutpost && GameMain.DebugDraw)
+            if (data.PirateData.HasPirateOutpost && (GameMain.DebugDraw || Commands.DisplayAllMapLocations))
             {
                 DrawIcon("PirateBase", (int)(28 * zoom), RichString.Rich("Pirate Base: " + $"{data.PirateData.Status} Diff: {data.PirateData.Difficulty}"));
             }
@@ -94,7 +94,7 @@ namespace Barotrauma.MoreLevelContent.Client.UI
             void DrawMapFeature(LevelData_MLCData data)
             {
                 if (data.MapFeatureData.Name.IsEmpty) return;
-                if (!data.MapFeatureData.Revealed && !GameMain.DebugDraw) return;
+                if (!data.MapFeatureData.Revealed && !GameMain.DebugDraw && !Commands.DisplayAllMapLocations) return;
                 if (!MapFeatureModule.TryGetFeature(data.MapFeatureData.Name, out MapFeature feature))
                 {
                     Log.Error($"Failed to find map feature with identifier {data.MapFeatureData.Name}!!");

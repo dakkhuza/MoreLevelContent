@@ -12,7 +12,11 @@ namespace MoreLevelContent.Shared.Generation
 {
     internal partial class PirateOutpostMapModule : MapModule
     {
-        protected override void InitProjSpecific() { }
+        List<Location> _DisallowedLocations;
+        protected override void InitProjSpecific()
+        {
+            _DisallowedLocations = new();
+        }
 
         public override void OnLevelDataGenerate(LevelData __instance, LocationConnection locationConnection) => SetPirateData(__instance, __instance.MLC(), locationConnection);
 
@@ -36,7 +40,24 @@ namespace MoreLevelContent.Shared.Generation
         void SetPirateData(LevelData levelData, LevelData_MLCData additionalData, LocationConnection locationConnection)
         {
             PirateSpawnData spawnData = new PirateSpawnData(levelData, locationConnection);
+            // Prevent pirate outposts from spawning too clustered together
+            if (spawnData.WillSpawn && locationConnection.Locations.Any(l => _DisallowedLocations.Contains(l)))
+            {
+                // Unless they're husked, then that's fine
+                if (!spawnData.Husked)
+                {
+                    spawnData.WillSpawn = false;
+                    spawnData.Husked = false;
+                }
+            }
+
+            // Add nearby locations to disallowed list
+            if (spawnData.WillSpawn)
+            {
+                _DisallowedLocations.AddRange(locationConnection.Locations);
+            }
             additionalData.PirateData = new PirateData(spawnData);
+            
         }
     }
 

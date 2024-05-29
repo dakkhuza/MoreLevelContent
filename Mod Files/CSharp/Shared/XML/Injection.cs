@@ -31,7 +31,7 @@ namespace MoreLevelContent.Shared.XML
             // }
         }
 
-        private void AddNPCConcersationFlags(Character speaker, ref List<Identifier> __result)
+        private static void AddNPCConcersationFlags(ref List<Identifier> __result, Character speaker)
         {
             if (speaker == null) return;
             if (speaker.MLC().IsDistressShuttle) __result.Add("DistressShuttle");

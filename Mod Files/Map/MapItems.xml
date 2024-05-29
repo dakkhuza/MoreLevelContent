@@ -57,7 +57,7 @@
   </Item>
   <Item name="Sonar Guide" identifier="sonarguide" tags="command" category="Machine,Weapon" spritecolor="255,255,255,255" Scale="1">
     <Sprite texture="%ModDir%/Pirate/pirate_weapons.png" sourcerect="2,147,91,95" depth="0.8" origin="0.5,0.5" />
-    <SonarGuide PowerConsumption="800" range="30000" interval="10" minvoltage="0.5" />
+    <SonarGuide PowerConsumption="800" minvoltage="0.5" />
     <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver">
       <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
       <requireditem items="screwdriver" type="Equipped" />

@@ -9,14 +9,15 @@ namespace MoreLevelContent.Items
 {
     internal class SonarGuide : Powered
     {
-        private readonly float _PingInterval;
+        [Serialize(10.0f, IsPropertySaveable.Yes, description: "How often the guide sends out a ping."), Editable]
+        public float PingInterval { get; private set; }
+
+        [Serialize(30000f, IsPropertySaveable.Yes, description: "How far away this guide can be detected from, 10000.0f is the default sonar range."), Editable]
+        public float Range { get; private set; }
         private float _Interval;
-        private readonly float _Range;
         public SonarGuide(Item item, ContentXElement element) : base(item, element)
         {
             IsActive = true;
-            _PingInterval = element.GetAttributeFloat("interval", 10f);
-            _Range = element.GetAttributeFloat("range", Sonar.DefaultSonarRange);
         }
 
         public override void Update(float deltaTime, Camera cam)
@@ -24,7 +25,6 @@ namespace MoreLevelContent.Items
             UpdateOnActiveEffects(deltaTime);
 
 #if CLIENT
-
             if (Voltage >= MinVoltage)
             {
                 if (_Interval > 0)
@@ -33,10 +33,10 @@ namespace MoreLevelContent.Items
                     return;
                 }
 
-                _Interval = _PingInterval;
+                _Interval = PingInterval;
                 foreach (Item item in Item.ItemList)
                 {
-                    item.GetComponent<Sonar>()?.AddSonarCircle(Item.WorldPosition, (Sonar.BlipType)5, blipCount: 100, range: _Range);
+                    item.GetComponent<Sonar>()?.AddSonarCircle(Item.WorldPosition, (Sonar.BlipType)5, blipCount: 100, range: Range);
                 }
             }
 #endif

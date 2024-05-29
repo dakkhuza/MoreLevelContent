@@ -14,6 +14,7 @@ namespace MoreLevelContent.Shared.Generation
         private static List<MapFeature> _Features = new();
         private static Dictionary<Identifier, MapFeature> _IdentifierToFeature = new();
         private List<Location> _DisallowedLocations;
+        private Submarine _MapFeatureSub;
 
         protected override void InitProjSpecific()
         {
@@ -79,8 +80,9 @@ namespace MoreLevelContent.Shared.Generation
                 Callback = OnSubSpawned
             });
 
-            static void OnSubSpawned(Submarine sub)
+            void OnSubSpawned(Submarine sub)
             {
+                _MapFeatureSub = sub;
                 sub.PhysicsBody.FarseerBody.BodyType = FarseerPhysics.BodyType.Static;
                 sub.TeamID = CharacterTeamType.FriendlyNPC;
                 sub.ShowSonarMarker = false;
@@ -111,10 +113,23 @@ namespace MoreLevelContent.Shared.Generation
 
         public override void OnPostRoundStart(LevelData levelData)
         {
+            if (levelData == null) return;
             if (!TryGetFeature(levelData.MLC().MapFeatureData.Name, out MapFeature feature))
             {
                 return;
             }
+
+            // Set allow stealing
+            if (!feature.AllowStealing)
+            {
+                foreach (var item in _MapFeatureSub.GetItems(true))
+                {
+                    if (item.Container?.Prefab.AllowStealingContainedItems ?? false) continue;
+                    item.AllowStealing = false;
+                    item.SpawnedInCurrentOutpost = true;
+                }
+            }
+
             if (GameMain.GameSession?.EventManager == null)
             {
                 Log.Error("Event manager was null");
@@ -138,7 +153,6 @@ namespace MoreLevelContent.Shared.Generation
                 var newEvent = eventPrefab.CreateInstance(GameMain.GameSession.EventManager.RandomSeed);
                 GameMain.GameSession.EventManager.ActivateEvent(newEvent);
             }
-
         }
 
         void RollForFeature(LevelData data, LocationConnection connection)
@@ -175,6 +189,7 @@ namespace MoreLevelContent.Shared.Generation
             PlacementType = element.GetAttributeEnum("placement", PlacementType.Bottom);
             Chance = element.GetAttributeFloat("chance", 0);
             Commonness = element.GetAttributeFloat("commonness", 0);
+            AllowStealing = element.GetAttributeBool("allowstealing", true);
             Display = new MapFeatureDisplay(element.GetChildElement("Display"));
             PossibleEvents = new();
             foreach (var item in element.GetChildElements("ScriptedEvent"))
@@ -190,6 +205,7 @@ namespace MoreLevelContent.Shared.Generation
         public PlacementType PlacementType { get; private set; }
         public float Chance { get; private set; }
         public float Commonness { get; private set; }
+        public bool AllowStealing { get; private set; }
         public MapFeatureDisplay Display { get; private set; }
         public List<MapFeatureEvent> PossibleEvents { get; private set; }
 

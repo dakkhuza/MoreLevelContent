@@ -50,7 +50,7 @@ namespace MoreLevelContent.Shared.Generation
             int spawnInt = rand.Next(100);
             int huskInt = rand.Next(100);
 
-            WillSpawn = PirateOutpostDirector.Instance.ForceSpawn ? PirateOutpostDirector.Instance.ForceSpawn : _ModifiedSpawnChance > spawnInt;
+            WillSpawn = _ModifiedSpawnChance > spawnInt;
             Husked = _ModifiedHuskChance > huskInt;
         }
 

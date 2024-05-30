@@ -312,6 +312,14 @@ namespace MoreLevelContent.Missions
             }
         }
 
+        protected override void EndMissionSpecific(bool completed)
+        {
+            if (completed && level.LevelData != null)
+            {
+                level.LevelData.MLC().RelayStationStatus = RelayStationStatus.Active;
+            }
+        }
+
         protected override bool DetermineCompleted() => State == 2;
     }
 }

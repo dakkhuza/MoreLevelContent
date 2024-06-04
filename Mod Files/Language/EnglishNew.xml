@@ -46,7 +46,11 @@
 
     <!-- Machines -->
     <entityname.autotrader_weapons>Auto-Trader (Weapons)</entityname.autotrader_weapons>
+    <entityname.autotrader_supplies>Auto-Trader (Supplies)</entityname.autotrader_supplies>
     <autotrader.instock>[count] in stock</autotrader.instock>
+
+    <entityname.sonarguide>Sonar Guide</entityname.sonarguide>
+    <entitydescription.sonarguide>A device that produces sonar pings detectable over long distances, used to guide passing submarines to points of interest.</entitydescription.sonarguide>
 
     <!-- Map Feature Tooltips -->
     <mapfeature.autotrader_weapons>There's an automatic trading station selling weapons somewhere in this passage.</mapfeature.autotrader_weapons>

@@ -117,10 +117,20 @@ namespace MoreLevelContent.Shared.Generation
             {
                 SubmarineSpawnRequest request = SubCreationQueue.Dequeue();
                 string subName = System.IO.Path.GetFileNameWithoutExtension(request.File.Path.Value);
-
-                Submarine submarine = request.SpawnPosition == PositionType.Wreck
-                    ? SpawnSubOnPath(subName, request.File, ignoreCrushDepth: request.IgnoreCrushDpeth, placementType: request.PlacementType)
-                    : SpawnSub(request.File);
+                Submarine submarine;
+                if (request.SpawnPosition == PositionType.Wreck)
+                {
+                    submarine = SpawnSubOnPath(subName, request.File, ignoreCrushDepth: request.IgnoreCrushDpeth, placementType: request.PlacementType);
+                } else
+                {
+                    if (request.SpawnPosition == PositionType.AbyssCave)
+                    {
+                        submarine = PositionAbyssCave(request);
+                    } else
+                    {
+                        submarine = SpawnSub(request.File);
+                    }
+                }
 
                 if (submarine != null)
                 {
@@ -238,7 +248,77 @@ namespace MoreLevelContent.Shared.Generation
             }
         }
 
+        void PositionAbyss(Submarine sub)
+        {
+            Log.Error("Position Type Abyss is not implemented");
+        }
+        
+        Submarine PositionAbyssCave(SubmarineSpawnRequest request)
+        {
+            var subDoc = SubmarineInfo.OpenFile(request.File.Path.Value);
+            Rectangle subBorders = Submarine.GetBorders(subDoc.Root);
+            SubmarineInfo info = new SubmarineInfo(request.File.Path.Value);
 
+            int maxAttempts = 50;
+            int attemptsLeft = maxAttempts;
+            var rand = MLCUtils.GetLevelRandom();
+            var validIslands = Loaded.AbyssIslands.Where(i => !Loaded.Caves.Any(c => c.Area.Intersects(i.Area))).ToList();
+
+            var island = validIslands.GetRandom(rand);
+            if (island == null)
+            {
+                Log.Debug("Failed to find a valid island to spawn on");
+                return null;
+            }
+            Vector2 startPoint = island.Area.Center.ToVector2();
+
+            // Check if position is overlapping
+            int offset = 0;
+            int dir = request.PlacementType == PlacementType.Bottom ? 1 : -1;
+            bool foundPos = false;
+
+            while(attemptsLeft > 0)
+            {
+                if (TryPosition())
+                {
+                    foundPos = true;
+                    break;
+                }
+                offset++;
+            }
+
+
+            if (!foundPos) return null;
+
+            Submarine sub = new Submarine(info);
+            sub.SetPosition(startPoint, forceUndockFromStaticSubmarines: false);
+            return sub;
+
+            bool TryPosition()
+            {
+                float halfHeight = subBorders.Height / 2;
+                float startY = startPoint.Y + (halfHeight * offset * dir);
+                float x1 = startPoint.X - (subBorders.Width / 2);
+                float x2 = startPoint.X;
+                float x3 = startPoint.X + (subBorders.Width / 2);
+
+                Vector2 rayStart = new Vector2(x2, startY);
+                Vector2 to = new Vector2(x2, startY + (halfHeight * dir / 2));
+
+                Vector2 simPos = ConvertUnits.ToSimUnits(rayStart);
+                if (Submarine.PickBody(simPos, ConvertUnits.ToSimUnits(to),
+                    customPredicate: f => f.Body?.UserData is VoronoiCell cell,
+                    collisionCategory: Physics.CollisionLevel | Physics.CollisionWall,
+                    allowInsideFixture: true) != null)
+                {
+                    return false;
+                } else 
+                {
+                    startPoint = rayStart;
+                    return true;
+                }
+            }
+        }
 
         private Submarine SpawnSub(ContentFile contentFile)
         {

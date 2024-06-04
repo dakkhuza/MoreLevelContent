@@ -1,15 +1,24 @@
 <Randomevents>
     <!-- WayStation -->
     <EventPrefabs>
-        <ScriptedEvent identifier="waystation_test">
-            <SpawnAction npcsetidentifier="mlc_constructionsite_npcs"
-                npcidentifier="constructionworker" spawnpointtag="waystation"
+        <ScriptedEvent identifier="waystation1">
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="securitynpccoalition" spawnpointtag="waystation"
                 spawnlocation="any"
                 requirespawnpointtag="true" team="FriendlyNPC" />
-            <SpawnAction npcsetidentifier="mlc_constructionsite_npcs"
-                npcidentifier="constructionworker" spawnpointtag="waystation"
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="watchman" spawnpointtag="waystation_admin"
                 spawnlocation="any"
                 requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="commoner" spawnpointtag="waystation"
+                spawnlocation="any"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="commoner" spawnpointtag="waystation"
+                spawnlocation="any"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+
         </ScriptedEvent>
 
     </EventPrefabs>

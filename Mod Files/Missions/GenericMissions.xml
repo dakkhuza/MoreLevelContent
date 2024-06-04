@@ -53,6 +53,126 @@
                         sourcerect="0,0,256,256"
                         color="243,146,55" />
         </RelayRepair>
+        <RelayRepair
+                identifier="relayrepair2"
+                textidentifier="relayrepair"
+                tags="relayrepair, mlc"
+                type="GoTo"
+                customType="CablePuzzle"
+                commonness="5"
+                reward="2800">
+                <message
+                        header="missionheader0.relayrepair"
+                        text="missionmessage0.relayrepair" />
+
+                <message
+                        header="missionheader1.relayrepair"
+                        text="missionmessage1.relayrepair" />
+
+
+                <Submarine path="%ModDir%/Missions/WirePuzzle.sub" />
+
+                <Reputation
+                        identifier="location"
+                        amount="10" />
+                <Icon
+                        texture="%ModDir%/Missions/Icons.png"
+                        sourcerect="0,0,256,256"
+                        color="243,146,55" />
+                <TriggerEvent state="0" delay="5" eventidentifier="relayhusk"
+                        campaignonly="true" />
+
+        </RelayRepair>
+        <RelayRepair
+                identifier="relayrepair3"
+                textidentifier="relayrepair"
+                tags="relayrepair, mlc"
+                type="GoTo"
+                customType="CablePuzzle"
+                commonness="5"
+                reward="2800">
+                <message
+                        header="missionheader0.relayrepair"
+                        text="missionmessage0.relayrepair" />
+
+                <message
+                        header="missionheader1.relayrepair"
+                        text="missionmessage1.relayrepair" />
+
+
+                <Submarine path="%ModDir%/Missions/WirePuzzle.sub" />
+
+                <Reputation
+                        identifier="location"
+                        amount="10" />
+                <Icon
+                        texture="%ModDir%/Missions/Icons.png"
+                        sourcerect="0,0,256,256"
+                        color="243,146,55" />
+                <TriggerEvent state="0" delay="5" eventidentifier="relaycrawler1"
+                        campaignonly="true" />
+
+        </RelayRepair>
+        <RelayRepair
+                identifier="relayrepair4"
+                textidentifier="relayrepair"
+                tags="relayrepair, mlc"
+                type="GoTo"
+                customType="CablePuzzle"
+                commonness="4"
+                reward="2800">
+                <message
+                        header="missionheader0.relayrepair"
+                        text="missionmessage0.relayrepair" />
+
+                <message
+                        header="missionheader1.relayrepair"
+                        text="missionmessage1.relayrepair" />
+
+
+                <Submarine path="%ModDir%/Missions/WirePuzzle.sub" />
+
+                <Reputation
+                        identifier="location"
+                        amount="10" />
+                <Icon
+                        texture="%ModDir%/Missions/Icons.png"
+                        sourcerect="0,0,256,256"
+                        color="243,146,55" />
+                <TriggerEvent state="0" delay="5" eventidentifier="relaycrawler2"
+                        campaignonly="true" />
+
+        </RelayRepair>
+        <RelayRepair
+                identifier="relayrepair5"
+                textidentifier="relayrepair"
+                tags="relayrepair, mlc"
+                type="GoTo"
+                customType="CablePuzzle"
+                commonness="2"
+                reward="2800">
+                <message
+                        header="missionheader0.relayrepair"
+                        text="missionmessage0.relayrepair" />
+
+                <message
+                        header="missionheader1.relayrepair"
+                        text="missionmessage1.relayrepair" />
+
+
+                <Submarine path="%ModDir%/Missions/WirePuzzle.sub" />
+
+                <Reputation
+                        identifier="location"
+                        amount="10" />
+                <Icon
+                        texture="%ModDir%/Missions/Icons.png"
+                        sourcerect="0,0,256,256"
+                        color="243,146,55" />
+                <TriggerEvent state="0" delay="5" eventidentifier="relaycrawlerhusk"
+                        campaignonly="true" />
+
+        </RelayRepair>
 
 
 </Missions>

@@ -12,7 +12,8 @@
                 </Success>
                 <Failure>
                     <TagAction criteria="player" tag="player" />
-                    <MessageBoxAction header="mlc.title" text="mlc.hint.jumpstarter" iconstyle="GUINotificationButton" targettag="player"/>
+                    <MessageBoxAction header="mlc.title" text="mlc.hint.jumpstarter"
+                        iconstyle="GUINotificationButton" targettag="player" />
                     <SetDataAction identifier="mlc-hints-jumpstarter-shown" value="1" />
                 </Failure>
             </CheckDataAction>
@@ -473,6 +474,51 @@
                     </CheckDataAction>
                 </Failure>
             </CheckDataAction>
+        </ScriptedEvent>
+
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <!--                        Relay Station Events                               -->
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+        <ScriptedEvent identifier="relayhusk">
+            <SpawnAction npcsetidentifier="mlc_distress_corpses"
+                npcidentifier="distress_engineer"
+                targettag="relay_husk" spawnpointtag="relaystation"
+                spawnlocation="any" spawnpointtype="Corpse"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <AfflictionAction targettag="relay_husk" affliction="huskinfection"
+                strength="100" />
+            <AfflictionAction targettag="relay_husk" affliction="internaldamage"
+                strength="98" />
+        </ScriptedEvent>
+
+        <ScriptedEvent identifier="relaycrawler1">
+            <SpawnAction speciesname="Crawler"
+                targettag="relay_husk" spawnpointtag="relaystation"
+                spawnlocation="any" spawnpointtype="Monster"
+                requirespawnpointtag="true" />
+        </ScriptedEvent>
+
+        <ScriptedEvent identifier="relaycrawler2">
+            <SpawnAction speciesname="Crawler" spawnpointtag="relaystation"
+                spawnlocation="any" spawnpointtype="Monster"
+                requirespawnpointtag="true" />
+            <SpawnAction speciesname="Crawler_hatchling" spawnpointtag="relaystation"
+                spawnlocation="any" spawnpointtype="Monster"
+                requirespawnpointtag="true" />
+            <SpawnAction speciesname="Crawler_hatchling" spawnpointtag="relaystation"
+                spawnlocation="any" spawnpointtype="Monster"
+                requirespawnpointtag="true" />
+        </ScriptedEvent>
+
+
+        <ScriptedEvent identifier="relaycrawlerhusk">
+            <SpawnAction speciesname="Crawlerhusk" spawnpointtag="relaystation"
+                spawnlocation="any" spawnpointtype="Monster"
+                requirespawnpointtag="true" />
+            <SpawnAction speciesname="Crawlerhusk" spawnpointtag="relaystation"
+                spawnlocation="any" spawnpointtype="Monster"
+                requirespawnpointtag="true" />
         </ScriptedEvent>
 
 

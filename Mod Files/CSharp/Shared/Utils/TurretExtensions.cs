@@ -48,6 +48,9 @@ namespace MoreLevelContent.Shared.Utils
             Vector2 targetVector = pingSource - sonarPos;
             if (targetVector.LengthSquared() > MathUtils.Pow2(range)) return;
 
+            // Don't display pings if we're in sonar range
+            if (targetVector.LengthSquared() < MathUtils.Pow2(DefaultSonarRange)) return;
+
             float dist = targetVector.Length();
             Vector2 targetDir = targetVector / dist;
             for (int i = 0; i < blipCount; i++)

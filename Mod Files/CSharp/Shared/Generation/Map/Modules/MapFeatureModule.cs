@@ -6,6 +6,7 @@ using System.Linq;
 using MoreLevelContent.Shared.Utils;
 using static Barotrauma.Level;
 using MoreLevelContent.Shared.Data;
+using System.Globalization;
 
 namespace MoreLevelContent.Shared.Generation
 {
@@ -59,6 +60,7 @@ namespace MoreLevelContent.Shared.Generation
         public override void OnLevelGenerate(LevelData levelData, bool mirror)
         {
             var data = levelData.MLC();
+            data.MapFeatureData.Name = "waystation_test";
             if (data.MapFeatureData.Name.IsEmpty) return;
             if (!TryGetFeature(data.MapFeatureData.Name, out MapFeature feature))
             {
@@ -72,7 +74,6 @@ namespace MoreLevelContent.Shared.Generation
                 Log.Error($"Failed to find submarine at path {feature.SubFile}");
                 return;
             }
-
             // We need a custom placement thing for this
             MissionGenerationDirector.RequestSubmarine(new MissionGenerationDirector.SubmarineSpawnRequest()
             {
@@ -81,7 +82,7 @@ namespace MoreLevelContent.Shared.Generation
                 IgnoreCrushDpeth = true,
                 PlacementType = feature.PlacementType,
                 AllowStealing = false,
-                SpawnPosition = PositionType.Wreck,
+                SpawnPosition = feature.SpawnLocation,
                 Callback = OnSubSpawned
             });
 
@@ -89,6 +90,7 @@ namespace MoreLevelContent.Shared.Generation
             {
                 MapFeatureSub = sub;
                 CurrentMapFeature = feature.Name;
+                SubPlacementUtils.SetCrushDepth(sub, true);
                 sub.PhysicsBody.FarseerBody.BodyType = FarseerPhysics.BodyType.Static;
                 sub.TeamID = CharacterTeamType.FriendlyNPC;
                 sub.ShowSonarMarker = false;
@@ -191,10 +193,13 @@ namespace MoreLevelContent.Shared.Generation
             Package = package;
             SubFile = element.GetAttributeContentPath("path", package);
             Name = element.GetAttributeIdentifier("identifier", "");
-            SpawnLocation = element.GetAttributeEnum("spawnPosition", SpawnLocation.MainPath);
+            SpawnLocation = element.GetAttributeEnum("spawnPosition", PositionType.Wreck);
             PlacementType = element.GetAttributeEnum("placement", PlacementType.Bottom);
             Chance = element.GetAttributeFloat("chance", 0);
             Commonness = element.GetAttributeFloat("commonness", 0);
+            string[] commonnessPerZoneStrs = element.GetAttributeStringArray("commonnessperzone", Array.Empty<string>());
+            ParseCommonnessPerZone(commonnessPerZoneStrs);
+
             AllowStealing = element.GetAttributeBool("allowstealing", true);
             Display = new MapFeatureDisplay(element.GetChildElement("Display"));
             PossibleEvents = new();
@@ -207,10 +212,11 @@ namespace MoreLevelContent.Shared.Generation
         public ContentPackage Package { get; private set; }
         public ContentPath SubFile { get; private set; }
         public Identifier Name { get; private set; }
-        public SpawnLocation SpawnLocation { get; private set; }
+        public PositionType SpawnLocation { get; private set; }
         public PlacementType PlacementType { get; private set; }
         public float Chance { get; private set; }
         public float Commonness { get; private set; }
+        public Dictionary<int, float> CommonnessPerZone { get; private set; }
         public bool AllowStealing { get; private set; }
         public MapFeatureDisplay Display { get; private set; }
         public List<MapFeatureEvent> PossibleEvents { get; private set; }
@@ -240,16 +246,36 @@ namespace MoreLevelContent.Shared.Generation
             public float Commonness { get; private set; }
             public Identifier EventIdentifier { get; private set; }
         }
+
+        void ParseCommonnessPerZone(string[] array)
+        {
+            foreach (string commonnessPerZoneStr in array)
+            {
+                string[] splitCommonnessPerZone = commonnessPerZoneStr.Split(':');
+                if (splitCommonnessPerZone.Length != 2 ||
+                    !int.TryParse(splitCommonnessPerZone[0].Trim(), out int zoneIndex) ||
+                    !float.TryParse(splitCommonnessPerZone[1].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture, out float zoneCommonness))
+                {
+                    DebugConsole.ThrowError("Failed to read commonness values for map feature  \"" + Name + "\" - commonness should be given in the format \"zone1index: zone1commonness, zone2index: zone2commonness\"");
+                    break;
+                }
+                CommonnessPerZone[zoneIndex] = zoneCommonness;
+            }
+        }
+
+        void ParseMinPerSone(string[] array)
+        {
+
+        }
     }
 
 
     [Flags]
     public enum SpawnLocation
     {
-        MainPath = 1,
-        SidePath = 2,
-        Cave = 4,
-        Abyss = 8,
-        AbyssIsland = 16
+        Wreck = 1,
+        Cave = 2,
+        Abyss = 4,
+        AbyssIsland = 8
     }
 }

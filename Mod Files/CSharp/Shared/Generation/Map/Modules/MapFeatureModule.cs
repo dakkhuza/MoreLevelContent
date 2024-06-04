@@ -47,7 +47,11 @@ namespace MoreLevelContent.Shared.Generation
         public static bool TryGetFeature(Identifier name, out MapFeature feature)
         {
             feature = null;
-            if (!_IdentifierToFeature.ContainsKey(name)) return false;
+            if (!_IdentifierToFeature.ContainsKey(name))
+            {
+                DebugConsole.ThrowError($"No map feature found with identifier '{name}'");
+                return false;
+            }
             feature = _IdentifierToFeature[name];
             return true;
         }

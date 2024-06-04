@@ -34,23 +34,6 @@ namespace MoreLevelContent.Shared.Utils
         //     return hit;
         // }
 
-        public static RayHit Raycast(Vector2 simPosStart, Vector2 simPosEnd, IEnumerable<Body> ignoredBodies)
-        {
-            RayHit hit = new RayHit() { Hit = false };
-            // var body = Submarine.PickBody(simPosStart, simPosEnd,
-            // ignoredBodies: ignoredBodies,
-            // customPredicate: 
-            // ,
-            // collisionCategory: Physics.CollisionLevel | Physics.CollisionWall);
-
-
-            // if (body != null)
-            // {
-            //     hit = new RayHit(body);
-            // }
-            return hit;
-        }
-
         public static RayHit RaycastWorld(Vector2 start_simpos, Vector2 end_simpos, IEnumerable<Body> ignoredBodies = null)
         {
             RayHit hit = new RayHit() { Hit = false };

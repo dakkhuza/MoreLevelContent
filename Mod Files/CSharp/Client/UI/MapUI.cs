@@ -78,7 +78,21 @@ namespace Barotrauma.MoreLevelContent.Client.UI
 
             if (data.PirateData.HasPirateOutpost && (GameMain.DebugDraw || Commands.DisplayAllMapLocations))
             {
-                DrawIcon("PirateBase", (int)(28 * zoom), RichString.Rich("Pirate Base: " + $"{data.PirateData.Status} Diff: {data.PirateData.Difficulty}"));
+                LocalizedString text = "";
+                switch (data.PirateData.Status)
+                {
+                    case PirateOutpostStatus.Active:
+                        text = TextManager.Get("piratebase.active");
+                        break;
+                    case PirateOutpostStatus.Destroyed:
+                        text = TextManager.Get("piratebase.destroyed");
+                        break;
+                    case PirateOutpostStatus.Husked:
+                        text = TextManager.Get("piratebase.husked");
+                        break;
+                }
+
+                DrawIcon("PirateBase", (int)(28 * zoom), RichString.Rich(text));
             }
 
             if (data.HasRelayStation)

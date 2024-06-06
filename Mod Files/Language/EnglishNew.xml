@@ -60,6 +60,7 @@
     <mapfeature.autotrader_supplies>There's an automatic trading station selling supplies in this passage.</mapfeature.autotrader_supplies>
     <mapfeature.waystation>There's a waystation in this passage.</mapfeature.waystation>
     <mapfeature.clownstation>There's a clown theatre in this passage.</mapfeature.clownstation>
+    <mapfeature.abyssresearch>There's an abyssal research facility somewhere under this passage.</mapfeature.abyssresearch>
 
     <!-- Loading Tips -->
     <loadingscreentip>Distress beacons won't last forever, they will disapear from the map after some time.</loadingscreentip>

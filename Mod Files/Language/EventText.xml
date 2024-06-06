@@ -101,4 +101,14 @@
         reactor.</DistressEvent.outoffuel.end>
     <DistressEvent.outoffuel.end.o1>Looks like your job here is done.</DistressEvent.outoffuel.end.o1>
 
+    <!-- AutoTrader Overdose -->
+    <MapFeature.autotraderoverdose.c1>The mechanic shakes their whole body, "Whooo man, I steped out
+        there for a hot minute! But, but you man. You brought me back right? Hell yeah man! That's
+        what I'm about!" They pause and look around, "Hey man, you're from that sub that's docked
+        below right? Y-You need another crew member? I'm the best!"</MapFeature.autotraderoverdose.c1>
+    <MapFeature.autotraderoverdose.o1>Welcome board.</MapFeature.autotraderoverdose.o1>
+    <MapFeature.autotraderoverdose.o1.c1>"You won't regret it man, ha ha!" They seem excited.</MapFeature.autotraderoverdose.o1.c1>
+    <MapFeature.autotraderoverdose.o2>No thank you.</MapFeature.autotraderoverdose.o2>
+    <MapFeature.autotraderoverdose.o2.c1>"Oh, oh.. Oh well, I-I guess, I'll just. Wait for the next
+        crew, right man? Someone'll pick me up, yeah!"</MapFeature.autotraderoverdose.o2.c1>
 </infotexts>

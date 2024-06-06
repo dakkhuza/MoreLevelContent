@@ -78,5 +78,47 @@
 
         </ScriptedEvent>
 
+        <ScriptedEvent identifier="clownstation1">
+            <SpawnAction npcsetidentifier="mapfeaturenpc"
+                npcidentifier="clownsecurity" spawnpointtag="clownstation"
+                spawnlocation="any"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="mapfeaturenpc"
+                npcidentifier="clownadmin" spawnpointtag="clownstation_admin"
+                spawnlocation="any"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="clown" spawnpointtag="clownstation"
+                spawnlocation="any"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="clown" spawnpointtag="clownstation"
+                spawnlocation="any"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+
+        </ScriptedEvent>
+
+        <ScriptedEvent identifier="abyssresearch1">
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="researcher" spawnpointtag="abyssresearch"
+                spawnlocation="any" targettag="researcher"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="researcher" spawnpointtag="abyssresearch"
+                spawnlocation="any" targettag="researcher"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="reactoroperator" spawnpointtag="abyssresearch"
+                spawnlocation="any"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="securitynpccoalition" spawnpointtag="abyssresearch"
+                spawnlocation="any"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+
+
+        </ScriptedEvent>
+
+
     </EventPrefabs>
 </Randomevents>

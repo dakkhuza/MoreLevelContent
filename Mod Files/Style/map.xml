@@ -27,4 +27,8 @@
   <WayStation color="66,135,245,255" hovercolor="66,66,245,255">
     <Sprite name="WayStation" texture="%ModDir%/Style/map_icons.png" tile="false" sourcerect="720,0,72,75" maintainaspectratio="true" origin="0.5,0.5" />
   </WayStation>
+  <ClownStation color="66,135,245,255" hovercolor="66,66,245,255">
+    <Sprite name="ClownStation" texture="%ModDir%/Style/map_icons.png" tile="false" sourcerect="720,0,72,75" maintainaspectratio="true" origin="0.5,0.5" />
+  </ClownStation>
+
 </style>

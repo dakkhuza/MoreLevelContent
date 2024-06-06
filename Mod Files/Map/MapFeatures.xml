@@ -17,6 +17,7 @@
         </MapFeature>
 
         <MapFeature path="%ModDir%/Map/MapFeatures/Waystation.sub"
+            identifier="waystation" spawnPosition="PathWall"
             placement="Top" commonness="5" chance="0.5f" allowstealing="false">
             <Display icon="WayStation" tooltip="mapfeature.waystation" hideuntilrevealed="false" />
             <ScriptedEvent identifier="waystation1" commonness="10" probability="1" />

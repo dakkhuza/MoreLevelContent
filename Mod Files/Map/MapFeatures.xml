@@ -6,14 +6,16 @@
 
         <MapFeature path="%ModDir%/Map/MapFeatures/AutoTrader_Weapons.sub"
             identifier="autotrader_weapons" spawnPosition="PathWall"
-            placement="Top" commonness="10" chance="0.2f" allowstealing="false">
+            placement="Top" commonness="8" chance="0.2f" allowstealing="false">
             <Display icon="Market" tooltip="mapfeature.autotrader_weapons" hideuntilrevealed="true" />
+            <ScriptedEvent identifier="autotrader_overdose" commonness="5" probability="0.5" />
         </MapFeature>
 
         <MapFeature path="%ModDir%/Map/MapFeatures/AutoTrader_Supplies.sub"
             identifier="autotrader_supplies" spawnPosition="PathWall"
-            placement="Top" commonness="10" chance="0.3f" allowstealing="false">
+            placement="Top" commonness="8" chance="0.3f" allowstealing="false">
             <Display icon="Market" tooltip="mapfeature.autotrader_supplies" hideuntilrevealed="true" />
+            <ScriptedEvent identifier="autotrader_overdose" commonness="5" probability="0.5" />
         </MapFeature>
 
         <MapFeature path="%ModDir%/Map/MapFeatures/Waystation.sub"
@@ -22,6 +24,22 @@
             <Display icon="WayStation" tooltip="mapfeature.waystation" hideuntilrevealed="false" />
             <ScriptedEvent identifier="waystation1" commonness="10" probability="1" />
         </MapFeature>
+
+        <MapFeature path="%ModDir%/Map/MapFeatures/ClownStation.sub"
+            identifier="clownstation" spawnPosition="PathWall"
+            placement="Top" commonness="5" chance="0.25" allowstealing="false">
+            <Display icon="ClownStation" tooltip="mapfeature.clownstation" hideuntilrevealed="true" />
+            <ScriptedEvent identifier="clownstation1" commonness="10" probability="1" />
+        </MapFeature>
+
+        <MapFeature path="%ModDir%/Map/MapFeatures/AbyssResearch.sub"
+            identifier="abyssresearch" spawnPosition="AbyssIsland"
+            placement="Bottom" commonness="2" chance="1f" allowstealing="false">
+            <Display icon="AbyssResearch" tooltip="mapfeature.abyssresearch"
+                hideuntilrevealed="true" />
+            <ScriptedEvent identifier="abyssresearch1" commonness="10" probability="1" />
+        </MapFeature>
+
 
     </MapFeatures>
 </Missions>

@@ -49,6 +49,7 @@ namespace MoreLevelContent.Shared.Generation
         public static bool TryGetFeature(Identifier name, out MapFeature feature)
         {
             feature = null;
+            if (name.IsEmpty) return false;
             if (!_IdentifierToFeature.ContainsKey(name))
             {
                 DebugConsole.ThrowError($"No map feature found with identifier '{name}'");
@@ -61,7 +62,6 @@ namespace MoreLevelContent.Shared.Generation
         public override void OnLevelGenerate(LevelData levelData, bool mirror)
         {
             var data = levelData.MLC();
-            data.MapFeatureData.Name = "waystation_test";
             if (data.MapFeatureData.Name.IsEmpty) return;
             if (!TryGetFeature(data.MapFeatureData.Name, out MapFeature feature))
             {
@@ -94,6 +94,8 @@ namespace MoreLevelContent.Shared.Generation
                 SubPlacementUtils.SetCrushDepth(sub, true);
                 sub.PhysicsBody.FarseerBody.BodyType = FarseerPhysics.BodyType.Static;
                 sub.TeamID = CharacterTeamType.FriendlyNPC;
+                sub.Info.Type = SubmarineType.Outpost;
+                sub.InDetectable = true;
                 sub.ShowSonarMarker = false;
             }
         }
@@ -123,9 +125,18 @@ namespace MoreLevelContent.Shared.Generation
         public override void OnPostRoundStart(LevelData levelData)
         {
             if (levelData == null) return;
-            if (!TryGetFeature(levelData.MLC().MapFeatureData.Name, out MapFeature feature))
+            if (levelData.Type == LevelData.LevelType.Outpost) return;
+            var data = levelData.MLC();
+            if (data == null) return;
+
+            if (!TryGetFeature(data.MapFeatureData.Name, out MapFeature feature))
             {
                 return;
+            }
+
+            if (MapFeatureSub == null)
+            {
+                DebugConsole.ThrowError("MLC: This level calls for a map feature but no map feature sub was spawned!");
             }
 
             // Set allow stealing
@@ -145,6 +156,7 @@ namespace MoreLevelContent.Shared.Generation
                 return;
             }
 
+            if (feature.PossibleEvents.Count == 0) return;
             var rand = new MTRandom(GameMain.GameSession.EventManager.RandomSeed);
             var mapEvent = ToolBox.SelectWeightedRandom(feature.PossibleEvents, e => e.Commonness, rand);
             if (rand.NextDouble() > mapEvent.Probability) return;
@@ -181,7 +193,7 @@ namespace MoreLevelContent.Shared.Generation
             if (feature.Chance > rand.NextDouble())
             {
                 data.MLC().MapFeatureData.Name = feature.Name;
-                data.MLC().MapFeatureData.Revealed = feature.Display.HideUntilRevealed;
+                data.MLC().MapFeatureData.Revealed = !feature.Display.HideUntilRevealed;
                 _DisallowedLocations.AddRange(connection.Locations);
             }
         }

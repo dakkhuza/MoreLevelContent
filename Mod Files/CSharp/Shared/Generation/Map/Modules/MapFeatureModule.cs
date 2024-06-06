@@ -7,6 +7,7 @@ using MoreLevelContent.Shared.Utils;
 using static Barotrauma.Level;
 using MoreLevelContent.Shared.Data;
 using System.Globalization;
+using static MoreLevelContent.Shared.Generation.MissionGenerationDirector;
 
 namespace MoreLevelContent.Shared.Generation
 {
@@ -193,7 +194,7 @@ namespace MoreLevelContent.Shared.Generation
             Package = package;
             SubFile = element.GetAttributeContentPath("path", package);
             Name = element.GetAttributeIdentifier("identifier", "");
-            SpawnLocation = element.GetAttributeEnum("spawnPosition", PositionType.Wreck);
+            SpawnLocation = element.GetAttributeEnum("spawnPosition", SubSpawnPosition.PathWall);
             PlacementType = element.GetAttributeEnum("placement", PlacementType.Bottom);
             Chance = element.GetAttributeFloat("chance", 0);
             Commonness = element.GetAttributeFloat("commonness", 0);
@@ -212,7 +213,7 @@ namespace MoreLevelContent.Shared.Generation
         public ContentPackage Package { get; private set; }
         public ContentPath SubFile { get; private set; }
         public Identifier Name { get; private set; }
-        public PositionType SpawnLocation { get; private set; }
+        public SubSpawnPosition SpawnLocation { get; private set; }
         public PlacementType PlacementType { get; private set; }
         public float Chance { get; private set; }
         public float Commonness { get; private set; }

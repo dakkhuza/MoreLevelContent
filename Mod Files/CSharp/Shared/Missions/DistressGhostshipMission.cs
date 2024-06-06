@@ -12,6 +12,7 @@ using MoreLevelContent.Shared.Utils;
 using System.Collections.Generic;
 using Steamworks.Data;
 using Barotrauma.Networking;
+using static MoreLevelContent.Shared.Generation.MissionGenerationDirector;
 
 namespace MoreLevelContent.Missions
 {
@@ -118,7 +119,7 @@ namespace MoreLevelContent.Missions
             {
                 File = file,
                 Callback = OnSubCreated,
-                SpawnPosition = Level.PositionType.MainPath,
+                SpawnPosition = SubSpawnPosition.Path,
                 AutoFill = true,
                 Prefix = MissionGenerationDirector.SubmarineSpawnRequest.AutoFillPrefix.Abandoned,
                 AllowStealing = AllowStealing

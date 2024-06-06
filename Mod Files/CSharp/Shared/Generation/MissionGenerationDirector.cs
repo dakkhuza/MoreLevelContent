@@ -57,7 +57,7 @@ namespace MoreLevelContent.Shared.Generation
             public bool AutoFill = false;
             public bool AllowStealing = true;
             public AutoFillPrefix Prefix = AutoFillPrefix.None;
-            public PositionType SpawnPosition = PositionType.Wreck;
+            public SubSpawnPosition SpawnPosition = SubSpawnPosition.PathWall;
             public PlacementType PlacementType = PlacementType.Bottom;
             public bool IgnoreCrushDpeth = true;
 
@@ -92,8 +92,8 @@ namespace MoreLevelContent.Shared.Generation
                 File = contentFile,
                 Callback = onSubmarineCreated,
                 AutoFill = autoFill,
-                SpawnPosition = PositionType.MainPath 
-            });
+                SpawnPosition = SubSpawnPosition.PathWall
+        });
             Log.Debug("Enqueued spawn request for submarine on path");
         }
 
@@ -118,12 +118,12 @@ namespace MoreLevelContent.Shared.Generation
                 SubmarineSpawnRequest request = SubCreationQueue.Dequeue();
                 string subName = System.IO.Path.GetFileNameWithoutExtension(request.File.Path.Value);
                 Submarine submarine;
-                if (request.SpawnPosition == PositionType.Wreck)
+                if (request.SpawnPosition == SubSpawnPosition.PathWall)
                 {
                     submarine = SpawnSubOnPath(subName, request.File, ignoreCrushDepth: request.IgnoreCrushDpeth, placementType: request.PlacementType);
                 } else
                 {
-                    if (request.SpawnPosition == PositionType.AbyssCave)
+                    if (request.SpawnPosition == SubSpawnPosition.AbyssIsland)
                     {
                         submarine = PositionAbyssCave(request);
                     } else
@@ -544,5 +544,13 @@ namespace MoreLevelContent.Shared.Generation
             }
         }
 
+
+        public enum SubSpawnPosition
+        {
+            Path,
+            PathWall,
+            Abyss,
+            AbyssIsland
+        }
     }
 }

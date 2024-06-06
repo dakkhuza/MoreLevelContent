@@ -115,6 +115,10 @@ namespace Barotrauma.MoreLevelContent.Client.UI
                     return;
                 }
                 var tooltip = TextManager.Get(feature.Display.Tooltip);
+                if (GameMain.DebugDraw)
+                {
+                    tooltip = $"{tooltip.Value} + {data.MapFeatureData.Revealed}";
+                }
                 DrawIcon(feature.Display.Icon, (int)(28 * zoom), RichString.Rich(tooltip));
             }
 

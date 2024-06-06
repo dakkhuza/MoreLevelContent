@@ -27,6 +27,7 @@ namespace MoreLevelContent.Shared.Generation
         readonly Queue<Submarine> AutoFillQueue = new();
         internal delegate void OnSubmarineCreated(Submarine createdSubmarine);
         internal delegate void OnDecoCreated(List<Submarine> decoItems, Cave decoratedCave);
+        public static List<(Vector2, Vector2)> DebugPoints = new();
 
         internal static void RequestSubmarine(SubmarineSpawnRequest info) =>
             Instance.SubCreationQueue.Enqueue(info);
@@ -113,6 +114,7 @@ namespace MoreLevelContent.Shared.Generation
 
         void SpawnRequestedSubs()
         {
+            DebugPoints.Clear();
             while (SubCreationQueue.Count > 0)
             {
                 SubmarineSpawnRequest request = SubCreationQueue.Dequeue();
@@ -259,64 +261,111 @@ namespace MoreLevelContent.Shared.Generation
             Rectangle subBorders = Submarine.GetBorders(subDoc.Root);
             SubmarineInfo info = new SubmarineInfo(request.File.Path.Value);
 
-            int maxAttempts = 50;
+            int maxAttempts = 25;
             int attemptsLeft = maxAttempts;
             var rand = MLCUtils.GetLevelRandom();
             var validIslands = Loaded.AbyssIslands.Where(i => !Loaded.Caves.Any(c => c.Area.Intersects(i.Area))).ToList();
-
-            var island = validIslands.GetRandom(rand);
-            if (island == null)
+            if (!validIslands.Any())
             {
-                Log.Debug("Failed to find a valid island to spawn on");
+                // If we found NO islands, tolerate spawning on caves
+                validIslands = Loaded.AbyssIslands;
+            }
+            Vector2 startPoint = default;
+            bool foundPos = false;
+            int offset = 1;
+            int dir = request.PlacementType == PlacementType.Bottom ? 1 : -1;
+
+
+            SpawnOnIsland(validIslands);
+
+            if (!foundPos)
+            {
+                Log.Error("Failed to find a spawn position");
                 return null;
             }
-            Vector2 startPoint = island.Area.Center.ToVector2();
-
-            // Check if position is overlapping
-            int offset = 0;
-            int dir = request.PlacementType == PlacementType.Bottom ? 1 : -1;
-            bool foundPos = false;
-
-            while(attemptsLeft > 0)
-            {
-                if (TryPosition())
-                {
-                    foundPos = true;
-                    break;
-                }
-                offset++;
-            }
-
-
-            if (!foundPos) return null;
 
             Submarine sub = new Submarine(info);
             sub.SetPosition(startPoint, forceUndockFromStaticSubmarines: false);
             return sub;
 
-            bool TryPosition()
+            void SpawnOnIsland(List<AbyssIsland> islands)
             {
-                float halfHeight = subBorders.Height / 2;
-                float startY = startPoint.Y + (halfHeight * offset * dir);
-                float x1 = startPoint.X - (subBorders.Width / 2);
-                float x2 = startPoint.X;
-                float x3 = startPoint.X + (subBorders.Width / 2);
-
-                Vector2 rayStart = new Vector2(x2, startY);
-                Vector2 to = new Vector2(x2, startY + (halfHeight * dir / 2));
-
-                Vector2 simPos = ConvertUnits.ToSimUnits(rayStart);
-                if (Submarine.PickBody(simPos, ConvertUnits.ToSimUnits(to),
-                    customPredicate: f => f.Body?.UserData is VoronoiCell cell,
-                    collisionCategory: Physics.CollisionLevel | Physics.CollisionWall,
-                    allowInsideFixture: true) != null)
+                var island = validIslands.GetRandom(rand);
+                if (island == null)
                 {
-                    return false;
-                } else 
-                {
-                    startPoint = rayStart;
-                    return true;
+                    Log.Debug("Failed to find a valid island to spawn on");
+                    return;
                 }
+                startPoint = island.Area.Center.ToVector2();
+
+                // Check if position is overlapping
+                while (attemptsLeft > 0)
+                {
+                    if (TryPosition())
+                    {
+                        foundPos = true;
+                        return;
+                    }
+                    offset++;
+                }
+
+                // We found no position for this island
+                // Remove it and try again if we still have islands left
+                _ = validIslands.Remove(island);
+                attemptsLeft = maxAttempts;
+                if (islands.Count == 0)
+                {
+                    Log.Error("NO valid abyss islands found :((");
+                    return;
+                }
+                SpawnOnIsland(islands);
+
+                bool TryPosition()
+                {
+                    float halfHeight = subBorders.Height / 10;
+                    float startY = startPoint.Y + (halfHeight * offset * dir);
+                    float x1 = startPoint.X - (subBorders.Width / 2);
+                    float x2 = startPoint.X;
+                    float x3 = startPoint.X + (subBorders.Width / 2);
+
+
+                    Vector2 rayStart = new Vector2(x2, startY);
+                    Vector2 to = new Vector2(x2, startY - (halfHeight * dir));
+                    DebugPoints.Add((rayStart, to));
+
+                    Vector2 simPos = ConvertUnits.ToSimUnits(rayStart);
+                    if (Submarine.PickBody(simPos, ConvertUnits.ToSimUnits(to),
+                        customPredicate: f => f.Body?.UserData is VoronoiCell cell,
+                        collisionCategory: Physics.CollisionLevel | Physics.CollisionWall,
+                        allowInsideFixture: true) != null)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        startPoint = new Vector2(to.X, to.Y + ((subBorders.Height / 2) * dir));
+                        //for (int i = 0; i < 50; i++)
+                        //{
+                        //    if (Slam()) break;
+                        //}
+                        return true;
+                    }
+
+                    bool Slam()
+                    {
+                        if (Submarine.PickBody(simPos, ConvertUnits.ToSimUnits(to),
+                            customPredicate: f => f.Body?.UserData is VoronoiCell cell,
+                            collisionCategory: Physics.CollisionLevel | Physics.CollisionWall,
+                            allowInsideFixture: true) != null)
+                        {
+                            return false;
+                        } else
+                        {
+                            return true;
+                        }
+                    }
+                }
+
             }
         }
 

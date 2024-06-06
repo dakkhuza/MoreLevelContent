@@ -21,6 +21,16 @@ public static class ClientDebugDraw
         {
             GUI.DrawString(spriteBatch, new Vector2(item.Cell.Center.X, -item.Cell.Center.Y), "Cell", Color.Azure);
         }
+
+        foreach (var (from, to) in MissionGenerationDirector.DebugPoints)
+        {
+            var from1 = new Vector2(from.X, -from.Y);
+            var to1 = new Vector2(to.X, -to.Y);
+            spriteBatch.DrawCircle(from1, 20, 8, Color.Aqua);
+            spriteBatch.DrawCircle(to1, 10, 8, Color.Yellow);
+            GUI.DrawLine(spriteBatch, from1, to1, Color.Red, width: 5);
+        }
+
         if (CaveGenerationDirector.Instance.ActiveThalaCave != null) CaveGenerationDirector.Instance.ActiveThalaCave.DebugDraw(spriteBatch, cam);
     }
 }

@@ -1,6 +1,63 @@
 <Randomevents>
     <!-- WayStation -->
     <EventPrefabs>
+        <ScriptedEvent identifier="autotrader_overdose">
+            <CheckDataAction identifier="autotrader_overdose" condition="eq true">
+                <Success>
+                    <!-- do nothing -->
+                </Success>
+
+                <Failure>
+                    <TagAction criteria="player" tag="player" />
+                    <!-- Spawn in the guy -->
+                    <SpawnAction npcsetidentifier="mapfeaturenpc"
+                        npcidentifier="addict" spawnpointtag="autotrader"
+                        spawnlocation="any" targettag="patient" SpawnPointType="Human"
+                        requirespawnpointtag="true" team="FriendlyNPC" />
+                    <AfflictionAction targettag="patient" affliction="opiateoverdose"
+                        strength="0.6"
+                        MultiplyByMaxVitality="true" />
+                    <AfflictionAction targettag="patient" affliction="opiateaddiction"
+                        strength="1"
+                        MultiplyByMaxVitality="true" />
+                    <AfflictionAction targettag="patient" affliction="oxygenlow"
+                        strength="1"
+                        MultiplyByMaxVitality="true" />
+                    <AfflictionAction targettag="patient" affliction="stun"
+                        strength="0.1"
+                        MultiplyByMaxVitality="true" />
+
+
+                    <GodModeAction targettag="patient" enabled="true" />
+
+                    <!-- Turn off god mode when a player gets close, go fast!! -->
+                    <TriggerAction target1tag="patient" target2tag="player"
+                        disableiftargetincapacitated="false"
+                        radius="400" waitforinteraction="false" />
+                    <GodModeAction targettag="patient" enabled="false" />
+
+                    <SetDataAction identifier="autotrader_overdose" value="true" />
+
+                    <ConversationAction SpeakerTag="patient"
+                        text="mapfeature.autotraderoverdose.c1"
+                        eventsprite="mechanic" continueconversation="true">
+
+                        <Option text="MapFeature.autotraderoverdose.o1">
+                            <ConversationAction text="MapFeature.autotraderoverdose.o1.c1" />
+                            <NPCChangeTeamAction npctag="patient" teamid="Team1"
+                                addtocrew="true" />
+                        </Option>
+
+                        <Option text="MapFeature.autotraderoverdose.o2">
+                            <ConversationAction
+                                text="MapFeature.autotraderoverdose.o2.c1" />
+                        </Option>
+                    </ConversationAction>
+                </Failure>
+
+            </CheckDataAction>
+        </ScriptedEvent>
+
         <ScriptedEvent identifier="waystation1">
             <SpawnAction npcsetidentifier="outpostnpcs1"
                 npcidentifier="securitynpccoalition" spawnpointtag="waystation"

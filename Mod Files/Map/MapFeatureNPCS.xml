@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<npcsets>
+    <npcset identifier="mapfeaturenpc">
+
+        <!-- Generic -->
+        <npc identifier="addict" behavior="Passive">
+            <Character speciesname="human" tags="head2,male" experiencepoints="4000"
+                additionaltalentpoints="0" startitemsgiven="false" ragdoll=""
+                personality="Crazy" missionscompletedsincedeath="0">
+                <job identifier="mechanic">
+                    <skill identifier="weapons" level="10" />
+                    <skill identifier="mechanical" level="70" />
+                    <skill identifier="electrical" level="50" />
+                    <skill identifier="medical" level="10" />
+                    <skill identifier="helm" level="10" />
+                </job>
+                <talents>
+                    <talent identifier="selfcare" />
+                    <talent identifier="betterthannew" />
+                    <talent identifier="safetyfirst" />
+                    <talent identifier="hullfixer" />
+                </talents>
+            </Character>
+            <ItemSet commonness="1">
+                <Item identifier="bluejumpsuit2" equip="true" />
+                <Item identifier="headset" equip="true" showpreview="false" />
+                <Item identifier="baseballcap" equip="true" />
+                <Item identifier="idcard" equip="true" />
+                <Item identifier="wrench" equip="true" />
+                <Item identifier="screwdriver" equip="true" />
+                <Item identifier="toolbelt" equip="true" />
+                <Item identifier="weldingtool">
+                    <Item identifier="weldingfueltank" />
+                </Item>
+            </ItemSet>
+        </npc>
+
+        <!-- Clowns -->
+        <npc identifier="clownsecurity" faction="clowns" job="outpostsecurityofficer"
+            tags="securitynpc">
+            <ItemSet commonness="1">
+                <Item identifier="clownmask" equip="true" />
+                <Item identifier="securitypatrolclothes" equip="true" />
+                <Item identifier="toyhammer" equip="true" />
+                <Item identifier="bodyarmor" equip="true" />
+                <Item identifier="idcard" equip="true" />
+                <Item identifier="handcuffs" />
+                <Item identifier="revolver" equip="false">
+                    <Item identifier="revolverround" amount="6" />
+                </Item>
+                <Item identifier="revolverround" amount="6" />
+                <Item identifier="divingknife" />
+                <Item identifier="antibleeding1" />
+                <Item identifier="divingmask">
+                    <Item identifier="oxygentank" />
+                </Item>
+
+            </ItemSet>
+        </npc>
+        <npc identifier="clownadmin" faction="clowns">
+            <ItemSet commonness="1">
+                <Item identifier="clownmask" equip="true" />
+                <Item identifier="clownsuitunique" equip="true" />
+                <Item identifier="idcard" equip="true" />
+            </ItemSet>
+        </npc>
+
+
+    </npcset>
+
+</npcsets>

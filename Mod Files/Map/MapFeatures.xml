@@ -5,21 +5,18 @@
         type="GoTo">
 
         <MapFeature path="%ModDir%/Map/MapFeatures/AutoTrader_Weapons.sub"
-            identifier="autotrader_weapons" spawnPosition="Wreck"
+            identifier="autotrader_weapons" spawnPosition="PathWall"
             placement="Top" commonness="10" chance="0.2f" allowstealing="false">
-            <Display icon="Market" tooltip="mapfeature.autotrader_weapons" hideuntilrevealed="false" />
+            <Display icon="Market" tooltip="mapfeature.autotrader_weapons" hideuntilrevealed="true" />
         </MapFeature>
 
         <MapFeature path="%ModDir%/Map/MapFeatures/AutoTrader_Supplies.sub"
-            identifier="autotrader_supplies" spawnPosition="Wreck"
+            identifier="autotrader_supplies" spawnPosition="PathWall"
             placement="Top" commonness="10" chance="0.3f" allowstealing="false">
-            <Display icon="Market" tooltip="mapfeature.autotrader_supplies"
-                hideuntilrevealed="false" />
+            <Display icon="Market" tooltip="mapfeature.autotrader_supplies" hideuntilrevealed="true" />
         </MapFeature>
 
-
         <MapFeature path="%ModDir%/Map/MapFeatures/Waystation.sub"
-            identifier="waystation" spawnPosition="Wreck"
             placement="Top" commonness="5" chance="0.5f" allowstealing="false">
             <Display icon="WayStation" tooltip="mapfeature.waystation" hideuntilrevealed="false" />
             <ScriptedEvent identifier="waystation1" commonness="10" probability="1" />

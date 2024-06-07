@@ -29,7 +29,7 @@
             identifier="clownstation" spawnPosition="PathWall"
             placement="Top" commonness="5" chance="0.25" allowstealing="false">
             <Display icon="ClownStation" tooltip="mapfeature.clownstation" hideuntilrevealed="true" />
-            <ScriptedEvent identifier="clownstation1" commonness="10" probability="1" />
+            <ScriptedEvent identifier="clownstation_preformanceofalifetime" commonness="10" probability="1" />
         </MapFeature>
 
         <MapFeature path="%ModDir%/Map/MapFeatures/AbyssResearch.sub"
@@ -38,6 +38,7 @@
             <Display icon="AbyssResearch" tooltip="mapfeature.abyssresearch"
                 hideuntilrevealed="true" />
             <ScriptedEvent identifier="abyssresearch1" commonness="10" probability="1" />
+            <Display icon="WayStation" tooltip="mapfeature.waystation" hideuntilrevealed="false" />
         </MapFeature>
 
 

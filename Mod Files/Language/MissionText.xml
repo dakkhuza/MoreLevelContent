@@ -89,4 +89,7 @@
     <missionsuccess.relayrepair>The relay station was repaired.</missionsuccess.relayrepair>
     <missionfailure.relayrepair>The relay station remains offline.</missionfailure.relayrepair>
 
+    <missionname.gotoresearch>Mailman</missionname.gotoresearch>
+    <missiondescription.gotoresearch>This seems like this is the place to drop off the research data, better look around and see who wants it.</missiondescription.gotoresearch>
+
 </infotexts>

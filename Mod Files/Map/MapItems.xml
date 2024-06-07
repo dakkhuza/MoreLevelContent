@@ -65,4 +65,11 @@
     </ConnectionPanel>
     <aitarget soundrange="8000" fadeouttime="5" />
   </Item>
+  <Item name="Research Data" identifier="mailman_researchdata" category="Misc" hideinmenus="true" Tags="smallitem" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_soft">
+    <PreferredContainer primary="crewcab" secondary="locker" />
+    <InventoryIcon texture="%ModDir%/Missions/mission_items.png" sourcerect="411,253,35,53" origin="0.5,0.5" />
+    <sprite texture="%ModDir%/Missions/mission_items.png" sourcerect="448,256,31,37" depth="0.8" origin="0.5,0.5" />
+    <Body width="19" height="40" density="20" />
+    <Holdable slots="Any,RightHand,LeftHand" holdangle="30" handle1="-10,0" msg="ItemMsgPickUpSelect" />
+  </Item>
 </Items>

@@ -69,4 +69,8 @@
     <loadingscreentip>If you have Dynamic Europa installed, high reputation with the Bandit faction will turn pirate bases passive.</loadingscreentip>
     <loadingscreentip>There have been reports of pirate bases using unknown technology to jam sonnar.</loadingscreentip>
     <loadingscreentip>Following stange sonar pings may lead to automatic traders, waystations or other structures. Who knows what you could find!</loadingscreentip>
+
+    <!-- Misc -->
+     <entityname.mailman_researchdata>Research Data</entityname.mailman_researchdata>
+     <entitydescription.mailman_researchdata>Some kind of important research data pertaining to the abyssal depths of Europa. You can't make much sense of it.</entitydescription.mailman_researchdata>
 </infotexts>

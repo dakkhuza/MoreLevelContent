@@ -37,10 +37,8 @@
             placement="Bottom" commonness="2" chance="1f" allowstealing="false">
             <Display icon="AbyssResearch" tooltip="mapfeature.abyssresearch"
                 hideuntilrevealed="true" />
-            <ScriptedEvent identifier="abyssresearch1" commonness="10" probability="1" />
-            <Display icon="WayStation" tooltip="mapfeature.waystation" hideuntilrevealed="false" />
+            <ScriptedEvent identifier="abyssresearch_mailman" commonness="10" probability="1" />
         </MapFeature>
-
 
     </MapFeatures>
 </Missions>

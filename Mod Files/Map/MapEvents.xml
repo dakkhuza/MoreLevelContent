@@ -120,7 +120,7 @@
             <TriggerAction target1tag="questgiver" target2tag="player"
                 applytotarget2="triggerer_player" radius="100" waitforinteraction="true" />
             <ConversationAction
-                text="As you walk past the researcher the look up at you. Oh good you're here, finally. This is very important, make sure it arrives in once piece. They shove a bundle of papers into your arms. You try to explain you're not a mailman but they've already tuned you out. Looks like there's a location scribbled onto the front of the packet."
+                text="MapFeature.abyssresearch.c1"
                 invokertag="triggerer_player" endeventifinterrupted="false" />
             <SpawnAction ItemIdentifier="mailman_researchdata" TargetInventory="triggerer_player" />
             <MissionAction MissionIdentifier="gotoresearch" MinLocationDistance="2"
@@ -134,17 +134,17 @@
                 team="FriendlyNPC" TargetModuleTags="research" />
             <NPCWaitAction npctag="researcher" wait="true" />
 
-            <ConversationAction text="There's an impatient looking researcher here."
+            <ConversationAction text="MapFeature.mailman.impatient"
                 speakertag="researcher" invokertag="triggerer_player"
                 endeventifinterrupted="false" eventsprite="Stuckinthemiddle1">
-                <Option text="Waiting for something?">
+                <Option text="MapFeature.mailman.waiting">
                     <ConversationAction
-                        text="He turns to look at you. Yes, actually. A devlivery crew was supposed to deliver some important research from a colleague of mine yesterday but they've been a no-show so far. I'm begining to think an abyss creature got them."
+                        text="MapFeature.mailman.exposition"
                         targettag="triggerer_player" endeventifinterrupted="false">
-                        <Option text="Hand over research data.">
+                        <Option text="MapFeature.mailman.handover">
                             <GoTo name="check" />
                         </Option>
-                        <Option text="Later." endconversation="true">
+                        <Option text="MapFeature.mailman.later" endconversation="true">
                             <GoTo name="loop" />
                         </Option>
                     </ConversationAction>
@@ -153,13 +153,13 @@
 
             <Label name="loop" />
             <ClearTagAction tag="triggerer_player" />
-            <ConversationAction text="There's an impatient looking researcher here."
+            <ConversationAction text="MapFeature.mailman.impatient"
                 speakertag="researcher" invokertag="triggerer_player"
                 endeventifinterrupted="false" eventsprite="Stuckinthemiddle1">
-                <Option text="Hand over research data.">
+                <Option text="MapFeature.mailman.handover">
                     <GoTo name="check" />
                 </Option>
-                <Option text="Later." endconversation="true">
+                <Option text="MapFeature.mailman.later" endconversation="true">
                     <GoTo name="loop" />
                 </Option>
 
@@ -170,7 +170,7 @@
                 applytagtoitem="data">
                 <Failure>
                     <ConversationAction
-                        text="Where did you leave that research data again?"
+                        text="MapFeature.mailman.missing"
                         targettag="triggerer_player" />
                     <GoTo name="loop" />
                 </Failure>
@@ -182,15 +182,16 @@
             <Label name="end" />
             <RemoveItemAction targettag="data" amount="1" />
             <ConversationAction
-                text="He snatches the bundle of paper from your hands. Ah! This is it! This is it! So much to go through and so little time... He turns to walk away."
+                text="MapFeature.mailman.snatch"
                 targettag="triggerer_player">
-                <Option text="About my payment...">
+                <Option text="MapFeature.mailman.payment">
                     <ConversationAction
-                        text="He lets out a groan before turning back around, You submariners, always wanting to get paid for your work, as if labor to furthur humanity isn't a reward in itself! I suppose you want marks, although.. He looks around, as if to see if anyone is listening. He leans in, I Could also part ways with whatevers in this mystery box.."
+                        text="MapFeature.mailman.groan"
                         targettag="triggerer_player">
-                        <Option text="Mystery box! Mystery box!">
+                        <Option text="MapFeature.mailman.box">
+                            <!-- Take the box -->
                             <ConversationAction
-                                text="He produces a strange box shaped object, before abruptly shoving it into your arms. It's your problem now sucker! He yells out before running away."
+                                text="MapFeature.mailman.sucker"
                                 targettag="triggerer_player" IgnoreInterruptDistance="true"
                                 ContinueAutomatically="true" />
                             <SpawnAction itemidentifier="psychosisartifact"
@@ -198,19 +199,23 @@
                             <CombatAction combatmode="Retreat" isinstigator="true"
                                 guardreaction="None" witnessreaction="None" npctag="researcher"
                                 enemytag="triggerer_player" />
-                            <ReputationAction targettype="Faction" increase="5" identifier="huskcult" />
-                            <MissionStateAction missionidentifier="gotoresearch" operation="set" state="2" />
+                            <ReputationAction targettype="Faction" increase="5"
+                                identifier="huskcult" />
+                            <MissionStateAction missionidentifier="gotoresearch" operation="set"
+                                state="2" />
                         </Option>
-                        <Option text="Marks for me, please.">
+                        <Option text="MapFeature.mailman.marks">
                             <ConversationAction targettag="triggerer_player"
-                                text="No sense of adventure! Bah, here's your marks. I've got work to do!" />
+                                text="MapFeature.mailman.lame" />
                             <MoneyAction targettag="triggerer_player" amount="3500" />
-                            <ReputationAction targettype="Faction" increase="1" identifier="huskcult" />
-                            <MissionStateAction missionidentifier="gotoresearch" operation="set" state="2" />
+                            <ReputationAction targettype="Faction" increase="1"
+                                identifier="huskcult" />
+                            <MissionStateAction missionidentifier="gotoresearch" operation="set"
+                                state="2" />
                         </Option>
                     </ConversationAction>
                 </Option>
-                <Option text="What a colossal waste of time." endconversation="true">
+                <Option text="MapFeature.mailman.wasteoftime" endconversation="true">
                     <ReputationAction targettype="Faction" increase="10" identifier="huskcult" />
                     <MissionStateAction missionidentifier="gotoresearch" operation="set" state="2" />
                 </Option>

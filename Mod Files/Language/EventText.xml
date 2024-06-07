@@ -111,4 +111,22 @@
     <MapFeature.autotraderoverdose.o2>No thank you.</MapFeature.autotraderoverdose.o2>
     <MapFeature.autotraderoverdose.o2.c1>"Oh, oh.. Oh well, I-I guess, I'll just. Wait for the next
         crew, right man? Someone'll pick me up, yeah!"</MapFeature.autotraderoverdose.o2.c1>
+
+    <!-- Abyss Research -->
+    <MapFeature.abyssresearch.c1>As you walk past the researcher the look up at you. "Oh good you're here, finally. This is very important, make sure it arrives in once piece. They shove a bundle of papers into your arms. You try to explain you're not a mailman but they've already tuned you out. Looks like there's a location scribbled onto the front of the packet.</MapFeature.abyssresearch.c1>
+    
+    <MapFeature.mailman.impatient>There's an impatient looking researcher here.</MapFeature.mailman.impatient>
+    <MapFeature.mailman.waiting>Waiting for something?</MapFeature.mailman.waiting>
+    <MapFeature.mailman.c1.o1.c1>He turns to look at you. Yes, actually. A devlivery crew was supposed to deliver some important research from a colleague of mine yesterday but they've been a no-show so far. I'm begining to think an abyss creature got them.</MapFeature.mailman.c1.o1.c1>
+    <MapFeature.mailman.handover>Hand over research data.</MapFeature.mailman.handover>
+    <MapFeature.mailman.later>Later.</MapFeature.mailman.later>
+    <MapFeature.mailman.missing>Where did you leave that research data again?</MapFeature.mailman.missing>
+    <MapFeature.mailman.snatch>He snatches the bundle of paper from your hands. "Aha! Ha HA! This is it! This IS IT! So much to go through and so little time..." He turns to walk away.</MapFeature.mailman.snatch>
+    <MapFeature.mailman.payment>About my payment...</MapFeature.mailman.payment>
+    <MapFeature.mailman.groan>He lets out a groan before turning back around, "You submariners, always wanting to get paid for your work, as if labor to further humanity isn't a reward in itself! I suppose you want marks, although.." He looks around, as if to see if anyone is listening. Seemingly satisfied, he leans in close, "I could also part ways with whatever's in this mystery box..</MapFeature.mailman.groan>
+    <MapFeature.mailman.box>Mystery box! Mystery box!</MapFeature.mailman.box>
+    <MapFeature.mailman.sucker>With a florish he produces a strange box shaped object, before abruptly shoving it into your arms. "It's your problem now sucker!!" He yells out before running away.</MapFeature.mailman.sucker>
+    <MapFeature.mailman.marks>Marks for me, please.</MapFeature.mailman.marks>
+    <MapFeature.mailman.lame>"No sense of adventure! Bah, here's your marks. I've got work to do!"</MapFeature.mailman.lame>
+    <MapFeature.mailman.wasteoftime>What a colossal waste of time.</MapFeature.mailman.wasteoftime>
 </infotexts>

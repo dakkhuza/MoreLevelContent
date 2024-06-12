@@ -93,6 +93,7 @@ namespace MoreLevelContent.Shared.Data
                 {
                     Status = pirateData.GetAttributeEnum("status", PirateOutpostStatus.None),
                     Difficulty = pirateData.GetAttributeFloat("difficulty", 0),
+                    Revealed = pirateData.GetAttributeBool("revealed", false)
                 };
             }
             var mapFeatureData = saveFile.GetChildElement("MapFeatureData");
@@ -110,7 +111,8 @@ namespace MoreLevelContent.Shared.Data
         {
             var pirateData = new XElement("PirateData",
                 new XAttribute("status", PirateData.Status),
-                new XAttribute("difficulty", PirateData.Difficulty));
+                new XAttribute("difficulty", PirateData.Difficulty),
+                new XAttribute("revealed", PirateData.Revealed));
 
             var mapFeatureData = new XElement("MapFeatureData",
                 new XAttribute("name", MapFeatureData.Name),
@@ -163,12 +165,14 @@ namespace MoreLevelContent.Shared.Data
         {
             Status = PirateOutpostStatus.None;
             Difficulty = 0;
+            Revealed = false;
         }
 
         public PirateData(PirateSpawnData spawnData)
         {
             Difficulty = 0;
             Status = PirateOutpostStatus.None;
+            Revealed = false;
 
             if (spawnData.WillSpawn)
             {
@@ -184,6 +188,7 @@ namespace MoreLevelContent.Shared.Data
 
         public PirateOutpostStatus Status;
         public float Difficulty;
+        public bool Revealed;
 
         public bool HasPirateOutpost => Status != PirateOutpostStatus.None;
     }

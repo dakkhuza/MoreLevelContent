@@ -57,9 +57,29 @@
 
             </ItemSet>
         </npc>
-        <npc identifier="clownadmin" faction="clowns">
+        <npc identifier="clownadmin" faction="clowns" behavior="StayInHull">
             <ItemSet commonness="1">
                 <Item identifier="clownmask" equip="true" />
+                <Item identifier="clownsuitunique" equip="true" />
+                <Item identifier="idcard" equip="true" />
+            </ItemSet>
+        </npc>
+
+        <npc identifier="pagliacci" faction="clowns">
+            <Character speciesname="human" tags="head1,male"
+                additionaltalentpoints="0" startitemsgiven="false" ragdoll=""
+                personality="Crazy" missionscompletedsincedeath="0">
+                <job identifier="assistant">
+                    <skill identifier="weapons" level="100" />
+                    <skill identifier="mechanical" level="100" />
+                    <skill identifier="electrical" level="100" />
+                    <skill identifier="medical" level="100" />
+                    <skill identifier="helm" level="100" />
+                </job>
+            </Character>
+
+            <ItemSet commonness="1">
+                <Item identifier="clownmaskunique" equip="true" />
                 <Item identifier="clownsuitunique" equip="true" />
                 <Item identifier="idcard" equip="true" />
             </ItemSet>

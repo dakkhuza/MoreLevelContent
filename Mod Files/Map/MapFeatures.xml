@@ -8,28 +8,36 @@
             identifier="autotrader_weapons" spawnPosition="PathWall"
             placement="Top" commonness="8" chance="0.2f" allowstealing="false">
             <Display icon="Market" tooltip="mapfeature.autotrader_weapons" hideuntilrevealed="true" />
-            <ScriptedEvent identifier="autotrader_overdose" commonness="5" probability="0.5" />
+            <ScriptedEvent identifier="autotrader_overdose" commonness="3" probability="1" />
+            <ScriptedEvent identifier="autotrader_crawler" commonness="5" probability="0.5" />
+            <ScriptedEvent identifier="autotrader_huskcrawler" commonness="5" probability="0.5" />
         </MapFeature>
 
         <MapFeature path="%ModDir%/Map/MapFeatures/AutoTrader_Supplies.sub"
             identifier="autotrader_supplies" spawnPosition="PathWall"
             placement="Top" commonness="8" chance="0.3f" allowstealing="false">
             <Display icon="Market" tooltip="mapfeature.autotrader_supplies" hideuntilrevealed="true" />
-            <ScriptedEvent identifier="autotrader_overdose" commonness="5" probability="0.5" />
+            <ScriptedEvent identifier="autotrader_overdose" commonness="3" probability="1" />
+            <ScriptedEvent identifier="autotrader_crawler" commonness="5" probability="0.5" />
+            <ScriptedEvent identifier="autotrader_huskcrawler" commonness="5" probability="0.5" />
         </MapFeature>
 
         <MapFeature path="%ModDir%/Map/MapFeatures/Waystation.sub"
             identifier="waystation" spawnPosition="PathWall"
             placement="Top" commonness="5" chance="0.5f" allowstealing="false">
             <Display icon="WayStation" tooltip="mapfeature.waystation" hideuntilrevealed="false" />
-            <ScriptedEvent identifier="waystation1" commonness="10" probability="1" />
+            <ScriptedEvent identifier="waystation_escort" commonness="10" probability="1" />
+            <ScriptedEvent identifier="waystation_revealtheatre" commonness="8" probability="1" />
+            <ScriptedEvent identifier="waystation_revealpirate" commonness="5" probability="1" />
+            <ScriptedEvent identifier="waystation_revealresearch" commonness="5" probability="1" />
         </MapFeature>
 
         <MapFeature path="%ModDir%/Map/MapFeatures/ClownStation.sub"
             identifier="clownstation" spawnPosition="PathWall"
             placement="Top" commonness="5" chance="0.25" allowstealing="false">
             <Display icon="ClownStation" tooltip="mapfeature.clownstation" hideuntilrevealed="true" />
-            <ScriptedEvent identifier="clownstation_preformanceofalifetime" commonness="10" probability="1" />
+            <ScriptedEvent identifier="clownstation_preformanceofalifetime" commonness="5" probability="1" />
+            <ScriptedEvent identifier="clownstation_preformanceofalifetime" commonness="5" probability="1" />
         </MapFeature>
 
         <MapFeature path="%ModDir%/Map/MapFeatures/AbyssResearch.sub"

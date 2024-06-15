@@ -154,7 +154,7 @@
 
         </ScriptedEvent>
 
-        <!-- Reveals a clown theatre -->
+        <!-- Reveals a clown theatre -->    
         <ScriptedEvent identifier="waystation_revealtheatre">
             <SpawnAction npcsetidentifier="outpostnpcs1"
                 npcidentifier="securitynpccoalition" spawnpointtag="waystation"
@@ -172,7 +172,11 @@
                 npcidentifier="commoner" spawnpointtag="waystation"
                 spawnlocation="any" targettag="commoner2"
                 requirespawnpointtag="true" team="FriendlyNPC" />
-
+            <TagAction criteria="player" tag="player"/>
+            <TagAction criteria="itemtag:waystation_noticeboard" tag="ad"/>
+            <TriggerAction  target1tag="player" target2tag="ad" waitforinteraction="true" applytotarget1="reader" />
+            <ConversationAction text="An ad catches your eye, 'Europa got you down? The depths not treating you well? Looking for some jovial fun? Come relax and catch a show! We're always open.'. There's coordinates to a clown theatre attached." invokertag="reader" endeventifinterrupted="false" eventsprite="noticeboard"/>
+            <RevealMapFeatureAction mapfeatureidentifier="clownstation" />
         </ScriptedEvent>
 
         <!-- 

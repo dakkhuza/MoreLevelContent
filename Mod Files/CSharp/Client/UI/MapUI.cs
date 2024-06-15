@@ -92,7 +92,7 @@ namespace Barotrauma.MoreLevelContent.Client.UI
                         break;
                 }
 
-                DrawIcon("PirateBase", (int)(28 * zoom), RichString.Rich(text));
+                DrawIcon(data.PirateData.Status == PirateOutpostStatus.Active ? "PirateBase" : "PirateBaseDestroyed", (int)(28 * zoom), RichString.Rich(text));
             }
 
             if (data.HasRelayStation)

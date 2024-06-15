@@ -36,4 +36,8 @@
   <PirateBaseDestroyed color="66,135,245,255" hovercolor="66,66,245,255">
     <Sprite name="PirateBaseDestroyed" texture="%ModDir%/Style/map_icons.png" tile="false" sourcerect="936,0,72,75" maintainaspectratio="true" origin="0.5,0.5" />
   </PirateBaseDestroyed>
+  <HuskChurch color="66,135,245,255" hovercolor="66,66,245,255">
+    <Sprite name="HuskChurch" texture="%ModDir%/Style/map_icons.png" tile="false" sourcerect="936,0,72,75" maintainaspectratio="true" origin="0.5,0.5" />
+  </HuskChurch>
+
 </style>

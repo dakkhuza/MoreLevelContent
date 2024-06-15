@@ -1,7 +1,9 @@
 ﻿
 using Barotrauma;
+using MoreLevelContent.Shared;
 using MoreLevelContent.Shared.Data;
 using MoreLevelContent.Shared.Generation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -31,7 +33,16 @@ namespace MoreLevelContent
         {
             if (GameMain.GameSession.GameMode is CampaignMode campaign)
             {
-                var featureLocation = FindConnectionWithMapFeature(MapFeatureIdentifier);
+                LocationConnection featureLocation;
+                try
+                {
+                    featureLocation = FindConnectionWithMapFeature(MapFeatureIdentifier);
+                } catch(Exception e)
+                {
+                    isFinished = true;
+                    Log.Error($"RevealMapFeatureAction crashed! {e.Message}");
+                    return;
+                }
 
                 if (featureLocation != null)
                 {
@@ -54,22 +65,28 @@ namespace MoreLevelContent
 
         private LocationConnection FindConnectionWithMapFeature(Identifier name)
         {
-            var campaign = GameMain.GameSession.GameMode as CampaignMode;
+            if (GameMain.GameSession.GameMode is not CampaignMode campaign) return null;
 
-            var currentConnection = campaign.Map.SelectedConnection;
+            var start = Level.Loaded.StartLocation;
+            var end = Level.Loaded.EndLocation;
+            var currentConnection = start.Connections.Where(c => c.OtherLocation(start) == end).First();
             HashSet<LocationConnection> checkedConnections = new HashSet<LocationConnection>();
             HashSet<LocationConnection> pendingConnections = new HashSet<LocationConnection>() { currentConnection };
-
 
             do
             {
                 List<LocationConnection> currentConnections = pendingConnections.ToList();
                 pendingConnections.Clear();
-
                 foreach (var connection in currentConnections)
                 {
                     checkedConnections.Add(connection);
-                    var feature = connection.LevelData.MLC().MapFeatureData;
+                    var data = connection.LevelData.MLC();
+                    if (data == null)
+                    {
+                        Log.Error("Missing data");
+                        continue;
+                    }
+                    MapFeatureData feature = data.MapFeatureData;
                     if (feature.Name == name && !feature.Revealed)
                     {
                         return connection;

@@ -15,9 +15,6 @@ namespace MoreLevelContent
         [Serialize("", IsPropertySaveable.Yes, description: "The Identifier of the map feature to search for.")]
         public Identifier MapFeatureIdentifier { get; set; }
 
-        [Serialize(0, IsPropertySaveable.Yes, description: "The max distance this map feature can be away from the current location (1 = one path between locations).")]
-        public int MinDistance { get; set; }
-
         private bool isFinished = false;
 
 
@@ -30,13 +27,11 @@ namespace MoreLevelContent
             }
         }
 
-
-
         public override void Update(float deltaTime)
         {
             if (GameMain.GameSession.GameMode is CampaignMode campaign)
             {
-                var featureLocation = FindConnectionWithMapFeature(MapFeatureIdentifier, MinDistance);
+                var featureLocation = FindConnectionWithMapFeature(MapFeatureIdentifier);
 
                 if (featureLocation != null)
                 {
@@ -57,12 +52,11 @@ namespace MoreLevelContent
             isFinished = true;
         }
 
-        private LocationConnection FindConnectionWithMapFeature(Identifier name, int minDistance)
+        private LocationConnection FindConnectionWithMapFeature(Identifier name)
         {
             var campaign = GameMain.GameSession.GameMode as CampaignMode;
 
             var currentConnection = campaign.Map.SelectedConnection;
-            int distance = 0;
             HashSet<LocationConnection> checkedConnections = new HashSet<LocationConnection>();
             HashSet<LocationConnection> pendingConnections = new HashSet<LocationConnection>() { currentConnection };
 

@@ -72,4 +72,8 @@
     <Body width="19" height="40" density="20" />
     <Holdable slots="Any,RightHand,LeftHand" holdangle="30" handle1="-10,0" msg="ItemMsgPickUpSelect" />
   </Item>
+
+  <Item name="Notice Board" identifier="mlc_noticeboard" nameidentifier="opdeco_hrelectricpanel" category="Decorative" scale="0.5">
+    <sprite texture="Content/Map/Outposts/Art/HumanResourcesAssets.png" sourcerect="576,416,320,235" depth="0.98" premultiplyalpha="false" origin="0.5,0.5" />
+  </Item>
 </Items>

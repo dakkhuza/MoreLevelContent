@@ -51,6 +51,11 @@
     <SimpleStore canbeselected="true" powerconsumption="0.0" msg="ItemMsgInteractSelect" createbuttontext="campaignstoretab.buy">
       <GuiFrame relativesize="0.4,0.5" style="ItemUI" anchor="Center" />
       <sound file="%ModDir%/Sounds/cash-register.ogg" type="OnUse" range="200.0" loop="false" />
+      <!-- Fuel -->
+      <SellableItem identifier="fuelrod" requiredtime="1" requiredmoney="150" fabricationlimitmin="0" fabricationlimitmax="4" quality="4" />
+      <SellableItem identifier="fulguriumfuelrod" requiredtime="1" requiredmoney="250" fabricationlimitmin="0" fabricationlimitmax="1" quality="2" />
+      <SellableItem identifier="thoriumfuelrod" requiredtime="1" requiredmoney="200" fabricationlimitmin="0" fabricationlimitmax="2" quality="2" />
+
     </SimpleStore>
     <ItemContainer capacity="0" canbeselected="false" hideitems="true" slotsperrow="1" uilabel="" allowuioverlap="true" />
     <ItemContainer capacity="1" canbeselected="true" hideitems="true" slotsperrow="1" uilabel="" allowuioverlap="true" />

@@ -14,11 +14,14 @@ namespace MoreLevelContent.Shared.XML
 {
     public class InjectionManager : Singleton<InjectionManager>
     {
+        FieldInfo missionPrefab_constructor;
         public override void Setup()
         {
             missionPrefab_constructor = AccessTools.Field(typeof(MissionPrefab), "constructor");
-            npcConversation_GetCurrentFlags = AccessTools.Method(typeof(NPCConversation), "GetCurrentFlags");
+            var npcConversation_GetCurrentFlags = AccessTools.Method(typeof(NPCConversation), "GetCurrentFlags");
+            var eventAction_Instantiate = AccessTools.Method(typeof(EventAction), "Instantiate");
             _ = Main.Harmony.Patch(npcConversation_GetCurrentFlags, postfix: new HarmonyMethod(AccessTools.Method(typeof(InjectionManager), nameof(AddNPCConcersationFlags))));
+            _ = Main.Harmony.Patch(eventAction_Instantiate, prefix: new HarmonyMethod(AccessTools.Method(typeof(InjectionManager), nameof(InjectEventActions))));
             InjectMissions();
         }
         
@@ -29,6 +32,47 @@ namespace MoreLevelContent.Shared.XML
             // {
             //     Log.Debug($"Cleaned up mission with identifier {identifier.Value}");
             // }
+        }
+
+        // This should be a transpiler but I don't want to spend the time doing that and I don't think any other mod is ever going to add custom scripted events
+        // We'll fix this incompatability when it happens!
+        private static bool InjectEventActions(ScriptedEvent scriptedEvent, ContentXElement element, ref EventAction __result)
+        {
+            Type actionType = null;
+            Identifier typeName = element.Name.ToString().ToIdentifier();
+            if (typeName == "RevealMapFeatureAction")
+            {
+                actionType = typeof(RevealMapFeatureAction);
+            }
+            if (typeName == "AlterMapFeatureAction")
+            {
+                actionType = typeof(AlterMapFeatureAction);
+            }
+            if (typeName == "RevealPirateBase")
+            {
+                actionType = typeof(RevealPirateBase);
+            }
+
+            if (actionType != null)
+            {
+                ConstructorInfo constructor = actionType.GetConstructor(new[] { typeof(ScriptedEvent), typeof(ContentXElement) });
+                try
+                {
+                    if (constructor == null)
+                    {
+                        throw new Exception($"Error in scripted event \"{scriptedEvent.Prefab.Identifier}\" - could not find a constructor for the EventAction \"{actionType}\".");
+                    }
+                    __result = constructor.Invoke(new object[] { scriptedEvent, element }) as EventAction;
+                    return false;
+                }
+                catch (Exception ex)
+                {
+                    DebugConsole.ThrowError(ex.InnerException != null ? ex.InnerException.ToString() : ex.ToString(),
+                        contentPackage: element.ContentPackage);
+                    return false;
+                }
+            }
+            return true;
         }
 
         private static void AddNPCConcersationFlags(ref List<Identifier> __result, Character speaker)
@@ -50,9 +94,6 @@ namespace MoreLevelContent.Shared.XML
             }
 
         }
-
-        FieldInfo missionPrefab_constructor;
-        MethodInfo npcConversation_GetCurrentFlags;
 
         private void InjectMissions()
         {

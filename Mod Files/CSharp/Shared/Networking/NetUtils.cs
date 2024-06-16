@@ -60,6 +60,11 @@ namespace MoreLevelContent.Networking
         MAP_SEND_NEWDISTRESS,
 
         /// <summary>
+        /// Send the location of a new lost cargo mission
+        /// </summary>
+        MAP_SEND_NEWCARGO,
+
+        /// <summary>
         /// Call the create distress method on the server
         /// </summary>
         COMMAND_CREATEDISTRESS,

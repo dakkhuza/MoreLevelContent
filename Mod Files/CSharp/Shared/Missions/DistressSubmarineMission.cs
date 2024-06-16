@@ -119,7 +119,7 @@ namespace MoreLevelContent.Missions
             return msg;
         }
 
-        public override int GetReward(Submarine sub) => Completed ? GetRewardCompleted() : GetRewardInLevel();
+        public override int GetBaseReward(Submarine sub) => Completed ? GetRewardCompleted() : GetRewardInLevel();
 
         int survivingCrewPayout = 0;
 
@@ -221,17 +221,16 @@ namespace MoreLevelContent.Missions
 
         void OnSubCreated(Submarine submarine)
         {
-            submarine.SetPosition(submarine.FindSpawnPos(submarine.WorldPosition));
             lostSubmarine = submarine;
             lostSubmarine.Info.Type = SubmarineType.Player;
             submarine.TeamID = CharacterTeamType.FriendlyNPC;
             lostSubmarine.ShowSonarMarker = false;
             submarine.PhysicsBody.FarseerBody.BodyType = FarseerPhysics.BodyType.Dynamic;
 
-            MissionUtils.PositionSubmarine(submarine, Level.PositionType.SidePath | Level.PositionType.MainPath);
+            SubPlacementUtils.PositionSubmarine(submarine, Level.PositionType.SidePath | Level.PositionType.MainPath);
 
             //make the shuttle resist at least it's spawn position + 100m
-            submarine.RealWorldCrushDepth = Math.Max(Submarine.MainSub.RealWorldCrushDepth, Level.Loaded.GetRealWorldDepth(submarine.Position.Y) + 100);
+            SubPlacementUtils.SetCrushDepth(submarine);
 
             // tag all sub waypoints
             submarine.TagSubmarineWaypoints("distress_shuttle");

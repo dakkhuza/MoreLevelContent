@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MoreLevelContent.Shared.Generation
+{
+    internal partial class LostCargoMapModule : TimedEventMapModule
+    {
+        protected override void InitProjSpecific() { }
+    }
+}

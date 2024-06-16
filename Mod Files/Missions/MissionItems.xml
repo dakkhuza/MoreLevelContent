@@ -1,589 +1,553 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Items>
-    <!-- Utility -->
-    <Item name="" identifier="mlc_beaconutilitysupplies" tags="crate, supply_utility"
-        category="Electrical" scale="0.5" linkable="true" pickdistance="150"
-        showcontentsintooltip="true" impactsoundtag="impact_metal_heavy">
-        <Price baseprice="1200">
-            <Price storeidentifier="merchantcity" multiplier="1.0" minavailable="1" maxavailable="4" />
-            <Price storeidentifier="merchantresearch" multiplier="0.6" minavailable="1"
-                maxavailable="2" />
-
-            <Price storeidentifier="merchantoutpost" sold="false" />
-            <Price storeidentifier="merchantmilitary" sold="false" />
-            <Price storeidentifier="merchantmine" sold="false" />
-        </Price>
-        <Fabricate suitablefabricators="fabricator" requiredtime="30">
-            <RequiredSkill identifier="mechanical" level="40" />
-            <RequiredSkill identifier="electrical" level="40" />
-            <Item identifier="mlc_beaconumat1" amount="1" />
-            <Item identifier="mlc_beaconumat2" amount="1" />
-            <Item identifier="mlc_beaconumat3" amount="1" />
-        </Fabricate>
-
-        <Sprite texture="%ModDir%/Missions/mission_items.png" depth="0.54" sourcerect="12,10,146,83"
-            origin="0.5,0.5" />
-        <Body width="150" height="80" density="25" />
-        <Holdable canBeCombined="true" removeOnCombined="true" slots="RightHand+LeftHand"
-            holdpos="0,-80" handle1="-30,14" handle2="30,14" aimable="false"
-            msg="ItemMsgPickUpSelect">
-            <StatusEffect type="OnNotContained" target="This" Condition="-0.5" interval="1"
-                disabledeltatime="true">
-                <Conditional InWater="true" />
-            </StatusEffect>
-
-            <!-- Remove when broken -->
-            <StatusEffect type="OnBroken" target="This">
-                <ParticleEmitter particle="shrapnel" anglemin="0" anglemax="360" particleamount="8"
-                    velocitymin="0" velocitymax="0" scalemin="1.5" scalemax="2" />
-                <sound file="Content/Items/Weapons/ExplosionDebris1.ogg" selectionmode="All"
-                    range="5000" />
-                <Remove />
-            </StatusEffect>
-        </Holdable>
-    </Item>
-
-    <!-- Utility Crafting Materials -->
-    <Item name="plumbing" identifier="mlc_beaconumat1" category="Material" maxstacksize="2"
-        Tags="mediumitem" canbepicked="true" description="" cargocontaineridentifier="metalcrate"
-        scale="0.5" impactsoundtag="impact_metal_heavy">
-        <PreferredContainer primary="storagecab" />
-        <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab" minamount="0"
-            maxamount="1" spawnprobability="0.01" />
-        <Price baseprice="500">
-            <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.5" />
-            <Price storeidentifier="merchantcity" sold="false" multiplier="1.0" />
-            <Price storeidentifier="merchantresearch" sold="false" multiplier="1.2" />
-            <Price storeidentifier="merchantmilitary" sold="false" multiplier="0.8" />
-            <Price storeidentifier="merchantmine" sold="false" multiplier="0.5" />
-        </Price>
-
-        <Fabricate suitablefabricators="fabricator" requiredtime="10">
-            <RequiredSkill identifier="mechanical" level="20" />
-            <RequiredSkill identifier="electrical" level="20" />
-            <Item identifier="iron" amount="8" />
-            <Item identifier="steel" amount="2" />
-            <Item identifier="titaniumaluminiumalloy" amount="2" />
-            <Item identifier="fpgacircuit" amount="1" />
-        </Fabricate>
-
-        <InventoryIcon texture="%ModDir%/Missions/mission_items.png" sourcerect="150,180,89,93" />
-        <Sprite texture="mission_items.png" sourcerect="150,180,89,93" depth="0.55" origin="0.5,0.5" />
-        <Body width="45" height="30" density="20" />
-        <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand"
-            handle1="0,0" msg="ItemMsgPickUpSelect">
-            <!-- Remove the item when fully used -->
-            <StatusEffect type="OnBroken" target="This">
-                <Remove />
-            </StatusEffect>
-        </Holdable>
-    </Item>
-
-    <Item name="reactor" identifier="mlc_beaconumat2" category="Material" maxstacksize="2"
-        Tags="mediumitem" canbepicked="true" description="" cargocontaineridentifier="metalcrate"
-        scale="0.5" impactsoundtag="impact_metal_heavy">
-        <PreferredContainer primary="storagecab" />
-        <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab" minamount="0"
-            maxamount="1" spawnprobability="0.01" />
-        <Price baseprice="500">
-            <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.5" />
-            <Price storeidentifier="merchantcity" sold="false" multiplier="1.0" />
-            <Price storeidentifier="merchantresearch" sold="false" multiplier="1.2" />
-            <Price storeidentifier="merchantmilitary" sold="false" multiplier="0.8" />
-            <Price storeidentifier="merchantmine" sold="false" multiplier="0.5" />
-        </Price>
-
-        <Fabricate suitablefabricators="fabricator" requiredtime="10">
-            <RequiredSkill identifier="mechanical" level="20" />
-            <RequiredSkill identifier="electrical" level="20" />
-            <Item identifier="steel" amount="2" />
-            <Item identifier="lead" amount="2" />
-            <Item identifier="uranium" amount="2" />
-            <Item identifier="carbon" amount="4" />
-            <Item identifier="fpgacircuit" amount="1" />
-        </Fabricate>
-
-        <InventoryIcon texture="%ModDir%/Missions/mission_items.png" sourcerect="250,180,73,89" />
-        <Sprite texture="mission_items.png" sourcerect="250,180,73,89" depth="0.55" origin="0.5,0.5" />
-        <Body width="45" height="30" density="20" />
-        <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand"
-            handle1="0,0" msg="ItemMsgPickUpSelect">
-            <StatusEffect type="InWater" target="This" Condition="0.0" setvalue="true" />
-            <!-- Remove the item when fully used -->
-            <StatusEffect type="OnBroken" target="This">
-                <Remove />
-            </StatusEffect>
-        </Holdable>
-    </Item>
-
-    <Item name="sealing" identifier="mlc_beaconumat3" category="Material" maxstacksize="2"
-        Tags="mediumitem" canbepicked="true" description="" cargocontaineridentifier="metalcrate"
-        scale="0.5" impactsoundtag="impact_metal_heavy">
-        <PreferredContainer primary="storagecab" />
-        <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab" minamount="0"
-            maxamount="1" spawnprobability="0.01" />
-        <Price baseprice="500">
-            <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.5" />
-            <Price storeidentifier="merchantcity" sold="false" multiplier="1.0" />
-            <Price storeidentifier="merchantresearch" sold="false" multiplier="1.2" />
-            <Price storeidentifier="merchantmilitary" sold="false" multiplier="0.8" />
-            <Price storeidentifier="merchantmine" sold="false" multiplier="0.5" />
-        </Price>
-
-        <Fabricate suitablefabricators="fabricator" requiredtime="10">
-            <RequiredSkill identifier="mechanical" level="20" />
-            <RequiredSkill identifier="electrical" level="20" />
-            <Item identifier="lead" amount="1" />
-            <Item identifier="rubber" amount="4" />
-            <Item identifier="magnesium" amount="4" />
-            <Item identifier="elastin" amount="2" />
-        </Fabricate>
-
-        <InventoryIcon texture="%ModDir%/Missions/mission_items.png" sourcerect="330,190,70,80" />
-        <Sprite texture="mission_items.png" sourcerect="330,190,70,80" depth="0.55" origin="0.5,0.5" />
-        <Body width="45" height="30" density="20" />
-        <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand"
-            handle1="0,0" msg="ItemMsgPickUpSelect">
-            <!-- Remove the item when fully used -->
-            <StatusEffect type="OnBroken" target="This">
-                <Remove />
-            </StatusEffect>
-        </Holdable>
-    </Item>
-
-
-    <!-- Structural -->
-    <Item name="" identifier="mlc_beaconstructuralsupplies" tags="crate, supply_structural"
-        category="Electrical" scale="0.5" linkable="true" pickdistance="150"
-        showcontentsintooltip="true" impactsoundtag="impact_metal_heavy">
-        <Price baseprice="1000">
-            <Price storeidentifier="merchantcity" multiplier="1.0" minavailable="1" maxavailable="4" />
-            <Price storeidentifier="merchantmine" multiplier="0.6" maxavailable="4" />
-
-            <Price storeidentifier="merchantoutpost" sold="false" />
-            <Price storeidentifier="merchantresearch" sold="false" />
-            <Price storeidentifier="merchantmilitary" sold="false" />
-        </Price>
-        <Fabricate suitablefabricators="fabricator" requiredtime="30">
-            <RequiredSkill identifier="mechanical" level="80" />
-            <Item identifier="mlc_beaconsmat1" amount="1" />
-            <Item identifier="mlc_beaconsmat2" amount="1" />
-            <Item identifier="mlc_beaconsmat3" amount="1" />
-        </Fabricate>
-        <Sprite texture="%ModDir%/Missions/mission_items.png" depth="0.54"
-            sourcerect="162,10,146,83" origin="0.5,0.5" />
-        <Body width="150" height="80" density="25" />
-        <Holdable canBeCombined="true" removeOnCombined="true" slots="RightHand+LeftHand"
-            holdpos="0,-80" handle1="-30,14" handle2="30,14" aimable="false"
-            msg="ItemMsgPickUpSelect" />
-    </Item>
-
-    <!-- Structural Crafting Materials -->
-    <Item name="exterior" identifier="mlc_beaconsmat1" category="Material" maxstacksize="2"
-        Tags="mediumitem" canbepicked="true" description="" cargocontaineridentifier="metalcrate"
-        scale="0.5" impactsoundtag="impact_metal_heavy">
-        <PreferredContainer primary="storagecab" />
-        <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab" minamount="0"
-            maxamount="1" spawnprobability="0.01" />
-        <Price baseprice="500">
-            <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.5" />
-            <Price storeidentifier="merchantcity" sold="false" multiplier="1.0" />
-            <Price storeidentifier="merchantresearch" sold="false" multiplier="1.2" />
-            <Price storeidentifier="merchantmilitary" sold="false" multiplier="0.8" />
-            <Price storeidentifier="merchantmine" sold="false" multiplier="0.5" />
-        </Price>
-
-        <Fabricate suitablefabricators="fabricator" requiredtime="10">
-            <RequiredSkill identifier="mechanical" level="40" />
-            <Item identifier="titanium" amount="4" />
-            <Item identifier="steel" amount="2" />
-            <Item identifier="titaniumaluminiumalloy" amount="2" />
-        </Fabricate>
-
-        <InventoryIcon texture="%ModDir%/Missions/mission_items.png" sourcerect="175,107,99,59" />
-        <Sprite texture="mission_items.png" sourcerect="175,107,99,59" depth="0.55" origin="0.5,0.5" />
-        <Body width="45" height="30" density="20" />
-        <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand"
-            handle1="0,0" msg="ItemMsgPickUpSelect">
-            <!--StatusEffect
+  <!-- Utility -->
+  <Item name="" identifier="mlc_beaconutilitysupplies" tags="crate, supply_utility"
+    category="Electrical" scale="0.5" linkable="true" pickdistance="150"
+    showcontentsintooltip="true" impactsoundtag="impact_metal_heavy">
+    <Price baseprice="1200">
+      <Price storeidentifier="merchantcity" multiplier="1.0" minavailable="1" maxavailable="4" />
+      <Price storeidentifier="merchantresearch" multiplier="0.6" minavailable="1" maxavailable="2" />
+      <Price storeidentifier="merchantoutpost" sold="false" />
+      <Price storeidentifier="merchantmilitary" sold="false" />
+      <Price storeidentifier="merchantmine" sold="false" />
+    </Price>
+    <Fabricate suitablefabricators="fabricator" requiredtime="30">
+      <RequiredSkill identifier="mechanical" level="40" />
+      <RequiredSkill identifier="electrical" level="40" />
+      <Item identifier="mlc_beaconumat1" amount="1" />
+      <Item identifier="mlc_beaconumat2" amount="1" />
+      <Item identifier="mlc_beaconumat3" amount="1" />
+    </Fabricate>
+    <Sprite texture="%ModDir%/Missions/mission_items.png" depth="0.54" sourcerect="12,10,146,83"
+      origin="0.5,0.5" />
+    <Body width="150" height="80" density="25" />
+    <Holdable canBeCombined="true" removeOnCombined="true" slots="RightHand+LeftHand"
+      holdpos="0,-80" handle1="-30,14" handle2="30,14" aimable="false" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="OnNotContained" target="This" Condition="-0.5" interval="1"
+        disabledeltatime="true">
+        <Conditional InWater="true" />
+      </StatusEffect>
+      <!-- Remove when broken -->
+      <StatusEffect type="OnBroken" target="This">
+        <ParticleEmitter particle="shrapnel" anglemin="0" anglemax="360" particleamount="8"
+          velocitymin="0" velocitymax="0" scalemin="1.5" scalemax="2" />
+        <sound file="Content/Items/Weapons/ExplosionDebris1.ogg" selectionmode="All" range="5000" />
+        <Remove />
+      </StatusEffect>
+    </Holdable>
+  </Item>
+  <!-- Utility Crafting Materials -->
+  <Item name="plumbing" identifier="mlc_beaconumat1" category="Material" maxstacksize="2"
+    Tags="mediumitem" canbepicked="true" description="" cargocontaineridentifier="metalcrate"
+    scale="0.5" impactsoundtag="impact_metal_heavy">
+    <PreferredContainer primary="storagecab" />
+    <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab" minamount="0" maxamount="1"
+      spawnprobability="0.01" />
+    <Price baseprice="500">
+      <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.5" />
+      <Price storeidentifier="merchantcity" sold="false" multiplier="1.0" />
+      <Price storeidentifier="merchantresearch" sold="false" multiplier="1.2" />
+      <Price storeidentifier="merchantmilitary" sold="false" multiplier="0.8" />
+      <Price storeidentifier="merchantmine" sold="false" multiplier="0.5" />
+    </Price>
+    <Fabricate suitablefabricators="fabricator" requiredtime="10">
+      <RequiredSkill identifier="mechanical" level="20" />
+      <RequiredSkill identifier="electrical" level="20" />
+      <Item identifier="iron" amount="8" />
+      <Item identifier="steel" amount="2" />
+      <Item identifier="titaniumaluminiumalloy" amount="2" />
+      <Item identifier="fpgacircuit" amount="1" />
+    </Fabricate>
+    <InventoryIcon texture="%ModDir%/Missions/mission_items.png" sourcerect="150,180,89,93" />
+    <Sprite texture="mission_items.png" sourcerect="150,180,89,93" depth="0.55" origin="0.5,0.5" />
+    <Body width="45" height="30" density="20" />
+    <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand"
+      handle1="0,0" msg="ItemMsgPickUpSelect">
+      <!-- Remove the item when fully used -->
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+    </Holdable>
+  </Item>
+  <Item name="reactor" identifier="mlc_beaconumat2" category="Material" maxstacksize="2"
+    Tags="mediumitem" canbepicked="true" description="" cargocontaineridentifier="metalcrate"
+    scale="0.5" impactsoundtag="impact_metal_heavy">
+    <PreferredContainer primary="storagecab" />
+    <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab" minamount="0" maxamount="1"
+      spawnprobability="0.01" />
+    <Price baseprice="500">
+      <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.5" />
+      <Price storeidentifier="merchantcity" sold="false" multiplier="1.0" />
+      <Price storeidentifier="merchantresearch" sold="false" multiplier="1.2" />
+      <Price storeidentifier="merchantmilitary" sold="false" multiplier="0.8" />
+      <Price storeidentifier="merchantmine" sold="false" multiplier="0.5" />
+    </Price>
+    <Fabricate suitablefabricators="fabricator" requiredtime="10">
+      <RequiredSkill identifier="mechanical" level="20" />
+      <RequiredSkill identifier="electrical" level="20" />
+      <Item identifier="steel" amount="2" />
+      <Item identifier="lead" amount="2" />
+      <Item identifier="uranium" amount="2" />
+      <Item identifier="carbon" amount="4" />
+      <Item identifier="fpgacircuit" amount="1" />
+    </Fabricate>
+    <InventoryIcon texture="%ModDir%/Missions/mission_items.png" sourcerect="250,180,73,89" />
+    <Sprite texture="mission_items.png" sourcerect="250,180,73,89" depth="0.55" origin="0.5,0.5" />
+    <Body width="45" height="30" density="20" />
+    <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand"
+      handle1="0,0" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="InWater" target="This" Condition="0.0" setvalue="true" />
+      <!-- Remove the item when fully used -->
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+    </Holdable>
+  </Item>
+  <Item name="sealing" identifier="mlc_beaconumat3" category="Material" maxstacksize="2"
+    Tags="mediumitem" canbepicked="true" description="" cargocontaineridentifier="metalcrate"
+    scale="0.5" impactsoundtag="impact_metal_heavy">
+    <PreferredContainer primary="storagecab" />
+    <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab" minamount="0" maxamount="1"
+      spawnprobability="0.01" />
+    <Price baseprice="500">
+      <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.5" />
+      <Price storeidentifier="merchantcity" sold="false" multiplier="1.0" />
+      <Price storeidentifier="merchantresearch" sold="false" multiplier="1.2" />
+      <Price storeidentifier="merchantmilitary" sold="false" multiplier="0.8" />
+      <Price storeidentifier="merchantmine" sold="false" multiplier="0.5" />
+    </Price>
+    <Fabricate suitablefabricators="fabricator" requiredtime="10">
+      <RequiredSkill identifier="mechanical" level="20" />
+      <RequiredSkill identifier="electrical" level="20" />
+      <Item identifier="lead" amount="1" />
+      <Item identifier="rubber" amount="4" />
+      <Item identifier="magnesium" amount="4" />
+      <Item identifier="elastin" amount="2" />
+    </Fabricate>
+    <InventoryIcon texture="%ModDir%/Missions/mission_items.png" sourcerect="330,190,70,80" />
+    <Sprite texture="mission_items.png" sourcerect="330,190,70,80" depth="0.55" origin="0.5,0.5" />
+    <Body width="45" height="30" density="20" />
+    <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand"
+      handle1="0,0" msg="ItemMsgPickUpSelect">
+      <!-- Remove the item when fully used -->
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+    </Holdable>
+  </Item>
+  <!-- Structural -->
+  <Item name="" identifier="mlc_beaconstructuralsupplies" tags="crate, supply_structural"
+    category="Electrical" scale="0.5" linkable="true" pickdistance="150"
+    showcontentsintooltip="true" impactsoundtag="impact_metal_heavy">
+    <Price baseprice="1000">
+      <Price storeidentifier="merchantcity" multiplier="1.0" minavailable="1" maxavailable="4" />
+      <Price storeidentifier="merchantmine" multiplier="0.6" maxavailable="4" />
+      <Price storeidentifier="merchantoutpost" sold="false" />
+      <Price storeidentifier="merchantresearch" sold="false" />
+      <Price storeidentifier="merchantmilitary" sold="false" />
+    </Price>
+    <Fabricate suitablefabricators="fabricator" requiredtime="30">
+      <RequiredSkill identifier="mechanical" level="80" />
+      <Item identifier="mlc_beaconsmat1" amount="1" />
+      <Item identifier="mlc_beaconsmat2" amount="1" />
+      <Item identifier="mlc_beaconsmat3" amount="1" />
+    </Fabricate>
+    <Sprite texture="%ModDir%/Missions/mission_items.png" depth="0.54" sourcerect="162,10,146,83"
+      origin="0.5,0.5" />
+    <Body width="150" height="80" density="25" />
+    <Holdable canBeCombined="true" removeOnCombined="true" slots="RightHand+LeftHand"
+      holdpos="0,-80" handle1="-30,14" handle2="30,14" aimable="false" msg="ItemMsgPickUpSelect" />
+  </Item>
+  <!-- Structural Crafting Materials -->
+  <Item name="exterior" identifier="mlc_beaconsmat1" category="Material" maxstacksize="2"
+    Tags="mediumitem" canbepicked="true" description="" cargocontaineridentifier="metalcrate"
+    scale="0.5" impactsoundtag="impact_metal_heavy">
+    <PreferredContainer primary="storagecab" />
+    <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab" minamount="0" maxamount="1"
+      spawnprobability="0.01" />
+    <Price baseprice="500">
+      <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.5" />
+      <Price storeidentifier="merchantcity" sold="false" multiplier="1.0" />
+      <Price storeidentifier="merchantresearch" sold="false" multiplier="1.2" />
+      <Price storeidentifier="merchantmilitary" sold="false" multiplier="0.8" />
+      <Price storeidentifier="merchantmine" sold="false" multiplier="0.5" />
+    </Price>
+    <Fabricate suitablefabricators="fabricator" requiredtime="10">
+      <RequiredSkill identifier="mechanical" level="40" />
+      <Item identifier="titanium" amount="4" />
+      <Item identifier="steel" amount="2" />
+      <Item identifier="titaniumaluminiumalloy" amount="2" />
+    </Fabricate>
+    <InventoryIcon texture="%ModDir%/Missions/mission_items.png" sourcerect="175,107,99,59" />
+    <Sprite texture="mission_items.png" sourcerect="175,107,99,59" depth="0.55" origin="0.5,0.5" />
+    <Body width="45" height="30" density="20" />
+    <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand"
+      handle1="0,0" msg="ItemMsgPickUpSelect">
+      <!--StatusEffect
             type="Always" target="This" Condition="-0.1" interval="1"
                 disabledeltatime="true" /-->
-            <!-- Remove the item when fully used -->
-            <StatusEffect type="OnBroken" target="This">
-                <Remove />
-            </StatusEffect>
-        </Holdable>
-    </Item>
-
-    <Item name="interior" identifier="mlc_beaconsmat2" category="Material" maxstacksize="2"
-        Tags="mediumitem" canbepicked="true" description="" cargocontaineridentifier="metalcrate"
-        scale="0.5" impactsoundtag="impact_metal_heavy">
-        <PreferredContainer primary="storagecab" />
-        <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab" minamount="0"
-            maxamount="1" spawnprobability="0.01" />
-        <Price baseprice="300">
-            <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.5" />
-            <Price storeidentifier="merchantcity" sold="false" multiplier="1.0" />
-            <Price storeidentifier="merchantresearch" sold="false" multiplier="1.2" />
-            <Price storeidentifier="merchantmilitary" sold="false" multiplier="0.8" />
-            <Price storeidentifier="merchantmine" sold="false" multiplier="0.5" />
-        </Price>
-
-        <Fabricate suitablefabricators="fabricator" requiredtime="10">
-            <RequiredSkill identifier="mechanical" level="40" />
-            <Item identifier="steel" amount="4" />
-            <Item identifier="aluminium" amount="2" />
-        </Fabricate>
-
-        <InventoryIcon texture="%ModDir%/Missions/mission_items.png" sourcerect="285,107,99,59" />
-        <Sprite texture="mission_items.png" sourcerect="285,107,99,59" depth="0.55" origin="0.5,0.5" />
-        <Body width="45" height="30" density="20" />
-        <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand"
-            handle1="0,0" msg="ItemMsgPickUpSelect">
-            <!--StatusEffect
+      <!-- Remove the item when fully used -->
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+    </Holdable>
+  </Item>
+  <Item name="interior" identifier="mlc_beaconsmat2" category="Material" maxstacksize="2"
+    Tags="mediumitem" canbepicked="true" description="" cargocontaineridentifier="metalcrate"
+    scale="0.5" impactsoundtag="impact_metal_heavy">
+    <PreferredContainer primary="storagecab" />
+    <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab" minamount="0" maxamount="1"
+      spawnprobability="0.01" />
+    <Price baseprice="300">
+      <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.5" />
+      <Price storeidentifier="merchantcity" sold="false" multiplier="1.0" />
+      <Price storeidentifier="merchantresearch" sold="false" multiplier="1.2" />
+      <Price storeidentifier="merchantmilitary" sold="false" multiplier="0.8" />
+      <Price storeidentifier="merchantmine" sold="false" multiplier="0.5" />
+    </Price>
+    <Fabricate suitablefabricators="fabricator" requiredtime="10">
+      <RequiredSkill identifier="mechanical" level="40" />
+      <Item identifier="steel" amount="4" />
+      <Item identifier="aluminium" amount="2" />
+    </Fabricate>
+    <InventoryIcon texture="%ModDir%/Missions/mission_items.png" sourcerect="285,107,99,59" />
+    <Sprite texture="mission_items.png" sourcerect="285,107,99,59" depth="0.55" origin="0.5,0.5" />
+    <Body width="45" height="30" density="20" />
+    <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand"
+      handle1="0,0" msg="ItemMsgPickUpSelect">
+      <!--StatusEffect
             type="Always" target="This" Condition="-0.1" interval="1"
                 disabledeltatime="true" /-->
-            <!-- Remove the item when fully used -->
-            <StatusEffect type="OnBroken" target="This">
-                <Remove />
-            </StatusEffect>
-        </Holdable>
-    </Item>
-
-    <Item name="truss" identifier="mlc_beaconsmat3" category="Material" maxstacksize="2"
-        Tags="mediumitem" canbepicked="true" description="" cargocontaineridentifier="metalcrate"
-        scale="0.5" impactsoundtag="impact_metal_heavy">
-        <PreferredContainer primary="storagecab" />
-        <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab" minamount="0"
-            maxamount="1" spawnprobability="0.01" />
-        <Price baseprice="350">
-            <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.5" />
-            <Price storeidentifier="merchantcity" sold="false" multiplier="1.0" />
-            <Price storeidentifier="merchantresearch" sold="false" multiplier="1.2" />
-            <Price storeidentifier="merchantmilitary" sold="false" multiplier="0.8" />
-            <Price storeidentifier="merchantmine" sold="false" multiplier="0.5" />
-        </Price>
-
-        <Fabricate suitablefabricators="fabricator" requiredtime="10">
-            <RequiredSkill identifier="mechanical" level="40" />
-            <Item identifier="aluminium" amount="4" />
-            <Item identifier="steel" amount="6" />
-            <Item identifier="organicfiber" amount="2" />
-        </Fabricate>
-
-        <InventoryIcon texture="%ModDir%/Missions/mission_items.png" sourcerect="15,116,156,42" />
-        <Sprite texture="mission_items.png" sourcerect="15,116,156,42" depth="0.55" origin="0.5,0.5" />
-        <Body width="45" height="30" density="20" />
-        <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand"
-            handle1="0,0" msg="ItemMsgPickUpSelect">
-            <!--StatusEffect
+      <!-- Remove the item when fully used -->
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+    </Holdable>
+  </Item>
+  <Item name="truss" identifier="mlc_beaconsmat3" category="Material" maxstacksize="2"
+    Tags="mediumitem" canbepicked="true" description="" cargocontaineridentifier="metalcrate"
+    scale="0.5" impactsoundtag="impact_metal_heavy">
+    <PreferredContainer primary="storagecab" />
+    <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab" minamount="0" maxamount="1"
+      spawnprobability="0.01" />
+    <Price baseprice="350">
+      <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.5" />
+      <Price storeidentifier="merchantcity" sold="false" multiplier="1.0" />
+      <Price storeidentifier="merchantresearch" sold="false" multiplier="1.2" />
+      <Price storeidentifier="merchantmilitary" sold="false" multiplier="0.8" />
+      <Price storeidentifier="merchantmine" sold="false" multiplier="0.5" />
+    </Price>
+    <Fabricate suitablefabricators="fabricator" requiredtime="10">
+      <RequiredSkill identifier="mechanical" level="40" />
+      <Item identifier="aluminium" amount="4" />
+      <Item identifier="steel" amount="6" />
+      <Item identifier="organicfiber" amount="2" />
+    </Fabricate>
+    <InventoryIcon texture="%ModDir%/Missions/mission_items.png" sourcerect="15,116,156,42" />
+    <Sprite texture="mission_items.png" sourcerect="15,116,156,42" depth="0.55" origin="0.5,0.5" />
+    <Body width="45" height="30" density="20" />
+    <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand"
+      handle1="0,0" msg="ItemMsgPickUpSelect">
+      <!--StatusEffect
             type="Always" target="This" Condition="-0.1" interval="1"
                 disabledeltatime="true" /-->
-            <!-- Remove the item when fully used -->
-            <StatusEffect type="OnBroken" target="This">
-                <Remove />
-            </StatusEffect>
-        </Holdable>
-    </Item>
+      <!-- Remove the item when fully used -->
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+    </Holdable>
+  </Item>
+  <!-- Electrical -->
+  <Item name="" identifier="mlc_beaconelectrialsupplies" tags="crate, supply_electrical"
+    category="Electrical" scale="0.5" linkable="true" pickdistance="150"
+    showcontentsintooltip="true" impactsoundtag="impact_metal_heavy">
+    <Price baseprice="1400">
+      <Price storeidentifier="merchantcity" multiplier="1.0" minavailable="1" maxavailable="4" />
+      <Price storeidentifier="merchantoutpost" multiplier="1.2" maxavailable="1" />
+      <Price storeidentifier="merchantresearch" multiplier="1.2" maxavailable="2" />
+      <Price storeidentifier="merchantmilitary" sold="false" />
+      <Price storeidentifier="merchantmine" sold="false" />
+    </Price>
+    <Fabricate suitablefabricators="fabricator" requiredtime="30">
+      <RequiredSkill identifier="electrical" level="80" />
+      <Item identifier="mlc_beaconemat1" amount="1" />
+      <Item identifier="mlc_beaconemat2" amount="1" />
+      <Item identifier="mlc_beaconemat3" amount="1" />
+    </Fabricate>
+    <Sprite texture="%ModDir%/Missions/mission_items.png" depth="0.54" sourcerect="312,10,146,83"
+      origin="0.5,0.5" />
+    <Body width="150" height="80" density="25" />
+    <Holdable canBeCombined="true" removeOnCombined="true" slots="RightHand+LeftHand"
+      holdpos="0,-80" handle1="-30,14" handle2="30,14" aimable="false" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="OnNotContained" target="This" Condition="-1" interval="1"
+        disabledeltatime="true">
+        <Conditional InWater="true" />
+      </StatusEffect>
+      <!-- Remove when broken -->
+      <StatusEffect type="OnBroken" target="This">
+        <ParticleEmitter particle="shrapnel" anglemin="0" anglemax="360" particleamount="8"
+          velocitymin="0" velocitymax="0" scalemin="1.5" scalemax="2" />
+        <sound file="Content/Items/Weapons/ExplosionDebris1.ogg" selectionmode="All" range="5000" />
+        <Remove />
+      </StatusEffect>
+    </Holdable>
+  </Item>
+  <!-- Electrical Crafting Materials -->
+  <Item name="Circuits" identifier="mlc_beaconemat1" category="Material" maxstacksize="2"
+    Tags="mediumitem" canbepicked="true" description="" cargocontaineridentifier="metalcrate"
+    scale="0.5" impactsoundtag="impact_metal_heavy">
+    <PreferredContainer primary="storagecab" />
+    <PreferredContainer secondary="abandonedstoragecab" minamount="0" maxamount="1"
+      spawnprobability="0.01" />
+    <Price baseprice="500">
+      <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.5" />
+      <Price storeidentifier="merchantcity" sold="false" multiplier="1.0" />
+      <Price storeidentifier="merchantresearch" sold="false" multiplier="1.2" />
+      <Price storeidentifier="merchantmilitary" sold="false" multiplier="0.8" />
+      <Price storeidentifier="merchantmine" sold="false" multiplier="0.5" />
+    </Price>
+    <Fabricate suitablefabricators="fabricator" requiredtime="10">
+      <RequiredSkill identifier="electrical" level="40" />
+      <Item identifier="fpgacircuit" amount="2" />
+      <Item identifier="oscillator" amount="2" />
+      <Item identifier="silicon" amount="2" />
+      <Item identifier="tin" amount="2" />
+    </Fabricate>
+    <InventoryIcon texture="%ModDir%/Missions/mission_items.png" sourcerect="10,180,60,70" />
+    <Sprite texture="mission_items.png" sourcerect="10,180,60,70" depth="0.55" origin="0.5,0.5" />
+    <Body width="45" height="30" density="20" />
+    <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand"
+      handle1="0,0" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="InWater" target="This" Condition="0.0" setvalue="true" />
+      <!-- Remove the item when fully used -->
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+    </Holdable>
+  </Item>
+  <Item name="Wiring" identifier="mlc_beaconemat2" category="Material" maxstacksize="2"
+    Tags="mediumitem" canbepicked="true" description="" cargocontaineridentifier="metalcrate"
+    scale="0.5" impactsoundtag="impact_metal_heavy">
+    <PreferredContainer primary="storagecab" />
+    <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab" minamount="0" maxamount="1"
+      spawnprobability="0.01" />
+    <Price baseprice="500">
+      <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.5" />
+      <Price storeidentifier="merchantcity" sold="false" multiplier="1.0" />
+      <Price storeidentifier="merchantresearch" sold="false" multiplier="1.2" />
+      <Price storeidentifier="merchantmilitary" sold="false" multiplier="0.8" />
+      <Price storeidentifier="merchantmine" sold="false" multiplier="0.5" />
+    </Price>
+    <Fabricate suitablefabricators="fabricator" requiredtime="10">
+      <RequiredSkill identifier="electrical" level="40" />
+      <Item identifier="redwire" amount="8" />
+      <Item identifier="bluewire" amount="8" />
+      <Item identifier="copper" amount="8" />
+      <Item identifier="rubber" amount="8" />
+    </Fabricate>
+    <InventoryIcon texture="%ModDir%/Missions/mission_items.png" sourcerect="400,100,70,64" />
+    <Sprite texture="mission_items.png" sourcerect="400,100,70,64" depth="0.55" origin="0.5,0.5" />
+    <Body width="45" height="30" density="20" />
+    <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand"
+      handle1="0,0" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="InWater" target="This" Condition="0.0" setvalue="true" />
+      <!-- Remove the item when fully used -->
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+    </Holdable>
+  </Item>
+  <Item name="Components" identifier="mlc_beaconemat3" category="Material" maxstacksize="2"
+    Tags="mediumitem" canbepicked="true" description="" cargocontaineridentifier="metalcrate"
+    scale="0.5" impactsoundtag="impact_metal_heavy">
+    <PreferredContainer primary="storagecab" />
+    <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab" minamount="0" maxamount="1"
+      spawnprobability="0.01" />
+    <Price baseprice="500">
+      <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.5" />
+      <Price storeidentifier="merchantcity" sold="false" multiplier="1.0" />
+      <Price storeidentifier="merchantresearch" sold="false" multiplier="1.2" />
+      <Price storeidentifier="merchantmilitary" sold="false" multiplier="0.8" />
+      <Price storeidentifier="merchantmine" sold="false" multiplier="0.5" />
+    </Price>
+    <Fabricate suitablefabricators="fabricator" requiredtime="10">
+      <RequiredSkill identifier="electrical" level="40" />
+      <Item identifier="redwire" amount="2" />
+      <Item identifier="zinc" amount="4" />
+      <Item identifier="lead" amount="1" />
+      <Item identifier="Plastic" amount="4" />
+    </Fabricate>
+    <InventoryIcon texture="%ModDir%/Missions/mission_items.png" sourcerect="80,180,60,70" />
+    <Sprite texture="mission_items.png" sourcerect="80,180,60,70" depth="0.55" origin="0.5,0.5" />
+    <Body width="45" height="30" density="20" />
+    <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand"
+      handle1="0,0" msg="ItemMsgPickUpSelect">
+      <StatusEffect type="InWater" target="This" Condition="0.0" setvalue="true" />
+      <!-- Remove the item when fully used -->
+      <StatusEffect type="OnBroken" target="This">
+        <Remove />
+      </StatusEffect>
+    </Holdable>
+  </Item>
 
+  <!-- Misc -->
+  <Item name="" identifier="distressbeacon" category="Equipment" Tags="smallitem,sonar,provocative"
+    cargocontaineridentifier="metalcrate" Scale="0.5" impactsoundtag="impact_metal_light"
+    isshootable="true">
+    <InventoryIcon texture="Content/Items/Electricity/signalcomp.png" sourcerect="65,164,30,24"
+      origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="65,164,30,24"
+      depth="0.55" origin="0.5,0.5" />
+    <Body width="27" height="60" density="12" />
+    <Holdable selectkey="Select" pickkey="Use" slots="Any,RightHand,LeftHand"
+      msg="ItemMsgDetachWrench" PickingTime="5.0" aimpos="85,-10" handle1="0,0" attachable="true"
+      aimable="true">
+      <RequiredItem items="wrench" type="Equipped" />
+    </Holdable>
+    <AiTarget soundrange="1000" sight="500" staticsight="true" />
+    <LightComponent LightColor="1.0,0.0,0.0,1.0" range="50" powerconsumption="10" blinkfrequency="2"
+      IsOn="false" canbeselected="false">
+      <StatusEffect type="OnActive" targettype="Contained" Condition="-0.1">
+        <RequiredItem items="mobilebattery" type="Contained" />
+      </StatusEffect>
+      <StatusEffect type="OnActive" targettype="This" SoundRange="800000" setvalue="true">
+        <Conditional Voltage="gt 0.5" targetitemcomponent="LightComponent" />
+        <sound file="Content/Items/Weapons/SonarDecoy.ogg" range="500.0" loop="true" volume="0.25" />
+      </StatusEffect>
+    </LightComponent>
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true"
+      containedstateindicatorstyle="battery">
+      <Containable items="mobilebattery">
+        <StatusEffect type="OnContaining" targettype="This" Voltage="1.0" setvalue="true" />
+        <StatusEffect type="OnContaining" targettype="This" IsOn="true" />
+      </Containable>
+    </ItemContainer>
+  </Item>
 
-    <!-- Electrical -->
-    <Item name="" identifier="mlc_beaconelectrialsupplies" tags="crate, supply_electrical"
-        category="Electrical" scale="0.5" linkable="true" pickdistance="150"
-        showcontentsintooltip="true" impactsoundtag="impact_metal_heavy">
-        <Price baseprice="1400">
-            <Price storeidentifier="merchantcity" multiplier="1.0" minavailable="1" maxavailable="4" />
-            <Price storeidentifier="merchantoutpost" multiplier="1.2" maxavailable="1" />
-            <Price storeidentifier="merchantresearch" multiplier="1.2" maxavailable="2" />
-
-            <Price storeidentifier="merchantmilitary" sold="false" />
-            <Price storeidentifier="merchantmine" sold="false" />
-        </Price>
-        <Fabricate suitablefabricators="fabricator" requiredtime="30">
-            <RequiredSkill identifier="electrical" level="80" />
-            <Item identifier="mlc_beaconemat1" amount="1" />
-            <Item identifier="mlc_beaconemat2" amount="1" />
-            <Item identifier="mlc_beaconemat3" amount="1" />
-        </Fabricate>
-
-        <Sprite texture="%ModDir%/Missions/mission_items.png" depth="0.54"
-            sourcerect="312,10,146,83" origin="0.5,0.5" />
-        <Body width="150" height="80" density="25" />
-        <Holdable canBeCombined="true" removeOnCombined="true" slots="RightHand+LeftHand"
-            holdpos="0,-80" handle1="-30,14" handle2="30,14" aimable="false"
-            msg="ItemMsgPickUpSelect">
-            <StatusEffect type="OnNotContained" target="This" Condition="-1" interval="1"
-                disabledeltatime="true">
-                <Conditional InWater="true" />
-            </StatusEffect>
-
-            <!-- Remove when broken -->
-            <StatusEffect type="OnBroken" target="This">
-                <ParticleEmitter particle="shrapnel" anglemin="0" anglemax="360" particleamount="8"
-                    velocitymin="0" velocitymax="0" scalemin="1.5" scalemax="2" />
-                <sound file="Content/Items/Weapons/ExplosionDebris1.ogg" selectionmode="All"
-                    range="5000" />
-                <Remove />
-            </StatusEffect>
-        </Holdable>
-    </Item>
-
-    <!-- Electrical Crafting Materials -->
-    <Item name="Circuits" identifier="mlc_beaconemat1" category="Material" maxstacksize="2"
-        Tags="mediumitem" canbepicked="true" description="" cargocontaineridentifier="metalcrate"
-        scale="0.5" impactsoundtag="impact_metal_heavy">
-        <PreferredContainer primary="storagecab" />
-        <PreferredContainer secondary="abandonedstoragecab" minamount="0"
-            maxamount="1" spawnprobability="0.01" />
-        <Price baseprice="500">
-            <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.5" />
-            <Price storeidentifier="merchantcity" sold="false" multiplier="1.0" />
-            <Price storeidentifier="merchantresearch" sold="false" multiplier="1.2" />
-            <Price storeidentifier="merchantmilitary" sold="false" multiplier="0.8" />
-            <Price storeidentifier="merchantmine" sold="false" multiplier="0.5" />
-        </Price>
-
-        <Fabricate suitablefabricators="fabricator" requiredtime="10">
-            <RequiredSkill identifier="electrical" level="40" />
-            <Item identifier="fpgacircuit" amount="2" />
-            <Item identifier="oscillator" amount="2" />
-            <Item identifier="silicon" amount="2" />
-            <Item identifier="tin" amount="2" />
-        </Fabricate>
-
-        <InventoryIcon texture="%ModDir%/Missions/mission_items.png" sourcerect="10,180,60,70" />
-        <Sprite texture="mission_items.png" sourcerect="10,180,60,70" depth="0.55" origin="0.5,0.5" />
-        <Body width="45" height="30" density="20" />
-        <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand"
-            handle1="0,0" msg="ItemMsgPickUpSelect">
-            <StatusEffect type="InWater" target="This" Condition="0.0" setvalue="true" />
-            <!-- Remove the item when fully used -->
-            <StatusEffect type="OnBroken" target="This">
-                <Remove />
-            </StatusEffect>
-        </Holdable>
-    </Item>
-
-    <Item name="Wiring" identifier="mlc_beaconemat2" category="Material" maxstacksize="2"
-        Tags="mediumitem" canbepicked="true" description="" cargocontaineridentifier="metalcrate"
-        scale="0.5" impactsoundtag="impact_metal_heavy">
-        <PreferredContainer primary="storagecab" />
-        <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab" minamount="0"
-            maxamount="1" spawnprobability="0.01" />
-        <Price baseprice="500">
-            <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.5" />
-            <Price storeidentifier="merchantcity" sold="false" multiplier="1.0" />
-            <Price storeidentifier="merchantresearch" sold="false" multiplier="1.2" />
-            <Price storeidentifier="merchantmilitary" sold="false" multiplier="0.8" />
-            <Price storeidentifier="merchantmine" sold="false" multiplier="0.5" />
-        </Price>
-
-        <Fabricate suitablefabricators="fabricator" requiredtime="10">
-            <RequiredSkill identifier="electrical" level="40" />
-            <Item identifier="redwire" amount="8" />
-            <Item identifier="bluewire" amount="8" />
-            <Item identifier="copper" amount="8" />
-            <Item identifier="rubber" amount="8" />
-        </Fabricate>
-
-        <InventoryIcon texture="%ModDir%/Missions/mission_items.png" sourcerect="400,100,70,64" />
-        <Sprite texture="mission_items.png" sourcerect="400,100,70,64" depth="0.55" origin="0.5,0.5" />
-        <Body width="45" height="30" density="20" />
-        <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand"
-            handle1="0,0" msg="ItemMsgPickUpSelect">
-            <StatusEffect type="InWater" target="This" Condition="0.0" setvalue="true" />
-            <!-- Remove the item when fully used -->
-            <StatusEffect type="OnBroken" target="This">
-                <Remove />
-            </StatusEffect>
-        </Holdable>
-    </Item>
-
-    <Item name="Components" identifier="mlc_beaconemat3" category="Material" maxstacksize="2"
-        Tags="mediumitem" canbepicked="true" description="" cargocontaineridentifier="metalcrate"
-        scale="0.5" impactsoundtag="impact_metal_heavy">
-        <PreferredContainer primary="storagecab" />
-        <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab" minamount="0"
-            maxamount="1" spawnprobability="0.01" />
-        <Price baseprice="500">
-            <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.5" />
-            <Price storeidentifier="merchantcity" sold="false" multiplier="1.0" />
-            <Price storeidentifier="merchantresearch" sold="false" multiplier="1.2" />
-            <Price storeidentifier="merchantmilitary" sold="false" multiplier="0.8" />
-            <Price storeidentifier="merchantmine" sold="false" multiplier="0.5" />
-        </Price>
-
-        <Fabricate suitablefabricators="fabricator" requiredtime="10">
-            <RequiredSkill identifier="electrical" level="40" />
-            <Item identifier="redwire" amount="2" />
-            <Item identifier="zinc" amount="4" />
-            <Item identifier="lead" amount="1" />
-            <Item identifier="Plastic" amount="4" />
-        </Fabricate>
-
-        <InventoryIcon texture="%ModDir%/Missions/mission_items.png" sourcerect="80,180,60,70" />
-        <Sprite texture="mission_items.png" sourcerect="80,180,60,70" depth="0.55" origin="0.5,0.5" />
-        <Body width="45" height="30" density="20" />
-        <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand"
-            handle1="0,0" msg="ItemMsgPickUpSelect">
-            <StatusEffect type="InWater" target="This" Condition="0.0" setvalue="true" />
-            <!-- Remove the item when fully used -->
-            <StatusEffect type="OnBroken" target="This">
-                <Remove />
-            </StatusEffect>
-        </Holdable>
-    </Item>
-
-
-    <!-- Misc -->
-
-    <Item name="" identifier="distressbeacon" category="Equipment"
-        Tags="smallitem,sonar,provocative" cargocontaineridentifier="metalcrate" Scale="0.5"
-        impactsoundtag="impact_metal_light" isshootable="true">
-        <InventoryIcon texture="Content/Items/Electricity/signalcomp.png" sourcerect="65,164,30,24"
-            origin="0.5,0.5" />
-        <Sprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="65,164,30,24"
-            depth="0.55"
-            origin="0.5,0.5" />
-        <Body width="27" height="60" density="12" />
-        <Holdable selectkey="Select" pickkey="Use" slots="Any,RightHand,LeftHand"
-            msg="ItemMsgDetachWrench" PickingTime="5.0" aimpos="85,-10" handle1="0,0"
-            attachable="true" aimable="true">
-            <RequiredItem items="wrench" type="Equipped" />
-        </Holdable>
-        <AiTarget soundrange="1000" sight="500" staticsight="true" />
-
-        <LightComponent LightColor="1.0,0.0,0.0,1.0" range="50" powerconsumption="10"
-            blinkfrequency="2" IsOn="false" canbeselected="false">
-            <StatusEffect type="OnActive" targettype="Contained" Condition="-0.1">
-                <RequiredItem items="mobilebattery" type="Contained" />
-            </StatusEffect>
-            <StatusEffect type="OnActive" targettype="This" SoundRange="800000" setvalue="true">
-                <Conditional
-                    Voltage="gt 0.5" targetitemcomponent="LightComponent" />
-                <sound file="Content/Items/Weapons/SonarDecoy.ogg" range="500.0" loop="true"
-                    volume="0.25" />
-            </StatusEffect>
-        </LightComponent>
-
-        <ItemContainer capacity="1" maxstacksize="1" hideitems="true"
-            containedstateindicatorstyle="battery">
-            <Containable items="mobilebattery">
-                <StatusEffect type="OnContaining" targettype="This" Voltage="1.0" setvalue="true" />
-                <StatusEffect type="OnContaining" targettype="This" IsOn="true" />
-            </Containable>
-        </ItemContainer>
-    </Item>
-
-    <Item name="" identifier="jumpstarter" tags="battery" category="Electrical,Machine" Scale="0.5"
-        description="" isshootable="true">
-
-        <Price baseprice="1200">
-            <Price storeidentifier="merchantengineering" />
-        </Price>
-
-        <Fabricate suitablefabricators="fabricator" requiredtime="10">
-            <RequiredSkill identifier="electrical" level="40" />
-            <Item identifier="redwire" amount="2" />
-            <Item identifier="zinc" amount="4" />
-            <Item identifier="lead" amount="4" />
-            <Item identifier="Plastic" amount="4" />
-        </Fabricate>
-
-        <Sprite texture="%ModDir%/Missions/mission_items.png" sourcerect="14,285,118,128"
-            depth="0.8" />
-        <Body width="118" height="129" density="40" />
-
-        <Holdable pickkey="Use" slots="RightHand+LeftHand" msg="ItemMsgDetachCrowbar"
-            PickingTime="10.0" aimpos="35,-10" handle1="0,0" attachable="true" aimable="true">
-            <RequiredItem identifier="crowbar" type="Equipped" />
-            <StatusEffect type="OnActive" target="Character" SpeedMultiplier="0.5" setvalue="true" />
-        </Holdable>
-
-        <PowerContainer capacity="2000.0" maxrechargespeed="0.0" maxoutput="2000.0"
-            canbeselected="true" indicatorposition="25,18" indicatorsize="50,31" ishorizontal="true"
-            msg="ItemMsgInteractSelect">
-            <!--GuiFrame
+  <Item name="" identifier="jumpstarter" tags="battery" category="Electrical,Machine" Scale="0.5"
+    description="" isshootable="true">
+    <Price baseprice="1200">
+      <Price storeidentifier="merchantengineering" />
+    </Price>
+    <Fabricate suitablefabricators="fabricator" requiredtime="10">
+      <RequiredSkill identifier="electrical" level="40" />
+      <Item identifier="redwire" amount="2" />
+      <Item identifier="zinc" amount="4" />
+      <Item identifier="lead" amount="4" />
+      <Item identifier="Plastic" amount="4" />
+    </Fabricate>
+    <Sprite texture="%ModDir%/Missions/mission_items.png" sourcerect="14,285,118,128" depth="0.8" />
+    <Body width="118" height="129" density="40" />
+    <Holdable pickkey="Use" slots="RightHand+LeftHand" msg="ItemMsgDetachCrowbar" PickingTime="10.0"
+      aimpos="35,-10" handle1="0,0" attachable="true" aimable="true">
+      <RequiredItem identifier="crowbar" type="Equipped" />
+      <StatusEffect type="OnActive" target="Character" SpeedMultiplier="0.5" setvalue="true" />
+    </Holdable>
+    <PowerContainer capacity="2000.0" maxrechargespeed="0.0" maxoutput="2000.0" canbeselected="true"
+      indicatorposition="25,18" indicatorsize="50,31" ishorizontal="true"
+      msg="ItemMsgInteractSelect">
+      <!--GuiFrame
             relativesize="0.25,0.23" minsize="350,200" anchor="Center" style="ItemUI" /-->
-            <StatusEffect type="OnActive" targettype="Contained" targets="loadable" Condition="-5.0">
-                <RequiredItem items="mobilebattery" targetslot="0" type="Contained" />
-                <RequiredItem items="mobilebattery" targetslot="1" type="Contained" />
-                <RequiredItem items="mobilebattery" targetslot="2" type="Contained" />
-            </StatusEffect>
-        </PowerContainer>
-
-        <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver"
-            hudpriority="10">
-            <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center"
-                style="ConnectionPanel" />
-            <RequiredSkill identifier="electrical" level="65" />
-            <StatusEffect type="OnFailure" target="Character" targetlimbs="LeftHand,RightHand">
-                <Sound file="Content/Sounds/Damage/Electrocution1.ogg" range="1000" />
-                <Explosion range="100.0" stun="0" force="5.0" flames="false" shockwave="false"
-                    sparks="true" underwaterbubble="false" />
-                <Affliction identifier="stun" strength="4" />
-                <Affliction identifier="burn" strength="15" />
-            </StatusEffect>
-            <requireditem items="Screwdriver" type="Equipped" />
-            <output name="power_out" displayname="connection.powerout" />
-        </ConnectionPanel>
-
-        <ItemContainer capacity="3" maxstacksize="1" canbeselected="true" hideitems="true"
-            hudpos="0.5,0.6" uilabel="ChargingDock">
-            <GuiFrame relativesize="0.2,0.2" anchor="Center" relativeoffset="0,0.2" style="ItemUI" />
-            <StatusEffect type="Always" target="This" Charge="-500.0" />
-            <Containable items="loadable">
-                <StatusEffect type="OnContaining" target="This" Charge="1000.0">
-                    <RequiredItem items="mobilebattery" targetslot="0" type="Contained" />
-                    <RequiredItem items="mobilebattery" targetslot="1" type="Contained" />
-                    <RequiredItem items="mobilebattery" targetslot="2" type="Contained" />
-                    <Conditional condition="gt 1.0" targetcontaineditem="true" />
-                </StatusEffect>
-            </Containable>
-        </ItemContainer>
-
-        <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1"
-            IsOn="true" castshadows="false" allowingameediting="false" alphablend="true">
-            <sprite texture="%ModDir%/Missions/mission_items.png" sourcerect="132,285,118,128"
-                depth="0.1" origin="0.5,0.5" alpha="1.0" />
-            <IsActive targetitemcomponent="PowerContainer" Voltage="gte 1.0" />
-        </LightComponent>
-
-        <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="true"
-            castshadows="false" allowingameediting="false" alphablend="true">
-            <sprite texture="%ModDir%/Missions/mission_items.png" sourcerect="250,285,118,128"
-                depth="0.1"
-                origin="0.5,0.5" alpha="1.0" />
-            <IsActive targetitemcomponent="PowerContainer" ChargePercentage="gte 0.5" />
-        </LightComponent>
-
-        <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="true"
+      <StatusEffect type="OnActive" targettype="Contained" targets="loadable" Condition="-5.0">
+        <RequiredItem items="mobilebattery" targetslot="0" type="Contained" />
+        <RequiredItem items="mobilebattery" targetslot="1" type="Contained" />
+        <RequiredItem items="mobilebattery" targetslot="2" type="Contained" />
+      </StatusEffect>
+    </PowerContainer>
+    <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver"
+      hudpriority="10">
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center"
+        style="ConnectionPanel" />
+      <RequiredSkill identifier="electrical" level="65" />
+      <StatusEffect type="OnFailure" target="Character" targetlimbs="LeftHand,RightHand">
+        <Sound file="Content/Sounds/Damage/Electrocution1.ogg" range="1000" />
+        <Explosion range="100.0" stun="0" force="5.0" flames="false" shockwave="false" sparks="true"
+          underwaterbubble="false" />
+        <Affliction identifier="stun" strength="4" />
+        <Affliction identifier="burn" strength="15" />
+      </StatusEffect>
+      <requireditem items="Screwdriver" type="Equipped" />
+      <output name="power_out" displayname="connection.powerout" />
+    </ConnectionPanel>
+    <ItemContainer capacity="3" maxstacksize="1" canbeselected="true" hideitems="true"
+      hudpos="0.5,0.6" uilabel="ChargingDock">
+      <GuiFrame relativesize="0.2,0.2" anchor="Center" relativeoffset="0,0.2" style="ItemUI" />
+      <StatusEffect type="Always" target="This" Charge="-500.0" />
+      <Containable items="loadable">
+        <StatusEffect type="OnContaining" target="This" Charge="1000.0">
+          <RequiredItem items="mobilebattery" targetslot="0" type="Contained" />
+          <RequiredItem items="mobilebattery" targetslot="1" type="Contained" />
+          <RequiredItem items="mobilebattery" targetslot="2" type="Contained" />
+          <Conditional condition="gt 1.0" targetcontaineditem="true" />
+        </StatusEffect>
+      </Containable>
+    </ItemContainer>
+    <LightComponent range="10.0" lightcolor="255,255,255,0" IsOn="true" castshadows="false"
+      allowingameediting="false" alphablend="true">
+      <sprite texture="%ModDir%/Missions/mission_items.png" sourcerect="132,285,118,128" depth="0.1"
+        origin="0.5,0.5" alpha="1.0" />
+      <IsActive targetitemcomponent="PowerContainer" targetcontainer="true"
+        ChargePercentage="gt 0.01" />
+    </LightComponent>
+    <LightComponent range="10.0" lightcolor="255,255,255,0" IsOn="true" castshadows="false"
+      allowingameediting="false" alphablend="true">
+      <sprite texture="%ModDir%/Missions/mission_items.png" sourcerect="250,285,118,128" depth="0.1"
+        origin="0.5,0.5" alpha="1.0" />
+      <IsActive targetitemcomponent="PowerContainer" targetcontainer="true"
+        ChargePercentage="gte 0.5" />
+    </LightComponent>
+    <!--LightComponent
+        range="10.0" lightcolor="255,255,255,0" IsOn="true"
             flicker="0.8" flickerspeed="1.0" pulsefrequency="0.1" pulseamount="0.5"
             castshadows="false" allowingameediting="false" alphablend="true">
             <sprite texture="%ModDir%/Missions/mission_items.png" sourcerect="249,285,118,128"
                 depth="0.1" origin="0.5,0.5" alpha="1.0" />
-            <IsActive targetitemcomponent="PowerContainer" ChargePercentage="lt 0.5" />
-        </LightComponent>
+            <IsActive targetitemcomponent="PowerContainer" targetcontainer="true"
+                ChargePercentage="gt 0.1" />
+        </LightComponent-->
+  </Item>
 
-    </Item>
+  <Item name="" identifier="oxygeniteshard_clownevent" nameidentifier="oxygeniteshard"
+    variantof="oxygeniteshard" hideinmenus="true">
+    <Price baseprice="200" minavailable="0">
+      <Price storeidentifier="merchantoutpost" sold="false" />
+      <Price storeidentifier="merchantcity" sold="false" />
+      <Price storeidentifier="merchantresearch" sold="false" />
+      <Price storeidentifier="merchantmilitary" sold="false" />
+      <Price storeidentifier="merchantmine" sold="false" />
+    </Price>
+    <PreferredContainer primary="wrecksecarmcab" spawnprobability="0" />
+    <PreferredContainer primary="ruinstorage,ruinstoragesmall" spawnprobability="0" />
+    <PreferredContainer primary="ruinstoragelarge" spawnprobability="0" />
+    <PreferredContainer primary="ruintreasure" spawnprobability="0" />
+    <Throwable>
+      <StatusEffect type="Always" target="Hull" oxygen="5000.0" />
+    </Throwable>
+  </Item>
 
-    <Item name="" identifier="oxygeniteshard_clownevent" nameidentifier="oxygeniteshard"
-        variantof="oxygeniteshard" hideinmenus="true">
-        <Price baseprice="200" minavailable="0">
-            <Price storeidentifier="merchantoutpost" sold="false" />
-            <Price storeidentifier="merchantcity" sold="false" />
-            <Price storeidentifier="merchantresearch" sold="false" />
-            <Price storeidentifier="merchantmilitary" sold="false" />
-            <Price storeidentifier="merchantmine" sold="false" />
-        </Price>
-
-
-        <PreferredContainer primary="wrecksecarmcab" spawnprobability="0" />
-        <PreferredContainer primary="ruinstorage,ruinstoragesmall" spawnprobability="0" />
-        <PreferredContainer primary="ruinstoragelarge" spawnprobability="0" />
-        <PreferredContainer primary="ruintreasure" spawnprobability="0" />
-        
-        <Throwable>
-            <StatusEffect type="Always" target="Hull" oxygen="5000.0" />
-        </Throwable>
-    </Item>    
+  <Item name="" identifier="captains_notebook" category="Equipment" Tags="smallitem"
+    maxstacksize="8" scale="0.5" impactsoundtag="impact_soft">
+    <Price baseprice="3500" soldeverywhere="false">
+      <Price locationtype="outpost" multiplier="1.5" sold="false" />
+      <Price locationtype="city" multiplier="2" sold="false" />
+      <Price locationtype="research" multiplier="2" sold="false" />
+      <Price locationtype="military" multiplier="1.5" sold="false" />
+      <Price locationtype="mine" multiplier="0.5" sold="false" />
+    </Price>
+    <Sprite texture="%ModDir%/Missions/mission_items.png" sourcerect="448,190,31,37" depth="0.6"
+      origin="0.5,0.5" />
+    <InventoryIcon texture="%ModDir%/Missions/mission_items.png" sourcerect="411,188,35,52"
+      origin="0.5,0.5" />
+    <Body width="19" height="40" density="20" />
+    <Holdable slots="Any,RightHand+LeftHand" aimable="false" aimpos="40,-20" handle1="5,0"
+      aimangle="260" swingamount="0,3" swingspeed="0.5" swingwhenaiming="true"
+      msg="ItemMsgPickUpSelect">
+      <StatusEffect type="OnSecondaryUse" target="This" Condition="-10" />
+      <StatusEffect type="OnSecondaryUse" target="This,Character" disabledeltatime="true">
+        <Conditional Condition="lte 0" />
+        <GiveExperience amount="1500" />
+        <RemoveItem />
+      </StatusEffect>
+    </Holdable>
+  </Item>
 </Items>

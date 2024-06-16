@@ -16,6 +16,8 @@ namespace MoreLevelContent.Shared.Generation
         private static DistressMapModule _instance;
         private static bool _spawnStartingBeacon = false;
         const int MAX_DISTRESS_CREATE_ATTEMPTS = 5;
+        const int DISTRESS_MIN_DIST = 1;
+        const int DISTRESS_MAX_DIST = 3;
 
         public DistressMapModule()
         {
@@ -25,8 +27,6 @@ namespace MoreLevelContent.Shared.Generation
 
         internal void UpdateDistressBeacons(Map __instance)
         {
-            // probably causes issues with DE on lower end computers
-            // probably cache levels with distress beacons
             foreach (LocationConnection connection in __instance.Connections.Where(c => c.LevelData.MLC().HasDistress))
             {
                 // skip locations that are close
@@ -50,7 +50,7 @@ namespace MoreLevelContent.Shared.Generation
         private void SendDistressUpdate(string updateType, LocationConnection connection)
         {
 #if CLIENT
-            string msg = TextManager.GetWithVariables(updateType, ("[location1]", $"‖color:gui.orange‖{connection.Locations[0].Name}‖end‖"), ("[location2]", $"‖color:gui.orange‖{connection.Locations[1].Name}‖end‖")).Value;
+            string msg = TextManager.GetWithVariables(updateType, ("[location1]", $"‖color:gui.orange‖{connection.Locations[0].DisplayName}‖end‖"), ("[location2]", $"‖color:gui.orange‖{connection.Locations[1].DisplayName}‖end‖")).Value;
             SendChatUpdate(msg);
 #endif
         }
@@ -71,24 +71,14 @@ namespace MoreLevelContent.Shared.Generation
                 return;
             }
 
-            // Filter distress prefabs
-            var distressMissions = MissionPrefab.Prefabs.Where(m => // m.Identifier == "distress_ghostship_alienship" &&
-            m.Tags.Contains("distress")).OrderBy(m => m.UintIdentifier);
-
-            if (distressMissions.Any())
+            if (TryGetMissionByTag("distress", levelData, out MissionPrefab prefab))
             {
-                try
-                {
-                    Log.Debug("Adding distress mission");
-                    Random rand = new MTRandom(ToolBox.StringToInt(levelData.Seed));
-                    var distressMissionPrefab = ToolBox.SelectWeightedRandom(distressMissions, p => p.Commonness, rand);
-                    Mission inst = distressMissionPrefab.Instantiate(GameMain.GameSession.Map.SelectedConnection.Locations, Submarine.MainSub);
-                    AddExtraMission(inst);
-                    _internalMissionStore.Add(inst);
-                    Log.Debug("Added distress mission to extra missions!");
-                } catch(Exception e) { Log.Error(e.ToString()); }
-            }
-            else
+                Log.Debug("Adding distress mission");
+                Mission inst = prefab.Instantiate(GameMain.GameSession.Map.SelectedConnection.Locations, Submarine.MainSub);
+                AddExtraMission(inst); // weird
+                _internalMissionStore.Add(inst);
+                Log.Debug("Added distress mission to extra missions!");
+            } else
             {
                 Log.Error("Failed to find any distress missions!");
             }
@@ -116,6 +106,13 @@ namespace MoreLevelContent.Shared.Generation
         private void TrySpawnDistress(Map __instance, bool force = false)
         {
             if (Main.IsClient) return;
+
+            if (__instance == null || __instance.Connections.Count == 0)
+            {
+                Log.Debug("Skipped trying to create a distress beacon as there was no map connections");
+                return;
+            }
+
             // Check if we're at the max
             int activeDistressCalls = __instance.Connections.Where(c => c.LevelData.MLC().HasDistress).Count();
             if (activeDistressCalls > ConfigManager.Instance.Config.NetworkedConfig.GeneralConfig.MaxActiveDistressBeacons)
@@ -140,7 +137,8 @@ namespace MoreLevelContent.Shared.Generation
             Random rand = new MTRandom(seed);
 
             // Find a location connection to spawn a distress beacon at
-            LocationConnection targetConnection = WalkConnection(__instance.CurrentLocation, rand, 4);
+            int dist = Rand.Range(DISTRESS_MIN_DIST, DISTRESS_MAX_DIST, Rand.RandSync.Unsynced);
+            LocationConnection targetConnection = WalkConnection(__instance.CurrentLocation, rand, dist);
             int stepsLeft = rand.Next(4, 8);
             if (!MapDirector.ConnectionIdLookup.ContainsKey(targetConnection)) return; // how does this happen?
 
@@ -170,7 +168,5 @@ namespace MoreLevelContent.Shared.Generation
             Log.Debug("Force creating distress beacon");
             _instance.TrySpawnDistress(GameMain.GameSession.Map, true);
         }
-
-        public override void OnMapGenerate(Map __instance) => _spawnStartingBeacon = true;
     }
 }

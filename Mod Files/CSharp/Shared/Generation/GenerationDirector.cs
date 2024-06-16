@@ -2,6 +2,7 @@
 using Barotrauma.Extensions;
 using Barotrauma.MoreLevelContent.Shared.Utils;
 using MoreLevelContent.Shared.Generation.Interfaces;
+using MoreLevelContent.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -13,21 +14,23 @@ namespace MoreLevelContent.Shared.Generation
     {
         static GenerationDirector()
         {
-            if (_spawnSubOnPath != null) return;
-            _spawnSubOnPath = typeof(Level).GetMethod("SpawnSubOnPath", BindingFlags.NonPublic | BindingFlags.Instance);
             _autofill = typeof(AutoItemPlacer).GetMethod("CreateAndPlace", BindingFlags.NonPublic | BindingFlags.Static);
-            if (_spawnSubOnPath == null || _autofill == null)
+            if (_autofill == null)
             {
                 Log.Error("Unable to reflect");
             }
         }
 
-        private static readonly MethodInfo _spawnSubOnPath;
         private static readonly MethodInfo _autofill;
 
         public abstract bool Active { get; }
 
-        internal Submarine SpawnSubOnPath(Level level, string name, ContentFile sub) => _spawnSubOnPath.Invoke(level, new object[] { name, sub, SubmarineType.BeaconStation }) as Submarine;
-        internal void AutofillSub(Submarine sub) => _autofill.Invoke(null, new object[] { sub.ToEnumerable(), null });
+        internal Submarine SpawnSubOnPath(string name, ContentFile sub, bool ignoreCrushDepth = false, SubmarineType submarineType = SubmarineType.EnemySubmarine)
+        {
+            Submarine placedSub = SubPlacementUtils.SpawnSubOnPath(name, sub, submarineType);
+            SubPlacementUtils.SetCrushDepth(placedSub, ignoreCrushDepth);
+            return placedSub;
+        }
+        internal void AutofillSub(Submarine sub) => _autofill.Invoke(null, new object[] { sub.ToEnumerable(), null, 0.0f });
     }
 }

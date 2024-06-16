@@ -30,7 +30,6 @@
     <missionmessage0.distress_shiprescue>The distress beacon leads to a lost shuttle, based on radio chatter they're not having a good time. Navigating them and the shuttle out.</missionmessage0.distress_shiprescue>
 
     <missionheader1.distress_shiprescue>Lost Shuttle</missionheader1.distress_shiprescue>
-    <missionmessage1.distress_shiprescue>The shuttle crew has perished, an all too common fate. They won't be paying for this rescue anymore but the shuttle itself could still be claimed as salvage.</missionmessage1.distress_shiprescue>
 
     <distress.lostshuttle.atend>The lost shuttle is within range for salvaging.</distress.lostshuttle.atend>
     <!-- Distress Ghostship -->

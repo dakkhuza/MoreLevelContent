@@ -68,7 +68,11 @@ namespace Barotrauma.MoreLevelContent.Client.UI
 
                 LocalizedString localizedString = TextManager.Get(tooltip);
                 DrawIcon(iconStyle, (int)(28 * zoom), RichString.Rich(localizedString));
+            }
 
+            if (data.HasLostCargo)
+            {
+                DrawIcon("LostCargo", (int)(28 * zoom), RichString.Rich(TextManager.Get("mlc.lostcargotooltip")));
             }
 
             if (data.HasBlackMarket && !Main.IsRelase)

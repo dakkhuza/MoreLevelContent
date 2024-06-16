@@ -43,8 +43,7 @@ namespace MoreLevelContent.Shared.Generation
         }
         public override void OnLevelDataLoad(LevelData __instance, XElement element) { }
         public override void OnLevelDataSave(LevelData __instance, XElement parentElement) { }
-        public override void OnMapGenerate(Map __instance) { }
-        public override void OnMapLoad(Map __instance)
+        public override void OnNewMap(Map __instance)
         {
 
             if (!__instance.Connections.Any(c => c.LevelData.MLC().HasBeaconConstruction))

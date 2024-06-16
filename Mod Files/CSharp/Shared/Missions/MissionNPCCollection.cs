@@ -82,16 +82,16 @@ namespace MoreLevelContent.Missions
             }
             WayPoint explicitStayInHullPos = WayPoint.GetRandom(SpawnType.Human, null, submarine);
             Rand.RandSync randSync = Rand.RandSync.ServerAndClient;
-            List<(HumanPrefab, XElement)> humanPrefabsToSpawn = new List<(HumanPrefab, XElement)>();
+            List<(HumanPrefab prefab, XElement config)> humanPrefabsToSpawn = new List<(HumanPrefab, XElement)>();
             foreach (XElement element in characterConfig.Elements())
             {
                 var humanPrefab = GetHumanPrefabFromElement(element);
                 humanPrefabsToSpawn.Add((humanPrefab, element));
             }
-            foreach (var prefabToSpawn in humanPrefabsToSpawn)
+            foreach (var (prefab, config) in humanPrefabsToSpawn)
             {
-                var humanPrefab = prefabToSpawn.Item1;
-                XElement characterSpecificConfig = prefabToSpawn.Item2;
+                var humanPrefab = prefab;
+                XElement characterSpecificConfig = config;
                 if (humanPrefab == null || humanPrefab.Job.IsEmpty || humanPrefab.Job == "any") { continue; }
                 var jobPrefab = humanPrefab.GetJobPrefab(randSync);
                 var stayPos = explicitStayInHullPos;
@@ -99,18 +99,29 @@ namespace MoreLevelContent.Missions
                 {
                     stayPos = WayPoint.GetRandom(SpawnType.Human, jobPrefab, submarine) ?? explicitStayInHullPos;
                 }
+                XElement additionalItemsElement = config?.GetChildElement("additionalitems");
+                ContentXElement additionalItems = new ContentXElement(null, additionalItemsElement);
 
-                Character spawnedCharacter = CreateHuman(humanPrefab, characters, characterItems, submarine, team, stayPos, humanPrefabRandSync: randSync);
+                Character spawnedCharacter = CreateHuman(humanPrefab, characters, characterItems, submarine, team, stayPos, humanPrefabRandSync: randSync, additionalItems: additionalItemsElement != null ? additionalItems.Elements() : null);
                 spawnedCharacter.EnableDespawn = false; // don't let mission npcs despawn
                 spawnedCharacter.GiveIdCardTags(stayPos);
                 onCharacterCreated?.Invoke(spawnedCharacter, characterSpecificConfig);
                 spawnedCharacter.MLC().NPCElement = characterSpecificConfig;
+#if CLIENT
+                if (GameMain.IsSingleplayer)
+                {
+                    if (characterSpecificConfig.GetAttributeBool("allowordering", false))
+                    {
+                        _ = GameMain.GameSession.CrewManager.AddCharacterToCrewList(spawnedCharacter);
+                    }
+                }
+#endif
             }
             Log.Debug("end");
             InitCharacters();
         }
 
-        internal Character CreateHuman(HumanPrefab humanPrefab, List<Character> characters, Dictionary<Character, List<Item>> characterItems, Submarine submarine, CharacterTeamType teamType, ISpatialEntity positionToStayIn = null, Rand.RandSync humanPrefabRandSync = Rand.RandSync.ServerAndClient, bool giveTags = true)
+        internal Character CreateHuman(HumanPrefab humanPrefab, List<Character> characters, Dictionary<Character, List<Item>> characterItems, Submarine submarine, CharacterTeamType teamType, ISpatialEntity positionToStayIn = null, Rand.RandSync humanPrefabRandSync = Rand.RandSync.ServerAndClient, bool giveTags = true, IEnumerable<ContentXElement> additionalItems = null)
         {
             var characterInfo = humanPrefab.CreateCharacterInfo(Rand.RandSync.ServerAndClient);
             characterInfo.TeamID = teamType;
@@ -127,13 +138,24 @@ namespace MoreLevelContent.Missions
             humanPrefab.InitializeCharacter(spawnedCharacter, positionToStayIn);
             _ = humanPrefab.GiveItems(spawnedCharacter, submarine, null, Rand.RandSync.ServerAndClient, createNetworkEvents: false);
 
+            if (additionalItems != null)
+            {
+                foreach (var additionalItem in additionalItems)
+                {
+                    int amount = additionalItem.GetAttributeInt("amount", 1);
+                    for (int i = 0; i < amount; i++)
+                    {
+                        HumanPrefab.InitializeItem(spawnedCharacter, additionalItem, submarine, humanPrefab, createNetworkEvents: false);
+                    }
+                }
+            }
             characters.Add(spawnedCharacter);
             characterItems.Add(spawnedCharacter, spawnedCharacter.Inventory.FindAllItems(recursive: true));
 
             return spawnedCharacter;
         }
 
-        internal void GiveCharacterItem(Character character, XElement itemElement, bool createNetworkEvents = true)
+        internal void GiveCharacterItem(Character character, ContentXElement itemElement, bool createNetworkEvents = true)
         {
             HumanPrefab.InitializeItem(character, itemElement, null, character.HumanPrefab, createNetworkEvents: createNetworkEvents);
             characterItems[character] = character.Inventory.FindAllItems(recursive: true);
@@ -170,7 +192,7 @@ namespace MoreLevelContent.Missions
         {
             if (element.Attribute("name") != null)
             {
-                DebugConsole.ThrowError("Error in mission \"" + mission.Name + "\" - use character identifiers instead of names to configure the characters.");
+                DebugConsole.ThrowError("Error in mission \"" + mission.Prefab.Identifier + "\" - use character identifiers instead of names to configure the characters.");
 
                 return null;
             }

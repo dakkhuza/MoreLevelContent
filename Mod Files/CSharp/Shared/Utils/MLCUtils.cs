@@ -1,15 +1,43 @@
 ﻿using Barotrauma;
+using Barotrauma.Extensions;
+using Barotrauma.Items.Components;
 using FarseerPhysics;
+using HarmonyLib;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using Voronoi2;
+using static Barotrauma.Level;
 
 namespace MoreLevelContent.Shared.Utils
 {
     public static class MLCUtils
     {
+        internal static string GetRandomTag(string baseTag)
+        {
+            int maxIndex = 1;
+            while (TextManager.ContainsTag(baseTag + maxIndex))
+            {
+                maxIndex++;
+            }
+            return "mlc.lostcargo.tooslow" + Rand.Range(0, maxIndex);
+        }
+
+        internal static string GetRandomTag(string baseTag, LevelData data)
+        {
+            Random rand = new MTRandom(ToolBox.StringToInt(data.Seed));
+            int maxIndex = 1;
+            while (TextManager.ContainsTag(baseTag + maxIndex))
+            {
+                maxIndex++;
+            }
+            return "mlc.lostcargo.tooslow" + rand.Next(0, maxIndex);
+        }
+
+
         internal static Vector2 PositionItemOnEdge(Item target, GraphEdge edge, float height, bool setRotation = false)
         {
             Vector2 dir = Vector2.Normalize(edge.GetNormal(edge.Cell1 ?? edge.Cell2));

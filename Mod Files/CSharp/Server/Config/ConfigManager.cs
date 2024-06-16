@@ -22,7 +22,20 @@ namespace Barotrauma.MoreLevelContent.Config
             // Always init the server with a default config, the first client to join with admin perms will set the config
             // This was due to some issue with reading the config file on the server iirc
             // Maybe revist this in the future?
-            DefaultConfig();
+            Log.Debug("Setting up server config...");
+
+            // Only setup default config on non-dedicated servers, on servers hosted through
+            // the in game menu, the owner of the server will send the config to use
+            // where as on dedicated servers they will never get a config sent and thus will
+            // always have the default config loaded
+            if (!Main.IsDedicatedServer)
+            {
+                DefaultConfig();
+            } else
+            {
+                LoadConfig();
+            }
+            
         }
 
         private readonly List<ulong> correctInstalls = new List<ulong>();

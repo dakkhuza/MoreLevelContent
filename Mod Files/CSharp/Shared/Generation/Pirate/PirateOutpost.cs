@@ -42,12 +42,13 @@ namespace MoreLevelContent.Shared.Generation.Pirate
             characters.Clear();
             characterItems.Clear();
 
-            enemyBase = PirateOutpostDirector.Instance.SpawnSubOnPath(Level.Loaded, "Pirate Outpost", selectedOutpost.ContentFile);
+            enemyBase = PirateOutpostDirector.Instance.SpawnSubOnPath("Pirate Outpost", selectedOutpost.ContentFile, ignoreCrushDepth: true);
             if (enemyBase == null)
             {
                 Log.Error("Failed to place pirate outpost! Skipping...");
                 return;
             }
+            enemyBase.PhysicsBody.BodyType = FarseerPhysics.BodyType.Static;
             enemyBase.Info.DisplayName = TextManager.Get("mlc.pirateoutpost");
             enemyBase.ShowSonarMarker = PirateOutpostDirector.Instance.Config.DisplaySonarMarker;
 

@@ -23,6 +23,7 @@ namespace MoreLevelContent.Missions
         private readonly XElement submarineConfig;
         private readonly XElement decalConfig;
         private readonly XElement damageDevices;
+        private readonly XElement removeItems;
         private readonly MissionNPCCollection missionNPCs;
 
         private readonly TravelTarget travelTarget;
@@ -32,6 +33,7 @@ namespace MoreLevelContent.Missions
         private Submarine ghostship;
         private LevelData levelData;
         private TrackingSonarMarker trackingSonarMarker;
+        private ReputationDamageTracker damageTracker;
 
 
         enum TravelTarget
@@ -46,6 +48,7 @@ namespace MoreLevelContent.Missions
             // Config
             submarineConfig = prefab.ConfigElement.GetChildElement("submarines");
             characterConfig = prefab.ConfigElement.GetChildElement("characters");
+            removeItems = prefab.ConfigElement.GetChildElement("removeitems");
             decalConfig = prefab.ConfigElement.GetChildElement("decals");
             damageDevices = prefab.ConfigElement.GetChildElement("damageDevices");
 
@@ -117,13 +120,12 @@ namespace MoreLevelContent.Missions
             ghostship.FlipX();
             submarine.ShowSonarMarker = false;
             submarine.TeamID = CharacterTeamType.None;
-            ghostship.Info.Type = SubmarineType.BeaconStation;
+            ghostship.Info.Type = (SubmarineType)7;
             submarine.PhysicsBody.FarseerBody.BodyType = FarseerPhysics.BodyType.Dynamic;
 
-            MissionUtils.PositionSubmarine(submarine, Level.PositionType.MainPath);
-
-            // ensure the sub doesn't get crushed
-            submarine.RealWorldCrushDepth = Math.Max(Submarine.MainSub.RealWorldCrushDepth, Level.Loaded.GetRealWorldDepth(submarine.Position.Y) + 1000);
+            SubPlacementUtils.PositionSubmarine(submarine, Level.PositionType.MainPath);
+            SubPlacementUtils.SetCrushDepth(submarine);
+            
 
             double minFlood = submarineConfig.GetAttributeDouble("minfloodpercentage", 0);
             double maxFlood = submarineConfig.GetAttributeDouble("maxfloodpercentage", 0);
@@ -271,6 +273,7 @@ namespace MoreLevelContent.Missions
                 foreach (var affliction in config.GetChildElements("affliction"))
                 {
                     string identifier = affliction.GetAttributeString("identifier", null);
+                    LimbType limb = affliction.GetAttributeEnum("limb", LimbType.None);
                     float strength = affliction.GetAttributeFloat("strength", 1);
                     bool targetRandomLimb = affliction.GetAttributeBool("randomLimb", false);
                     bool randomStrength = affliction.GetAttributeBool("randomStrength", false);
@@ -281,6 +284,7 @@ namespace MoreLevelContent.Missions
                         for (int i = 0; i < count; i++)
                         {
                             Limb targetLimb = character.AnimController.MainLimb;
+                            if (limb != LimbType.None) targetLimb = character.AnimController.GetLimb(limb);
                             if (targetRandomLimb) targetLimb = character.AnimController.Limbs.GetRandomUnsynced();
                             if (randomStrength) strength = Rand.Range(10f, 70f, Rand.RandSync.Unsynced);
                             character.CharacterHealth.ApplyAffliction(targetLimb, new Affliction(prefab, strength));
@@ -293,19 +297,37 @@ namespace MoreLevelContent.Missions
                 character.CharacterHealth.ForceUpdateVisuals();
             });
             // Reputation stuff
-            Hooks.Instance.OnStructureDamaged += OnStructureDamaged;
+            damageTracker = new ReputationDamageTracker(ghostship, 2.0f, 20f, 1f, 2f);
         }
         void InitShip()
         {
             ghostship.NeutralizeBallast();
             var ghostshipItems = ghostship.GetItems(alsoFromConnectedSubs: false);
 
-            if (reactorActive && ghostshipItems.Find(i => i.HasTag("reactor") && !i.NonInteractable)?.GetComponent<Reactor>() is Reactor reactor)
+            if (ghostshipItems.Find(i => i.HasTag("reactor") && !i.NonInteractable)?.GetComponent<Reactor>() is Reactor reactor)
             {
                 Item reactorItem = reactor.Item;
                 ItemContainer container = reactorItem.GetComponent<ItemContainer>();
-                reactor.PowerUpImmediately();
-                reactor.FuelConsumptionRate = 0;
+                if (reactorActive)
+                {
+                    reactor.PowerUpImmediately();
+                    reactor.FuelConsumptionRate = 0;
+                }
+
+                if (removeItems != null)
+                {
+                    foreach (XElement item in removeItems.Elements())
+                    {
+                        Identifier tagToRemove = item.GetAttributeIdentifier("tag", null);
+                        if (tagToRemove != null)
+                        {
+                            foreach (var itemToRemove in ghostshipItems.FindAll(i => i.HasTag(tagToRemove)))
+                            {
+                                itemToRemove.Remove();
+                            }
+                        }
+                    }
+                }
 
                 // ItemPrefab rod = ItemPrefab.Find(null, "fuelrod".ToIdentifier());
 
@@ -365,6 +387,7 @@ namespace MoreLevelContent.Missions
             }
             trackingSonarMarker.Update(deltaTime);
 
+
             bool crewMemberInSub = CrewInSub();
             switch (State)
             {
@@ -389,7 +412,7 @@ namespace MoreLevelContent.Missions
             }
 
             if (IsClient) return;
-            accumulatedDamage -= 1f * deltaTime; // reduce accumulated damage by 2 every second
+            damageTracker.Update();
 
             bool CrewInSub()
             {
@@ -404,47 +427,10 @@ namespace MoreLevelContent.Missions
             }
         }
 
-        float accumulatedDamage = 0;
-        const float ACCUMULATED_DAMAGE_BREAKPOINT = 20;
-        const float MAX_REP_LOSS = 10;
-        bool displayedWarning = false;
-        private void OnStructureDamaged(Structure structure, float damageAmount, Character character)
-        {
-            if (character == null || damageAmount <= 0.0f) { return; }
-            if (!character.IsPlayer) { return; }
-            if (structure?.Submarine == null || structure.Submarine != ghostship) { return; }
-
-            // let them accidentally damage the hull a bit
-            if (damageAmount <= 1.5f && accumulatedDamage < ACCUMULATED_DAMAGE_BREAKPOINT)
-            {
-                accumulatedDamage += damageAmount;
-                return;
-            }
-
-            if (!displayedWarning)
-            {
-                displayedWarning = true;
-                accumulatedDamage = 0;
-
-#if SERVER
-                GameMain.Server?.SendChatMessage(TextManager.GetServerMessage("distress.ghostship.damagenotification")?.Value, ChatMessageType.Default);
-#endif
-                return;
-            }
-
-            if (GameMain.GameSession?.Campaign?.Map?.CurrentLocation?.Reputation != null)
-            {
-                var reputationLoss = damageAmount * Reputation.ReputationLossPerWallDamage;
-                reputationLoss = Math.Min(reputationLoss, 10); // clamp rep loss to a value 0-10
-                GameMain.GameSession.Campaign.Map.CurrentLocation.Reputation.AddReputation(-reputationLoss);
-            }
-        }
-
         protected override bool DetermineCompleted() => State == 2;
 
         protected override void EndMissionSpecific(bool completed)
         {
-            Hooks.Instance.OnStructureDamaged -= OnStructureDamaged;
             base.EndMissionSpecific(completed);
             missionNPCs.Clear();
         }

@@ -110,6 +110,9 @@
     <!-- General Config -->
     <SettingsTab.General>General</SettingsTab.General>
     
+    <mlc.settings.enablethalamuscave>Enable Thalamus Cave</mlc.settings.enablethalamuscave>
+    <mlc.settings.enablethalamuscavetooltip>If thalamus caves should spawn</mlc.settings.enablethalamuscavetooltip>
+
     <mlc.settings.moveruins>Abyssal Ruins</mlc.settings.moveruins>
     <mlc.settings.moveruinstooltip>The chance for alien ruins to spawn in the abyss area</mlc.settings.moveruinstooltip>
 

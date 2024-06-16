@@ -78,6 +78,13 @@ namespace Barotrauma.MoreLevelContent.Client.UI
             GUIFrame content = CreateNewContentFrame(Tab.General);
             var (left, right) = CreateSidebars(content);
 
+            Tickbox(left,
+                TextManager.Get("mlc.settings.enablethalamuscave"),
+                TextManager.Get("mlc.settings.enablethalamuscavetooltip"),
+                unsavedConfig.NetworkedConfig.GeneralConfig.EnableThalamusCaves,
+                (v) => unsavedConfig.NetworkedConfig.GeneralConfig.EnableThalamusCaves = v);
+
+
             var moveRuinsChance = Label(left, TextManager.Get("mlc.settings.moveruins"), GUIStyle.SubHeadingFont);
             moveRuinsChanceDisplay = TextBlock(moveRuinsChance, TextManager.Get("mlc.settings.moveruinstooltip"));
             Slider(left, (0, 100), 100, (v) => $"{Round(v)}%",

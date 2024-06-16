@@ -14,6 +14,7 @@ using Voronoi2;
 using static Barotrauma.Level;
 using MoreLevelContent.Shared.Utils;
 using MoreLevelContent.Shared.AI;
+using Barotrauma.MoreLevelContent.Config;
 
 namespace MoreLevelContent.Shared.Generation
 {
@@ -114,7 +115,7 @@ namespace MoreLevelContent.Shared.Generation
 
         static void TrySpawnThalaCave()
         {
-            if (Loaded.GenerationParams.ThalamusProbability == 0 || Instance.ActiveThalaCave != null) return;
+            if (!ConfigManager.Instance.Config.NetworkedConfig.GeneralConfig.EnableThalamusCaves || Loaded.GenerationParams.ThalamusProbability == 0 || Instance.ActiveThalaCave != null) return;
             var caveParams = CaveGenerationParams.CaveParams.Where(c =>
             {
                 Log.Debug(c.Identifier.ToString());

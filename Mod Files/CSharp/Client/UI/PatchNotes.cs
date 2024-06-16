@@ -1,10 +1,6 @@
 ﻿using Barotrauma.Extensions;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using Barotrauma.MoreLevelContent.Shared.Config;
 using Barotrauma.MoreLevelContent.Config;
-using Barotrauma;
 using MoreLevelContent;
 
 namespace Barotrauma.MoreLevelContent.Client.UI
@@ -64,6 +60,7 @@ namespace Barotrauma.MoreLevelContent.Client.UI
         {
             Instance?.Close();
             Instance = new PatchNotes();
+            ConfigManager.ShouldDisplayPatchNotes = false;
         }
 
         public void Close()

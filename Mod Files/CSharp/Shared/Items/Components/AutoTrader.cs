@@ -377,7 +377,7 @@ namespace MoreLevelContent.Items
 
         bool hasSoundPlayed = false;
 
-        private Client GetUsingClient()
+        private Barotrauma.Networking.Client GetUsingClient()
         {
 #if SERVER
             return GameMain.Server.ConnectedClients.Find(c => c.Character == user);

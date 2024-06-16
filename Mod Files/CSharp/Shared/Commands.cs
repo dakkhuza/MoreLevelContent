@@ -30,7 +30,7 @@ namespace MoreLevelContent
         private void _showPatchnotes(object[] args)
         {
 #if CLIENT
-            Client.UI.PatchNotes.Open();
+            Barotrauma.MoreLevelContent.Client.UI.PatchNotes.Open();
 #endif
         }
 

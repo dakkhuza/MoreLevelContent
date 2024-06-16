@@ -1,16 +1,12 @@
 ﻿using Barotrauma;
 using Barotrauma.MoreLevelContent.Config;
-using Barotrauma.MoreLevelContent.Shared.Utils;
 using HarmonyLib;
 using MoreLevelContent.Shared;
-using MoreLevelContent.Shared.Data;
 using MoreLevelContent.Shared.Generation;
 using MoreLevelContent.Shared.Utils;
 using MoreLevelContent.Shared.XML;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
 
 namespace MoreLevelContent

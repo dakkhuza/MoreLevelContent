@@ -1,17 +1,11 @@
 ﻿using Barotrauma;
-using Barotrauma.MoreLevelContent.Client;
 using Barotrauma.MoreLevelContent.Client.UI;
 using Barotrauma.MoreLevelContent.Config;
-using Barotrauma.Networking;
 using HarmonyLib;
 using Microsoft.Xna.Framework;
-using MoreLevelContent.Shared;
 using MoreLevelContent.Shared.Utils;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace MoreLevelContent
 {
@@ -26,9 +20,10 @@ namespace MoreLevelContent
             Hooks.Instance.OnDebugDraw += ClientDebugDraw.Draw;
             SonarExtensions.Instance.Setup();
 
+            GameMain.LuaCs.Hook.Add("roundStart", OpenPatchNotes);
+
             // Exit if we're in an editor 
             if (Screen.Selected.IsEditor) return;
-
             MethodInfo info = typeof(GUI).GetMethod("TogglePauseMenu", BindingFlags.Static | BindingFlags.Public);
             Patch(info, postfix: new HarmonyMethod(AccessTools.Method(typeof(Main), "AddSettingsButton")));
         }
@@ -45,6 +40,13 @@ namespace MoreLevelContent
                     return Instance.OpenConfig(obj, o); 
                 },
             };
+        }
+
+        object OpenPatchNotes(object[] args)
+        {
+            if (!ConfigManager.ShouldDisplayPatchNotes) return null;
+            CoroutineManager.Invoke(() => PatchNotes.Open(), delay: 5.0f);
+            return null;
         }
 
         private bool OpenConfig(GUIButton button, object obj)

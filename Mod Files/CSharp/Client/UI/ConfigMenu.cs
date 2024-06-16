@@ -171,7 +171,7 @@ namespace Barotrauma.MoreLevelContent.Client.UI
             {
                 OnClicked = (btn, obj) =>
                 {
-                    PatchNotes.Open();
+                    MoreLevelContent.Client.UI.PatchNotes.Open();
                     return false;
                 }
             };

@@ -24,6 +24,14 @@ namespace MoreLevelContent
             CommandUtils.AddCommand("mlc_forcedistress", "Toggles forcing every level to spawn a distress mission, does nothing in multiplayer", _forceDistress, isCheat: true);
             CommandUtils.AddCommand("mlc_forcepirate", "Toggles forcing a specific pirate base to spawn", _forcePirate, isCheat: true);
             CommandUtils.AddCommand("mlc_toggleMapDisplay", "Toggles if all map locations should be shown, even if they are not discovered yet", _toggleMapDisplay, isCheat: true);
+            CommandUtils.AddCommand("mlc_showpatchnotes", "Displays the patch notes", _showPatchnotes);
+        }
+
+        private void _showPatchnotes(object[] args)
+        {
+#if CLIENT
+            Client.UI.PatchNotes.Open();
+#endif
         }
 
         private void _toggleMapDisplay(object[] args) => DisplayAllMapLocations = !DisplayAllMapLocations;

@@ -137,32 +137,6 @@ namespace Barotrauma.MoreLevelContent.Client.UI
             GUIFrame content = CreateNewContentFrame(Tab.PirateOutpost);
             var (left, right) = CreateSidebars(content);
 
-            // Pirate spawn chance
-
-            var pirateSpawnChanceLabel = Label(left, TextManager.Get("mlc.config.piratespawnchance"), GUIStyle.SubHeadingFont);
-            pirateSpawnChanceDisplay = new GUITextBlock(new RectTransform(new Vector2(1.0f, 1.0f), pirateSpawnChanceLabel.RectTransform), "", textAlignment: Alignment.CenterRight)
-            {
-                ToolTip = TextManager.Get("mlc.config.piratespawnchancetooltip")
-            };
-
-            void UpdatePirateSpawnChanceLabel(float v)
-            {
-                unsavedConfig.NetworkedConfig.PirateConfig.BasePirateSpawnChance = Round(v);
-                pirateSpawnChanceDisplay.Text = $"+{Round(v)} Base Spawn Chance";
-            }
-
-            Slider(left, (0, 100), 100, (v) => "", // TODO: Use a language file for this
-                unsavedConfig.NetworkedConfig.PirateConfig.BasePirateSpawnChance,
-                (v) => UpdatePirateSpawnChanceLabel(v));
-            UpdatePirateSpawnChanceLabel(unsavedConfig.NetworkedConfig.PirateConfig.BasePirateSpawnChance);
-
-            // Pirate husk chance 
-            _ = Label(left, TextManager.Get("mlc.config.piratehuskchance"), GUIStyle.SubHeadingFont);
-            Slider(left, (0, 100), 100, (v) => $"{Round(v)}%",
-                unsavedConfig.NetworkedConfig.PirateConfig.BaseHuskChance, 
-                (v) => unsavedConfig.NetworkedConfig.PirateConfig.BaseHuskChance = Round(v),
-                TextManager.Get("mlc.config.piratehuskchancetooltip"));
-
             // If the pirate outpost is displayed on sonar
             Tickbox(left, 
                 TextManager.Get("mlc.config.piratedisplaysonar"), 

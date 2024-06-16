@@ -14,7 +14,7 @@ namespace Barotrauma.MoreLevelContent.Config
     /// </summary>
     partial class ConfigManager : Singleton<ConfigManager>
     {
-        public static bool ShouldDisplayPatchNotes = true;
+        public static bool ShouldDisplayPatchNotes = false;
         private void SetupClient()
         {
             CommandUtils.AddCommand(

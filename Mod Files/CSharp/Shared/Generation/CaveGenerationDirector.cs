@@ -349,28 +349,37 @@ namespace MoreLevelContent.Shared.Generation
             {
                 Item spike = new Item(smallSpikePrefab, Vector2.Zero, null);
                 GraphEdge edge = GetEdge(insideEdges);
-                ConfigureFleshSpike(spike, edge);
-                Log.Debug($"Placed spike at {spike.Position}");
+                Turret turret = ConfigureFleshSpike(spike, edge);
+                if (turret == null) return;
+                turret.TargetHumans = true;
+                turret.TargetMonsters = true;
+                turret.TargetItems = true;
+                Log.Debug($"Placed small spike at {spike.Position}");
             }
 
             void SpawnFleshSpike()
             {
                 Item spike = new Item(largeSpikePrefab, Vector2.Zero, null);
                 GraphEdge edge = GetEdge(entranceEdges);
-                ConfigureFleshSpike(spike, edge);
+                Turret turret = ConfigureFleshSpike(spike, edge);
+                if (turret == null) return;
+                turret.TargetItems = true;
+                turret.TargetSubmarines = true;
+                turret.TargetCharacters = false;
+                turret.AimDelay = false;
                 Log.Debug($"Placed spike at {spike.Position}");
             }
 
-            void ConfigureFleshSpike(Item spike, GraphEdge edge)
+            Turret ConfigureFleshSpike(Item spike, GraphEdge edge)
             {
                 thalamusItems.Add(spike);
-                if (edge == null) return;
+                if (edge == null) return null;
                 int height = spike.StaticBodyConfig.GetAttributeInt("height", 0);
                 Vector2 dir = MLCUtils.PositionItemOnEdge(spike, edge, height);
                 float angle = Angle(dir);
                 spike.SpriteDepth = 1;
                 Turret turret = spike.GetComponent<Turret>();
-                turret.RotationLimits = new Vector2(-angle, -angle);
+                turret.RotationLimits = new Vector2(-angle + 1, -angle - 1);
 
                 // config status effects
                 Dictionary<ActionType, List<StatusEffect>> dic = (Dictionary<ActionType, List<StatusEffect>>)item_statusEffectList.GetValue(spike);
@@ -392,6 +401,7 @@ namespace MoreLevelContent.Shared.Generation
                         }
                     }
                 }
+                return turret;
             }
 
             void SpawnCellSpawner(GraphEdge edge)

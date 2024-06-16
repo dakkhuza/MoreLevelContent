@@ -325,7 +325,6 @@ namespace MoreLevelContent.Shared.AI
         {
             foreach (var turret in turrets)
             {
-                //turret.GenericOperate(deltaTime, true, Config.Entity);
                 turret.UpdateAutoOperate(deltaTime, true, Config.Entity);
             }
         }

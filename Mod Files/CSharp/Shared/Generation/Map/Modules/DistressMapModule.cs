@@ -6,20 +6,24 @@ using System.Linq;
 using MoreLevelContent.Shared.Data;
 using Barotrauma.MoreLevelContent.Config;
 using MoreLevelContent.Networking;
+using MoreLevelContent.Shared.Utils;
 
 namespace MoreLevelContent.Shared.Generation
 {
     // Shared
-    internal partial class DistressMapModule : MapModule
+    internal partial class OldDistressMapModule : MapModule
     {
+        public static bool ForceSpawnDistress = false;
+        public static string ForcedMissionIdentifier = "";
+
         private readonly List<Mission> _internalMissionStore = new();
-        private static DistressMapModule _instance;
+        private static OldDistressMapModule _instance;
         private static bool _spawnStartingBeacon = false;
         const int MAX_DISTRESS_CREATE_ATTEMPTS = 5;
         const int DISTRESS_MIN_DIST = 1;
         const int DISTRESS_MAX_DIST = 3;
 
-        public DistressMapModule()
+        public OldDistressMapModule()
         {
             _instance = this;
             InitProjSpecific();
@@ -55,7 +59,7 @@ namespace MoreLevelContent.Shared.Generation
 #endif
         }
 
-        public override void OnRoundStart(LevelData levelData)
+        public override void OnPreRoundStart(LevelData levelData)
         {
             _internalMissionStore.Clear();
 
@@ -65,13 +69,13 @@ namespace MoreLevelContent.Shared.Generation
             TrySpawnDistress(GameMain.GameSession.Map, _spawnStartingBeacon);
             _spawnStartingBeacon = false;
 
-            if (!levelData.MLC().HasDistress)
+            if (!levelData.MLC().HasDistress && !ForceSpawnDistress)
             {
                 Log.Debug("Level has no distress mission");
                 return;
             }
-
-            if (TryGetMissionByTag("distress", levelData, out MissionPrefab prefab))
+                
+            if (TryGetMissionByTag("distress", levelData, out MissionPrefab prefab, ForcedMissionIdentifier))
             {
                 Log.Debug("Adding distress mission");
                 Mission inst = prefab.Instantiate(GameMain.GameSession.Map.SelectedConnection.Locations, Submarine.MainSub);
@@ -168,5 +172,49 @@ namespace MoreLevelContent.Shared.Generation
             Log.Debug("Force creating distress beacon");
             _instance.TrySpawnDistress(GameMain.GameSession.Map, true);
         }
+    }
+
+    internal partial class DistressMapModule : TimedEventMapModule
+    {
+        protected override NetEvent EventCreated => NetEvent.MAP_SEND_NEWDISTRESS;
+
+        protected override string NewEventText => "distress.new";
+
+        protected override string EventTag => "distress";
+
+        protected override int MaxActiveEvents => ConfigManager.Instance.Config.NetworkedConfig.GeneralConfig.MaxActiveDistressBeacons;
+
+        protected override float EventSpawnChance => ConfigManager.Instance.Config.NetworkedConfig.GeneralConfig.DistressSpawnPercentage;
+
+        protected override int MinDistance => 1;
+
+        protected override int MaxDistance => 3;
+
+        protected override int MinEventDuration => 4;
+
+        protected override int MaxEventDuration => 8;
+
+        protected override bool ShouldSpawnEventAtStart => true;
+
+        protected override void HandleEventCreation(LevelData_MLCData data, int eventDuration)
+        {
+            data.HasDistress = true;
+            data.DistressStepsLeft = eventDuration;
+        }
+
+        protected override void HandleUpdate(LevelData_MLCData data, LocationConnection connection)
+        {
+            if (!data.HasDistress) return;
+            data.DistressStepsLeft--;
+            if (data.DistressStepsLeft == 3) AddNewsStory("distress.faint", connection);
+
+            if (data.DistressStepsLeft <= 0)
+            {
+                data.HasDistress = false;
+                AddNewsStory("distress.lost", connection);
+            }
+        }
+
+        protected override bool LevelHasEvent(LevelData_MLCData data) => data.HasDistress;
     }
 }

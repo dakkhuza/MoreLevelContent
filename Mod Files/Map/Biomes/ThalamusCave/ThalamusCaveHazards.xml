@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Thalamus Cave -->
+<levelobjects>
+  <!-- Common Objects -->
+  <watercurrentcave identifier="watercurrent_thalamuscave" spawnpos="CaveWall"
+    alignment="TopLeft, BottomRight" minsize="0.5" maxsize="2" randomrotation="0,360" commonness="0"
+    depthrange="0,1" clusteringamount="0" clusteringgroup="0" alignwithsurface="False"
+    minsurfacewidth="0" swingamount="0" swingfrequency="0" scaleoscillation="0,0"
+    scaleoscillationfrequency="0" sonardisruption="0" maxcount="10" randomoffset="0,0">
+    <Sound file="Content/Sounds/Water/BlackSmoker.ogg" range="800" position="0,0" />
+    <Trigger position="0,0" radius="500" camerashake="0.5" triggeredby="Character"
+      networksyncing="true" force="0,50" forcemode="Acceleration" forcefalloff="true"
+      forcevelocitylimit="480" forcefluctuationstrength="1.0" forcefluctuationinterval="10" />
+    <overridecommonness leveltype="thalamuscave" commonness="10" />
+  </watercurrentcave>
+  <ballastfloraspores identifier="ballastfloraspores_thalamuscave" spawnpos="CaveWall"
+    alignment="TopLeft, BottomRight" minsize="1" maxsize="2" randomrotation="0,360" commonness="0"
+    maxcount="3" depthrange="0,1" clusteringamount="0" clusteringgroup="0" alignwithsurface="False"
+    minsurfacewidth="0" swingamount="0" swingfrequency="0" scaleoscillation="0,0"
+    scaleoscillationfrequency="0" sonardisruption="0">
+    <overridecommonness leveltype="thalamuscave" commonness="10" />
+    <Trigger position="0,0" radius="1500" triggeredby="Submarine" infectidentifier="ballastflora"
+      infectionchance="0.05" />
+    <!--InnerSpores,
+    Inner and Outer are separate because X amount of particles in a big radius tend to clamp up
+    in center. Having Inner and Outer spreads them more evenly.-->
+    <ParticleEmitter particle="spore" particlespersecond="10" position="0,0" anglemin="0"
+      anglemax="360" velocitymin="0" velocitymax="10" scalemin="1" scalemax="1.5" distancemin="100"
+      distancemax="600" />
+    <ParticleEmitter particle="toxinmistlargefade" particlespersecond="5" position="0,0"
+      anglemin="0" anglemax="360" scalemin="4.0" scalemax="5.0" distancemin="100" distancemax="600"
+      velocitymin="0" velocitymax="10" />
+    <!--OuterSpores-->
+    <ParticleEmitter particle="spore" particlespersecond="50" position="0,0" anglemin="0"
+      anglemax="360" velocitymin="0" velocitymax="10" scalemin="1" scalemax="1.5" distancemin="615"
+      distancemax="1600" />
+    <ParticleEmitter particle="toxinmistlargefade" particlespersecond="30" position="0,0"
+      anglemin="0" anglemax="360" scalemin="4.0" scalemax="5.0" distancemin="615" distancemax="1600"
+      velocitymin="0" velocitymax="10" />
+  </ballastfloraspores>
+  <!-- Specific Objects -->
+  <stomachacidvent identifier="stomachacid_vent" spawnpos="Wall, RuinWall" minsurfacewidth="312"
+    minsize="1" maxsize="1" randomrotation="0,0" randomoffset="25,30" commonness="0"
+    depthrange="-1,-0.1" alignment="TopLeft, BottomRight" clusteringamount="0" clusteringgroup="0"
+    alignwithsurface="True" swingamount="0" swingfrequency="0" scaleoscillation="0,0"
+    scaleoscillationfrequency="0" sonardisruption="0" maxcount="1000">
+    <Sprite texture="%ModDir%/Map/Biomes/ThalamusCave/CaveHazards.png" sourcerect="0,184,309,77"
+      origin="0.5,0.5" />
+    <Trigger randomtriggerinterval="10" randomtriggerprobability="0.5" staytriggereddelay="5"
+      networksyncing="true">
+      <!--LightSource
+      range="4000" color="255,0,0,255" flicker="0.5" pulseamount="0.3" pulsefrequency="0.5">
+        <LightTexture texture="Content/Lights/pointlight_rays.png" origin="0.5,0.55" />
+      </LightSource-->
+      <Trigger position="0,0" radius="300" triggeredby="Human">
+        <Attack structuredamage="2" damagerange="300" emitstructuredamageparticles="false">
+          <Affliction identifier="acidburn" strength="15" />
+        </Attack>
+        <StatusEffect target="Character" onlyoutside="true">
+          <Sound file="Content/Items/Tools/Sprayer.ogg" range="100" dontmuffle="false" volume="0.1"
+            loop="true" />
+          <ParticleEmitter particle="bubbles" particlespersecond="35" position="0,0" anglemin="0"
+            anglemax="360" velocitymin="50" velocitymax="200" scalemin="0.6" scalemax="0.8" />
+        </StatusEffect>
+        <Sound file="Content/Sounds/Water/BlackSmoker.ogg" range="800" position="0,0" />
+      </Trigger>
+      <ParticleEmitter particle="toxinmistlargefade" copyentityangle="true" particlespersecond="2"
+        position="0,0" anglemin="220" anglemax="320" scalemin="1.0" scalemax="1.5" distancemin="0"
+        distancemax="0" velocitymin="50" velocitymax="550" />
+      <ParticleEmitter particle="toxinmist" copyentityangle="true" particlespersecond="20"
+        position="0,40" anglemin="255" anglemax="285" scalemin="1.0" scalemax="1.0" distancemin="0"
+        distancemax="0" velocitymin="300" velocitymax="800" />
+    </Trigger>
+    <overridecommonness leveltype="thalamuscave" commonness="15" />
+  </stomachacidvent>
+  <teethwall identifier="teethwall" spawnpos="Wall, RuinWall" minsurfacewidth="390" minsize="1"
+    maxsize="1.5" randomrotation="0,0" randomoffset="20,20" commonness="0" depthrange="-1,-0.1"
+    alignment="TopLeft, BottomRight" clusteringamount="0" clusteringgroup="0"
+    alignwithsurface="True" swingamount="0" swingfrequency="0" scaleoscillation="0,0"
+    scaleoscillationfrequency="0" sonardisruption="0" maxcount="5000">
+    <Sprite texture="%ModDir%/Map/Biomes/ThalamusCave/CaveHazards.png" sourcerect="0,113,402,71"
+      origin="0.5,0.5" />
+    <overridecommonness leveltype="thalamuscave" commonness="70" />
+    <Trigger position="0,0" width="300" height="75" sensor="false" triggeredby="Human">
+      <StatusEffect target="This" interval="1" disabledeltatime="true">
+        <Conditional currentspeed="gt 0.1" />
+        <Affliction identifier="bleeding" strength="2" />
+        <Affliction identifier="lacerations" strength="2" />
+      </StatusEffect>
+    </Trigger>
+  </teethwall>
+</levelobjects>

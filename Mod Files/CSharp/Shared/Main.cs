@@ -1,16 +1,12 @@
 ﻿using Barotrauma;
 using Barotrauma.MoreLevelContent.Config;
-using Barotrauma.MoreLevelContent.Shared.Utils;
 using HarmonyLib;
 using MoreLevelContent.Shared;
-using MoreLevelContent.Shared.Data;
 using MoreLevelContent.Shared.Generation;
 using MoreLevelContent.Shared.Utils;
 using MoreLevelContent.Shared.XML;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
 
 namespace MoreLevelContent
@@ -30,7 +26,7 @@ namespace MoreLevelContent
 
 
         public static Main Instance;
-        public static string Version = "0.0.6";
+        public static string Version = "0.0.7";
         private LevelContentProducer levelContentProducer;
         internal static Harmony Harmony;
 
@@ -62,6 +58,7 @@ namespace MoreLevelContent
             var level_onSpawnNPC = typeof(Level).GetMethod(nameof(Level.SpawnNPCs));
             var level_generate = typeof(Level).GetMethod(nameof(Level.Generate));
             var gameSession_before_startRound = typeof(GameSession).GetMethod(nameof(GameSession.StartRound), new Type[] { typeof(LevelData), typeof(bool), typeof(SubmarineInfo), typeof(SubmarineInfo) });
+            var eventManager_TriggerOnEndRoundActions = AccessTools.Method(typeof(EventManager), "TriggerOnEndRoundActions");
             Harmony = new Harmony("com.mlc.dak");
 
             MoveRuins.Init();
@@ -72,6 +69,7 @@ namespace MoreLevelContent
             Hooks.Instance.Setup();
             Commands.Instance.Setup();
             CompatabilityHelper.Instance.Setup();
+            ReflectionInfo.Instance.Setup();
 
             if (!levelContentProducer.Active)
             {
@@ -108,6 +106,13 @@ namespace MoreLevelContent
                 OnBeforeStartRound,
                 LuaCsHook.HookMethodType.Before,
                 this);
+
+            GameMain.LuaCs.Hook.HookMethod(
+                "mlc.singleplayer.roundend",
+                eventManager_TriggerOnEndRoundActions,
+                OnRoundEnd,
+                LuaCsHook.HookMethodType.Before);
+
             Log.Verbose("Done!");
         }
 
@@ -127,12 +132,19 @@ namespace MoreLevelContent
         public object OnLevelGenerate(object self, Dictionary<string, object> args)
         {
             levelContentProducer.LevelGenerate(args["levelData"] as LevelData, args["mirror"] as bool? ?? false);
+            MapDirector.Instance.OnLevelGenerate(args["levelData"] as LevelData, args["mirror"] as bool? ?? false);
             return null;
         }
 
         public object OnBeforeStartRound(object self, Dictionary<string, object> args)
         {
             levelContentProducer.StartRound();
+            return null;
+        }
+
+        public object OnRoundEnd(object self, Dictionary<string, object> args)
+        {
+            levelContentProducer.EndRound();
             return null;
         }
 

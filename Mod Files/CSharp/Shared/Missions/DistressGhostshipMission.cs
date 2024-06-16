@@ -12,6 +12,7 @@ using MoreLevelContent.Shared.Utils;
 using System.Collections.Generic;
 using Steamworks.Data;
 using Barotrauma.Networking;
+using static MoreLevelContent.Shared.Generation.MissionGenerationDirector;
 
 namespace MoreLevelContent.Missions
 {
@@ -24,7 +25,9 @@ namespace MoreLevelContent.Missions
         private readonly XElement decalConfig;
         private readonly XElement damageDevices;
         private readonly XElement removeItems;
+        private readonly XElement tagDevices;
         private readonly MissionNPCCollection missionNPCs;
+        private readonly bool AllowStealing;
 
         private readonly TravelTarget travelTarget;
         private readonly bool reactorActive;
@@ -51,11 +54,13 @@ namespace MoreLevelContent.Missions
             removeItems = prefab.ConfigElement.GetChildElement("removeitems");
             decalConfig = prefab.ConfigElement.GetChildElement("decals");
             damageDevices = prefab.ConfigElement.GetChildElement("damageDevices");
+            tagDevices = prefab.ConfigElement.GetChildElement("tagDevices");
 
             // Top level attributes
             travelTarget = submarineConfig.GetAttributeEnum("TravelTarget", TravelTarget.Maintain);
             spawnPosition = submarineConfig.GetAttributeEnum("SpawnPosition", Level.PositionType.MainPath);
             reactorActive = submarineConfig.GetAttributeBool("ReactorActive", true);
+            AllowStealing = submarineConfig.GetAttributeBool("AllowStealing", true);
 
             // General
             defaultSonarLabel = TextManager.Get("missionname.distressmission");
@@ -110,7 +115,15 @@ namespace MoreLevelContent.Missions
                 return;
             }
 
-            MissionGenerationDirector.RequestSubmarine(file, OnSubCreated);
+            MissionGenerationDirector.RequestSubmarine(new MissionGenerationDirector.SubmarineSpawnRequest()
+            {
+                File = file,
+                Callback = OnSubCreated,
+                SpawnPosition = SubSpawnPosition.Path,
+                AutoFill = true,
+                Prefix = MissionGenerationDirector.SubmarineSpawnRequest.AutoFillPrefix.Abandoned,
+                AllowStealing = AllowStealing
+            });
         }
 
         void OnSubCreated(Submarine submarine)
@@ -119,7 +132,7 @@ namespace MoreLevelContent.Missions
             ghostship = submarine;
             ghostship.FlipX();
             submarine.ShowSonarMarker = false;
-            submarine.TeamID = CharacterTeamType.None;
+            submarine.TeamID = CharacterTeamType.FriendlyNPC;
             ghostship.Info.Type = (SubmarineType)7;
             submarine.PhysicsBody.FarseerBody.BodyType = FarseerPhysics.BodyType.Dynamic;
 
@@ -145,6 +158,21 @@ namespace MoreLevelContent.Missions
 
             // tag all sub waypoints
             submarine.TagSubmarineWaypoints("distress_ghostship");
+
+            if (tagDevices != null)
+            {
+                foreach (var item in tagDevices.Elements())
+                {
+                    Identifier targetItem = item.GetAttributeIdentifier("identifier", null);
+                    Identifier tag = item.GetAttributeIdentifier("tag", null);
+                    var items = submarine.GetItems(false).Where(i => i.Prefab.Identifier == targetItem);
+                    items.ForEach((i) =>
+                    {
+                        i.AddTag(tag);
+                        Log.Debug(i.Tags);
+                    });
+                }
+            }
 
             // Init tracking sonar marker
             trackingSonarMarker = new TrackingSonarMarker(30, submarine, Prefab.SonarLabel.IsNullOrEmpty() ? defaultSonarLabel : Prefab.SonarLabel);
@@ -314,21 +342,6 @@ namespace MoreLevelContent.Missions
                     reactor.FuelConsumptionRate = 0;
                 }
 
-                if (removeItems != null)
-                {
-                    foreach (XElement item in removeItems.Elements())
-                    {
-                        Identifier tagToRemove = item.GetAttributeIdentifier("tag", null);
-                        if (tagToRemove != null)
-                        {
-                            foreach (var itemToRemove in ghostshipItems.FindAll(i => i.HasTag(tagToRemove)))
-                            {
-                                itemToRemove.Remove();
-                            }
-                        }
-                    }
-                }
-
                 // ItemPrefab rod = ItemPrefab.Find(null, "fuelrod".ToIdentifier());
 
 
@@ -376,14 +389,34 @@ namespace MoreLevelContent.Missions
 
         readonly float detectDist = Sonar.DefaultSonarRange;
         private bool finalSubSetup = false;
+        const float FINAL_SETUP_DELAY = 5;
+        float setupDelay = FINAL_SETUP_DELAY;
         protected override void UpdateMissionSpecific(float deltaTime)
         {
-            if (!finalSubSetup && !IsClient)
+            if (!finalSubSetup && !IsClient && setupDelay <= 0)
             {
                 SpawnDecals();
                 DamageDevices();
+                if (removeItems != null)
+                {
+                    foreach (XElement item in removeItems.Elements())
+                    {
+                        Identifier tagToRemove = item.GetAttributeIdentifier("tag", null);
+                        if (tagToRemove != null)
+                        {
+                            foreach (var itemToRemove in ghostship.GetItems(false).FindAll(i => i.HasTag(tagToRemove)))
+                            {
+                                Entity.Spawner.AddItemToRemoveQueue(itemToRemove);
+                            }
+                        }
+                    }
+                }
                 Log.InternalDebug("Preformed final sub setup");
                 finalSubSetup = true;
+            }
+            if (setupDelay > 0)
+            {
+                setupDelay -= deltaTime;
             }
             trackingSonarMarker.Update(deltaTime);
 

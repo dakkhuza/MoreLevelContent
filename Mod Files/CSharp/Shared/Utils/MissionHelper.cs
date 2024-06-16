@@ -229,7 +229,9 @@ namespace MoreLevelContent.Shared.Utils
     // trying to patch local methods through IL code is fuckin ass
     public static class SubPlacementUtils
     {
-        internal static Submarine SpawnSubOnPath(string subName, ContentFile contentFile, SubmarineType type)
+        internal static Submarine SpawnSubOnPath(string subName, ContentFile contentFile, SubmarineType type, PlacementType placementType = PlacementType.Bottom) => SpawnSubOnPath(subName, contentFile.Path.Value, type, placementType);
+
+        internal static Submarine SpawnSubOnPath(string subName, string path, SubmarineType type, PlacementType placementType = PlacementType.Bottom)
         {
             var tempSW = new Stopwatch();
             FieldInfo _levelCells = AccessTools.Field(typeof(Level), "cells");
@@ -244,15 +246,12 @@ namespace MoreLevelContent.Shared.Utils
                 !Loaded.IsCloseToStart(wp.WorldPosition, minDistance) &&
                 !Loaded.IsCloseToEnd(wp.WorldPosition, minDistance)).ToList();
 
-            var subDoc = SubmarineInfo.OpenFile(contentFile.Path.Value);
+            var subDoc = SubmarineInfo.OpenFile(path);
             Rectangle subBorders = Submarine.GetBorders(subDoc.Root);
-            SubmarineInfo info = new SubmarineInfo(contentFile.Path.Value)
+            SubmarineInfo info = new SubmarineInfo(path)
             {
                 Type = type
             };
-
-            //place downwards by default
-            var placement = info.BeaconStationInfo?.Placement ?? PlacementType.Bottom;
 
             // Add some margin so that the sub doesn't block the path entirely. It's still possible that some larger subs can't pass by.
             Point paddedDimensions = new Point(subBorders.Width + 3000, subBorders.Height + 3000);
@@ -273,7 +272,7 @@ namespace MoreLevelContent.Shared.Utils
                 attemptsLeft--;
                 if (TryGetSpawnPoint(out spawnPoint))
                 {
-                    success = TryPositionSub(subBorders, subName, placement, ref spawnPoint);
+                    success = TryPositionSub(subBorders, subName, placementType, ref spawnPoint);
                     if (success)
                     {
                         break;
@@ -372,6 +371,15 @@ namespace MoreLevelContent.Shared.Utils
                             return false;
                         }
                     }
+                    if (Vector2.DistanceSquared(Loaded.StartPosition, sp) < minDistance * minDistance)
+                    {
+                        return false;
+                    }
+                    if (Vector2.DistanceSquared(Loaded.EndPosition, sp) < minDistance * minDistance)
+                    {
+                        return false;
+                    }
+
                 }
                 return !isBlocked && bottomFound;
 

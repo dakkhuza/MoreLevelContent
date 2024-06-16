@@ -14,6 +14,7 @@ namespace Barotrauma.MoreLevelContent.Config
     /// </summary>
     partial class ConfigManager : Singleton<ConfigManager>
     {
+        public static bool ShouldDisplayPatchNotes = false;
         private void SetupClient()
         {
             CommandUtils.AddCommand(
@@ -76,10 +77,9 @@ namespace Barotrauma.MoreLevelContent.Config
 
         private void DisplayPatchNotes(bool force = false)
         {
-            
             if (Config.Version != Main.Version || force || Main.IsNightly)
             {
-                PatchNotes.Open();
+                ShouldDisplayPatchNotes = true;
             }
         }
 

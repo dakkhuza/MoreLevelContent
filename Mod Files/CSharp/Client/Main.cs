@@ -1,16 +1,11 @@
 ﻿using Barotrauma;
-using Barotrauma.MoreLevelContent.Client;
 using Barotrauma.MoreLevelContent.Client.UI;
 using Barotrauma.MoreLevelContent.Config;
-using Barotrauma.Networking;
 using HarmonyLib;
 using Microsoft.Xna.Framework;
-using MoreLevelContent.Shared;
-using System;
-using System.Collections.Generic;
+using MoreLevelContent.Shared.Utils;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace MoreLevelContent
 {
@@ -19,26 +14,19 @@ namespace MoreLevelContent
     /// </summary>
     partial class Main
     {
-        private GUIButton SettingsButton;
-        private FieldInfo traitorProbabilityText;
         public void InitClient()
         {
             MapUI.Instance.Setup();
+            Hooks.Instance.OnDebugDraw += ClientDebugDraw.Draw;
+            SonarExtensions.Instance.Setup();
+
+            GameMain.LuaCs.Hook.Add("roundStart", OpenPatchNotes);
 
             // Exit if we're in an editor 
             if (Screen.Selected.IsEditor) return;
-
             MethodInfo info = typeof(GUI).GetMethod("TogglePauseMenu", BindingFlags.Static | BindingFlags.Public);
             Patch(info, postfix: new HarmonyMethod(AccessTools.Method(typeof(Main), "AddSettingsButton")));
-
-            // or single player
-            if (GameMain.IsSingleplayer) return;
-
-            traitorProbabilityText = typeof(NetLobbyScreen).GetField("traitorProbabilityText", BindingFlags.Instance | BindingFlags.NonPublic);
-            //CreateSettingsButton();
         }
-
-
 
         private static void AddSettingsButton()
         {
@@ -54,22 +42,11 @@ namespace MoreLevelContent
             };
         }
 
-        private void CreateSettingsButton()
+        object OpenPatchNotes(object[] args)
         {
-            if (SettingsButton != null) return; // Exit if the settings button is already created
-            GUITextBlock textBox =  (GUITextBlock)traitorProbabilityText.GetValue(GameMain.NetLobbyScreen);
-            var settingsContentRect = textBox.RectTransform
-                .Parent // traitorProbContainer
-                .Parent // traitorsSettingHolder
-                .Parent // settingsContent
-                ;
-            var mlcSettingHolder = new GUILayoutGroup(new RectTransform(new Vector2(1.0f, 0.1f), settingsContentRect), isHorizontal: true, childAnchor: Anchor.CenterLeft) { Stretch = true };
-            SettingsButton = new GUIButton(new RectTransform(new Vector2(0.25f, 1.0f), mlcSettingHolder.RectTransform, Anchor.TopRight),
-                TextManager.Get("mlc.config"))
-            {
-                OnClicked = OpenConfig
-            };
-            Log.Debug("Created settings button");
+            if (!ConfigManager.ShouldDisplayPatchNotes) return null;
+            CoroutineManager.Invoke(() => PatchNotes.Open(), delay: 5.0f);
+            return null;
         }
 
         private bool OpenConfig(GUIButton button, object obj)

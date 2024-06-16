@@ -7,7 +7,9 @@ namespace MoreLevelContent.Shared.Data
 {
     class Level_MLCData : DataBase
     {
+        public ContentFile RelayStationFile;
         public Submarine BeaconConstructionStation;
+        public Submarine RelayStation;
         public Item DropOffPoint;
 
         public bool CheckSuppliesDelivered()

@@ -19,6 +19,9 @@ namespace MoreLevelContent.Shared.Generation
             InitProjSpecific();
         }
 
+        public string ForcedMissionIdentifier;
+        public bool ForceSpawnMission;
+
         // Networking
         protected abstract NetEvent EventCreated { get; }
         //protected abstract NetEvent EventUpdated { get; }
@@ -30,7 +33,7 @@ namespace MoreLevelContent.Shared.Generation
 
         // Config
         protected abstract int MaxActiveEvents { get; }
-        protected abstract int EventSpawnChance { get; }
+        protected abstract float EventSpawnChance { get; }
         protected abstract int MinDistance { get; }
         protected abstract int MaxDistance { get; }
         protected abstract int MinEventDuration { get; }
@@ -42,6 +45,8 @@ namespace MoreLevelContent.Shared.Generation
             set => GameMain.GameSession.Campaign.CampaignMetadata.SetValue($"{EventTag}SpawnedStart", value);
         }
 
+        private readonly List<Mission> _internalMissionStore = new();
+
         public override void OnProgressWorld(Map __instance)
         {
             foreach (LocationConnection connection in __instance.Connections)
@@ -50,34 +55,38 @@ namespace MoreLevelContent.Shared.Generation
                 if (GameMain.GameSession.Campaign.Map.CurrentLocation.Connections.Contains(connection)) continue;
                 HandleUpdate(connection.LevelData.MLC(), connection);
             }
-        }
 
-        public override void OnRoundStart(LevelData levelData)
-        {
-            if (levelData == null) return;
-            if (!Main.IsCampaign) return;
-            
             if (ShouldSpawnEventAtStart && !SpawnedEventAtStart)
             {
                 TrySpawnEvent(GameMain.GameSession.Map, true);
                 SpawnedEventAtStart = true;
-            } else
+            }
+            else
             {
                 TrySpawnEvent(GameMain.GameSession.Map, false);
             }
+        }
 
-            if (!LevelHasEvent(levelData.MLC()))
+        public override void OnPreRoundStart(LevelData levelData)
+        {
+            if (levelData == null) return;
+            if (!Main.IsCampaign) return;
+            
+            if (!LevelHasEvent(levelData.MLC()) && !ForceSpawnMission)
             {
                 Log.Debug($"Level has no {EventTag}");
                 return;
             }
 
-            if (TryGetMissionByTag(EventTag, levelData, out MissionPrefab prefab))
+            // Never try to spawn a timed event on an outpost level
+            if (levelData.Type == LevelData.LevelType.Outpost) return;
+
+            if (TryGetMissionByTag(EventTag, levelData, out MissionPrefab prefab, ForcedMissionIdentifier))
             {
                 Log.Debug($"Adding {EventTag} mission");
                 Mission inst = prefab.Instantiate(GameMain.GameSession.Map.SelectedConnection.Locations, Submarine.MainSub);
-                AddExtraMission(inst); // weird
-                // _internalMissionStore.Add(inst);
+                AddExtraMission(inst); // we have to double add missions to make them work correctly
+                _internalMissionStore.Add(inst);
                 Log.Debug($"Added {EventTag} mission to extra missions!");
             }
             else
@@ -92,6 +101,16 @@ namespace MoreLevelContent.Shared.Generation
             List<Mission> _extraMissions = (List<Mission>)Instance.extraMissions.GetValue(GameMain.GameSession.GameMode);
             _extraMissions.Add(mission);
             Instance.extraMissions.SetValue(GameMain.GameSession.GameMode, _extraMissions);
+        }
+
+        public override void OnAddExtraMissions(CampaignMode __instance, LevelData levelData)
+        {
+            if (!_internalMissionStore.Any()) return;
+            foreach (Mission mission in _internalMissionStore)
+            {
+                AddExtraMission(mission);
+            }
+            _internalMissionStore.Clear();
         }
 
         protected abstract void HandleUpdate(LevelData_MLCData data, LocationConnection connection);
@@ -149,16 +168,8 @@ namespace MoreLevelContent.Shared.Generation
         protected void CreateEvent(LocationConnection connection, int eventDuration)
         {
             HandleEventCreation(connection.LevelData.MLC(), eventDuration);
-            SendEventUpdate(NewEventText, connection);
+            AddNewsStory(NewEventText, connection);
         }
         protected abstract void HandleEventCreation(LevelData_MLCData data, int eventDuration);
-
-        protected virtual void SendEventUpdate(string updateType, LocationConnection connection)
-        {
-#if CLIENT
-            string msg = TextManager.GetWithVariables(updateType, ("[location1]", $"‖color:gui.orange‖{connection.Locations[0].DisplayName}‖end‖"), ("[location2]", $"‖color:gui.orange‖{connection.Locations[1].DisplayName}‖end‖")).Value;
-            SendChatUpdate(msg);
-#endif
-        }
     }
 }

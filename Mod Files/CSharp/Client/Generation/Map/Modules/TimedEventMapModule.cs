@@ -4,12 +4,15 @@ using MoreLevelContent.Networking;
 
 namespace MoreLevelContent.Shared.Generation
 {
+    // Client
     abstract partial class TimedEventMapModule
     {
         protected override void InitProjSpecific()
         {
             if (GameMain.IsMultiplayer) NetUtil.Register(EventCreated, CreateEvent);
         }
+
+        
 
         internal void CreateEvent(object[] args)
         {

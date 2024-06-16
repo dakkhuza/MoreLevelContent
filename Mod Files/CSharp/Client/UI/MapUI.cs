@@ -1,16 +1,12 @@
 ﻿using Barotrauma.MoreLevelContent.Shared.Utils;
 using System.Reflection;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using MoreLevelContent;
 using HarmonyLib;
 using MoreLevelContent.Shared.Data;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MoreLevelContent.Shared;
-using OpenAL;
-using System.Linq;
+using MoreLevelContent.Shared.Generation;
 
 namespace Barotrauma.MoreLevelContent.Client.UI
 {
@@ -75,9 +71,55 @@ namespace Barotrauma.MoreLevelContent.Client.UI
                 DrawIcon("LostCargo", (int)(28 * zoom), RichString.Rich(TextManager.Get("mlc.lostcargotooltip")));
             }
 
-            if (data.HasBlackMarket && !Main.IsRelase)
+            if (data.HasBlackMarket && (GameMain.DebugDraw || Commands.DisplayAllMapLocations))
             {
-                DrawIcon("DebugBlackMarket", (int)(28 * zoom), RichString.Rich("Black Market"));
+                DrawIcon("BlackMarket", (int)(28 * zoom), RichString.Rich("Black Market"));
+            }
+
+            if (data.PirateData.HasPirateOutpost && (GameMain.DebugDraw || Commands.DisplayAllMapLocations || data.PirateData.Revealed))
+            {
+                LocalizedString text = "";
+                switch (data.PirateData.Status)
+                {
+                    case PirateOutpostStatus.Active:
+                        text = TextManager.Get("piratebase.active");
+                        break;
+                    case PirateOutpostStatus.Destroyed:
+                        text = TextManager.Get("piratebase.destroyed");
+                        break;
+                    case PirateOutpostStatus.Husked:
+                        text = TextManager.Get("piratebase.husked");
+                        break;
+                }
+
+                DrawIcon(data.PirateData.Status == PirateOutpostStatus.Active ? "PirateBase" : "PirateBaseDestroyed", (int)(28 * zoom), RichString.Rich(text));
+            }
+
+            if (data.HasRelayStation)
+            {
+                var iconName = data.RelayStationStatus == RelayStationStatus.Active ? "RelayStationActive" : "RelayStationInactive";
+                var locString = data.RelayStationStatus == RelayStationStatus.Active ? "mlc.relaystationtooltip.active" : "mlc.relaystationtooltip.inactive";
+                LocalizedString localizedString = TextManager.Get(locString);
+                DrawIcon(iconName, (int)(28 * zoom), RichString.Rich(localizedString));
+            }
+
+            DrawMapFeature(data);
+
+            void DrawMapFeature(LevelData_MLCData data)
+            {
+                if (data.MapFeatureData.Name.IsEmpty) return;
+                if (!data.MapFeatureData.Revealed && !GameMain.DebugDraw && !Commands.DisplayAllMapLocations) return;
+                if (!MapFeatureModule.TryGetFeature(data.MapFeatureData.Name, out MapFeature feature))
+                {
+                    Log.Error($"Failed to find map feature with identifier {data.MapFeatureData.Name}!!");
+                    return;
+                }
+                var tooltip = TextManager.Get(feature.Display.Tooltip);
+                if (GameMain.DebugDraw)
+                {
+                    tooltip = $"{tooltip.Value} + {data.MapFeatureData.Revealed}";
+                }
+                DrawIcon(feature.Display.Icon, (int)(28 * zoom), RichString.Rich(tooltip));
             }
 
             void DrawIcon(string iconStyle, int iconSize, RichString tooltipText)

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace MoreLevelContent.Shared.Generation.Pirate
 {
-    public class PirateEncounterDirector : GenerationDirector<PirateEncounterDirector>, IRoundStart
+    public class PirateEncounterDirector : GenerationDirector<PirateEncounterDirector>
     {
         public override bool Active => false;
         private MissionPrefab pirateMission;
@@ -18,11 +18,13 @@ namespace MoreLevelContent.Shared.Generation.Pirate
             }
         }
 
-        public void BeforeRoundStart()
-        {
-            Location[] locations = { GameMain.GameSession.StartLocation, GameMain.GameSession.EndLocation };
-            var mission = pirateMission.Instantiate(locations, Submarine.MainSub);
-            var missionList = GameMain.GameSession.GameMode.Missions.ToList();
-        }
+        //public void BeforeRoundStart()
+        //{
+        //    Location[] locations = { GameMain.GameSession.StartLocation, GameMain.GameSession.EndLocation };
+        //    var mission = pirateMission.Instantiate(locations, Submarine.MainSub);
+        //    var missionList = GameMain.GameSession.GameMode.Missions.ToList();
+        //}
+        //
+        //public void RoundEnd() { }
     }
 }

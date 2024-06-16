@@ -1,0 +1,588 @@
+<Randomevents>
+    <EventPrefabs>
+        <ScriptedEvent identifier="mfempty">
+            <GoTo name="none" />
+            <Label name="none" />
+        </ScriptedEvent>
+        <!-- 
+        
+            AUTO TRADER EVENTS
+        
+        -->
+        <ScriptedEvent identifier="autotrader_overdose">
+            <CheckDataAction identifier="autotrader_overdose" condition="eq true">
+                <Success>
+                    <!-- do nothing -->
+                </Success>
+
+                <Failure>
+                    <TagAction criteria="player" tag="player" />
+                    <!-- Spawn in the guy -->
+                    <SpawnAction npcsetidentifier="mapfeaturenpc"
+                        npcidentifier="addict" spawnpointtag="autotrader"
+                        spawnlocation="any" targettag="patient" SpawnPointType="Human"
+                        requirespawnpointtag="true" team="FriendlyNPC" />
+                    <AfflictionAction targettag="patient" affliction="opiateoverdose"
+                        strength="0.6"
+                        MultiplyByMaxVitality="true" />
+                    <AfflictionAction targettag="patient" affliction="opiateaddiction"
+                        strength="1"
+                        MultiplyByMaxVitality="true" />
+                    <AfflictionAction targettag="patient" affliction="oxygenlow"
+                        strength="1"
+                        MultiplyByMaxVitality="true" />
+                    <AfflictionAction targettag="patient" affliction="stun"
+                        strength="0.1"
+                        MultiplyByMaxVitality="true" />
+
+
+                    <GodModeAction targettag="patient" enabled="true" />
+
+                    <!-- Turn off god mode when a player gets close, go fast!! -->
+                    <TriggerAction target1tag="patient" target2tag="player"
+                        disableiftargetincapacitated="false"
+                        radius="400" waitforinteraction="false" />
+                    <GodModeAction targettag="patient" enabled="false" />
+
+                    <SetDataAction identifier="autotrader_overdose" value="true" />
+
+                    <ConversationAction SpeakerTag="patient"
+                        text="mapfeature.autotraderoverdose.c1"
+                        eventsprite="mechanic" continueconversation="true">
+
+                        <Option text="MapFeature.autotraderoverdose.o1">
+                            <ConversationAction text="MapFeature.autotraderoverdose.o1.c1" />
+                            <NPCChangeTeamAction npctag="patient" teamid="Team1"
+                                addtocrew="true" />
+                        </Option>
+
+                        <Option text="MapFeature.autotraderoverdose.o2">
+                            <ConversationAction
+                                text="MapFeature.autotraderoverdose.o2.c1" />
+                        </Option>
+                    </ConversationAction>
+                </Failure>
+
+            </CheckDataAction>
+        </ScriptedEvent>
+
+        <ScriptedEvent identifier="autotrader_crawler">
+            <SpawnAction speciesname="crawler" spawnpointtag="autotrader"
+                spawnlocation="any" SpawnPointType="Monster"
+                requirespawnpointtag="true" />
+            <SpawnAction speciesname="crawler" spawnpointtag="autotrader"
+                spawnlocation="any" SpawnPointType="Monster"
+                requirespawnpointtag="true" />
+        </ScriptedEvent>
+
+        <ScriptedEvent identifier="autotrader_huskcrawler">
+            <SpawnAction speciesname="Crawlerhusk" spawnpointtag="autotrader"
+                spawnlocation="any" SpawnPointType="Monster"
+                requirespawnpointtag="true" />
+            <SpawnAction speciesname="Crawlerhusk" spawnpointtag="autotrader"
+                spawnlocation="any" SpawnPointType="Monster"
+                requirespawnpointtag="true" />
+        </ScriptedEvent>
+
+
+        <!--
+        
+            WAYSATION EVENTS
+        
+        -->
+
+        <!-- Escort two commoners to end of level -->
+        <ScriptedEvent identifier="waystation_escort">
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="securitynpccoalition" spawnpointtag="waystation"
+                spawnlocation="any" targettag="sec"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="watchman" spawnpointtag="waystation_admin"
+                spawnlocation="any" targettag="admin"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="commoner" spawnpointtag="waystation"
+                spawnlocation="any" targettag="commoner1"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="commoner" spawnpointtag="waystation"
+                spawnlocation="any" targettag="commoner2"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+
+        </ScriptedEvent>
+
+        <!-- Reveals a pirate outpost nearby -->
+        <ScriptedEvent identifier="waystation_revealpirate">
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="securitynpccoalition" spawnpointtag="waystation"
+                spawnlocation="any" targettag="sec"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="watchman" spawnpointtag="waystation_admin"
+                spawnlocation="any" targettag="admin"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="commoner" spawnpointtag="waystation"
+                spawnlocation="any" targettag="commoner1"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="commoner" spawnpointtag="waystation"
+                spawnlocation="any" targettag="commoner2"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+
+        </ScriptedEvent>
+
+        <!-- Reveals a research station -->
+        <ScriptedEvent identifier="waystation_revealresearch">
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="securitynpccoalition" spawnpointtag="waystation"
+                spawnlocation="any" targettag="sec"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="watchman" spawnpointtag="waystation_admin"
+                spawnlocation="any" targettag="admin"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="commoner" spawnpointtag="waystation"
+                spawnlocation="any" targettag="commoner1"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="commoner" spawnpointtag="waystation"
+                spawnlocation="any" targettag="commoner2"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+
+        </ScriptedEvent>
+
+        <!-- Reveals a clown theatre -->    
+        <ScriptedEvent identifier="waystation_revealtheatre">
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="securitynpccoalition" spawnpointtag="waystation"
+                spawnlocation="any" targettag="sec"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="watchman" spawnpointtag="waystation_admin"
+                spawnlocation="any" targettag="admin"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="commoner" spawnpointtag="waystation"
+                spawnlocation="any" targettag="commoner1"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="commoner" spawnpointtag="waystation"
+                spawnlocation="any" targettag="commoner2"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <TagAction criteria="player" tag="player"/>
+            <TagAction criteria="itemtag:waystation_noticeboard" tag="ad"/>
+            <TriggerAction  target1tag="player" target2tag="ad" waitforinteraction="true" applytotarget1="reader" />
+            <ConversationAction text="An ad catches your eye, 'Europa got you down? The depths not treating you well? Looking for some jovial fun? Come relax and catch a show! We're always open.'. There's coordinates to a clown theatre attached." invokertag="reader" endeventifinterrupted="false" eventsprite="noticeboard"/>
+            <RevealMapFeatureAction mapfeatureidentifier="clownstation" />
+        </ScriptedEvent>
+
+        <!-- 
+        
+            CLOWN SHOWS
+        
+        -->
+
+        <!-- Watch a dead clown body explode -->
+        <ScriptedEvent identifier="clownstation_preformanceofalifetime">
+            <SpawnAction npcsetidentifier="mapfeaturenpc"
+                npcidentifier="clownsecurity" spawnpointtag="clownstation"
+                spawnlocation="any"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="clown" spawnpointtag="clownstation"
+                spawnlocation="any"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="clown" spawnpointtag="clownstation"
+                spawnlocation="any"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <!-- Clown admin -->
+            <SpawnAction npcsetidentifier="mapfeaturenpc"
+                npcidentifier="clownadmin" spawnpointtag="clownstation_admin"
+                spawnlocation="any" targettag="admin"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+
+            <ConversationAction text="Oh hello! You must be here for the show!" speakertag="admin"
+                invokertag="triggerer_player" endeventifinterrupted="false" eventsprite="clown">
+                <Option text="Show? What show?">
+                    <ConversationAction
+                        text="Oh, surely you've heard about it! The famous clown Pagliacci is here to give the preformance of a life time! Free for all to see, as is his wish."
+                        targettag="triggerer_player" endeventifinterrupted="false">
+                        <Option text="I'm interested.">
+                            <ConversationAction
+                                text="Perfect! Head down to the theatre and get ready for a show!"
+                                targettag="triggerer_player" />
+                            <GoTo name="show" />
+                        </Option>
+                        <Option text="I've got no time for clowns.">
+                            <ConversationAction
+                                text="Such a shame, everyone should take time to enjoy themselves, even you!"
+                                targettag="triggerer_player" />
+                            <GoTo name="end" />
+                        </Option>
+                    </ConversationAction>
+                </Option>
+            </ConversationAction>
+
+
+            <Label name="show" />
+            <TagAction criteria="itemtag:showseat" tag="seat" />
+            <TriggerAction target1tag="triggerer_player" target2tag="seat" waitforinteraction="true" />
+            <TriggerEventAction identifier="showstart" />
+            <ConversationAction text="And now, please give a warm welcome to Pagliacci!"
+                targettag="triggerer_player" waitforinteraction="false" />
+
+            <SpawnAction npcsetidentifier="mapfeaturenpc"
+                npcidentifier="pagliacci" spawnpointtag="clownstation_showtime"
+                spawnlocation="any" targettag="preformer"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <NPCWaitAction npctag="preformer" wait="true" />
+
+            <StatusEffectAction targettag="preformer">
+                <StatusEffect target="This">
+                    <sound file="%ModDir%/Sounds/yes.ogg"
+                        range="500" />
+                </StatusEffect>
+            </StatusEffectAction>
+
+            <StatusEffectAction targettag="preformer">
+                <StatusEffect target="This">
+                    <Explosion range="100.0" stun="0" force="0.0" flames="true"
+                        flash="true" shockwave="false" sparks="true" underwaterbubble="false" />
+                </StatusEffect>
+            </StatusEffectAction>
+
+            <ConversationAction eventsprite="Jestmaster"
+                text="Hello, hello everyone! Thank you for such a warm welcome! I remind audience members to keep well away from me while I preform!"
+                invokertag="triggerer_player" />
+
+            <ConversationAction
+                text="And now, without further delay... My preformance of a life time!"
+                invokertag="triggerer_player" eventsprite="Jestmaster" />
+
+            <!-- Drum roll? -->
+
+            <StatusEffectAction targettag="preformer">
+                <StatusEffect target="This">
+                    <sound file="%ModDir%/Sounds/confetti.ogg"
+                        range="500" />
+                </StatusEffect>
+            </StatusEffectAction>
+
+            <StatusEffectAction targettag="preformer">
+                <StatusEffect target="This">
+                    <Explosion range="5.0" stun="10" force="10000.0" flames="false"
+                        severlimbsprobability="1"
+                        flash="false" shockwave="false" sparks="false" underwaterbubble="false">
+                        <Affliction identifier="explosiondamage" strength="100"
+                            dividebylimbcount="false" />
+                        <Affliction identifier="explosiondamage" strength="100"
+                            dividebylimbcount="false" />
+                        <Affliction identifier="explosiondamage" strength="100"
+                            dividebylimbcount="false" />
+                        <Affliction identifier="explosiondamage" strength="100"
+                            dividebylimbcount="false" />
+                    </Explosion>
+
+                </StatusEffect>
+            </StatusEffectAction>
+
+            <WaitAction time="2" />
+
+            <StatusEffectAction targettag="preformer">
+                <StatusEffect target="This">
+                    <sound file="%ModDir%/Sounds/vanish.ogg"
+                        range="500" />
+                    <RemoveCharacter />
+                </StatusEffect>
+            </StatusEffectAction>
+
+            <WaitAction time="2" />
+
+            <TriggerEventAction identifier="showstop" />
+            <ReputationAction targettype="Faction" identifier="clowns" increase="5" />
+
+            <Label name="end" />
+        </ScriptedEvent>
+
+        <!-- Watch two clowns beat each other up -->
+        <ScriptedEvent identifier="clownstation_brawl">
+            <SpawnAction npcsetidentifier="mapfeaturenpc"
+                npcidentifier="clownsecurity" spawnpointtag="clownstation"
+                spawnlocation="any"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="clown" spawnpointtag="clownstation"
+                spawnlocation="any"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="clown" spawnpointtag="clownstation"
+                spawnlocation="any"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <!-- Clown admin -->
+            <SpawnAction npcsetidentifier="mapfeaturenpc"
+                npcidentifier="clownadmin" spawnpointtag="clownstation_admin"
+                spawnlocation="any" targettag="admin"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+
+
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="clown" spawnpointtag="clownstation_showtime"
+                spawnlocation="any" targettag="clown1"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="clown" spawnpointtag="clownstation_showtime"
+                spawnlocation="any" targettag="clown2"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+
+            <SpawnAction itemidentifier="toyhammer" targetinventory="clown1" />
+            <SpawnAction itemidentifier="toyhammer" targetinventory="clown2" />
+
+            <CombatAction combatmode="offensive" npctag="clown1" enemytag="clown2"
+                isinstigator="true" guardreaction="none" witnessreaction="none" />
+
+            <CombatAction combatmode="offensive" npctag="clown2" enemytag="clown1"
+                isinstigator="true" guardreaction="none" witnessreaction="none" />
+
+            <TriggerEventAction identifier="showstart" />
+        </ScriptedEvent>
+
+        <!-- Unlock a clown escort mission -->
+        <ScriptedEvent identifier="clownstation_unlockescort">
+            <SpawnAction npcsetidentifier="mapfeaturenpc"
+                npcidentifier="clownsecurity" spawnpointtag="clownstation"
+                spawnlocation="any"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="clown" spawnpointtag="clownstation"
+                spawnlocation="any"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="clown" spawnpointtag="clownstation"
+                spawnlocation="any"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <!-- Clown admin -->
+            <SpawnAction npcsetidentifier="mapfeaturenpc"
+                npcidentifier="clownadmin" spawnpointtag="clownstation_admin"
+                spawnlocation="any" targettag="admin"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+
+            <ConversationAction
+                text="You look like a jovial fella, I've got some other jovial friends you could help out, if you're interested. I'll mark it on your map."
+                speakertag="admin"
+                invokertag="triggerer_player" endeventifinterrupted="false" eventsprite="clown" />
+            <MissionAction missiontag="escortcommonersclowns" requirefaction="clowns" />
+        </ScriptedEvent>
+
+        <!-- Unlock a clown wreck mission -->
+        <ScriptedEvent identifier="clownstation_unlockwreck">
+            <SpawnAction npcsetidentifier="mapfeaturenpc"
+                npcidentifier="clownsecurity" spawnpointtag="clownstation"
+                spawnlocation="any"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="clown" spawnpointtag="clownstation"
+                spawnlocation="any"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="clown" spawnpointtag="clownstation"
+                spawnlocation="any"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <!-- Clown admin -->
+            <SpawnAction npcsetidentifier="mapfeaturenpc"
+                npcidentifier="clownadmin" spawnpointtag="clownstation_admin"
+                spawnlocation="any" targettag="admin"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+
+            <ConversationAction
+                text="You look like a jovial fella, I've got some other jovial friends you could help out, if you're interested. I'll mark it on your map."
+                speakertag="admin"
+                invokertag="triggerer_player" endeventifinterrupted="false" eventsprite="clown" />
+            <MissionAction missiontag="escortcommonersclowns" requirefaction="clowns" />
+        </ScriptedEvent>
+
+
+        <!-- Stage light management -->
+        <ScriptedEvent identifier="showstart">
+            <TriggerEventAction identifier="sloff" />
+            <TriggerEventAction identifier="splon" />
+        </ScriptedEvent>
+        <ScriptedEvent identifier="showstop">
+            <TriggerEventAction identifier="slon" />
+            <TriggerEventAction identifier="sploff" />
+        </ScriptedEvent>
+
+        <ScriptedEvent identifier="sloff">
+            <TagAction criteria="itemtag:stageroomlight" tag="stagelight" />
+            <StatusEffectAction targettag="stagelight">
+                <StatusEffect target="This" IsOn="false" setvalue="true" />
+            </StatusEffectAction>
+        </ScriptedEvent>
+        <ScriptedEvent identifier="slon">
+            <TagAction criteria="itemtag:stageroomlight" tag="stagelight" />
+            <StatusEffectAction targettag="stagelight">
+                <StatusEffect target="This" IsOn="true" setvalue="true" />
+            </StatusEffectAction>
+        </ScriptedEvent>
+        <ScriptedEvent identifier="sploff">
+            <TagAction criteria="itemtag:spotlight" tag="spotlight" />
+            <StatusEffectAction targettag="spotlight">
+                <StatusEffect target="This" IsOn="false" setvalue="true" />
+            </StatusEffectAction>
+        </ScriptedEvent>
+        <ScriptedEvent identifier="splon">
+            <TagAction criteria="itemtag:spotlight" tag="spotlight" />
+            <StatusEffectAction targettag="spotlight">
+                <StatusEffect target="This" IsOn="true" setvalue="true" />
+            </StatusEffectAction>
+        </ScriptedEvent>
+
+
+        <!-- 
+        
+            ABYSS RESEARCH
+        
+        -->
+
+        <!-- Deliver research papers to a nearby research outpost -->
+        <ScriptedEvent identifier="abyssresearch_mailman">
+            <TagAction criteria="player" tag="player" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="researcher" spawnpointtag="abyssresearch"
+                spawnlocation="any" targettag="researcher"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="researcher" spawnpointtag="abyssresearch"
+                spawnlocation="any" targettag="questgiver"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="reactoroperator" spawnpointtag="abyssresearch"
+                spawnlocation="any"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="securitynpccoalition" spawnpointtag="abyssresearch"
+                spawnlocation="any"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+
+            <TriggerAction target1tag="questgiver" target2tag="player"
+                applytotarget2="triggerer_player" radius="100" waitforinteraction="true" />
+            <ConversationAction
+                text="MapFeature.abyssresearch.c1"
+                invokertag="triggerer_player" endeventifinterrupted="false" />
+            <SpawnAction ItemIdentifier="mailman_researchdata" TargetInventory="triggerer_player" />
+            <MissionAction MissionIdentifier="gotoresearch" MinLocationDistance="2"
+                CreateLocationIfNotFound="true" locationtype="Research" />
+        </ScriptedEvent>
+
+        <!-- TODO: Update the sprite used here -->
+        <ScriptedEvent identifier="mailman_delivery">
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="researcher"
+                spawnlocation="Outpost" targettag="researcher"
+                team="FriendlyNPC" TargetModuleTags="research" />
+            <NPCWaitAction npctag="researcher" wait="true" />
+
+            <ConversationAction text="MapFeature.mailman.impatient"
+                speakertag="researcher" invokertag="triggerer_player"
+                endeventifinterrupted="false" eventsprite="Stuckinthemiddle1">
+                <Option text="MapFeature.mailman.waiting">
+                    <ConversationAction
+                        text="MapFeature.mailman.exposition"
+                        targettag="triggerer_player" endeventifinterrupted="false">
+                        <Option text="MapFeature.mailman.handover">
+                            <GoTo name="check" />
+                        </Option>
+                        <Option text="MapFeature.mailman.later" endconversation="true">
+                            <GoTo name="loop" />
+                        </Option>
+                    </ConversationAction>
+                </Option>
+            </ConversationAction>
+
+            <Label name="loop" />
+            <ClearTagAction tag="triggerer_player" />
+            <ConversationAction text="MapFeature.mailman.impatient"
+                speakertag="researcher" invokertag="triggerer_player"
+                endeventifinterrupted="false" eventsprite="Stuckinthemiddle1">
+                <Option text="MapFeature.mailman.handover">
+                    <GoTo name="check" />
+                </Option>
+                <Option text="MapFeature.mailman.later" endconversation="true">
+                    <GoTo name="loop" />
+                </Option>
+
+            </ConversationAction>
+
+            <Label name="check" />
+            <CheckItemAction itemidentifiers="mailman_researchdata" targettag="triggerer_player"
+                applytagtoitem="data">
+                <Failure>
+                    <ConversationAction
+                        text="MapFeature.mailman.missing"
+                        targettag="triggerer_player" />
+                    <GoTo name="loop" />
+                </Failure>
+                <Success>
+                    <GoTo name="end" />
+                </Success>
+            </CheckItemAction>
+
+            <Label name="end" />
+            <RemoveItemAction targettag="data" amount="1" />
+            <ConversationAction
+                text="MapFeature.mailman.snatch"
+                targettag="triggerer_player">
+                <Option text="MapFeature.mailman.payment">
+                    <ConversationAction
+                        text="MapFeature.mailman.groan"
+                        targettag="triggerer_player">
+                        <Option text="MapFeature.mailman.box">
+                            <!-- Take the box -->
+                            <ConversationAction
+                                text="MapFeature.mailman.sucker"
+                                targettag="triggerer_player" IgnoreInterruptDistance="true"
+                                ContinueAutomatically="true" />
+                            <SpawnAction itemidentifier="psychosisartifact"
+                                targetinventory="triggerer_player" />
+                            <CombatAction combatmode="Retreat" isinstigator="true"
+                                guardreaction="None" witnessreaction="None" npctag="researcher"
+                                enemytag="triggerer_player" />
+                            <ReputationAction targettype="Faction" increase="5"
+                                identifier="huskcult" />
+                            <MissionStateAction missionidentifier="gotoresearch" operation="set"
+                                state="2" />
+                        </Option>
+                        <Option text="MapFeature.mailman.marks">
+                            <ConversationAction targettag="triggerer_player"
+                                text="MapFeature.mailman.lame" />
+                            <MoneyAction targettag="triggerer_player" amount="3500" />
+                            <ReputationAction targettype="Faction" increase="1"
+                                identifier="huskcult" />
+                            <MissionStateAction missionidentifier="gotoresearch" operation="set"
+                                state="2" />
+                        </Option>
+                    </ConversationAction>
+                </Option>
+                <Option text="MapFeature.mailman.wasteoftime" endconversation="true">
+                    <ReputationAction targettype="Faction" increase="10" identifier="huskcult" />
+                    <MissionStateAction missionidentifier="gotoresearch" operation="set" state="2" />
+                </Option>
+            </ConversationAction>
+
+        </ScriptedEvent>
+
+        <!-- Spawns two abyss creatures nearby -->
+        <ScriptedEvent identifier="abyssresearch_nasonovtesting">
+            
+        </ScriptedEvent>
+
+        <!-- Teleport the researcher to an alien ruin? -->
+        <ScriptedEvent identifier="abyssresearch_">
+
+        </ScriptedEvent>
+
+    </EventPrefabs>
+</Randomevents>

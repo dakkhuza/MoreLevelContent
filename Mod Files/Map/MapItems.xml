@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item name="Auto-Trader (Weapons)" identifier="autotrader_weapons" allowattachitems="true" width="128" height="271" texturescale="1.0,1.0" scale="0.5" category="Machine">
+    <sprite texture="Content/Map/Outposts/Art/Storage.png" sourcerect="1103,0,128,271" depth="0.97" premultiplyalpha="false" origin="0.5,0.5" />
+    <SimpleStore canbeselected="true" powerconsumption="0.0" msg="ItemMsgInteractSelect" createbuttontext="campaignstoretab.buy">
+      <GuiFrame relativesize="0.4,0.5" style="ItemUI" anchor="Center" />
+      <sound file="%ModDir%/Sounds/cash-register.ogg" type="OnUse" range="200.0" loop="false" />
+      <!-- Weapons -->
+      <SellableItem identifier="revolver" requiredtime="1" requiredmoney="250" fabricationlimitmin="0" fabricationlimitmax="4" quality="3" />
+      <SellableItem identifier="rifle" requiredtime="1" requiredmoney="500" fabricationlimitmin="0" fabricationlimitmax="1" quality="2" />
+      <SellableItem identifier="harpooncoilrifle" requiredtime="1" requiredmoney="370" fabricationlimitmin="0" fabricationlimitmax="2" quality="2" />
+      <SellableItem identifier="smg" requiredtime="1" requiredmoney="170" fabricationlimitmin="0" fabricationlimitmax="1" quality="2" />
+      <!-- Gun Ammo -->
+      <SellableItem identifier="smgmagazine" requiredtime="1" requiredmoney="60" fabricationlimitmin="0" fabricationlimitmax="5" />
+      <SellableItem identifier="revolverround" requiredtime="1" requiredmoney="10" fabricationlimitmin="0" fabricationlimitmax="25" />
+      <SellableItem identifier="shotgunshell" requiredtime="1" requiredmoney="15" fabricationlimitmin="0" fabricationlimitmax="15" />
+      <SellableItem identifier="riflebullet" requiredtime="1" requiredmoney="15" fabricationlimitmin="0" fabricationlimitmax="10" />
+      <!-- Spears -->
+      <SellableItem identifier="spear" requiredtime="1" requiredmoney="5" fabricationlimitmin="0" fabricationlimitmax="30" />
+      <SellableItem identifier="alienspear" requiredtime="1" requiredmoney="40" fabricationlimitmin="0" fabricationlimitmax="15" />
+      <SellableItem identifier="explosivespear" requiredtime="1" requiredmoney="50" fabricationlimitmin="0" fabricationlimitmax="15" />
+      <!-- Grenades -->
+      <SellableItem identifier="40mmgrenade" requiredtime="1" requiredmoney="50" fabricationlimitmin="0" fabricationlimitmax="8" />
+      <SellableItem identifier="40mmstungrenade" requiredtime="1" requiredmoney="55" fabricationlimitmin="0" fabricationlimitmax="4" />
+      <!-- Flak Ammo -->
+      <SellableItem identifier="flakcannonammobox" requiredtime="1" requiredmoney="130" fabricationlimitmin="0" fabricationlimitmax="4" />
+      <SellableItem identifier="flakcannondirectionalammobox" requiredtime="1" requiredmoney="250" fabricationlimitmin="0" fabricationlimitmax="4" />
+      <SellableItem identifier="flakcannonammoboxexplosive" requiredtime="1" requiredmoney="395" fabricationlimitmin="0" fabricationlimitmax="2" />
+      <SellableItem identifier="flakcannonammoboxphysicorium" requiredtime="1" requiredmoney="450" fabricationlimitmin="0" fabricationlimitmax="2" />
+      <!-- Coilgun -->
+      <SellableItem identifier="coilgunammobox" requiredtime="1" requiredmoney="120" fabricationlimitmin="0" fabricationlimitmax="16" />
+      <SellableItem identifier="physicoriumammobox" requiredtime="1" requiredmoney="330" fabricationlimitmin="0" fabricationlimitmax="2" />
+      <SellableItem identifier="coilgunammoboxexplosive" requiredtime="1" requiredmoney="350" fabricationlimitmin="0" fabricationlimitmax="2" />
+      <SellableItem identifier="coilgunammoboxpiercing" requiredtime="1" requiredmoney="260" fabricationlimitmin="0" fabricationlimitmax="2" />
+      <!-- Chaingun -->
+      <SellableItem identifier="chaingunammobox" requiredtime="1" requiredmoney="180" fabricationlimitmin="0" fabricationlimitmax="8" />
+      <SellableItem identifier="chaingunammoboxshredder" requiredtime="1" requiredmoney="300" fabricationlimitmin="0" fabricationlimitmax="4" />
+      <SellableItem identifier="chaingunammoboxphysicorium" requiredtime="1" requiredmoney="410" fabricationlimitmin="0" fabricationlimitmax="2" />
+      <!-- Laser -->
+      <SellableItem identifier="pulselaserammobox" requiredtime="1" requiredmoney="250" fabricationlimitmin="0" fabricationlimitmax="6" />
+      <SellableItem identifier="pulselaserammoboxtrilaser" requiredtime="1" requiredmoney="435" fabricationlimitmin="0" fabricationlimitmax="2" />
+      <!-- Depth Charges -->
+      <SellableItem identifier="depthchargeshell" requiredtime="1" requiredmoney="120" fabricationlimitmin="0" fabricationlimitmax="4" />
+      <SellableItem identifier="nucleardepthcharge" requiredtime="1" requiredmoney="450" fabricationlimitmin="0" fabricationlimitmax="2" />
+    </SimpleStore>
+    <ItemContainer capacity="0" canbeselected="false" hideitems="true" slotsperrow="1" uilabel="" allowuioverlap="true" />
+    <ItemContainer capacity="1" canbeselected="true" hideitems="true" slotsperrow="1" uilabel="" allowuioverlap="true" />
+  </Item>
+  <Item name="Auto-Trader (Supplies)" identifier="autotrader_supplies" allowattachitems="true" width="128" height="271" texturescale="1.0,1.0" scale="0.5" category="Machine">
+    <sprite texture="Content/Map/Outposts/Art/Storage.png" sourcerect="1103,0,128,271" depth="0.97" premultiplyalpha="false" origin="0.5,0.5" />
+    <SimpleStore canbeselected="true" powerconsumption="0.0" msg="ItemMsgInteractSelect" createbuttontext="campaignstoretab.buy">
+      <GuiFrame relativesize="0.4,0.5" style="ItemUI" anchor="Center" />
+      <sound file="%ModDir%/Sounds/cash-register.ogg" type="OnUse" range="200.0" loop="false" />
+      <!-- Fuel -->
+      <SellableItem identifier="fuelrod" requiredtime="1" requiredmoney="150" fabricationlimitmin="0" fabricationlimitmax="4" quality="4" />
+      <SellableItem identifier="fulguriumfuelrod" requiredtime="1" requiredmoney="250" fabricationlimitmin="0" fabricationlimitmax="1" quality="2" />
+      <SellableItem identifier="thoriumfuelrod" requiredtime="1" requiredmoney="200" fabricationlimitmin="0" fabricationlimitmax="2" quality="2" />
+
+    </SimpleStore>
+    <ItemContainer capacity="0" canbeselected="false" hideitems="true" slotsperrow="1" uilabel="" allowuioverlap="true" />
+    <ItemContainer capacity="1" canbeselected="true" hideitems="true" slotsperrow="1" uilabel="" allowuioverlap="true" />
+  </Item>
+  <Item name="Sonar Guide" identifier="sonarguide" tags="command" category="Machine,Weapon" spritecolor="255,255,255,255" Scale="1">
+    <Sprite texture="%ModDir%/Pirate/pirate_weapons.png" sourcerect="2,147,91,95" depth="0.8" origin="0.5,0.5" />
+    <SonarGuide PowerConsumption="800" minvoltage="0.5" />
+    <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver">
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
+      <requireditem items="screwdriver" type="Equipped" />
+      <input name="power_in" displayname="connection.powerin" />
+    </ConnectionPanel>
+    <aitarget soundrange="8000" fadeouttime="5" />
+  </Item>
+  <Item name="Research Data" identifier="mailman_researchdata" category="Misc" hideinmenus="true" Tags="smallitem" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_soft">
+    <PreferredContainer primary="crewcab" secondary="locker" />
+    <InventoryIcon texture="%ModDir%/Missions/mission_items.png" sourcerect="411,253,35,53" origin="0.5,0.5" />
+    <sprite texture="%ModDir%/Missions/mission_items.png" sourcerect="448,256,31,37" depth="0.8" origin="0.5,0.5" />
+    <Body width="19" height="40" density="20" />
+    <Holdable slots="Any,RightHand,LeftHand" holdangle="30" handle1="-10,0" msg="ItemMsgPickUpSelect" />
+  </Item>
+
+  <Item name="Notice Board" identifier="mlc_noticeboard" nameidentifier="opdeco_hrelectricpanel" category="Decorative" scale="0.5">
+    <sprite texture="Content/Map/Outposts/Art/HumanResourcesAssets.png" sourcerect="576,416,320,235" depth="0.98" premultiplyalpha="false" origin="0.5,0.5" />
+  </Item>
+</Items>

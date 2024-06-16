@@ -1,0 +1,132 @@
+<infotexts language="English" nowhitespace="false" translatedname="English">
+    <DistressEvent.outoffuel.c1>The look of relief on the captains face is palpable. "Oh thank Jove,
+        someone actually came! I was beginning to think we'd have to make a swim for it.", He lets
+        out a stress filled chuckle.</DistressEvent.outoffuel.c1>
+    <DistressEvent.outoffuel.o1>"What happened?"</DistressEvent.outoffuel.o1>
+
+    <DistressEvent.outoffuel.o1.c1>The captain paces restlessly, he walks with a noticable limp. He
+        flinches slightly every time his foot hits the floor. "Dan, my previous engineer, got mauled
+        by mudraptors, Jove rest his soul. Now I'm not one to fiddle with electronics and after my
+        mechanic almost shocked himself to death I knew we had to hire another one." He rests a hand
+        on his hip, "So we hired a new one at the outpost we'd docked to. It wasn't until we were
+        underway that I found out I'd hired one of those honkmother clowns."</DistressEvent.outoffuel.o1.c1>
+    <DistressEvent.outoffuel.o1.c2>"We're not even a week out of port when we got jumped by a swarm
+        of crawlers. During the chaos I hear a single bike horn honk and all the lights go out. When
+        we finally got the situation under control, we found out our new engineer was gone." The
+        captain collapses into his chair, clearly tired and possibly reconsidering his career
+        choices. "As well as all our fuel rods."</DistressEvent.outoffuel.o1.c2>
+    <DistressEvent.outoffuel.o1.c3>"That's the last time I'm letting a big-shoe on my boat.." The
+        captain glances up from you, he looks small in his chair. "You.. You wouldn't happen to have
+        a fuel rod to spare?"</DistressEvent.outoffuel.o1.c3>
+
+    <DistressEvent.outoffuel.o1.o1>"I'll see what I can do."</DistressEvent.outoffuel.o1.o1>
+    <DistressEvent.outoffuel.o1.o1.c1>A twinge of hope fills the captains weary eyes. "You're a
+        saint, you know that?"</DistressEvent.outoffuel.o1.o1.c1>
+    <DistressEvent.outoffuel.o1.o1.c2>"O-Oh, you're back. I was starting to think.. Well- uh, ha ha,
+        you're here now anyway."</DistressEvent.outoffuel.o1.o1.c2>
+
+    <DistressEvent.outoffuel.o1.o1.o1>I'll be back.</DistressEvent.outoffuel.o1.o1.o1>
+
+    <DistressEvent.outoffuel.o1.o1.o1.c1>"You have the rod yet?"</DistressEvent.outoffuel.o1.o1.o1.c1>
+    <DistressEvent.outoffuel.o1.o1.o1.o1>"Not Yet."</DistressEvent.outoffuel.o1.o1.o1.o1>
+    <DistressEvent.outoffuel.o1.o1.o1.o2>"Yes, here you go." [+Location Rep]</DistressEvent.outoffuel.o1.o1.o1.o2>
+    <DistressEvent.outoffuel.o1.o1.o1.o3>"We might have a spare, if you throw in some marks for my
+        efforts." [Helm: HARD]</DistressEvent.outoffuel.o1.o1.o1.o3>
+
+    <!-- Intimidation success -->
+    <DistressEvent.outoffuel.o1.o1.o1.o3.c1>"I- I.." He pauses, his leg begins jiggle up and down.
+        "Here, this is everything I've got. Please."</DistressEvent.outoffuel.o1.o1.o1.o3.c1>
+    <DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1>"I'll see if I can find a rod."</DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1>
+
+    <DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1>The captain has shrunk back into his seat. He
+        doesn't meet your gaze as a sense of shame fills the air. What a sad, little man.</DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1>
+    <DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o1>...</DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o1>
+    <DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2>Give him the rod.</DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2>
+    <DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1>You toss the rod at him and he doesn't move
+        to grab it. It clatters loudly to the floor loudly, echoing in the empty sub.</DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1>
+    <DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o1>Whatever.</DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o1>
+    <DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o2>"Well? You paid good money for that,
+        aren't you going to use it?"</DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o2>
+    <DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o2.c1>The captain is eerily still, his body
+        limp in a chair too big for him. You turn to leave before he suddenly blurts out, "When I
+        was a kid, me and Dan would always watch the subs leaving Meltwater. Even if you weren't
+        near a porthole, you could hear them through the walls if you got your ear close enough. If
+        you really strained, you could almost fool yourself into thinking you could hear a moloch
+        herd." He goes silent, seemingly lost in though. "D-Do you think, if- If I submerged my
+        head.. Would I hear the molochs?"</DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o2.c1>
+    <DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o2.c1.o1>Walk Away</DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o2.c1.o1>
+    <DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o2.c1.o2>"Sure."</DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o2.c1.o2>
+    <DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o2.c1.o2.c1>He gives you a weak smile, his
+        eyes focusing on you again. "It's a nice thought, t-to hold onto anyways.." He's completly
+        off his rocker.</DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o2.c1.o2.c1>
+    <DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o2.c1.o2.c1.o1>Time to leave.</DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1.o2.c1.o2.c1.o2.c1.o1>
+
+    <!-- Intimidation failure -->
+    <DistressEvent.outoffuel.o1.o1.o1.o3.c2>"..F-Fuck you! Do you just, just go answering peoples
+        distress calls to extort them? You're no saint! You're the wolf in sheep's clothing, the
+        devil offering me a hand with a knife behind his back! Your heart is cold as the ice sheets,
+        your heart as black as the abyss! You'll get exactly what you deserve, the only thing you
+        deserve!"</DistressEvent.outoffuel.o1.o1.o1.o3.c2>
+    <DistressEvent.outoffuel.o1.o1.o1.o3.c2.o1>Uh oh.</DistressEvent.outoffuel.o1.o1.o1.o3.c2.o1>
+
+    <!-- High clown rep -->
+    <DistressEvent.outoffuel.o1.o1.o1.o2.c1>Before you hand over the rod you pause. You hear a faint
+        whisper, in the back of your mind. "This man is down in the dumps, you shouldn't just give
+        him the rod, you should also cheer him up! Everyone loves surprises, what better way to
+        lighten his day!"</DistressEvent.outoffuel.o1.o1.o1.o2.c1>
+    <DistressEvent.outoffuel.o1.o1.o1.o2.o1>Good point voice. [+Clown Rep]</DistressEvent.outoffuel.o1.o1.o1.o2.o1>
+    <DistressEvent.outoffuel.o1.o1.o1.o2.o1.c1>Before you hand over the fuel rod, you decide to rig
+        a surprise for the captain when he puts it into the reactor. An unseen force guides your
+        hands as you deftly sabotage the fuel rod.</DistressEvent.outoffuel.o1.o1.o1.o2.o1.c1>
+    <DistressEvent.outoffuel.o1.o1.o1.o2.o1.c1.o1>This should brighten his day! You get the
+        premonition you should leave before he puts it into the reactor.</DistressEvent.outoffuel.o1.o1.o1.o2.o1.c1.o1>
+
+    <DistressEvent.outoffuel.o1.o1.o1.o2.o2>Not today voice. [+Location Rep]</DistressEvent.outoffuel.o1.o1.o1.o2.o2>
+
+    <!-- Refuse -->
+    <DistressEvent.outoffuel.o1.o2>"Sorry, but we can't spare any."</DistressEvent.outoffuel.o1.o2>
+    <DistressEvent.outoffuel.o1.o2.c1>"N-No!" A manic look fills his eyes, you notice his hand
+        reaching for his revolver as his whole body tenses.</DistressEvent.outoffuel.o1.o2.c1>
+    <DistressEvent.outoffuel.o1.o2.c1.o1>"Don't try it." [Weapons: HARD]</DistressEvent.outoffuel.o1.o2.c1.o1>
+    <DistressEvent.outoffuel.o1.o2.c1.o1.c1>He collapses back into the chair, defeated. "Maybe..
+        Maybe the next sub will help us?" He lets out a weak laugh before staring at the wall behind
+        you, a blank expression on his face.</DistressEvent.outoffuel.o1.o2.c1.o1.c1>
+    <DistressEvent.outoffuel.o1.o2.c1.o1.c1.o1>You're not a charity, he chose this life.</DistressEvent.outoffuel.o1.o2.c1.o1.c1.o1>
+
+    <!-- Loop back to main -->
+    <DistressEvent.outoffuel.o1.o2.c1.o2>"Actually, we might have a spare. I'll have to check."</DistressEvent.outoffuel.o1.o2.c1.o2>
+
+    <!-- End Text -->
+    <DistressEvent.outoffuel.end>The captain thanks you for the rod and heads to stick it into the
+        reactor.</DistressEvent.outoffuel.end>
+    <DistressEvent.outoffuel.end.o1>Looks like your job here is done.</DistressEvent.outoffuel.end.o1>
+
+    <!-- AutoTrader Overdose -->
+    <MapFeature.autotraderoverdose.c1>The mechanic shakes their whole body, "Whooo man, I steped out
+        there for a hot minute! But, but you man. You brought me back right? Hell yeah man! That's
+        what I'm about!" They pause and look around, "Hey man, you're from that sub that's docked
+        below right? Y-You need another crew member? I'm the best!"</MapFeature.autotraderoverdose.c1>
+    <MapFeature.autotraderoverdose.o1>Welcome board.</MapFeature.autotraderoverdose.o1>
+    <MapFeature.autotraderoverdose.o1.c1>"You won't regret it man, ha ha!" They seem excited.</MapFeature.autotraderoverdose.o1.c1>
+    <MapFeature.autotraderoverdose.o2>No thank you.</MapFeature.autotraderoverdose.o2>
+    <MapFeature.autotraderoverdose.o2.c1>"Oh, oh.. Oh well, I-I guess, I'll just. Wait for the next
+        crew, right man? Someone'll pick me up, yeah!"</MapFeature.autotraderoverdose.o2.c1>
+
+    <!-- Abyss Research -->
+    <MapFeature.abyssresearch.c1>As you walk past the researcher the look up at you. "Oh good you're here, finally. This is very important, make sure it arrives in once piece. They shove a bundle of papers into your arms. You try to explain you're not a mailman but they've already tuned you out. Looks like there's a location scribbled onto the front of the packet.</MapFeature.abyssresearch.c1>
+    
+    <MapFeature.mailman.impatient>There's an impatient looking researcher here.</MapFeature.mailman.impatient>
+    <MapFeature.mailman.waiting>Waiting for something?</MapFeature.mailman.waiting>
+    <MapFeature.mailman.exposition>He turns to look at you. Yes, actually. A devlivery crew was supposed to deliver some important research from a colleague of mine yesterday but they've been a no-show so far. I'm begining to think an abyss creature got them.</MapFeature.mailman.exposition>
+    <MapFeature.mailman.handover>Hand over research data.</MapFeature.mailman.handover>
+    <MapFeature.mailman.later>Later.</MapFeature.mailman.later>
+    <MapFeature.mailman.missing>Where did you leave that research data again?</MapFeature.mailman.missing>
+    <MapFeature.mailman.snatch>He snatches the bundle of paper from your hands. "Aha! Ha HA! This is it! This IS IT! So much to go through and so little time..." He turns to walk away.</MapFeature.mailman.snatch>
+    <MapFeature.mailman.payment>About my payment...</MapFeature.mailman.payment>
+    <MapFeature.mailman.groan>He lets out a groan before turning back around, "You submariners, always wanting to get paid for your work, as if labor to further humanity isn't a reward in itself! I suppose you want marks, although.." He looks around, as if to see if anyone is listening. Seemingly satisfied, he leans in close, "I could also part ways with whatever's in this mystery box..</MapFeature.mailman.groan>
+    <MapFeature.mailman.box>Mystery box! Mystery box!</MapFeature.mailman.box>
+    <MapFeature.mailman.sucker>With a florish he produces a strange box shaped object, before abruptly shoving it into your arms. "It's your problem now sucker!!" He yells out before running away.</MapFeature.mailman.sucker>
+    <MapFeature.mailman.marks>Marks for me, please.</MapFeature.mailman.marks>
+    <MapFeature.mailman.lame>"No sense of adventure! Bah, here's your marks. I've got work to do!"</MapFeature.mailman.lame>
+    <MapFeature.mailman.wasteoftime>What a colossal waste of time.</MapFeature.mailman.wasteoftime>
+</infotexts>

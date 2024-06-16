@@ -5,6 +5,7 @@ using System.Text;
 using Barotrauma;
 using Barotrauma.Extensions;
 using MoreLevelContent.Shared.Generation;
+using static Barotrauma.Level;
 
 namespace MoreLevelContent.Shared.Store
 {
@@ -19,29 +20,46 @@ namespace MoreLevelContent.Shared.Store
             pirateSets = new List<PirateNPCSetDef>();
             HasContent = FindAndScoreOutpostFiles() && FindAndScoreNPCs();
         }
+        internal PirateOutpostDef FindOutpostWithPath(string path)
+        {
+            return pirateOutposts.Find(p => p.SubInfo.FilePath == path);
+        }
+        internal void DumpPirateOutposts()
+        {
+            if (pirateOutposts.Count == 0)
+            {
+                Log.Warn("No pirate outposts found!");
+                return; 
+            }
+            foreach (var item in pirateOutposts)
+            {
+                Log.Debug(item.SubInfo.FilePath);
+            }
+        }
 
-        public PirateNPCSetDef GetNPCSetForDiff(float diff) => GetElementWithPreferedDifficulty(diff, pirateSets);
+        public PirateNPCSetDef GetNPCSetForDiff(float diff, string seed) => GetElementWithPreferedDifficulty(diff, pirateSets, seed);
 
-        internal PirateOutpostDef GetPirateOutpostForDiff(float diff) => GetElementWithPreferedDifficulty(diff, pirateOutposts);
+        internal PirateOutpostDef GetPirateOutpostForDiff(float diff, string seed) => GetElementWithPreferedDifficulty(diff, pirateOutposts, seed);
+
         private bool FindAndScoreOutpostFiles()
         {
             Log.Debug("Collecting pirate outposts...");
-            var outpostModuleFiles = ContentPackageManager.EnabledPackages.All
-            .SelectMany(p => p.GetFiles<OutpostModuleFile>())
-            .OrderBy(f => f.UintIdentifier).ToList();
-
-            foreach (var outpostModuleFile in outpostModuleFiles)
+            var pirateOutpostSets = MissionPrefab.Prefabs.Where(m => m.Tags.Contains("pirateoutpostset"));
+            Log.Debug($"outposts: {pirateOutpostSets.Count()}");
+            foreach (var item in pirateOutpostSets)
             {
-                SubmarineInfo subInfo = new SubmarineInfo(outpostModuleFile.Path.Value);
-                if (subInfo.OutpostModuleInfo != null)
+                foreach (var outpost in item.ConfigElement.GetChildElements("PirateOutpost"))
                 {
-                    if (subInfo.OutpostModuleInfo.AllowedLocationTypes.Contains("ilo_PirateOutpost"))
-                        pirateOutposts.Add(new PirateOutpostDef(outpostModuleFile, subInfo));
+                    var path = outpost.GetAttributeContentPath("path");
+                    var min = outpost.GetAttributeInt("mindiff", 0);
+                    var max = outpost.GetAttributeInt("maxdiff", 100);
+                    var placement = outpost.GetAttributeEnum("placement", PlacementType.Bottom);
+                    SubmarineInfo subInfo = new SubmarineInfo(path.Value);
+                    pirateOutposts.Add(new PirateOutpostDef(subInfo, min, max, placement));
                 }
             }
 
-            Log.Debug("Sorting modules by their diff ranges...");
-            pirateOutposts.Sort();
+            pirateOutposts = pirateOutposts.OrderBy(o => o.SubInfo.Name).ToList();
 
             foreach (var item in pirateOutposts)
             {

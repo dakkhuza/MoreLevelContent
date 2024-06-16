@@ -104,7 +104,7 @@ namespace MoreLevelContent.Missions
 
                 Character spawnedCharacter = CreateHuman(humanPrefab, characters, characterItems, submarine, team, stayPos, humanPrefabRandSync: randSync, additionalItems: additionalItemsElement != null ? additionalItems.Elements() : null);
                 spawnedCharacter.EnableDespawn = false; // don't let mission npcs despawn
-                spawnedCharacter.GiveIdCardTags(stayPos);
+                spawnedCharacter.GiveIdCardTags(stayPos, false);
                 onCharacterCreated?.Invoke(spawnedCharacter, characterSpecificConfig);
                 spawnedCharacter.MLC().NPCElement = characterSpecificConfig;
 #if CLIENT

@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using static Barotrauma.Level;
+using static HarmonyLib.Code;
 
 namespace MoreLevelContent.Shared.Generation
 {
@@ -25,9 +27,16 @@ namespace MoreLevelContent.Shared.Generation
 
         public abstract bool Active { get; }
 
-        internal Submarine SpawnSubOnPath(string name, ContentFile sub, bool ignoreCrushDepth = false, SubmarineType submarineType = SubmarineType.EnemySubmarine)
+        internal Submarine SpawnSubOnPath(string name, string path, bool ignoreCrushDepth = false, SubmarineType submarineType = SubmarineType.EnemySubmarine, PlacementType placementType = PlacementType.Bottom)
         {
-            Submarine placedSub = SubPlacementUtils.SpawnSubOnPath(name, sub, submarineType);
+            Submarine placedSub = SubPlacementUtils.SpawnSubOnPath(name, path, submarineType, placementType);
+            SubPlacementUtils.SetCrushDepth(placedSub, ignoreCrushDepth);
+            return placedSub;
+        }
+
+        internal Submarine SpawnSubOnPath(string name, ContentFile sub, bool ignoreCrushDepth = false, SubmarineType submarineType = SubmarineType.EnemySubmarine, PlacementType placementType = PlacementType.Bottom)
+        {
+            Submarine placedSub = SubPlacementUtils.SpawnSubOnPath(name, sub, submarineType, placementType);
             SubPlacementUtils.SetCrushDepth(placedSub, ignoreCrushDepth);
             return placedSub;
         }

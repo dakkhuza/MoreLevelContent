@@ -76,7 +76,7 @@ namespace Barotrauma.MoreLevelContent.Client.UI
                 DrawIcon("BlackMarket", (int)(28 * zoom), RichString.Rich("Black Market"));
             }
 
-            if (data.PirateData.HasPirateOutpost && (GameMain.DebugDraw || Commands.DisplayAllMapLocations))
+            if (data.PirateData.HasPirateOutpost && (GameMain.DebugDraw || Commands.DisplayAllMapLocations || data.PirateData.Revealed))
             {
                 LocalizedString text = "";
                 switch (data.PirateData.Status)

@@ -25,15 +25,6 @@ namespace MoreLevelContent.Shared.XML
             InjectMissions();
         }
         
-        public void Cleanup()
-        {
-            // Cleanup missions
-            // foreach (Identifier identifier in missionIdentifiers)
-            // {
-            //     Log.Debug($"Cleaned up mission with identifier {identifier.Value}");
-            // }
-        }
-
         // This should be a transpiler but I don't want to spend the time doing that and I don't think any other mod is ever going to add custom scripted events
         // We'll fix this incompatability when it happens!
         private static bool InjectEventActions(ScriptedEvent scriptedEvent, ContentXElement element, ref EventAction __result)

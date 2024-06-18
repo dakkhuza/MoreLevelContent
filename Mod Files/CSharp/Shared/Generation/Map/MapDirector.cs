@@ -6,15 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Xml.Linq;
-using System.Linq;
-using MoreLevelContent.Shared.Content;
-using MoreLevelContent.Shared.Generation.Interfaces;
-using MoreLevelContent.Missions;
 using Microsoft.Xna.Framework;
-using FarseerPhysics.Collision;
 using MoreLevelContent.Networking;
 using Barotrauma.Networking;
-using MoreLevelContent.Shared.Utils;
 
 namespace MoreLevelContent.Shared.Generation
 {

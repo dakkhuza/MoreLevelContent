@@ -214,7 +214,7 @@ namespace MoreLevelContent.Shared.Generation
             ParseCommonnessPerZone(commonnessPerZoneStrs);
 
             AllowStealing = element.GetAttributeBool("allowstealing", true);
-            Display = new MapFeatureDisplay(element.GetChildElement("Display"));
+            Display = new MapFeatureDisplay(element.GetChildElement("Display"), Name);
             PossibleEvents = new();
             foreach (var item in element.GetChildElements("ScriptedEvent"))
             {
@@ -236,15 +236,17 @@ namespace MoreLevelContent.Shared.Generation
 
         public struct MapFeatureDisplay
         {
-            public MapFeatureDisplay(XElement element)
+            public MapFeatureDisplay(XElement element, Identifier name)
             {
                 Icon = element.GetAttributeString("icon", "");
                 Tooltip = element.GetAttributeString("tooltip", "");
                 HideUntilRevealed = element.GetAttributeBool("hideuntilrevealed", false);
+                DisplayName = TextManager.Get($"mapfeature.{name}.name");
             }
             public string Icon { get; private set; }
             public string Tooltip { get; private set; }
             public bool HideUntilRevealed { get; private set; }
+            public LocalizedString DisplayName { get; private set; }
         }
 
         public struct MapFeatureEvent

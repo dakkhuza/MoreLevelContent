@@ -1,11 +1,14 @@
 ﻿
 using Barotrauma;
+using Microsoft.Xna.Framework;
+using MoreLevelContent.Networking;
 using MoreLevelContent.Shared;
 using MoreLevelContent.Shared.Data;
 using MoreLevelContent.Shared.Generation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace MoreLevelContent
 {
@@ -33,10 +36,10 @@ namespace MoreLevelContent
         {
             if (GameMain.GameSession.GameMode is CampaignMode campaign)
             {
-                LocationConnection featureLocation;
+                LocationConnection featureConnection;
                 try
                 {
-                    featureLocation = FindConnectionWithMapFeature(MapFeatureIdentifier);
+                    featureConnection = FindConnectionWithMapFeature(MapFeatureIdentifier);
                 } catch(Exception e)
                 {
                     isFinished = true;
@@ -44,24 +47,41 @@ namespace MoreLevelContent
                     return;
                 }
 
-                if (featureLocation != null)
+                if (featureConnection != null)
                 {
-                    featureLocation.LevelData.MLC().MapFeatureData.Revealed = true;
+                    MapFeatureModule.TryGetFeature(featureConnection.LevelData.MLC().MapFeatureData.Name, out MapFeature feature);
 
                     // Probably have to do some syncing here, maybe not
                     if (campaign is MultiPlayerCampaign mpCampaign)
                     {
                         mpCampaign.IncrementLastUpdateIdForFlag(MultiPlayerCampaign.NetFlags.MapAndMissions);
                     }
-                    foreach (var location in featureLocation.Locations)
-                    {
-                        campaign.Map.Discover(location, checkTalents: false);
-                    }
+
+#if CLIENT
+                    ShowNotification(feature, featureConnection);
+#else
+                    MapDirector.Instance.NotifyMapFeatureRevealed(featureConnection, featureLevelData);
+#endif
+
                 }
             }
 
             isFinished = true;
         }
+
+#if CLIENT
+        public static void ShowNotification(MapFeature feature, LocationConnection featureConnection)
+        {
+            if (GameMain.GameSession.GameMode is not CampaignMode campaign) return;
+            new GUIMessageBox(string.Empty, TextManager.GetWithVariable("mapfeature.revealed.header", "[feature]", feature.Display.DisplayName),
+                Array.Empty<LocalizedString>(), type: GUIMessageBox.Type.InGame, relativeSize: new Vector2(0.3f, 0.15f), minSize: new Point(512, 128));
+            foreach (var location in featureConnection.Locations)
+            {
+                campaign.Map.Discover(location, checkTalents: false);
+            }
+            featureConnection.LevelData.MLC().MapFeatureData.Revealed = true;
+        }
+#endif
 
         private LocationConnection FindConnectionWithMapFeature(Identifier name)
         {

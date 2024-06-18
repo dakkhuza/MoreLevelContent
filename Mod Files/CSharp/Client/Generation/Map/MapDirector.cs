@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 using Barotrauma;
+using Barotrauma.Networking;
+using MoreLevelContent.Shared.Data;
 
 namespace MoreLevelContent.Shared.Generation
 {
@@ -21,6 +23,7 @@ namespace MoreLevelContent.Shared.Generation
         partial void SetupProjSpecific()
         {
             NetUtil.Register(NetEvent.MAP_CONNECTION_EQUALITYCHECK_SENDCLIENT, ConnectionEqualityCheck);
+            NetUtil.Register(NetEvent.EVENT_REVEALMAPFEATURE, NotifyRevealMapFeature);
             _notificationList = AccessTools.Field(typeof(Map), "mapNotifications");
             _notification = typeof(Map).GetNestedType("MapNotification", BindingFlags.NonPublic);
 
@@ -42,6 +45,16 @@ namespace MoreLevelContent.Shared.Generation
             _ = _addMethod.Invoke(list, new object[] { notification });
 
             _notificationList.SetValue(GameMain.GameSession.Map, list);
+        }
+
+        void NotifyRevealMapFeature(object[] args)
+        {
+            IReadMessage inMsg = (IReadMessage)args[0];
+            Identifier featureName = inMsg.ReadIdentifier();
+            Int32 conId = inMsg.ReadInt32();
+            LocationConnection con = IdConnectionLookup[conId];
+            MapFeatureModule.TryGetFeature(featureName, out MapFeature feature);
+            RevealMapFeatureAction.ShowNotification(feature, con);
         }
     }
 }

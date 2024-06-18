@@ -151,7 +151,6 @@ namespace MoreLevelContent
         public override void Stop()
         {
             Harmony.UnpatchAll(); // Cleanup harmony patches
-            InjectionManager.Instance.Cleanup(); // Remove injected content
         }
     }
 }

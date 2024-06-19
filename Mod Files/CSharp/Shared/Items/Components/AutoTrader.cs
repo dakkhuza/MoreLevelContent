@@ -1003,9 +1003,9 @@ namespace MoreLevelContent.Items
             return componentElement;
         }
 
-        public override void Load(ContentXElement componentElement, bool usePrefabValues, IdRemap idRemap)
+        public override void Load(ContentXElement componentElement, bool usePrefabValues, IdRemap idRemap, bool isItemSwap)
         {
-            base.Load(componentElement, usePrefabValues, idRemap);
+            base.Load(componentElement, usePrefabValues, idRemap, isItemSwap);
             savedFabricatedItem = componentElement.GetAttributeString("fabricateditemidentifier", "");
             savedTimeUntilReady = componentElement.GetAttributeFloat("savedtimeuntilready", 0.0f);
             savedRequiredTime = componentElement.GetAttributeFloat("savedrequiredtime", 0.0f);

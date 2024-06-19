@@ -14,7 +14,7 @@ namespace MoreLevelContent.Shared.AI
     internal class AITraitorObjectiveInjectItem : AIObjective
     {
         public override Identifier Identifier { get; set; } = "traitorinject".ToIdentifier();
-        public override bool IsLoop { get => true; set => throw new NotImplementedException(); }
+        // public override bool IsLoop { get => true; set => throw new NotImplementedException(); }
         public override bool CanBeCompleted => true;
         public AITraitorObjectiveInjectItem(Character character, AIObjectiveManager objectiveManager, float priorityModifier, Identifier option = default, ImmutableArray<Identifier> targetItems = default) : base(character, objectiveManager, priorityModifier, option)
         {

@@ -280,7 +280,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
             if (levelData.MLC().PirateData.Status == PirateOutpostStatus.Destroyed) return;
 
             // If more than half of the crew or the commander is dead / incapacited / arrested, the outpost is destroyed
-            if (characters.Select(c => c.IsDead || c.Removed || c.IsIncapacitated || c.IsArrested).Count() > characters.Count / 2 || _Commander.IsDead || _Commander.Removed || _Commander.IsArrested)
+            if (characters.Select(c => c.IsDead || c.Removed || c.IsIncapacitated || c.IsHandcuffed).Count() > characters.Count / 2 || _Commander.IsDead || _Commander.Removed || _Commander.IsHandcuffed)
             {
                 levelData.MLC().PirateData.Status = PirateOutpostStatus.Destroyed;
             }

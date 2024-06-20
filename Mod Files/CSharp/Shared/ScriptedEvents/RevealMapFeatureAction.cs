@@ -60,7 +60,7 @@ namespace MoreLevelContent
 #if CLIENT
                     ShowNotification(feature, featureConnection);
 #else
-                    MapDirector.Instance.NotifyMapFeatureRevealed(featureConnection, featureLevelData);
+                    MapDirector.Instance.NotifyMapFeatureRevealed(featureConnection, featureConnection.LevelData.MLC().MapFeatureData);
 #endif
 
                 }
@@ -73,12 +73,8 @@ namespace MoreLevelContent
         public static void ShowNotification(MapFeature feature, LocationConnection featureConnection)
         {
             if (GameMain.GameSession.GameMode is not CampaignMode campaign) return;
-            new GUIMessageBox(string.Empty, TextManager.GetWithVariable("mapfeature.revealed.header", "[feature]", feature.Display.DisplayName),
-                Array.Empty<LocalizedString>(), type: GUIMessageBox.Type.InGame, relativeSize: new Vector2(0.3f, 0.15f), minSize: new Point(512, 128));
-            foreach (var location in featureConnection.Locations)
-            {
-                campaign.Map.Discover(location, checkTalents: false);
-            }
+            _ = new GUIMessageBox(TextManager.GetWithVariable("mapfeature.revealed.header", "[feature]", feature.Display.DisplayName), TextManager.Get("mapfeature.revealed.description"),
+                Array.Empty<LocalizedString>(), type: GUIMessageBox.Type.InGame, iconStyle: feature.Display.Icon, relativeSize: new Vector2(0.2f, 0.05f), minSize: new Point(64, 64));
             featureConnection.LevelData.MLC().MapFeatureData.Revealed = true;
         }
 #endif

@@ -8,6 +8,7 @@ using static Barotrauma.Level;
 using MoreLevelContent.Shared.Data;
 using System.Globalization;
 using static MoreLevelContent.Shared.Generation.MissionGenerationDirector;
+using Barotrauma.Items.Components;
 
 namespace MoreLevelContent.Shared.Generation
 {
@@ -185,12 +186,13 @@ namespace MoreLevelContent.Shared.Generation
             }
 
             var rand = MLCUtils.GetRandomFromString(data.Seed);
+            
             int zoneIndex = connection.Locations[0].GetZoneIndex(GameMain.GameSession.Map);
 
             var validFeatures = _Features.Where(f => f.CommonnessPerZone.ContainsKey(zoneIndex));
             if (!validFeatures.Any()) return;
             // Select feature to try and spawn
-            MapFeature feature = ToolBox.SelectWeightedRandom(_Features, f => f.CommonnessPerZone[zoneIndex], rand);
+            MapFeature feature = ToolBox.SelectWeightedRandom(validFeatures, f => f.CommonnessPerZone[zoneIndex], rand);
 
             // Roll for spawn
             if (feature.Chance > rand.NextDouble())
@@ -265,6 +267,7 @@ namespace MoreLevelContent.Shared.Generation
 
         void ParseCommonnessPerZone(string[] array)
         {
+            CommonnessPerZone = new();
             foreach (string commonnessPerZoneStr in array)
             {
                 string[] splitCommonnessPerZone = commonnessPerZoneStr.Split(':');

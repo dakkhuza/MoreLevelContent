@@ -273,7 +273,7 @@ namespace MoreLevelContent.Shared.Generation
     {
         internal static int GetZoneIndex(this Location location, Map map)
         {
-            float zoneWidth = map.Width / MapGenerationParams.Instance.DifficultyZones;
+            float zoneWidth = MapGenerationParams.Instance.Width / MapGenerationParams.Instance.DifficultyZones;
             return MathHelper.Clamp((int)Math.Floor(location.MapPosition.X / zoneWidth) + 1, 1, MapGenerationParams.Instance.DifficultyZones);
         }
     }

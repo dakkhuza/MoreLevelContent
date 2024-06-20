@@ -7,6 +7,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MoreLevelContent.Shared;
 using MoreLevelContent.Shared.Generation;
+using System.Threading;
+using System;
+using System.Linq;
+using System.Collections.Generic;
+using System.Reflection.Emit;
 
 namespace Barotrauma.MoreLevelContent.Client.UI
 {
@@ -15,18 +20,83 @@ namespace Barotrauma.MoreLevelContent.Client.UI
         static FieldInfo zoomLevel;
         static FieldInfo tooltipField;
         static FieldInfo pendingSubInfoField;
+        static MethodInfo isInFogOfWar;
+        static bool _DrawingConnections = false;
+
+
         public override void Setup()
         {
             var drawConnection = typeof(Map).GetMethod("DrawConnection", BindingFlags.NonPublic | BindingFlags.Instance);
+            var draw = AccessTools.Method(typeof(Map), nameof(Map.Draw));
+
             zoomLevel = typeof(Map).GetField("zoom", BindingFlags.Instance | BindingFlags.NonPublic);
             tooltipField = typeof(Map).GetField("tooltip", BindingFlags.Instance | BindingFlags.NonPublic);
             pendingSubInfoField = AccessTools.Field(typeof(Map), "pendingSubInfo");
-            _ = Main.Harmony.Patch(drawConnection, null, new HarmonyMethod(GetType().GetMethod(nameof(OnDrawConnection), BindingFlags.NonPublic | BindingFlags.Static)));
+            isInFogOfWar = AccessTools.Method(typeof(Map), "IsInFogOfWar");
+
+            _ = Main.Harmony.Patch(draw, transpiler: new HarmonyMethod(AccessTools.Method(typeof(MapUI), nameof(TranspileMapDraw))));
+            _ = Main.Harmony.Patch(drawConnection, postfix: new HarmonyMethod(GetType().GetMethod(nameof(OnDrawConnection), BindingFlags.NonPublic | BindingFlags.Static)));
         }
 
         private static SubmarineInfo.PendingSubInfo pendingSubInfo;
-        private static void OnDrawConnection(SpriteBatch spriteBatch, LocationConnection connection, Rectangle viewArea, Vector2 viewOffset, Location currentDisplayLocation, Map __instance)
+
+        private static IEnumerable<CodeInstruction> TranspileMapDraw(IEnumerable<CodeInstruction> instructions, ILGenerator il)
         {
+            bool finished = false;
+            var code = new List<CodeInstruction>(instructions);
+            for (int i = 0; i < code.Count; i++)
+            {
+                if (finished == false && code[i].opcode == OpCodes.Stloc_S && code[i].operand.ToString() == "Barotrauma.LocationConnection (33)")
+                {
+                    finished = true;
+                    yield return code[i];
+                    yield return new CodeInstruction(OpCodes.Ldloc_S, code[i].operand); // Location connection
+                    yield return new CodeInstruction(OpCodes.Ldarg_0); // Map
+                    yield return new CodeInstruction(OpCodes.Ldarg_2); // Sprite batch
+                    yield return new CodeInstruction(OpCodes.Ldloc_1); // View area
+                    yield return new CodeInstruction(OpCodes.Ldloc_S, (byte)4); // View Offset
+                    yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(MapUI), nameof(Test)));
+                    yield return new CodeInstruction(OpCodes.Ldloc_S, code[i].operand);
+                }
+                yield return code[i];
+            }
+        }
+
+        private static void Test(LocationConnection connection, Map map, SpriteBatch spriteBatch, Rectangle viewArea, Vector2 viewOffset)
+        {
+            // Skip if we don't have a connection 
+            if (!CheckValid()) return;
+
+            // Both sides are in fog of war
+            if ((bool)isInFogOfWar.Invoke(map, new object[] { connection.Locations[0] }) && (bool)isInFogOfWar.Invoke(map, new object[] { connection.Locations[1] }))
+            {
+                DrawCustomConnections(spriteBatch, connection, viewArea, viewOffset, map, true);
+            }
+
+            bool CheckValid()
+            {
+                var feature = connection.LevelData.MLC().MapFeatureData;
+                // Not valid if we don't have a feature
+                if (!feature.HasFeature) return false;
+                // Not valid if the feature isn't revealed
+                if (!feature.Revealed) return false;
+                // Not valid if the feature starts revealed
+                if (!feature.Feature.Display.HideUntilRevealed) return false;
+
+                return true;
+            }
+            //DrawCustomConnections(SpriteBatch spriteBatch, LocationConnection connection, Rectangle viewArea, Vector2 viewOffset, Map __instance, bool justMapFeature)
+        }
+
+        private static void OnDrawConnection(SpriteBatch spriteBatch, LocationConnection connection, Rectangle viewArea, Vector2 viewOffset, Map __instance, bool __state)
+        {
+            if (__state) return;
+            DrawCustomConnections(spriteBatch, connection, viewArea, viewOffset, __instance, false);
+        }
+
+        private static void DrawCustomConnections(SpriteBatch spriteBatch, LocationConnection connection, Rectangle viewArea, Vector2 viewOffset, Map __instance, bool justMapFeature)
+        {
+            _DrawingConnections = false;
             if (connection == null || spriteBatch == null) return;
             LevelData_MLCData data = connection.LevelData.MLC();
             Vector2? connectionStart = null;
@@ -45,6 +115,13 @@ namespace Barotrauma.MoreLevelContent.Client.UI
                 if (!connectionStart.HasValue) { connectionStart = start; }
             }
             iconCount = GetIconCount(__instance, connection);
+
+            if (justMapFeature)
+            {
+                iconCount = 0;
+                DrawMapFeature(data);
+                return;
+            }
 
             if (data.HasBeaconConstruction)
             {

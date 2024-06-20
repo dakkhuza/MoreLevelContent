@@ -185,9 +185,12 @@ namespace MoreLevelContent.Shared.Generation
             }
 
             var rand = MLCUtils.GetRandomFromString(data.Seed);
+            int zoneIndex = connection.Locations[0].GetZoneIndex(GameMain.GameSession.Map);
 
+            var validFeatures = _Features.Where(f => f.CommonnessPerZone.ContainsKey(zoneIndex));
+            if (!validFeatures.Any()) return;
             // Select feature to try and spawn
-            MapFeature feature = ToolBox.SelectWeightedRandom(_Features, f => f.Commonness, rand);
+            MapFeature feature = ToolBox.SelectWeightedRandom(_Features, f => f.CommonnessPerZone[zoneIndex], rand);
 
             // Roll for spawn
             if (feature.Chance > rand.NextDouble())
@@ -209,7 +212,6 @@ namespace MoreLevelContent.Shared.Generation
             SpawnLocation = element.GetAttributeEnum("spawnPosition", SubSpawnPosition.PathWall);
             PlacementType = element.GetAttributeEnum("placement", PlacementType.Bottom);
             Chance = element.GetAttributeFloat("chance", 0);
-            Commonness = element.GetAttributeFloat("commonness", 0);
             string[] commonnessPerZoneStrs = element.GetAttributeStringArray("commonnessperzone", Array.Empty<string>());
             ParseCommonnessPerZone(commonnessPerZoneStrs);
 
@@ -228,7 +230,6 @@ namespace MoreLevelContent.Shared.Generation
         public SubSpawnPosition SpawnLocation { get; private set; }
         public PlacementType PlacementType { get; private set; }
         public float Chance { get; private set; }
-        public float Commonness { get; private set; }
         public Dictionary<int, float> CommonnessPerZone { get; private set; }
         public bool AllowStealing { get; private set; }
         public MapFeatureDisplay Display { get; private set; }

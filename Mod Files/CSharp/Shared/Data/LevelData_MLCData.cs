@@ -104,6 +104,10 @@ namespace MoreLevelContent.Shared.Data
                     Name = mapFeatureData.GetAttributeIdentifier("name", null),
                     Revealed = mapFeatureData.GetAttributeBool("revealed", false)
                 };
+                if (MapFeatureModule.TryGetFeature(MapFeatureData.Name, out MapFeature feature))
+                {
+                    MapFeatureData.Feature = feature;
+                }
             }
         }
 
@@ -127,6 +131,8 @@ namespace MoreLevelContent.Shared.Data
     {
         public Identifier Name;
         public bool Revealed;
+        internal MapFeature Feature;
+        public bool HasFeature => Feature != null;
     }
 
     public static partial class MLCData

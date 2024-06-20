@@ -83,9 +83,17 @@ namespace MoreLevelContent
         {
             if (GameMain.GameSession.GameMode is not CampaignMode campaign) return null;
 
-            var start = Level.Loaded.StartLocation;
-            var end = Level.Loaded.EndLocation;
-            var currentConnection = start.Connections.Where(c => c.OtherLocation(start) == end).First();
+            LocationConnection currentConnection;
+            if (Level.Loaded.Type == LevelData.LevelType.LocationConnection)
+            {
+                var start = Level.Loaded.StartLocation;
+                var end = Level.Loaded.EndLocation;
+                currentConnection = start.Connections.Where(c => c.OtherLocation(start) == end).FirstOrDefault();
+            } else
+            {
+                currentConnection = campaign.CurrentLocation.Connections.FirstOrDefault();
+            }
+
             HashSet<LocationConnection> checkedConnections = new HashSet<LocationConnection>();
             HashSet<LocationConnection> pendingConnections = new HashSet<LocationConnection>() { currentConnection };
 

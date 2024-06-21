@@ -495,29 +495,29 @@
         <ScriptedEvent identifier="relaycrawler1">
             <SpawnAction speciesname="Crawler"
                 targettag="relay_husk" spawnpointtag="relaystation"
-                spawnlocation="any" spawnpointtype="Monster"
+                spawnlocation="any" spawnpointtype="Enemy"
                 requirespawnpointtag="true" />
         </ScriptedEvent>
 
         <ScriptedEvent identifier="relaycrawler2">
             <SpawnAction speciesname="Crawler" spawnpointtag="relaystation"
-                spawnlocation="any" spawnpointtype="Monster"
+                spawnlocation="any" spawnpointtype="Enemy"
                 requirespawnpointtag="true" />
             <SpawnAction speciesname="Crawler_hatchling" spawnpointtag="relaystation"
-                spawnlocation="any" spawnpointtype="Monster"
+                spawnlocation="any" spawnpointtype="Enemy"
                 requirespawnpointtag="true" />
             <SpawnAction speciesname="Crawler_hatchling" spawnpointtag="relaystation"
-                spawnlocation="any" spawnpointtype="Monster"
+                spawnlocation="any" spawnpointtype="Enemy"
                 requirespawnpointtag="true" />
         </ScriptedEvent>
 
 
         <ScriptedEvent identifier="relaycrawlerhusk">
             <SpawnAction speciesname="Crawlerhusk" spawnpointtag="relaystation"
-                spawnlocation="any" spawnpointtype="Monster"
+                spawnlocation="any" spawnpointtype="Enemy"
                 requirespawnpointtag="true" />
             <SpawnAction speciesname="Crawlerhusk" spawnpointtag="relaystation"
-                spawnlocation="any" spawnpointtype="Monster"
+                spawnlocation="any" spawnpointtype="Enemy"
                 requirespawnpointtag="true" />
         </ScriptedEvent>
 

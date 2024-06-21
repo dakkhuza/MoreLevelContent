@@ -160,7 +160,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
             foreach (Item item in baseItems.Where(it => it.Components.Any(c => c is Powered) && it.Components.Any(c => c is Repairable)))
             {
                 if (item.NonInteractable || item.InvulnerableToDamage) { continue; }
-                if (Rand.Range(0f, 1f, Rand.RandSync.Unsynced) < 0.5f)
+                if (Rand.Range(0f, 1f, Rand.RandSync.Unsynced) < 0.8f)
                 {
                     item.Condition *= Rand.Range(0.6f, 0.8f, Rand.RandSync.Unsynced);
                 }
@@ -169,10 +169,10 @@ namespace MoreLevelContent.Shared.Generation.Pirate
             //poke holes in the walls
             foreach (Structure structure in Structure.WallList.Where(s => s.Submarine == _Sub))
             {
-                if (Rand.Range(0f, 1f, Rand.RandSync.Unsynced) < 0.5f)
+                if (Rand.Range(0f, 1f, Rand.RandSync.Unsynced) < 0.8f)
                 {
                     int sectionIndex = Rand.Range(0, structure.SectionCount - 1, Rand.RandSync.Unsynced);
-                    structure.AddDamage(sectionIndex, Rand.Range(structure.MaxHealth * 0.2f, structure.MaxHealth, Rand.RandSync.Unsynced));
+                    structure.AddDamage(sectionIndex, Rand.Range(structure.MaxHealth * 0.75f, structure.MaxHealth, Rand.RandSync.Unsynced));
                 }
             }
         }

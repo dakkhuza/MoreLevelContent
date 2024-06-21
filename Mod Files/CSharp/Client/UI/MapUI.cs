@@ -42,12 +42,13 @@ namespace Barotrauma.MoreLevelContent.Client.UI
 
         private static IEnumerable<CodeInstruction> TranspileMapDraw(IEnumerable<CodeInstruction> instructions, ILGenerator il)
         {
+            Log.Debug("Transpiling map draw...");
             bool finished = false;
             var code = new List<CodeInstruction>(instructions);
             for (int i = 0; i < code.Count; i++)
             {
                 if (finished == false && code[i].opcode == OpCodes.Stloc_S && code[i].operand.ToString() == "Barotrauma.LocationConnection (33)")
-                {
+                {                    
                     finished = true;
                     yield return code[i];
                     yield return new CodeInstruction(OpCodes.Ldloc_S, code[i].operand); // Location connection
@@ -55,14 +56,14 @@ namespace Barotrauma.MoreLevelContent.Client.UI
                     yield return new CodeInstruction(OpCodes.Ldarg_2); // Sprite batch
                     yield return new CodeInstruction(OpCodes.Ldloc_1); // View area
                     yield return new CodeInstruction(OpCodes.Ldloc_S, (byte)4); // View Offset
-                    yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(MapUI), nameof(Test)));
+                    yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(MapUI), nameof(DrawRevealedFeatures)));
                     yield return new CodeInstruction(OpCodes.Ldloc_S, code[i].operand);
                 }
                 yield return code[i];
             }
         }
 
-        private static void Test(LocationConnection connection, Map map, SpriteBatch spriteBatch, Rectangle viewArea, Vector2 viewOffset)
+        private static void DrawRevealedFeatures(LocationConnection connection, Map map, SpriteBatch spriteBatch, Rectangle viewArea, Vector2 viewOffset)
         {
             // Skip if we don't have a connection 
             if (!CheckValid()) return;

@@ -74,7 +74,7 @@ namespace MoreLevelContent
         {
             if (GameMain.GameSession.GameMode is not CampaignMode campaign) return;
             _ = new GUIMessageBox(TextManager.GetWithVariable("mapfeature.revealed.header", "[feature]", feature.Display.DisplayName), TextManager.Get("mapfeature.revealed.description"),
-                Array.Empty<LocalizedString>(), type: GUIMessageBox.Type.InGame, iconStyle: feature.Display.Icon, relativeSize: new Vector2(0.2f, 0.05f), minSize: new Point(64, 64));
+                Array.Empty<LocalizedString>(), type: GUIMessageBox.Type.InGame, iconStyle: feature.Display.Icon, relativeSize: new Vector2(0.2f, 0.06f), minSize: new Point(64, 74));
             featureConnection.LevelData.MLC().MapFeatureData.Revealed = true;
         }
 #endif

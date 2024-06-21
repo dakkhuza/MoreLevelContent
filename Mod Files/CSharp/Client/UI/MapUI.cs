@@ -86,7 +86,6 @@ namespace Barotrauma.MoreLevelContent.Client.UI
 
                 return true;
             }
-            //DrawCustomConnections(SpriteBatch spriteBatch, LocationConnection connection, Rectangle viewArea, Vector2 viewOffset, Map __instance, bool justMapFeature)
         }
 
         private static void OnDrawConnection(SpriteBatch spriteBatch, LocationConnection connection, Rectangle viewArea, Vector2 viewOffset, Map __instance, bool __state)
@@ -168,6 +167,11 @@ namespace Barotrauma.MoreLevelContent.Client.UI
                     case PirateOutpostStatus.Husked:
                         text = TextManager.Get("piratebase.husked");
                         break;
+                }
+
+                if (GameMain.DebugDraw)
+                {
+                    text += $" Revealed: {data.PirateData.Revealed}";
                 }
 
                 DrawIcon(data.PirateData.Status == PirateOutpostStatus.Active ? "PirateBase" : "PirateBaseDestroyed", (int)(28 * zoom), RichString.Rich(text));

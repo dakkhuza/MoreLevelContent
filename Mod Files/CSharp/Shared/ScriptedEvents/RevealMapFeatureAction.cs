@@ -61,6 +61,7 @@ namespace MoreLevelContent
                     ShowNotification(feature, featureConnection);
 #else
                     MapDirector.Instance.NotifyMapFeatureRevealed(featureConnection, featureConnection.LevelData.MLC().MapFeatureData);
+                    featureConnection.LevelData.MLC().MapFeatureData.Revealed = true;
 #endif
 
                 }

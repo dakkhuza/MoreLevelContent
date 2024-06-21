@@ -2,6 +2,7 @@
 using Barotrauma.MoreLevelContent.Config;
 using Barotrauma.MoreLevelContent.Shared.Config;
 using Barotrauma.MoreLevelContent.Shared.Utils;
+using HarmonyLib;
 using Microsoft.Xna.Framework;
 using MoreLevelContent.Shared.Data;
 using MoreLevelContent.Shared.Generation.Interfaces;
@@ -25,7 +26,20 @@ namespace MoreLevelContent.Shared.Generation.Pirate
 
         public override bool Active => PirateStore.HasContent;
 
-        public override void Setup() => PirateStore.Instance.Setup();
+        public override void Setup()
+        {
+            PirateStore.Instance.Setup();
+            MethodInfo level_update = AccessTools.Method(typeof(Level), "Update");
+            _ = Main.Harmony.Patch(level_update, postfix: new HarmonyMethod(AccessTools.Method(typeof(PirateOutpostDirector), nameof(PirateOutpostDirector.Update))));
+        }
+
+        void Update(float deltaTime)
+        {
+            if (_PirateOutpost != null)
+            {
+                _PirateOutpost.Update(deltaTime);
+            }
+        }
 
         void ILevelStartGenerate.OnLevelGenerationStart(LevelData levelData, bool _)
         {
@@ -57,6 +71,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
             if (_PirateOutpost != null)
             {
                 _PirateOutpost.OnRoundEnd(Level.Loaded.LevelData);
+                _PirateOutpost = null;
             }
         }
     }

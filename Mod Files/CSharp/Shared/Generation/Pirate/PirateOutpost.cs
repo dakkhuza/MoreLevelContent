@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using MoreLevelContent.Shared.Data;
 using MoreLevelContent.Shared.Store;
 using MoreLevelContent.Shared.Utils;
+using static Barotrauma.Level;
 
 namespace MoreLevelContent.Shared.Generation.Pirate
 {
@@ -25,6 +26,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
         private Character _Commander;
         readonly PirateData _Data;
         private bool _Generated = false;
+        private bool _Revealed = false;
         
 
         public PirateOutpost(PirateData data, string filePath, string seed)
@@ -41,6 +43,30 @@ namespace MoreLevelContent.Shared.Generation.Pirate
             Log.Verbose($"Selected outpost {_SelectedSubmarine.SubInfo.FilePath}");
             _Difficulty = data.Difficulty;
             _Data = data;
+        }
+
+        public void Update(float deltaTime)
+        {
+            if (_Revealed) return;
+            float minDist = Sonar.DefaultSonarRange / 2f;
+            foreach (Submarine submarine in Submarine.Loaded)
+            {
+                if (submarine.Info.Type != SubmarineType.Player) { continue; }
+                if (Vector2.DistanceSquared(submarine.WorldPosition, _Sub.Position) < minDist * minDist)
+                {
+                    _Revealed = true;
+                    break;
+                }
+            }
+            foreach (Character c in Character.CharacterList)
+            {
+                if (c != Character.Controlled && !c.IsRemotePlayer) { continue; }
+                if (Vector2.DistanceSquared(c.WorldPosition, _Sub.Position) < minDist * minDist)
+                {
+                    _Revealed = true;
+                    break;
+                }
+            }
         }
 
         public void Generate()
@@ -276,6 +302,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
         {
             var success = GameMain.GameSession.CrewManager.GetCharacters().Any(c => !c.IsDead);
             if (!success) return;
+            if (_Revealed) levelData.MLC().PirateData.Revealed = true;
 
             if (levelData.MLC().PirateData.Status == PirateOutpostStatus.Destroyed) return;
 

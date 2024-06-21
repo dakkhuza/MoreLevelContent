@@ -58,7 +58,7 @@ namespace MoreLevelContent
             var level_onSpawnNPC = typeof(Level).GetMethod(nameof(Level.SpawnNPCs));
             var level_generate = typeof(Level).GetMethod(nameof(Level.Generate));
             var gameSession_before_startRound = typeof(GameSession).GetMethod(nameof(GameSession.StartRound), new Type[] { typeof(LevelData), typeof(bool), typeof(SubmarineInfo), typeof(SubmarineInfo) });
-            var eventManager_TriggerOnEndRoundActions = AccessTools.Method(typeof(EventManager), "TriggerOnEndRoundActions");
+            var eventManager_TriggerOnEndRoundActions = AccessTools.Method(typeof(GameSession), "EndRound");
             Harmony = new Harmony("com.mlc.dak");
 
             MoveRuins.Init();

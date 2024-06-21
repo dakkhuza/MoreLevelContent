@@ -43,6 +43,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
             Log.Verbose($"Selected outpost {_SelectedSubmarine.SubInfo.FilePath}");
             _Difficulty = data.Difficulty;
             _Data = data;
+            _Revealed = data.Revealed;
         }
 
         public void Update(float deltaTime)
@@ -52,18 +53,20 @@ namespace MoreLevelContent.Shared.Generation.Pirate
             foreach (Submarine submarine in Submarine.Loaded)
             {
                 if (submarine.Info.Type != SubmarineType.Player) { continue; }
-                if (Vector2.DistanceSquared(submarine.WorldPosition, _Sub.Position) < minDist * minDist)
+                if (Vector2.DistanceSquared(submarine.WorldPosition, _Sub.WorldPosition) < minDist * minDist)
                 {
                     _Revealed = true;
+                    Log.Debug("Revealed pirate base");
                     break;
                 }
             }
             foreach (Character c in Character.CharacterList)
             {
                 if (c != Character.Controlled && !c.IsRemotePlayer) { continue; }
-                if (Vector2.DistanceSquared(c.WorldPosition, _Sub.Position) < minDist * minDist)
+                if (Vector2.DistanceSquared(c.WorldPosition, _Sub.WorldPosition) < minDist * minDist)
                 {
                     _Revealed = true;
+                    Log.Debug("Revealed pirate base");
                     break;
                 }
             }

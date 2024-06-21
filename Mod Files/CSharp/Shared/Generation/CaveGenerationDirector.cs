@@ -90,6 +90,7 @@ namespace MoreLevelContent.Shared.Generation
                 yield return code[i];
 
 #if CLIENT
+                // This is very brittle and needs to be changed
                 if (i == 2942)
                 {
                     Log.Debug($"Found insertion point at {i}!");
@@ -339,9 +340,9 @@ namespace MoreLevelContent.Shared.Generation
                 Vector2 dir = MLCUtils.PositionItemOnEdge(fleshgun, edge, radius);
                 float angle = Angle(dir);
                 Turret turret = fleshgun.GetComponent<Turret>();
-                turret.RotationLimits = new Vector2(-angle - 90, -angle + 90);
-                turret.AimDelay = false;
+                turret.RotationLimits = new Vector2(-angle - 90, -angle + 90);                
                 turret.AIRange = Sonar.DefaultSonarRange / 2;
+                turret.Reload = 10f;
 
                 Log.Debug($"Placed fleshgun at {fleshgun.Position}");
             }

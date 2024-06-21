@@ -33,11 +33,11 @@ namespace MoreLevelContent.Shared.Generation.Pirate
             _ = Main.Harmony.Patch(level_update, postfix: new HarmonyMethod(AccessTools.Method(typeof(PirateOutpostDirector), nameof(PirateOutpostDirector.Update))));
         }
 
-        void Update(float deltaTime)
+        static void Update(float deltaTime)
         {
-            if (_PirateOutpost != null)
+            if (Instance._PirateOutpost != null)
             {
-                _PirateOutpost.Update(deltaTime);
+                Instance._PirateOutpost.Update(deltaTime);
             }
         }
 

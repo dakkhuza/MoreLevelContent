@@ -29,6 +29,21 @@ namespace MoreLevelContent.Shared.Generation
 
             _addMethod = AccessTools.Method(_notificationList.FieldType, "Add");
             _notifConstructor = AccessTools.Constructor(_notification, new Type[] { typeof(string), typeof(GUIFont), _notificationList.FieldType, typeof(Location) });
+
+            var gameClient_EndGame = AccessTools.Method(typeof(GameClient), nameof(GameClient.EndGame));
+            _ = Main.Harmony.Patch(gameClient_EndGame, postfix: new HarmonyMethod(AccessTools.Method(typeof(MapDirector), nameof(MapDirector.EndGame))));
+        }
+
+        static void EndGame(CampaignMode.TransitionType transitionType)
+        {
+            if (transitionType == CampaignMode.TransitionType.None)
+            {
+                Log.Debug("Game ended");
+                // Reset connection lookup
+                _validatedConnectionLookup = false;
+                IdConnectionLookup.Clear();
+                ConnectionIdLookup.Clear();
+            }
         }
 
         public void AddNewsStory(string message)

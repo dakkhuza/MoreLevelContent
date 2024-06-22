@@ -131,7 +131,7 @@ namespace MoreLevelContent.Shared.Generation
             Client c = (Client)args[1];
             if (IdConnectionLookup.Count == 0)
             {
-                c.Kick("Client requested equality check too soon!");
+                c.Kick("Client requested the map equality check before the server generated it, this will happen if you're running the game in a mode other than campaign. Either change to campaign or disable more level content in the mod menu.");
                 return;
             }
             
@@ -156,6 +156,7 @@ namespace MoreLevelContent.Shared.Generation
 
         private static void OnPreRoundStart(GameSession __instance, LevelData levelData)
         {
+            // This needs to get reset when returning to the lobby
 #if CLIENT
             if (!_validatedConnectionLookup && GameMain.IsMultiplayer)
             {

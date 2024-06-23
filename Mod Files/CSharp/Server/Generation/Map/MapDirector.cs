@@ -27,6 +27,8 @@ namespace MoreLevelContent.Shared.Generation
             }
         }
 
+        internal partial void RoundEnd(CampaignMode.TransitionType transitionType) { }
+
         private void NotifyMapFeatureRevealed(Client client, LocationConnection con, MapFeatureData feature)
         {
             Int32 conId = MapDirector.ConnectionIdLookup[con];

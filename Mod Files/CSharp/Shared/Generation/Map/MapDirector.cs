@@ -146,6 +146,8 @@ namespace MoreLevelContent.Shared.Generation
         }
 #endif
 
+        internal partial void RoundEnd(CampaignMode.TransitionType transitionType);
+
         private void Check(object info, string name)
         {
             if (info == null) Log.Error(name);
@@ -233,7 +235,8 @@ namespace MoreLevelContent.Shared.Generation
         private static void OnMapLoad(Map __instance)
         {
             Log.Debug("OnMapLoad:Postfix");
-
+            IdConnectionLookup.Clear();
+            ConnectionIdLookup.Clear();
             // Generate location connection lookup 
             GenerateConnectionLookup(__instance);
 
@@ -259,7 +262,6 @@ namespace MoreLevelContent.Shared.Generation
 
         private static void GenerateConnectionLookup(Map map)
         {
-            if (IdConnectionLookup.Count > 0) return;
             for (int i = 0; i < map.Connections.Count; i++)
             {
                 var connection = map.Connections[i];

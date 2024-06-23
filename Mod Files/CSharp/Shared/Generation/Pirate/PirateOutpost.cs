@@ -48,7 +48,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
 
         public void Update(float deltaTime)
         {
-            if (_Revealed) return;
+            if (Main.IsClient || _Revealed) return;
             float minDist = Sonar.DefaultSonarRange / 2f;
             foreach (Submarine submarine in Submarine.Loaded)
             {
@@ -99,14 +99,6 @@ namespace MoreLevelContent.Shared.Generation.Pirate
                 SetupDE();
             }
 
-            if (_Data.Status == PirateOutpostStatus.Active)
-            {
-                SetupActive();
-            } else
-            {
-                SetupDestroyed();
-            }
-
             Log.InternalDebug($"Spawned a pirate base with name {_Sub.Info.Name}");
 
             void SetupDE()
@@ -141,6 +133,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
         void SetupDestroyed()
         {
             _Sub.Info.Type = SubmarineType.Outpost;
+            if (Main.IsClient) return;
             var baseItems = _Sub.GetItems(alsoFromConnectedSubs: false);
             if (baseItems.Find(i => i.HasTag("reactor") && !i.NonInteractable)?.GetComponent<Reactor>() is Reactor reactor)
             {
@@ -154,31 +147,47 @@ namespace MoreLevelContent.Shared.Generation.Pirate
                 Level.Loaded.PositionsOfInterest.Add(new Level.InterestingPosition(wp.WorldPosition.ToPoint(), Level.PositionType.Wreck));
             }
 
-            if (Main.IsClient) return;
-
             //break powered items
             foreach (Item item in baseItems.Where(it => it.Components.Any(c => c is Powered) && it.Components.Any(c => c is Repairable)))
             {
                 if (item.NonInteractable || item.InvulnerableToDamage) { continue; }
                 if (Rand.Range(0f, 1f, Rand.RandSync.Unsynced) < 0.8f)
                 {
-                    item.Condition *= Rand.Range(0.6f, 0.8f, Rand.RandSync.Unsynced);
+                    item.Condition *= Rand.Range(0f, 0.2f, Rand.RandSync.Unsynced);
                 }
             }
 
-            //poke holes in the walls
-            foreach (Structure structure in Structure.WallList.Where(s => s.Submarine == _Sub))
+            // min walls to damage
+            var walls = Structure.WallList.Where(s => s.Submarine == _Sub);
+            int wallCount = walls.Count();
+            int damagedWallCount = Rand.Range(wallCount / 2, wallCount, Rand.RandSync.Unsynced);
+
+            var avaliableWalls = walls.ToList();
+
+            for (int i = 0; i < damagedWallCount; i++)
             {
-                if (Rand.Range(0f, 1f, Rand.RandSync.Unsynced) < 0.8f)
+                var targetWall = avaliableWalls.GetRandom(Rand.RandSync.Unsynced);
+                _ = avaliableWalls.Remove(targetWall);
+                int sectionsToDamage = Rand.Range(targetWall.SectionCount / 4, targetWall.SectionCount, Rand.RandSync.Unsynced);
+                while (sectionsToDamage > 0)
                 {
-                    int sectionIndex = Rand.Range(0, structure.SectionCount - 1, Rand.RandSync.Unsynced);
-                    structure.AddDamage(sectionIndex, Rand.Range(structure.MaxHealth * 0.75f, structure.MaxHealth, Rand.RandSync.Unsynced));
+                    sectionsToDamage--;
+                    targetWall.AddDamage(sectionsToDamage, Rand.Range(targetWall.MaxHealth * 0.75f, targetWall.MaxHealth, Rand.RandSync.Unsynced));
                 }
             }
         }
 
         public void Populate()
         {
+            if (_Data.Status == PirateOutpostStatus.Active)
+            {
+                SetupActive();
+            }
+            else
+            {
+                SetupDestroyed();
+            }
+
             // Don't spawn crew on destroyed outposts
             if (_Data.Status == PirateOutpostStatus.Destroyed) return;
 
@@ -303,17 +312,44 @@ namespace MoreLevelContent.Shared.Generation.Pirate
 
         internal void OnRoundEnd(LevelData levelData)
         {
-            var success = GameMain.GameSession.CrewManager.GetCharacters().Any(c => !c.IsDead);
-            if (!success) return;
+            if (Main.IsClient)
+            {
+                Log.Debug("Was client");
+                return;
+            }
+#if CLIENT
+            bool success = GameMain.GameSession.CrewManager!.GetCharacters().Any(c => !c.IsDead);
+#else
+                bool success =
+                    GameMain.Server != null &&
+                    GameMain.Server.ConnectedClients.Any(c => c.InGame && c.Character != null && !c.Character.IsDead);
+#endif
+
+            if (!success)
+            {
+                Log.Debug("Did not succeed");
+                return;
+            }
             if (_Revealed) levelData.MLC().PirateData.Revealed = true;
 
-            if (levelData.MLC().PirateData.Status == PirateOutpostStatus.Destroyed) return;
+            if (levelData.MLC().PirateData.Status == PirateOutpostStatus.Destroyed)
+            {
+                Log.Debug("Base was destroyed");
+                return;
+            }
 
             // If more than half of the crew or the commander is dead / incapacited / arrested, the outpost is destroyed
-            if (characters.Select(c => c.IsDead || c.Removed || c.IsIncapacitated || c.IsHandcuffed).Count() > characters.Count / 2 || _Commander.IsDead || _Commander.Removed || _Commander.IsHandcuffed)
+            bool crewStatus = characters.Select(c => c.IsDead || c.Removed || c.IsIncapacitated || c.IsHandcuffed).Count() > characters.Count / 2;
+            if (_Commander.IsDead || _Commander.Removed || _Commander.IsHandcuffed || crewStatus)
             {
                 levelData.MLC().PirateData.Status = PirateOutpostStatus.Destroyed;
+                Log.Debug("base destroyed");
+            } else
+            {
+                Log.Debug($"Base still active: {crewStatus} dead: {_Commander.IsDead} removed: {_Commander.Removed} handcuffed: {_Commander.IsHandcuffed}");
             }
+            LocationConnection con = Level.Loaded.StartLocation.Connections.Where(c => c.OtherLocation(Level.Loaded.StartLocation) == Level.Loaded.EndLocation).First();
+            PirateOutpostDirector.Instance.UpdateStatus(levelData.MLC().PirateData, con);
         }
 
         private void HuskOutpost()

@@ -1,16 +1,14 @@
 ﻿using Barotrauma;
 using Barotrauma.MoreLevelContent.Config;
 using Barotrauma.MoreLevelContent.Shared.Config;
-using Barotrauma.MoreLevelContent.Shared.Utils;
+using Barotrauma.Networking;
 using HarmonyLib;
-using Microsoft.Xna.Framework;
+using MoreLevelContent.Networking;
 using MoreLevelContent.Shared.Data;
 using MoreLevelContent.Shared.Generation.Interfaces;
 using MoreLevelContent.Shared.Store;
 using System;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 
 namespace MoreLevelContent.Shared.Generation.Pirate
 {
@@ -31,7 +29,38 @@ namespace MoreLevelContent.Shared.Generation.Pirate
             PirateStore.Instance.Setup();
             MethodInfo level_update = AccessTools.Method(typeof(Level), "Update");
             _ = Main.Harmony.Patch(level_update, postfix: new HarmonyMethod(AccessTools.Method(typeof(PirateOutpostDirector), nameof(PirateOutpostDirector.Update))));
+#if CLIENT
+            NetUtil.Register(NetEvent.PIRATEBASE_STATUS, StatusUpdated);
+#endif
         }
+
+        internal void UpdateStatus(PirateData data, LocationConnection con)
+        {
+#if SERVER
+            Log.Debug("Send status");
+            var msg = NetUtil.CreateNetMsg(NetEvent.PIRATEBASE_STATUS);
+            Int32 id = MapDirector.ConnectionIdLookup[con];
+            msg.WriteInt32(id);
+            msg.WriteBoolean(data.Revealed);
+            msg.WriteInt16((short)data.Status);
+            NetUtil.SendAll(msg);
+#endif
+        }
+
+#if CLIENT
+        public void StatusUpdated(object[] args)
+        {
+            IReadMessage inMsg = (IReadMessage)args[0];
+            int conId = inMsg.ReadInt32();
+            bool revealed = inMsg.ReadBoolean();
+            PirateOutpostStatus status = (PirateOutpostStatus)inMsg.ReadInt16();
+            // Look up connection
+            var connection = MapDirector.IdConnectionLookup[conId];
+            connection.LevelData.MLC().PirateData.Revealed = revealed;
+            connection.LevelData.MLC().PirateData.Status = status;
+            Log.Debug("Updated pirate status");
+        }
+#endif
 
         static void Update(float deltaTime)
         {
@@ -55,10 +84,9 @@ namespace MoreLevelContent.Shared.Generation.Pirate
                 }
             }
 
-            var pirateData = levelData.MLC().PirateData;
-            if (pirateData.HasPirateOutpost)
+            if (levelData.MLC().PirateData.HasPirateOutpost)
             {
-                _PirateOutpost = new PirateOutpost(pirateData, ForcedPirateOutpost, levelData.Seed);
+                _PirateOutpost = new PirateOutpost(levelData.MLC().PirateData, ForcedPirateOutpost, levelData.Seed);
                 Log.Verbose("Set pirate outpost");
             }
         }
@@ -68,10 +96,14 @@ namespace MoreLevelContent.Shared.Generation.Pirate
         public void BeforeRoundStart() { }
         public void RoundEnd()
         {
+            Log.Debug("Pirate director round end");
             if (_PirateOutpost != null)
             {
                 _PirateOutpost.OnRoundEnd(Level.Loaded.LevelData);
                 _PirateOutpost = null;
+            } else
+            {
+                Log.Debug("Pirate outpost not set");
             }
         }
     }

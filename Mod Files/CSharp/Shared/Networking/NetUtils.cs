@@ -80,5 +80,6 @@ namespace MoreLevelContent.Networking
 
         EVENT_REVEALMAPFEATURE,
 
+        PIRATEBASE_STATUS
     }
 }

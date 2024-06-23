@@ -8,6 +8,7 @@ using MoreLevelContent.Shared.XML;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using static Barotrauma.CampaignMode;
 
 namespace MoreLevelContent
 {
@@ -27,7 +28,7 @@ namespace MoreLevelContent
 
         public static Main Instance;
         public static string Version = "0.0.7";
-        private LevelContentProducer levelContentProducer;
+        private static LevelContentProducer levelContentProducer;
         internal static Harmony Harmony;
 
         public Main()
@@ -107,11 +108,7 @@ namespace MoreLevelContent
                 LuaCsHook.HookMethodType.Before,
                 this);
 
-            GameMain.LuaCs.Hook.HookMethod(
-                "mlc.singleplayer.roundend",
-                eventManager_TriggerOnEndRoundActions,
-                OnRoundEnd,
-                LuaCsHook.HookMethodType.Before);
+            _ = Harmony.Patch(eventManager_TriggerOnEndRoundActions, postfix: new HarmonyMethod(AccessTools.Method(typeof(Main), nameof(Main.OnRoundEnd))));
 
             Log.Verbose("Done!");
         }
@@ -142,10 +139,10 @@ namespace MoreLevelContent
             return null;
         }
 
-        public object OnRoundEnd(object self, Dictionary<string, object> args)
+        public static void OnRoundEnd(CampaignMode.TransitionType transitionType)
         {
             levelContentProducer.EndRound();
-            return null;
+            MapDirector.Instance.RoundEnd(transitionType);
         }
 
         public override void Stop()

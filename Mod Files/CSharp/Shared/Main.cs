@@ -24,6 +24,7 @@ namespace MoreLevelContent
         public const string GUID = "com.dak.mlc";
         public static bool IsRelase = true;
         public static bool IsNightly = false;
+        public static bool PreventRoundEnd = false;
 
 
         public static Main Instance;

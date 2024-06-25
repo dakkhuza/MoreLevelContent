@@ -6,56 +6,65 @@
 
         <MapFeature path="%ModDir%/Map/MapFeatures/AutoTrader_Weapons.sub"
             identifier="autotrader_weapons" spawnPosition="PathWall"
-            placement="Top" commonnessperzone="1: 0.25, 2: 0.5, 3: 0.45, 4: 0.3, 5: 0.2" chance="0.2f" allowstealing="false">
+            placement="Top" commonnessperzone="1: 0.25, 2: 0.5, 3: 0.45, 4: 0.3, 5: 0.2"
+            chance="0.2f" allowstealing="false">
             <Display icon="Market" tooltip="mapfeature.autotrader_weapons" hideuntilrevealed="true" />
             <ScriptedEvent identifier="autotrader_overdose" commonness="3" probability="1" />
-            <ScriptedEvent identifier="autotrader_crawler" commonness="5" probability="0.5" />
-            <ScriptedEvent identifier="autotrader_huskcrawler" commonness="5" probability="0.5" />
+            <ScriptedEvent identifier="autotrader_crawler" commonness="5" probability="0.25" />
+            <ScriptedEvent identifier="autotrader_huskcrawler" commonness="5" probability="0.25" />
         </MapFeature>
 
         <MapFeature path="%ModDir%/Map/MapFeatures/AutoTrader_Supplies.sub"
             identifier="autotrader_supplies" spawnPosition="PathWall"
-            placement="Top" commonnessperzone="1: 0.25, 2: 0.5, 3: 0.45, 4: 0.3, 5: 0.2" chance="0.3f" allowstealing="false">
+            placement="Top" commonnessperzone="1: 0.25, 2: 0.5, 3: 0.45, 4: 0.3, 5: 0.2"
+            chance="0.3f" allowstealing="false">
             <Display icon="Market" tooltip="mapfeature.autotrader_supplies" hideuntilrevealed="true" />
             <ScriptedEvent identifier="autotrader_overdose" commonness="3" probability="1" />
-            <ScriptedEvent identifier="autotrader_crawler" commonness="5" probability="0.5" />
-            <ScriptedEvent identifier="autotrader_huskcrawler" commonness="5" probability="0.5" />
+            <ScriptedEvent identifier="autotrader_crawler" commonness="5" probability="0.25" />
+            <ScriptedEvent identifier="autotrader_huskcrawler" commonness="5" probability="0.25" />
         </MapFeature>
 
         <MapFeature path="%ModDir%/Map/MapFeatures/Waystation.sub"
             identifier="waystation" spawnPosition="PathWall"
-            placement="Top" commonnessperzone="1: 0.10, 2: 0.25, 3: 0.5, 4: 0.3, 5: 0.2" chance="0.5f" allowstealing="false">
+            placement="Top" commonnessperzone="1: 0.10, 2: 0.25, 3: 0.5, 4: 0.3, 5: 0.2"
+            chance="0.5f" allowstealing="false">
             <Display icon="WayStation" tooltip="mapfeature.waystation" hideuntilrevealed="false" />
             <ScriptedEvent identifier="waystation_revealtheatre" commonness="8" probability="1" />
             <ScriptedEvent identifier="waystation_revealresearch" commonness="5" probability="1" />
-            <ScriptedEvent identifier="waystation_husk" commonness="2" probability="1" />
+            <ScriptedEvent identifier="waystation_husk" commonness="3" probability="1" />
         </MapFeature>
 
         <MapFeature path="%ModDir%/Map/MapFeatures/ClownStation.sub"
             identifier="clownstation" spawnPosition="PathWall"
             placement="Top" commonness="5" chance="0.25" allowstealing="false">
             <Display icon="ClownStation" tooltip="mapfeature.clownstation" hideuntilrevealed="true" />
-            <ScriptedEvent identifier="clownstation_preformanceofalifetime" commonness="5"
+            <ScriptedEvent identifier="clownstation_unlockescort" commonness="5"
                 probability="1" />
-            <ScriptedEvent identifier="clownstation_preformanceofalifetime" commonness="5"
+            <ScriptedEvent identifier="clownstation_unlockwreck" commonness="5"
+                probability="1" />
+            <ScriptedEvent identifier="clownstation_preformanceofalifetime" commonness="3"
                 probability="1" />
         </MapFeature>
 
         <MapFeature path="%ModDir%/Map/MapFeatures/AbyssResearch.sub"
             identifier="abyssresearch" spawnPosition="AbyssIsland"
-            placement="Bottom" commonnessperzone="1: 0, 2: 0.10, 3: 0.25, 4: 0.35, 5: 0.45" chance="1f" allowstealing="false">
+            placement="Bottom" commonnessperzone="1: 0, 2: 0.10, 3: 0.25, 4: 0.35, 5: 0.45"
+            chance="1f" allowstealing="false">
             <Display icon="AbyssResearch" tooltip="mapfeature.abyssresearch"
                 hideuntilrevealed="true" />
             <ScriptedEvent identifier="abyssresearch_mailman" commonness="10" probability="1" />
+            <ScriptedEvent identifier="abyssresearch_nasonovtesting" commonness="8" probability="1" />
         </MapFeature>
 
-        <MapFeature path="%ModDir%/Map/MapFeatures/HuskChurch.sub"
+        <!--MapFeature
+        path="%ModDir%/Map/MapFeatures/HuskChurch.sub"
             identifier="huskchurch" spawnPosition="AbyssIsland"
-            placement="Top" commonnessperzone="1: 0, 2: 0.10, 3: 0.25, 4: 0.35, 5: 0.45" chance="1f" allowstealing="false">
+            placement="Top" commonnessperzone="1: 0, 2: 0.10, 3: 0.25, 4: 0.35, 5: 0.45" chance="1f"
+        allowstealing="false">
             <Display icon="HuskChurch" tooltip="mapfeature.huskchurch"
                 hideuntilrevealed="true" />
 
-        </MapFeature>
+        </MapFeature-->
 
 
     </MapFeatures>

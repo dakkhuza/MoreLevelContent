@@ -7,6 +7,7 @@ using MoreLevelContent.Networking;
 using MoreLevelContent.Shared.Data;
 using MoreLevelContent.Shared.Generation.Interfaces;
 using MoreLevelContent.Shared.Store;
+using MoreLevelContent.Shared.Utils;
 using System;
 using System.Reflection;
 
@@ -27,8 +28,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
         public override void Setup()
         {
             PirateStore.Instance.Setup();
-            MethodInfo level_update = AccessTools.Method(typeof(Level), "Update");
-            _ = Main.Harmony.Patch(level_update, postfix: new HarmonyMethod(AccessTools.Method(typeof(PirateOutpostDirector), nameof(PirateOutpostDirector.Update))));
+            Hooks.Instance.AddUpdateAction(Update);
 #if CLIENT
             NetUtil.Register(NetEvent.PIRATEBASE_STATUS, StatusUpdated);
 #endif
@@ -62,7 +62,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
         }
 #endif
 
-        static void Update(float deltaTime)
+        static void Update(float deltaTime, Camera cam)
         {
             if (Instance._PirateOutpost != null)
             {

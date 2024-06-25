@@ -85,6 +85,54 @@
             </ItemSet>
         </npc>
 
+        <!-- Husk cultists -->
+        <npc identifier="huskcultist_waystation" tags="huskcultist" faction="huskcult"
+            commonness="0" job="killer" behavior="Passive" healthmultiplier="1.5">
+            <ItemSet commonness="1">
+                <Item identifier="idcard" equip="true" />
+                <Item identifier="cultistrobes" equip="true" />
+                <Item identifier="bodyarmor" equip="true" />
+                <Item identifier="divingknife" equip="false" />
+                <Item identifier="syringegun_weapon" equip="true">
+                    <Item identifier="cyanide" />
+                    <Item identifier="cyanide" />
+                </Item>
+                <Item identifier="huskeggs" />
+                <Item identifier="huskeggs" />
+            </ItemSet>
+
+            <ItemSet commonness="1">
+                <Item identifier="idcard" equip="true" />
+                <Item identifier="cultistrobes" equip="true" />
+                <Item identifier="bodyarmor" equip="true" />
+                <Item identifier="divingknife" equip="false" />
+                <Item identifier="syringegun_weapon" equip="true">
+                    <Item identifier="paralyzant" />
+                    <Item identifier="paralyzant" />
+                    <Item identifier="paralyzant" />
+                    <Item identifier="paralyzant" />
+                    <Item identifier="paralyzant" />
+                </Item>
+                <Item identifier="huskeggs" />
+                <Item identifier="huskeggs" />
+            </ItemSet>
+
+            <ItemSet commonness="1">
+                <Item identifier="idcard" equip="true" />
+                <Item identifier="cultistrobes" equip="true" />
+                <Item identifier="bodyarmor" equip="true" />
+                <Item identifier="divingknife" equip="false" />
+                <Item identifier="piratebandana" equip="true" />
+                <Item identifier="syringegun_weapon" equip="true">
+                    <Item identifier="huskeggs" />
+                    <Item identifier="huskeggs" />
+                    <Item identifier="huskeggs" />
+                    <Item identifier="huskeggs" />
+                    <Item identifier="huskeggs" />
+                </Item>
+
+            </ItemSet>
+        </npc>
 
     </npcset>
 

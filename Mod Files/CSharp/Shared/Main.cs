@@ -64,11 +64,11 @@ namespace MoreLevelContent
             Harmony = new Harmony("com.mlc.dak");
 
             MoveRuins.Init();
+            Hooks.Instance.Setup();
             levelContentProducer = new LevelContentProducer();
             MapDirector.Instance.Setup();
             XMLManager.Instance.Setup();
             InjectionManager.Instance.Setup();
-            Hooks.Instance.Setup();
             Commands.Instance.Setup();
             CompatabilityHelper.Instance.Setup();
             ReflectionInfo.Instance.Setup();

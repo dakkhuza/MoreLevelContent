@@ -87,7 +87,7 @@
 
         <!-- Husk cultists -->
         <npc identifier="huskcultist_waystation" tags="huskcultist" faction="huskcult"
-            commonness="0" job="killer" behavior="Passive" healthmultiplier="1.5">
+            commonness="0" job="hostileinfriendlysub" behavior="Patrol" healthmultiplier="1.5">
             <ItemSet commonness="1">
                 <Item identifier="idcard" equip="true" />
                 <Item identifier="cultistrobes" equip="true" />

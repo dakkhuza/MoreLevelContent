@@ -154,11 +154,10 @@
         <TriggerEvent>
           <ScriptedEvent identifier="alienobject_tp">
             <TeleportCharacterAction TargetTag="statuseffectuser" />
-            <AfflictionAction targettag="statuseffectuser" affliction="concussion" strength="5" />
-            <AfflictionAction targettag="statuseffectuser" affliction="watchersgaze" strength="25" />
+            <AfflictionAction targettag="statuseffectuser" affliction="concussion" strength="2" />
             <AfflictionAction targettag="statuseffectuser" affliction="nausea" strength="25" />
             <AfflictionAction targettag="statuseffectuser" affliction="stun" strength="2" />
-            <AfflictionAction targettag="statuseffectuser" affliction="hallucinating" strength="25" />
+            <AfflictionAction targettag="statuseffectuser" affliction="hallucinating" strength="80" />
             <WaitAction time="0.1" />
             <StatusEffectAction targettag="statuseffectuser">
               <StatusEffect target="this">

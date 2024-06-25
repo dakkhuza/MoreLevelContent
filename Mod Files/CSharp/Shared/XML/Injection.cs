@@ -35,13 +35,18 @@ namespace MoreLevelContent.Shared.XML
             {
                 actionType = typeof(RevealMapFeatureAction);
             }
-            if (typeName == "AlterMapFeatureAction")
+            // if (typeName == "AlterMapFeatureAction")
+            // {
+            //     actionType = typeof(AlterMapFeatureAction);
+            // }
+            if (typeName == "TeleportCharacterAction")
             {
-                actionType = typeof(AlterMapFeatureAction);
+                actionType = typeof(TeleportCharacterAction);
             }
-            if (typeName == "RevealPirateBase")
+
+            if (typeName == "SpawnCreatureNearbyAction")
             {
-                actionType = typeof(RevealPirateBase);
+                actionType = typeof(SpawnCreatureNearbyAction);
             }
 
             if (actionType != null)

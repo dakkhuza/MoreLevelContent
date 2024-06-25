@@ -9,6 +9,8 @@ using MoreLevelContent.Shared.Data;
 using System.Globalization;
 using static MoreLevelContent.Shared.Generation.MissionGenerationDirector;
 using Barotrauma.Items.Components;
+using Steamworks.Ugc;
+using Microsoft.Xna.Framework;
 
 namespace MoreLevelContent.Shared.Generation
 {
@@ -45,7 +47,19 @@ namespace MoreLevelContent.Shared.Generation
 
             _IdentifierToFeature = featureDict;
             _Features = featureDict.Values.OrderBy(f => f.Name).ToList();
+            Hooks.Instance.AddUpdateAction(Update);
             Log.Debug($"Collected {_Features.Count} map features");
+        }
+
+        void Update(float deltaTime, Camera cam)
+        {
+            if (Loaded == null) return;
+            if (MapFeatureSub == null) return;
+            if (Loaded.LevelData.MLC().MapFeatureData.Revealed) return;
+            if (GameSession.GetSessionCrewCharacters(CharacterType.Player).Any(c => c.Submarine == MapFeatureSub))
+            {
+                Loaded.LevelData.MLC().MapFeatureData.Revealed = true;
+            }
         }
 
         public static bool TryGetFeature(Identifier name, out MapFeature feature)

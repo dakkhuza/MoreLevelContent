@@ -19,9 +19,6 @@ namespace MoreLevelContent.Items
         [Serialize(30000.0f, IsPropertySaveable.Yes, description: "How far away this guide can be detected from, 10000.0f is the default sonar range."), Editable]
         public float Range { get; private set; }
 
-        [Serialize(true, IsPropertySaveable.Yes, description: "If getting near this guide should reveal the levels map feature."), Editable]
-        public bool RevealMapFeature { get; private set; }
-
         [Serialize(10000.0f, IsPropertySaveable.Yes, description: "How close a player has to be before the map feature is revealed."), Editable]
         public float RevealRange { get; private set; }
 
@@ -36,15 +33,6 @@ namespace MoreLevelContent.Items
         public override void Update(float deltaTime, Camera cam)
         {
             UpdateOnActiveEffects(deltaTime);
-
-            if (RevealMapFeature && !_Revealed && Level.Loaded != null)
-            {
-                if (GameSession.GetSessionCrewCharacters(CharacterType.Player).Any(c => Vector2.DistanceSquared(c.WorldPosition, item.WorldPosition) < MathUtils.Pow2(RevealRange)))
-                {
-                    Level.Loaded.LevelData.MLC().MapFeatureData.Revealed = true;
-                    _Revealed = true;
-                }
-            }
 
 #if CLIENT
             if (Voltage >= MinVoltage)

@@ -19,6 +19,7 @@ namespace MoreLevelContent.Shared.Generation
         private List<Location> _DisallowedLocations;
         public static Submarine MapFeatureSub { get; private set; }
         public static Identifier CurrentMapFeature { get; private set; }
+        public static MapFeature Feature { get; private set; }
 
         protected override void InitProjSpecific()
         {
@@ -62,6 +63,8 @@ namespace MoreLevelContent.Shared.Generation
 
         public override void OnLevelGenerate(LevelData levelData, bool mirror)
         {
+            Feature = null;
+            MapFeatureSub = null;
             var data = levelData.MLC();
             if (data.MapFeatureData.Name.IsEmpty) return;
             if (!TryGetFeature(data.MapFeatureData.Name, out MapFeature feature))
@@ -69,7 +72,7 @@ namespace MoreLevelContent.Shared.Generation
                 Log.Error($"Tried to spawn non-existant map feature with identifier {data.MapFeatureData.Name}");
                 return;
             }
-
+            Feature = feature;
             SubmarineFile file = ContentPackageManager.EnabledPackages.All.SelectMany(p => p.GetFiles<SubmarineFile>()).Where(f => f.Path.Value == feature.SubFile).FirstOrDefault();
             if (file == null)
             {

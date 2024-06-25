@@ -26,10 +26,9 @@
             identifier="waystation" spawnPosition="PathWall"
             placement="Top" commonnessperzone="1: 0.10, 2: 0.25, 3: 0.5, 4: 0.3, 5: 0.2" chance="0.5f" allowstealing="false">
             <Display icon="WayStation" tooltip="mapfeature.waystation" hideuntilrevealed="false" />
-            <!--ScriptedEvent identifier="waystation_escort" commonness="10" probability="1" /-->
-            <ScriptedEvent identifier="waystation_revealpirate" commonness="5" probability="1" />
-            <ScriptedEvent identifier="waystation_revealresearch" commonness="5" probability="1" />
             <ScriptedEvent identifier="waystation_revealtheatre" commonness="8" probability="1" />
+            <ScriptedEvent identifier="waystation_revealresearch" commonness="5" probability="1" />
+            <ScriptedEvent identifier="waystation_husk" commonness="2" probability="1" />
         </MapFeature>
 
         <MapFeature path="%ModDir%/Map/MapFeatures/ClownStation.sub"

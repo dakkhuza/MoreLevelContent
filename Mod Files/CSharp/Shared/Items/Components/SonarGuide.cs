@@ -19,15 +19,10 @@ namespace MoreLevelContent.Items
         [Serialize(30000.0f, IsPropertySaveable.Yes, description: "How far away this guide can be detected from, 10000.0f is the default sonar range."), Editable]
         public float Range { get; private set; }
 
-        [Serialize(10000.0f, IsPropertySaveable.Yes, description: "How close a player has to be before the map feature is revealed."), Editable]
-        public float RevealRange { get; private set; }
-
         private float _Interval;
-        private bool _Revealed;
         public SonarGuide(Item item, ContentXElement element) : base(item, element)
         {
             IsActive = true;
-            _Revealed = false;
         }
 
         public override void Update(float deltaTime, Camera cam)

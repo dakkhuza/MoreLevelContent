@@ -86,4 +86,11 @@
     <!-- Misc -->
      <entityname.mailman_researchdata>Research Data</entityname.mailman_researchdata>
      <entitydescription.mailman_researchdata>Some kind of important research data pertaining to the abyssal depths of Europa. You can't make much sense of it.</entitydescription.mailman_researchdata>
+
+     <entityname.abyssresearch_alienobject>Strange Alien Object</entityname.abyssresearch_alienobject>
+     <entitydescription.abyssresearch_alienobject>An alien object of unknown function. It seems to have transported the researchers here. You could probably sell this for a lot to the right people.</entitydescription.abyssresearch_alienobject>
+
+     <sonarbeacon.researcher>Researcher</sonarbeacon.researcher>
+     <abyssresearch.findbodies>Locate the missing researchers</abyssresearch.findbodies>
+     <abyssresearch.returnitem>Return the alien device</abyssresearch.returnitem>
 </infotexts>

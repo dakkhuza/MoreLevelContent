@@ -94,7 +94,6 @@
         fabricationlimitmin="0" fabricationlimitmax="1" quality="2" />
       <SellableItem identifier="thoriumfuelrod" requiredtime="1" requiredmoney="200"
         fabricationlimitmin="0" fabricationlimitmax="2" quality="2" />
-
     </SimpleStore>
     <ItemContainer capacity="0" canbeselected="false" hideitems="true" slotsperrow="1" uilabel=""
       allowuioverlap="true" />
@@ -125,17 +124,69 @@
     <Holdable slots="Any,RightHand,LeftHand" holdangle="30" handle1="-10,0"
       msg="ItemMsgPickUpSelect" />
   </Item>
+  <Item name="Alien Object" identifier="abyssresearch_alienobject" category="Misc"
+    hideinmenus="true" Tags="smallitem" cargocontaineridentifier="metalcrate" scale="0.5"
+    impactsoundtag="impact_soft">
+    <PreferredContainer primary="crewcab" secondary="locker" />
+    <Price baseprice="10000" sold="false">
+      <Price storeidentifier="merchantoutpost" sold="false" multiplier="0.1"/>
+      <Price storeidentifier="merchantcity" sold="false" multiplier="1"/>
+      <Price storeidentifier="merchantresearch" sold="false" multiplier="1" />
+      <Price storeidentifier="merchantmilitary" sold="false" multiplier="0.1"  />
+      <Price storeidentifier="merchantmine" sold="false" multiplier="0.1" />
+    </Price>
+    <InventoryIcon texture="Content/Items/Alien/AlienRuins_Items.png" sourcerect="431,1779,44,46"
+      origin="0.5,0.5" />
+    <sprite texture="Content/Items/Alien/AlienRuins_Items.png" sourcerect="431,1779,44,46"
+      origin="0.5,0.5" />
+    <Body width="44" height="46" density="20" />
+    <Holdable slots="Any,RightHand,LeftHand" holdangle="30" handle1="-10,0"
+      msg="ItemMsgPickUpSelect">
+      <StatusEffect type="OnSecondaryUse" target="This" Condition="0" setvalue="true">
+        <Conditional Condition="eq 100" />
+        <!-- TODO: Sound and effect -->
+        <Sound file="Content/Items/Weapons/Emp.ogg" />
+        <Explosion range="800.0" structuredamage="0" itemdamage="0" force="5"
+          severlimbsprobability="0" flash="true" sparks="false" shockwave="false"
+          flames="false" underwaterbubble="false" smoke="false" debris="false"
+          flashduration="5" ignorecover="true" />
 
+        <TriggerEvent>
+          <ScriptedEvent identifier="alienobject_tp">
+            <TeleportCharacterAction TargetTag="statuseffectuser" />
+            <AfflictionAction targettag="statuseffectuser" affliction="concussion" strength="5" />
+            <AfflictionAction targettag="statuseffectuser" affliction="watchersgaze" strength="25" />
+            <AfflictionAction targettag="statuseffectuser" affliction="nausea" strength="25" />
+            <AfflictionAction targettag="statuseffectuser" affliction="stun" strength="2" />
+            <AfflictionAction targettag="statuseffectuser" affliction="hallucinating" strength="25" />
+            <WaitAction time="0.1" />
+            <StatusEffectAction targettag="statuseffectuser">
+              <StatusEffect target="this">
+                <Sound file="Content/Items/Weapons/Emp.ogg" />
+                <Explosion range="3000.0" structuredamage="0" itemdamage="0" force="5"
+                  severlimbsprobability="0" flash="true" sparks="false" shockwave="false"
+                  flames="false" underwaterbubble="false" smoke="false" debris="false"
+                  flashduration="5" ignorecover="true" />
+              </StatusEffect>
+            </StatusEffectAction>
+          </ScriptedEvent>
+        </TriggerEvent>
+      </StatusEffect>
+
+      <StatusEffect type="Always" target="this" Condition="0.5" disabledeltatime="true" />
+
+    </Holdable>
+  </Item>
   <Item name="Notice Board" identifier="mlc_noticeboard" nameidentifier="opdeco_hrelectricpanel"
     category="Decorative" scale="0.5">
     <sprite texture="Content/Map/Outposts/Art/HumanResourcesAssets.png" sourcerect="576,416,320,235"
       depth="0.98" premultiplyalpha="false" origin="0.5,0.5" />
   </Item>
-
-  <Item name="" identifier="syringegun_weapon" nameidentifier="syringegun" variantof="syringegun" category="Weapon" hideinmenus="true" tags="smallitem,weapon,gun,provocativetohumanai,mountableweapon">
+  <Item name="" identifier="syringegun_weapon" nameidentifier="syringegun" variantof="syringegun"
+    category="Weapon" hideinmenus="true"
+    tags="smallitem,weapon,gun,provocativetohumanai,mountableweapon">
     <PreferredContainer secondary="secarmcab,weaponholder" />
-    <Price baseprice="310" sold="false">
-    </Price>
+    <Price baseprice="310" sold="false"></Price>
     <Deconstruct time="10">
       <Item identifier="titaniumaluminiumalloy" />
       <Item identifier="plastic" />
@@ -160,6 +211,33 @@
     </ItemContainer>
     <SkillRequirementHint identifier="weapons" level="30" />
     <SkillRequirementHint identifier="medical" level="50" />
+  </Item>
+  <Item name="" identifier="sonarbeacon_abyssresearch" nameidentifier="sonarbeacon" hideinmenus="true" category="Equipment,Diving" Tags="smallitem,sonar,provocative" Scale="0.5" impactsoundtag="impact_metal_light">
+    <Price baseprice="150" sold="false" />
+    <Deconstruct time="15">
+      <Item identifier="copper" />
+      <Item identifier="plastic" amount="2" />
+    </Deconstruct>
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="832,320,64,64" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Tools/tools.png" sourcerect="473,1,29,65" depth="0.55" origin="0.5,0.5" />
+    <Body width="27" height="60" density="12" />
+    <Holdable slots="Any,RightHand,LeftHand" holdangle="30" handle1="0,-15" msg="ItemMsgPickUpSelect" />
+    <AiTarget soundrange="50000" sonarlabel="sonarbeacon.researcher" sight="500" staticsight="true"/>
+    <LightComponent LightColor="0.0,1.0,0.0,1.0" range="50" powerconsumption="10" blinkfrequency="2" IsOn="true" canbeselected="false">
+      <StatusEffect type="OnActive" targettype="Contained" Condition="-0.1">
+        <RequiredItem items="mobilebattery" type="Contained" />
+      </StatusEffect>
+      <StatusEffect type="OnActive" targettype="This" SoundRange="50000" setvalue="true">
+        <Conditional Voltage="gt 0.5" targetitemcomponent="LightComponent" />
+        <sound file="Content/Items/Weapons/SonarDecoy.ogg" range="500.0" loop="true" volume="0.25" />
+      </StatusEffect>
+    </LightComponent>
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="battery">
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="128,448,64,64" origin="0.5,0.5" />
+      <Containable items="mobilebattery">
+        <StatusEffect type="OnContaining" targettype="This" Voltage="1.0" setvalue="true" />
+      </Containable>
+    </ItemContainer>
   </Item>
 
 </Items>

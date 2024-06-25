@@ -172,7 +172,8 @@
             </StatusEffectAction>
             <ClearTagAction tag="trigger_player" />
             <ConversationAction speakertag="admin"
-                endeventifinterrupted="false" text="I knew we should have kicked those cultists out the airlock the second they came on board, here's something for your trouble."
+                endeventifinterrupted="false"
+                text="I knew we should have kicked those cultists out the airlock the second they came on board, here's something for your trouble."
                 waitforinteraction="true" eventsprite="officeinside" />
             <MoneyAction amount="8000" />
             <GiveExpAction amount="800" targettag="players" />
@@ -505,11 +506,11 @@
         <ScriptedEvent identifier="abyssresearch_mailman">
             <TagAction criteria="player" tag="player" />
             <SpawnAction npcsetidentifier="outpostnpcs1"
-                npcidentifier="researcher" spawnpointtag="abyssresearch"
+                npcidentifier="researcher" spawnpointtag="abyssresearch_researcher"
                 spawnlocation="any" targettag="researcher"
                 requirespawnpointtag="true" team="FriendlyNPC" />
             <SpawnAction npcsetidentifier="outpostnpcs1"
-                npcidentifier="researcher" spawnpointtag="abyssresearch"
+                npcidentifier="researcher" spawnpointtag="abyssresearch_researcher"
                 spawnlocation="any" targettag="questgiver"
                 requirespawnpointtag="true" team="FriendlyNPC" />
             <SpawnAction npcsetidentifier="outpostnpcs1"
@@ -653,13 +654,14 @@
         <!-- Teleport the researcher to an alien ruin? -->
         <ScriptedEvent identifier="abyssresearch_teleportmishap">
             <TagAction criteria="player" tag="player" />
+            <TagAction criteria="itemtag:researchdoor" tag="door" />
             <SpawnAction npcsetidentifier="outpostnpcs1"
-                npcidentifier="researcher" spawnpointtag="abyssresearch"
-                spawnlocation="any" targettag="researcher"
+                npcidentifier="researcher" spawnpointtag="abyssresearch_researcher"
+                spawnlocation="any" targettag="researcher1"
                 requirespawnpointtag="true" team="FriendlyNPC" />
             <SpawnAction npcsetidentifier="outpostnpcs1"
-                npcidentifier="researcher" spawnpointtag="abyssresearch"
-                spawnlocation="any" targettag="questgiver"
+                npcidentifier="researcher" spawnpointtag="abyssresearch_researcher"
+                spawnlocation="any" targettag="researcher2"
                 requirespawnpointtag="true" team="FriendlyNPC" />
             <SpawnAction npcsetidentifier="outpostnpcs1"
                 npcidentifier="reactoroperator" spawnpointtag="abyssresearch"
@@ -667,10 +669,127 @@
                 requirespawnpointtag="true" team="FriendlyNPC" />
             <SpawnAction npcsetidentifier="outpostnpcs1"
                 npcidentifier="securitynpccoalition" spawnpointtag="abyssresearch"
-                spawnlocation="any"
+                spawnlocation="any" targettag="sec"
                 requirespawnpointtag="true" team="FriendlyNPC" />
+            <StatusEffectAction targettag="door">
+                <StatusEffect target="This" NonInteractable="true" setvalue="true" />
+            </StatusEffectAction>
+            <TriggerAction target1tag="player" target2tag="door" radius="100"
+                applytotarget1="trigger_player" />
+            <ConversationAction targettag="trigger_player"
+                endeventifinterrupted="false" continueconversation="true"
+                text="You can hear a conversation on the other side of the door."
+                waitforinteraction="false" eventsprite="" />
+            <ConversationAction targettag="trigger_player"
+                endeventifinterrupted="false" continueconversation="true"
+                text="'Are you sure we should be messing around with this thing?'."
+                waitforinteraction="false" eventsprite="" />
+            <ConversationAction targettag="trigger_player"
+                endeventifinterrupted="false" continueconversation="false"
+                text="'The institute wouldn't have given it to us if they didn't want it messed with.'"
+                waitforinteraction="false" eventsprite="" />
 
+            <SpawnAction itemidentifier="abyssresearch_alienobject" targettag="alienobject"
+                targetinventory="researcher1" />
+
+            <TeleportCharacterAction TargetTag="researcher1" />
+            <TeleportCharacterAction TargetTag="researcher2" />
+            <StatusEffectAction targettag="trigger_player">
+                <StatusEffect target="This" duration="2">
+                    <sound file="Content/Items/Weapons/Emp.ogg" range="1000" />
+                    <Explosion range="3000.0" structuredamage="0" itemdamage="0" force="5"
+                        severlimbsprobability="0" flash="true" sparks="false" shockwave="false"
+                        flames="false" underwaterbubble="false" smoke="false" debris="false"
+                        flashduration="5" ignorecover="true">
+                        <Affliction identifier="stun" strength="4" />
+                    </Explosion>
+                </StatusEffect>
+            </StatusEffectAction>
+            <StatusEffectAction targettag="door">
+                <StatusEffect target="This" NonInteractable="false" setvalue="true" />
+            </StatusEffectAction>
+
+            <TagAction criteria="itemtag:researchroom" tag="researchroom" />
+            <NPCFollowAction npctag="sec" targettag="researchroom" follow="true" />
+            <WaitAction time="10" />
+
+            <ConversationAction speakertag="sec" invokertag="trigger_player"
+                text="'You heard that sound too, right? Where are the researchers?'">
+                <Option text="I think they vanished.">
+                    <ConversationAction targettag="trigger_player"
+                        text="'Ah shit, this is the second time this month.' The guard sizes you up. 'You're a submariner, right? I had the new batch of researchers equipped with tracking beacons in case it happened again. Would you be willing to recover whatever's left of them?'">
+                        <Option text="Sure, why not.">
+                            <ConversationAction targettag="trigger_player"
+                                text="'Perfect! Here, I'll activate the beacons.' 'Once you find them, grab anything that looks, uh, alieny. And brind it back here. I'll be sure to make it worth your time.'" />
+                            <GoTo name="findbodies" />
+                        </Option>
+                        <Option text="Sorry, we're busy already.">
+                            <ConversationAction targettag="trigger_player"
+                                continueconversation="false"
+                                text="'Oh well, it never hurts to ask.' 'The institude is going to be pissed to hear we lost more researchers...'" />
+                            <GoTo name="end" />
+                        </Option>
+                    </ConversationAction>
+                </Option>
+            </ConversationAction>
+
+            <Label name="findbodies" />
+
+            <SpawnAction itemidentifier="sonarbeacon_abyssresearch" targettag="beacon1"
+                targetinventory="researcher1" />
+            <SpawnAction itemidentifier="batterycell" targetinventory="beacon1" />
+
+            <EventObjectiveAction type="Add" identifier="abyssresearch.findbodies" />
+
+            <TriggerAction target1tag="researcher1" target2tag="player" waitforinteraction="true"
+                disableiftargetincapacitated="false" selectontrigger="true" />
+            <EventObjectiveAction type="CompleteAndRemove" identifier="abyssresearch.findbodies" />
+            <EventObjectiveAction type="Add" identifier="abyssresearch.returnitem" />
+
+            <Label name="deliveritem" />
+            <ClearTagAction tag="trigger_player" />
+            <ConversationAction speakertag="sec" invokertag="trigger_player"
+                text="'Did you find whatever they were messing with?'">
+                <Option text="Hand over device.">
+                    <CheckItemAction targettag="trigger_player" itemtags="alienobject">
+                        <Failure>
+                            <ConversationAction targettag="trigger_player"
+                                continueconversation="false"
+                                text="Where did we put that alien object again?" />
+                            <GoTo name="deliveritem" />
+                        </Failure>
+                        <Success>
+                            <RemoveItemAction targettag="alienobject" />
+                            <EventObjectiveAction type="CompleteAndRemove"
+                                identifier="abyssresearch.returnitem" />
+                            <ConversationAction targettag="trigger_player"
+                                text="'Ah, perfect! I'll store this somewhere safe. Oh, and your reward! The researchers have got some trinkets here if you want them or I could give you some marks.'">
+                                <Option text="We'll take the marks." endconversation="true">
+                                    <MoneyAction amount="8000" />
+                                </Option>
+                                <Option text="We'll go for the trinkets." endconversation="true">
+                                    <SpawnAction itemidentifier="alientrinket1"
+                                        targetinventory="trigger_player" amount="2" />
+                                    <SpawnAction itemidentifier="alientrinket2"
+                                        targetinventory="trigger_player" amount="2" />
+                                    <SpawnAction itemidentifier="alientrinket3"
+                                        targetinventory="trigger_player" amount="2" />
+                                </Option>
+                            </ConversationAction>
+
+                        </Success>
+                    </CheckItemAction>
+                </Option>
+                <Option text="Not yet." endconversation="true">
+                    <GoTo name="deliveritem"/>
+                </Option>
+            </ConversationAction>
+
+            <Label name="xp" />
+            <TagAction criteria="crew" tag="crew" />
+            <GiveExpAction amount="1250" targettag="crew" />
+
+            <Label name="end" />
         </ScriptedEvent>
-
     </EventPrefabs>
 </Randomevents>

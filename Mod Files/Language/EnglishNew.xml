@@ -72,7 +72,7 @@
     <mapfeature.clownstation.name>Clown Theatre</mapfeature.clownstation.name>
     <mapfeature.abyssresearch.name>Abyssal Research Facility</mapfeature.abyssresearch.name>
 
-    <mapfeature.revealed.header>[feature] Revealed</mapfeature.revealed.header>    
+    <mapfeature.revealed.header>[feature] Revealed</mapfeature.revealed.header>   
     <mapfeature.revealed.description>Check the campaign map for more information.</mapfeature.revealed.description>
 
     <!-- Loading Tips -->

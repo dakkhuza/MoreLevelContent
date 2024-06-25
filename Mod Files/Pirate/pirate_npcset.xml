@@ -706,7 +706,7 @@
           <Item identifier="batterycell" showpreview="false" />
         </Item>
 
-        <Item identifier="syringegun" tags="weapon,gun">
+        <Item identifier="syringegun_weapon" tags="weapon,gun">
           <Item identifier="chloralhydrate"/>
           <Item identifier="chloralhydrate"/>
           <Item identifier="chloralhydrate"/>
@@ -1071,7 +1071,7 @@
           <Item identifier="batterycell" showpreview="false" />
         </Item>
 
-        <Item identifier="syringegun" tags="weapon,gun">
+        <Item identifier="syringegun_weapon" tags="weapon,gun">
           <Item identifier="paralyzant"/>
           <Item identifier="paralyzant"/>
           <Item identifier="paralyzant"/>
@@ -1104,7 +1104,7 @@
           <Item identifier="batterycell" showpreview="false" />
         </Item>
 
-        <Item identifier="syringegun" tags="weapon,gun">
+        <Item identifier="syringegun_weapon" tags="weapon,gun">
           <Item identifier="cyanide"/>
           <Item identifier="cyanide"/>
           <Item identifier="cyanide"/>
@@ -1140,7 +1140,7 @@
           <Item identifier="batterycell" showpreview="false" />
         </Item>
 
-        <Item identifier="syringegun" tags="weapon,gun">
+        <Item identifier="syringegun_weapon" tags="weapon,gun">
           <Item identifier="sufforin"/>
           <Item identifier="sufforin"/>
           <Item identifier="sufforin"/>
@@ -1462,7 +1462,7 @@
           <Item identifier="batterycell" showpreview="false" />
         </Item>
 
-        <Item identifier="syringegun" tags="weapon,gun">
+        <Item identifier="syringegun_weapon" tags="weapon,gun">
           <Item identifier="cyanide"/>
           <Item identifier="cyanide"/>
           <Item identifier="cyanide"/>
@@ -1496,7 +1496,7 @@
           <Item identifier="batterycell" showpreview="false" />
         </Item>
 
-        <Item identifier="syringegun" tags="weapon,gun">
+        <Item identifier="syringegun_weapon" tags="weapon,gun">
           <Item identifier="antidama2" />
           <Item identifier="antidama2" />
           <Item identifier="antidama2" />

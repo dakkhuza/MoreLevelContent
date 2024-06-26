@@ -94,6 +94,42 @@
         fabricationlimitmin="0" fabricationlimitmax="1" quality="2" />
       <SellableItem identifier="thoriumfuelrod" requiredtime="1" requiredmoney="200"
         fabricationlimitmin="0" fabricationlimitmax="2" quality="2" />
+      <!-- Consumables -->
+      <SellableItem identifier="flare" requiredtime="1" requiredmoney="5"
+        fabricationlimitmin="0" fabricationlimitmax="16" />
+      <SellableItem identifier="glowstick" requiredtime="1" requiredmoney="5"
+        fabricationlimitmin="0" fabricationlimitmax="16" quality="2" />
+
+      <!-- Equipment -->
+      <SellableItem identifier="flamer" requiredtime="1" requiredmoney="100"
+        fabricationlimitmin="0" fabricationlimitmax="2" />
+      <SellableItem identifier="backpack" requiredtime="1" requiredmoney="100"
+        fabricationlimitmin="0" fabricationlimitmax="2" />
+      <SellableItem identifier="toolbelt" requiredtime="1" requiredmoney="65"
+        fabricationlimitmin="0" fabricationlimitmax="2" />
+      <SellableItem identifier="weldingtool" requiredtime="1" requiredmoney="150"
+        fabricationlimitmin="0" fabricationlimitmax="2" quality="2" />
+      <SellableItem identifier="plasmacutter" requiredtime="1" requiredmoney="150"
+        fabricationlimitmin="0" fabricationlimitmax="2" quality="2" />
+      <SellableItem identifier="screwdriver" requiredtime="1" requiredmoney="100"
+        fabricationlimitmin="0" fabricationlimitmax="1" quality="2" />
+      <SellableItem identifier="wrench" requiredtime="1" requiredmoney="100"
+        fabricationlimitmin="0" fabricationlimitmax="1" quality="2" />
+      <SellableItem identifier="crowbar" requiredtime="1" requiredmoney="100"
+        fabricationlimitmin="0" fabricationlimitmax="1" quality="2" />
+
+
+      <!-- Tanks -->
+      <SellableItem identifier="weldingfueltank" requiredtime="1" requiredmoney="120"
+        fabricationlimitmin="0" fabricationlimitmax="4" quality="2" />
+      <SellableItem identifier="incendiumfueltank" requiredtime="1" requiredmoney="250"
+        fabricationlimitmin="0" fabricationlimitmax="2" quality="2" />
+      <SellableItem identifier="oxygentank" requiredtime="1" requiredmoney="75"
+        fabricationlimitmin="0" fabricationlimitmax="4" quality="2" />
+      <SellableItem identifier="oxygenitetank" requiredtime="1" requiredmoney="175"
+        fabricationlimitmin="0" fabricationlimitmax="2" quality="2" />
+
+
     </SimpleStore>
     <ItemContainer capacity="0" canbeselected="false" hideitems="true" slotsperrow="1" uilabel=""
       allowuioverlap="true" />

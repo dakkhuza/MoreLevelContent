@@ -166,13 +166,13 @@
             <ItemSet commonness="1">
                 <Item identifier="clownmask" equip="true" />
                 <Item identifier="securitypatrolclothes" equip="true" />
-                <Item identifier="toyhammer" equip="true" />
                 <Item identifier="bodyarmor" equip="true" />
                 <Item identifier="idcard" equip="true" />
                 <Item identifier="handcuffs" />
                 <Item identifier="revolver" equip="false">
                     <Item identifier="revolverround" amount="6" />
                 </Item>
+                <Item identifier="toyhammer_sec" equip="false" />
                 <Item identifier="revolverround" amount="6" />
                 <Item identifier="divingknife" />
                 <Item identifier="antibleeding1" />
@@ -211,7 +211,7 @@
         </npc>
 
         <!-- Husk cultists -->
-        <npc identifier="huskcultist_waystation" tags="huskcultist" faction="huskcult"
+        <npc identifier="huskcultist_waystation" faction="huskcult"
             commonness="0" job="hostileinfriendlysub" behavior="Patrol" healthmultiplier="1">
             <ItemSet commonness="1">
                 <Item identifier="idcard" equip="true" />
@@ -258,6 +258,46 @@
 
             </ItemSet>
         </npc>
+
+        <npc identifier="huskcultist_security" faction="huskcult"
+            commonness="0" job="outpostsecurityofficer" behavior="Patrol" healthmultiplier="1.5">
+            <ItemSet commonness="1">
+                <Item identifier="idcard" equip="true" />
+                <Item identifier="cultistrobes" equip="true" />
+                <Item identifier="bodyarmor" equip="true" />
+                <Item identifier="ballistichelmet1" equip="true" />
+                <Item identifier="divingknife" equip="false" />
+                <Item identifier="syringegun_weapon" equip="true">
+                    <Item identifier="paralyzant" />
+                    <Item identifier="paralyzant" />
+                    <Item identifier="paralyzant" />
+                    <Item identifier="paralyzant" />
+                    <Item identifier="paralyzant" />
+                </Item>
+                <Item identifier="cyanide" />
+                <Item identifier="cyanide" />
+                <Item identifier="cyanide" />
+                <Item identifier="cyanide" />
+                <Item identifier="cyanide" />
+                <Item identifier="cyanide" />
+                <Item identifier="cyanide" />
+                <Item identifier="cyanide" />
+
+                <Item identifier="huskeggs" />
+                <Item identifier="huskeggs" />
+            </ItemSet>
+        </npc>
+
+        <npc identifier="huskcultist_admin" faction="huskcult"
+            commonness="0" behavior="StayInHull" healthmultiplier="1">
+            <ItemSet commonness="1">
+                <Item identifier="idcard" equip="true" />
+                <Item identifier="zealotrobes" equip="true" />
+                <Item identifier="huskeggs" />
+                <Item identifier="huskeggs" />
+            </ItemSet>
+        </npc>
+
 
     </npcset>
 

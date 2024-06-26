@@ -56,15 +56,17 @@
             <ScriptedEvent identifier="abyssresearch_nasonovtesting" commonness="8" probability="1" />
         </MapFeature>
 
-        <!--MapFeature
-        path="%ModDir%/Map/MapFeatures/HuskChurch.sub"
+        <MapFeature
+            path="%ModDir%/Map/MapFeatures/HuskChurch.sub"
             identifier="huskchurch" spawnPosition="AbyssIsland"
             placement="Top" commonnessperzone="1: 0, 2: 0.10, 3: 0.25, 4: 0.35, 5: 0.45" chance="1f"
-        allowstealing="false">
+            allowstealing="false">
             <Display icon="HuskChurch" tooltip="mapfeature.huskchurch"
                 hideuntilrevealed="true" />
+            <ScriptedEvent identifier="huskchurch_unlockescort" commonness="10" probability="1" />
+            <ScriptedEvent identifier="huskchurch_cargo" commonness="10" probability="1" />
 
-        </MapFeature-->
+        </MapFeature>
 
 
     </MapFeatures>

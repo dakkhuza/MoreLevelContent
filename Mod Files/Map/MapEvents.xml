@@ -630,8 +630,10 @@
         </ScriptedEvent>
 
         <!-- Spawns two abyss creatures nearby -->
-        <ScriptedEvent identifier="abyssresearch_nasonovtesting">
+        <!--ScriptedEvent
+        identifier="abyssresearch_nasonovtesting">
             <TagAction criteria="player" tag="player" />
+            <TagAction criteria="itemtag:researchdoor" tag="door" />
             <SpawnAction npcsetidentifier="outpostnpcs1"
                 npcidentifier="researcher" spawnpointtag="abyssresearch"
                 spawnlocation="any" targettag="researcher"
@@ -649,7 +651,57 @@
                 spawnlocation="any"
                 requirespawnpointtag="true" team="FriendlyNPC" />
 
-        </ScriptedEvent>
+            <StatusEffectAction targettag="door">
+                <StatusEffect target="This" NonInteractable="true" setvalue="true" />
+            </StatusEffectAction>
+            <TriggerAction target1tag="player" target2tag="door" radius="100"
+                applytotarget1="trigger_player" />
+            <ConversationAction targettag="trigger_player"
+                endeventifinterrupted="false" continueconversation="true"
+                text="You can hear a conversation on the other side of the door."
+                waitforinteraction="false" eventsprite="">
+                <Option text="Listen.">
+                    <ConversationAction targettag="trigger_player"
+                        endeventifinterrupted="false" continueconversation="true"
+                        text="'Is it supposed to be glowing like that?'"
+                        waitforinteraction="false" eventsprite="" />
+                    <ConversationAction targettag="trigger_player"
+                        endeventifinterrupted="false" continueconversation="true"
+                        text="'It's fine, the transport case keeps the meta-materials suppressed.'"
+                        waitforinteraction="false" eventsprite="" />
+                    <ConversationAction targettag="trigger_player"
+                        endeventifinterrupted="false" continueconversation="true"
+                        text="'As long as the battery is charged, right?'"
+                        waitforinteraction="false" eventsprite="" />
+                    <ConversationAction targettag="trigger_player"
+                        endeventifinterrupted="false" continueconversation="true"
+                        text="'Yes, now will you please hand me-'"
+                        waitforinteraction="false" eventsprite="" continueautomatically="true" />
+                    <DelayAction time="1" />
+                    <ConversationAction targettag="trigger_player"
+                        endeventifinterrupted="false" continueconversation="true"
+                        text="'When was the last time the battery was changed?'"
+                        waitforinteraction="false" eventsprite="" />
+                    <ConversationAction targettag="trigger_player"
+                        endeventifinterrupted="false" continueconversation="true"
+                        text="'Is that really important?'"
+                        waitforinteraction="false" eventsprite="" />
+                    <ConversationAction targettag="trigger_player"
+                        endeventifinterrupted="false" continueconversation="true"
+                        text="'It would just make me feel better.'"
+                        waitforinteraction="false" eventsprite="" />
+                    <ConversationAction targettag="trigger_player"
+                        endeventifinterrupted="false" continueconversation="false"
+                        text="'Fine, but-... Oh shit.' The voice trails off, you can't make out the rest."
+                        waitforinteraction="false" eventsprite="" />
+                </Option>
+                <Option text="I'm not one to eavesdrop." />
+            </ConversationAction>
+            <ClearTagAction tag="trigger_player" />
+            <ConversationAction targettag="trigger_player" speakertag="questgiver"
+                endeventifinterrupted="false" text="You can hear a conversation on the other side of the door." />
+
+        </ScriptedEvent-->
 
         <!-- Teleport the researcher to an alien ruin? -->
         <ScriptedEvent identifier="abyssresearch_teleportmishap">
@@ -781,7 +833,7 @@
                     </CheckItemAction>
                 </Option>
                 <Option text="Not yet." endconversation="true">
-                    <GoTo name="deliveritem"/>
+                    <GoTo name="deliveritem" />
                 </Option>
             </ConversationAction>
 
@@ -791,5 +843,138 @@
 
             <Label name="end" />
         </ScriptedEvent>
+
+        <!-- 
+        
+            HUSK CHURCH
+        escort1huskcult
+        -->
+
+        <ScriptedEvent identifier="huskchurch_experimentgonewrong">
+            <TagAction criteria="player" tag="players" />
+            <TagAction criteria="itemtag:experimentdoor" tag="door" />
+            <TagAction criteria="itemtag:lockdoor" tag="lock" />
+            <TagAction criteria="itemtag:safespot" tag="safespot" />
+
+            <SpawnAction npcsetidentifier="mapfeaturenpc"
+                npcidentifier="huskcultist_security" spawnpointtag="huskchurch"
+                spawnlocation="any" targettag="cultist"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="huskcultist" spawnpointtag="huskchurch"
+                spawnlocation="any" targettag="cultist"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="huskcultist" spawnpointtag="huskchurch"
+                spawnlocation="any" targettag="cultist"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <!-- Husk Admin -->
+            <SpawnAction npcsetidentifier="mapfeaturenpc"
+                npcidentifier="huskcultist_admin" spawnpointtag="huskchurch_admin"
+                spawnlocation="any" targettag="admin"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+
+            <SpawnAction npcsetidentifier="outpostnpcs1" npcidentifier="huskcultist"
+                spawnpointtag="huskchurch_research" spawnlocation="any"
+                requirespawnpointtag="true" team="FriendlyNPC" targettag="victim" />
+
+            <SpawnAction npcsetidentifier="outpostnpcs1" npcidentifier="commoner"
+                spawnpointtag="huskchurch_research" spawnlocation="any"
+                requirespawnpointtag="true" team="FriendlyNPC" targettag="victim" />
+
+            <SpawnAction speciesname="Husk" spawnpointtag="huskchurch_research" spawnlocation="any"
+                requirespawnpointtag="true" />
+
+            <StatusEffectAction targettag="door">
+                <StatusEffect target="This" Stuck="100" setvalue="true" />
+            </StatusEffectAction>
+
+            <AfflictionAction targettag="victim" affliction="huskinfection" strength="80" />
+
+            <!-- Talk to admin -->
+
+            <!-- Interact with door -->
+            <TriggerAction />
+            <!-- Sealed in -->
+
+            <!-- Door opens -->
+
+            <!-- Fight husks -->
+
+            <!-- Recover item -->
+
+            <!-- Seal removed -->
+
+            <!-- Hand over item -->
+
+            <!-- Reward -->
+
+            <Label name="end" />
+        </ScriptedEvent>
+
+        <ScriptedEvent identifier="huskchurch_unlockescort">
+            <SpawnAction npcsetidentifier="mapfeaturenpc"
+                npcidentifier="huskcultist_security" spawnpointtag="huskchurch"
+                spawnlocation="any" targettag="cultist"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="huskcultist" spawnpointtag="huskchurch"
+                spawnlocation="any" targettag="cultist"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="huskcultist" spawnpointtag="huskchurch"
+                spawnlocation="any" targettag="cultist"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <!-- Husk Admin -->
+            <SpawnAction npcsetidentifier="mapfeaturenpc"
+                npcidentifier="huskcultist_admin" spawnpointtag="huskchurch_admin"
+                spawnlocation="any" targettag="admin"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+
+            <ConversationAction
+                text="Welcome to our humble church traveler. Say, you look like the type that would help the church. We've got some acolytes on a nearby outpost looking for transport. Here, I'll mark it down for you."
+                speakertag="admin"
+                invokertag="triggerer_player" endeventifinterrupted="false" eventsprite="cultist" />
+            <MissionAction missiontag="escortcommonershuskcult" requirefaction="huskcult" />
+
+        </ScriptedEvent>
+
+        <ScriptedEvent identifier="huskchurch_cargo">
+            <SpawnAction npcsetidentifier="mapfeaturenpc"
+                npcidentifier="huskcultist_security" spawnpointtag="huskchurch"
+                spawnlocation="any" targettag="cultist"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="huskcultist" spawnpointtag="huskchurch"
+                spawnlocation="any" targettag="cultist"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <SpawnAction npcsetidentifier="outpostnpcs1"
+                npcidentifier="huskcultist" spawnpointtag="huskchurch"
+                spawnlocation="any" targettag="cultist"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <!-- Husk Admin -->
+            <SpawnAction npcsetidentifier="mapfeaturenpc"
+                npcidentifier="huskcultist_admin" spawnpointtag="huskchurch_admin"
+                spawnlocation="any" targettag="admin"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+
+            <ConversationAction
+                text="Welcome to our humble church traveler. Say, you look like the type that would help the church. We've got some... goods on a nearby outpost looking for transport. Here, I'll mark it down for you. Those that help the church in turn help themselves."
+                speakertag="admin"
+                invokertag="triggerer_player" endeventifinterrupted="false" eventsprite="cultist" />
+            <MissionAction missiontag="cargohuskcult" requirefaction="huskcult" />
+
+        </ScriptedEvent>
+
+        <ScriptedEvent identifier="mlctestevent">
+            <TagAction criteria="player" tag="player" />
+            <SpawnAction itemidentifier="divingknife" targetinventory="player" targettag="knife" />
+            <StatusEffectAction targettag="knife">
+                <StatusEffect target="This" NonPlayerTeamInteractable="true" setvalue="true">
+
+                </StatusEffect>
+            </StatusEffectAction>
+        </ScriptedEvent>
+
     </EventPrefabs>
 </Randomevents>

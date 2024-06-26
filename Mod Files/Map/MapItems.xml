@@ -98,7 +98,7 @@
       <SellableItem identifier="flare" requiredtime="1" requiredmoney="5"
         fabricationlimitmin="0" fabricationlimitmax="16" />
       <SellableItem identifier="glowstick" requiredtime="1" requiredmoney="5"
-        fabricationlimitmin="0" fabricationlimitmax="16" quality="2" />
+        fabricationlimitmin="0" fabricationlimitmax="16" />
 
       <!-- Equipment -->
       <SellableItem identifier="flamer" requiredtime="1" requiredmoney="100"

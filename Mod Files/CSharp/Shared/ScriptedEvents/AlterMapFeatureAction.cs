@@ -32,6 +32,7 @@ namespace MoreLevelContent
             isFinished = false;
         }
 
+        // This is going to break people mid-joining
         public override void Update(float deltaTime)
         {
             if (isFinished) { return; }

@@ -129,10 +129,10 @@
     impactsoundtag="impact_soft">
     <PreferredContainer primary="crewcab" secondary="locker" />
     <Price baseprice="10000" sold="false">
-      <Price storeidentifier="merchantoutpost" sold="false" multiplier="0.1"/>
-      <Price storeidentifier="merchantcity" sold="false" multiplier="1"/>
+      <Price storeidentifier="merchantoutpost" sold="false" multiplier="0.1" />
+      <Price storeidentifier="merchantcity" sold="false" multiplier="1" />
       <Price storeidentifier="merchantresearch" sold="false" multiplier="1" />
-      <Price storeidentifier="merchantmilitary" sold="false" multiplier="0.1"  />
+      <Price storeidentifier="merchantmilitary" sold="false" multiplier="0.1" />
       <Price storeidentifier="merchantmine" sold="false" multiplier="0.1" />
     </Price>
     <InventoryIcon texture="Content/Items/Alien/AlienRuins_Items.png" sourcerect="431,1779,44,46"
@@ -186,6 +186,8 @@
     tags="smallitem,weapon,gun,provocativetohumanai,mountableweapon">
     <PreferredContainer secondary="secarmcab,weaponholder" />
     <Price baseprice="310" sold="false"></Price>
+    <Fabricate />
+
     <Deconstruct time="10">
       <Item identifier="titaniumaluminiumalloy" />
       <Item identifier="plastic" />
@@ -211,18 +213,24 @@
     <SkillRequirementHint identifier="weapons" level="30" />
     <SkillRequirementHint identifier="medical" level="50" />
   </Item>
-  <Item name="" identifier="sonarbeacon_abyssresearch" nameidentifier="sonarbeacon" hideinmenus="true" category="Equipment,Diving" Tags="smallitem,sonar,provocative" Scale="0.5" impactsoundtag="impact_metal_light">
+  <Item name="" identifier="sonarbeacon_abyssresearch" nameidentifier="sonarbeacon"
+    hideinmenus="true" category="Equipment,Diving" Tags="smallitem,sonar,provocative" Scale="0.5"
+    impactsoundtag="impact_metal_light">
     <Price baseprice="150" sold="false" />
     <Deconstruct time="15">
       <Item identifier="copper" />
       <Item identifier="plastic" amount="2" />
     </Deconstruct>
-    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="832,320,64,64" origin="0.5,0.5" />
-    <Sprite texture="Content/Items/Tools/tools.png" sourcerect="473,1,29,65" depth="0.55" origin="0.5,0.5" />
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="832,320,64,64"
+      origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Tools/tools.png" sourcerect="473,1,29,65" depth="0.55"
+      origin="0.5,0.5" />
     <Body width="27" height="60" density="12" />
-    <Holdable slots="Any,RightHand,LeftHand" holdangle="30" handle1="0,-15" msg="ItemMsgPickUpSelect" />
-    <AiTarget soundrange="50000" sonarlabel="sonarbeacon.researcher" sight="500" staticsight="true"/>
-    <LightComponent LightColor="0.0,1.0,0.0,1.0" range="50" powerconsumption="10" blinkfrequency="2" IsOn="true" canbeselected="false">
+    <Holdable slots="Any,RightHand,LeftHand" holdangle="30" handle1="0,-15"
+      msg="ItemMsgPickUpSelect" />
+    <AiTarget soundrange="50000" sonarlabel="sonarbeacon.researcher" sight="500" staticsight="true" />
+    <LightComponent LightColor="0.0,1.0,0.0,1.0" range="50" powerconsumption="10" blinkfrequency="2"
+      IsOn="true" canbeselected="false">
       <StatusEffect type="OnActive" targettype="Contained" Condition="-0.1">
         <RequiredItem items="mobilebattery" type="Contained" />
       </StatusEffect>
@@ -231,12 +239,43 @@
         <sound file="Content/Items/Weapons/SonarDecoy.ogg" range="500.0" loop="true" volume="0.25" />
       </StatusEffect>
     </LightComponent>
-    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="battery">
-      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="128,448,64,64" origin="0.5,0.5" />
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true"
+      containedstateindicatorstyle="battery">
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="128,448,64,64"
+        origin="0.5,0.5" />
       <Containable items="mobilebattery">
         <StatusEffect type="OnContaining" targettype="This" Voltage="1.0" setvalue="true" />
       </Containable>
     </ItemContainer>
+  </Item>
+  <Item name="" identifier="toyhammer_sec" nameidentifier="toyhammer" variantof="toyhammer"
+    category="Weapon" hideinmenus="true" tags="smallitem,weapon,stunner,mountableweapon">
+    <Price baseprice="80" sold="false">
+    </Price>
+    <Fabricate />
+    <MeleeWeapon slots="RightHand+LeftHand,Any" controlpose="true" aimpos="45,10" handle1="-20,0"
+      handle2="-10,5" holdangle="60" reload="1" range="100" combatpriority="35"
+      msg="ItemMsgPickUpSelect">
+      <StatusEffect type="OnUse" target="UseTarget" delay="1" comparison="Or">
+        <Conditional speciesname="latcher" />
+        <Conditional speciesname="endworm" />
+        <Conditional speciesname="charybdis" />
+        <TriggerEvent identifier="toyhammeronabyssmonster" />
+      </StatusEffect>
+      <Attack targetimpulse="2">
+        <Affliction identifier="stun" strength="3" />
+      </Attack>
+      <StatusEffect type="OnUse" target="This" forceplaysounds="true">
+        <Sound type="OnUse" file="Content/Items/Weapons/ToyHammerHit1.ogg" range="800"
+          selectionmode="Random" />
+        <Sound type="OnUse" file="Content/Items/Weapons/ToyHammerHit2.ogg" range="800" />
+        <Sound type="OnUse" file="Content/Items/Weapons/ToyHammerHit3.ogg" range="800" />
+        <Sound type="OnUse" file="Content/Items/Weapons/ToyHammerHit4.ogg" range="800" />
+        <Sound type="OnUse" file="Content/Items/Weapons/ToyHammerHit5.ogg" range="800" />
+        <Sound type="OnUse" file="Content/Items/Weapons/ToyHammerHit6.ogg" range="800" />
+      </StatusEffect>
+    </MeleeWeapon>
+
   </Item>
 
 </Items>

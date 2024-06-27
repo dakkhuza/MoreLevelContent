@@ -159,13 +159,13 @@
             <Label name="killhusks" />
             <ConversationAction speakertag="admin" targettag="trigger_player"
                 endeventifinterrupted="false"
-                text="There's no way I'm coming out of here until those husks and jove forsaken cultists are dead!"
+                text="EventText.waystation_husk.c1"
                 waitforinteraction="false" eventsprite="" />
             <GoTo name="checkhusks" />
 
             <Label name="huskskilled" />
             <ConversationAction speakertag="admin" targettag="trigger_player"
-                endeventifinterrupted="false" text="They're all dead? Here, let me get the door."
+                endeventifinterrupted="false" text="EventText.waystation_husk.c2"
                 waitforinteraction="false" eventsprite="" />
             <StatusEffectAction targettag="door">
                 <StatusEffect target="This" Stuck="0" setvalue="true" />
@@ -173,7 +173,7 @@
             <ClearTagAction tag="trigger_player" />
             <ConversationAction speakertag="admin"
                 endeventifinterrupted="false"
-                text="I knew we should have kicked those cultists out the airlock the second they came on board, here's something for your trouble."
+                text="EventText.waystation_husk.c3"
                 waitforinteraction="true" eventsprite="officeinside" />
             <MoneyAction amount="8000" />
             <GiveExpAction amount="800" targettag="players" />
@@ -203,18 +203,18 @@
                 spawnlocation="any" targettag="researcher"
                 requirespawnpointtag="true" team="FriendlyNPC" />
             <ConversationAction
-                text="Hey, you look like a submariner. I've got some colleagues researching the abyss I've been trying to contact. Could you pay them a vist to see if they need anything?"
+                text="EventText.waystation_revealresearch.c1"
                 speakertag="researcher" invokertag="triggerer_player" endeventifinterrupted="false"
                 eventsprite="mechanic">
-                <Option text="Sure, where are they?">
+                <Option text="EventText.waystation_revealresearch.o1">
                     <ConversationAction
-                        text="Here, I'll give you the coordinates."
+                        text="EventText.waystation_revealresearch.o1.c1"
                         targettag="triggerer_player" endeventifinterrupted="false" />
                     <RevealMapFeatureAction mapfeatureidentifier="abyssresearch" />
                 </Option>
-                <Option text="Do I look like an erran boy?">
+                <Option text="EventText.waystation_revealresearch.o2">
                     <ConversationAction
-                        text="Your type are usually all too happy to do tasks. Maybe at the next outpost I'll be able to find some real help."
+                        text="EventText.waystation_revealresearch.o2.c1"
                         targettag="triggerer_player" endeventifinterrupted="false" />
                 </Option>
             </ConversationAction>
@@ -245,7 +245,7 @@
             <TriggerAction target1tag="player" target2tag="ad" waitforinteraction="true"
                 applytotarget1="reader" />
             <ConversationAction
-                text="An ad catches your eye, 'Europa got you down? The depths not treating you well? Looking for some jovial fun? Come relax and catch a show! We're always open.'. There's coordinates to a clown theatre attached."
+                text="EventText.waystation_revealtheatre.c1"
                 invokertag="reader" endeventifinterrupted="false" eventsprite="noticeboard" />
             <RevealMapFeatureAction mapfeatureidentifier="clownstation" />
         </ScriptedEvent>
@@ -276,21 +276,21 @@
                 spawnlocation="any" targettag="admin"
                 requirespawnpointtag="true" team="FriendlyNPC" />
 
-            <ConversationAction text="Oh hello! You must be here for the show!" speakertag="admin"
+            <ConversationAction text="EventText.clownstation_preformanceofalifetime.c1" speakertag="admin"
                 invokertag="triggerer_player" endeventifinterrupted="false" eventsprite="clown">
-                <Option text="Show? What show?">
+                <Option text="EventText.clownstation_preformanceofalifetime.o1">
                     <ConversationAction
-                        text="Oh, surely you've heard about it! The famous clown Pagliacci is here to give the preformance of a life time! Free for all to see, as is his wish."
+                        text="EventText.clownstation_preformanceofalifetime.o1.c1"
                         targettag="triggerer_player" endeventifinterrupted="false">
-                        <Option text="I'm interested.">
+                        <Option text="EventText.clownstation_preformanceofalifetime.o1.o1">
                             <ConversationAction
-                                text="Perfect! Head down to the theatre and get ready for a show!"
+                                text="EventText.clownstation_preformanceofalifetime.o1.o1.c1"
                                 targettag="triggerer_player" />
                             <GoTo name="show" />
                         </Option>
-                        <Option text="I've got no time for clowns.">
+                        <Option text="EventText.clownstation_preformanceofalifetime.o1.o2">
                             <ConversationAction
-                                text="Such a shame, everyone should take time to enjoy themselves, even you!"
+                                text="EventText.clownstation_preformanceofalifetime.o1.o2.c1"
                                 targettag="triggerer_player" />
                             <GoTo name="end" />
                         </Option>
@@ -303,7 +303,7 @@
             <TagAction criteria="itemtag:showseat" tag="seat" />
             <TriggerAction target1tag="triggerer_player" target2tag="seat" waitforinteraction="true" />
             <TriggerEventAction identifier="showstart" />
-            <ConversationAction text="And now, please give a warm welcome to Pagliacci!"
+            <ConversationAction text="EventText.clownstation_preformanceofalifetime.c2"
                 targettag="triggerer_player" waitforinteraction="false" />
 
             <SpawnAction npcsetidentifier="mapfeaturenpc"
@@ -327,11 +327,11 @@
             </StatusEffectAction>
 
             <ConversationAction eventsprite="Jestmaster"
-                text="Hello, hello everyone! Thank you for such a warm welcome! I remind audience members to keep well away from me while I preform!"
+                text="EventText.clownstation_preformanceofalifetime.c3"
                 invokertag="triggerer_player" />
 
             <ConversationAction
-                text="And now, without further delay... My preformance of a life time!"
+                text="EventText.clownstation_preformanceofalifetime.c4"
                 invokertag="triggerer_player" eventsprite="Jestmaster" />
 
             <!-- Drum roll? -->
@@ -425,7 +425,7 @@
             <TriggerEventAction identifier="clownstation_brawl" />
 
             <ConversationAction
-                text="You look like a jovial fella, I've got some other jovial friends you could help out, if you're interested. I'll mark it on your map."
+                text="EventText.clownstation_unlockescort.c1"
                 speakertag="admin"
                 invokertag="triggerer_player" endeventifinterrupted="false" eventsprite="clown" />
             <MissionAction missiontag="escortcommonersclowns" requirefaction="clowns" />
@@ -530,7 +530,7 @@
             <TriggerAction target1tag="questgiver" target2tag="player"
                 applytotarget2="triggerer_player" radius="100" waitforinteraction="true" />
             <ConversationAction
-                text="MapFeature.abyssresearch.c1"
+                text="MapFeature.abyssresearch.c1" eventsprite="Receptiondude"
                 invokertag="triggerer_player" endeventifinterrupted="false" />
             <SpawnAction ItemIdentifier="mailman_researchdata" TargetInventory="triggerer_player" />
             <MissionAction MissionIdentifier="gotoresearch" MinLocationDistance="2"
@@ -735,15 +735,15 @@
                 applytotarget1="trigger_player" />
             <ConversationAction targettag="trigger_player"
                 endeventifinterrupted="false" continueconversation="true"
-                text="You can hear a conversation on the other side of the door."
+                text="EventText.abyssresearch_teleportmishap.c1"
                 waitforinteraction="false" eventsprite="" />
             <ConversationAction targettag="trigger_player"
                 endeventifinterrupted="false" continueconversation="true"
-                text="'Are you sure we should be messing around with this thing?'."
+                text="EventText.abyssresearch_teleportmishap.c2"
                 waitforinteraction="false" eventsprite="" />
             <ConversationAction targettag="trigger_player"
                 endeventifinterrupted="false" continueconversation="false"
-                text="'The institute wouldn't have given it to us if they didn't want it messed with.'"
+                text="EventText.abyssresearch_teleportmishap.c3"
                 waitforinteraction="false" eventsprite="" />
 
             <SpawnAction itemidentifier="abyssresearch_alienobject" targettag="alienobject"
@@ -771,19 +771,19 @@
             <WaitAction time="10" />
 
             <ConversationAction speakertag="sec" invokertag="trigger_player"
-                text="'You heard that sound too, right? Where are the researchers?'">
-                <Option text="I think they vanished.">
+                text="EventText.abyssresearch_teleportmishap.c4">
+                <Option text="EventText.abyssresearch_teleportmishap.o1">
                     <ConversationAction targettag="trigger_player"
-                        text="'Ah shit, this is the second time this month.' The guard sizes you up. 'You're a submariner, right? I had the new batch of researchers equipped with tracking beacons in case it happened again. Would you be willing to recover whatever's left of them?'">
-                        <Option text="Sure, why not.">
+                        text="EventText.abyssresearch_teleportmishap.o1.c1">
+                        <Option text="EventText.abyssresearch_teleportmishap.o1.o1">
                             <ConversationAction targettag="trigger_player"
-                                text="'Perfect! Here, I'll activate the beacons.' 'Once you find them, grab anything that looks, uh, alieny. And brind it back here. I'll be sure to make it worth your time.'" />
+                                text="EventText.abyssresearch_teleportmishap.o1.o1.c1" />
                             <GoTo name="findbodies" />
                         </Option>
-                        <Option text="Sorry, we're busy already.">
+                        <Option text="EventText.abyssresearch_teleportmishap.o1.o2">
                             <ConversationAction targettag="trigger_player"
                                 continueconversation="false"
-                                text="'Oh well, it never hurts to ask.' 'The institude is going to be pissed to hear we lost more researchers...'" />
+                                text="EventText.abyssresearch_teleportmishap.o1.o2.c1" />
                             <GoTo name="end" />
                         </Option>
                     </ConversationAction>
@@ -806,13 +806,13 @@
             <Label name="deliveritem" />
             <ClearTagAction tag="trigger_player" />
             <ConversationAction speakertag="sec" invokertag="trigger_player"
-                text="'Did you find whatever they were messing with?'">
-                <Option text="Hand over device.">
+                text="EventText.abyssresearch_teleportmishap.c5">
+                <Option text="EventText.abyssresearch_teleportmishap.o2">
                     <CheckItemAction targettag="trigger_player" itemtags="alienobject">
                         <Failure>
                             <ConversationAction targettag="trigger_player"
                                 continueconversation="false"
-                                text="Where did we put that alien object again?" />
+                                text="EventText.abyssresearch_teleportmishap.o2.c1" />
                             <GoTo name="deliveritem" />
                         </Failure>
                         <Success>
@@ -820,11 +820,11 @@
                             <EventObjectiveAction type="CompleteAndRemove"
                                 identifier="abyssresearch.returnitem" />
                             <ConversationAction targettag="trigger_player"
-                                text="'Ah, perfect! I'll store this somewhere safe. Oh, and your reward! The researchers have got some trinkets here if you want them or I could give you some marks.'">
-                                <Option text="We'll take the marks." endconversation="true">
+                                text="EventText.abyssresearch_teleportmishap.o2.c2">
+                                <Option text="EventText.abyssresearch_teleportmishap.o2.o1" endconversation="true">
                                     <MoneyAction amount="8000" />
                                 </Option>
-                                <Option text="We'll go for the trinkets." endconversation="true">
+                                <Option text="EventText.abyssresearch_teleportmishap.o2.o2" endconversation="true">
                                     <SpawnAction itemidentifier="alientrinket1"
                                         targetinventory="trigger_player" amount="2" />
                                     <SpawnAction itemidentifier="alientrinket2"
@@ -837,7 +837,7 @@
                         </Success>
                     </CheckItemAction>
                 </Option>
-                <Option text="Not yet." endconversation="true">
+                <Option text="EventText.abyssresearch_teleportmishap.o3" endconversation="true">
                     <GoTo name="deliveritem" />
                 </Option>
             </ConversationAction>
@@ -937,7 +937,7 @@
                 requirespawnpointtag="true" team="FriendlyNPC" />
 
             <ConversationAction
-                text="Welcome to our humble church traveler. Say, you look like the type that would help the church. We've got some acolytes on a nearby outpost looking for transport. Here, I'll mark it down for you."
+                text="EventText.huskchurch_unlockescort.c1"
                 speakertag="admin"
                 invokertag="triggerer_player" endeventifinterrupted="false" eventsprite="cultist" />
             <MissionAction missiontag="escortcommonershuskcult" requirefaction="huskcult" />
@@ -964,7 +964,7 @@
                 requirespawnpointtag="true" team="FriendlyNPC" />
 
             <ConversationAction
-                text="Welcome to our humble church traveler. Say, you look like the type that would help the church. We've got some... goods on a nearby outpost looking for transport. Here, I'll mark it down for you. Those that help the church in turn help themselves."
+                text="EventText.huskchurch_cargo.c1"
                 speakertag="admin"
                 invokertag="triggerer_player" endeventifinterrupted="false" eventsprite="cultist" />
             <MissionAction missiontag="cargohuskcult" requirefaction="huskcult" />

@@ -13,7 +13,7 @@ namespace MoreLevelContent.Items
 {
     internal class SonarGuide : Powered
     {
-        [Serialize(10.0f, IsPropertySaveable.Yes, description: "How often the guide sends out a ping."), Editable]
+        [Serialize(30.0f, IsPropertySaveable.Yes, description: "How often the guide sends out a ping."), Editable]
         public float PingInterval { get; private set; }
 
         [Serialize(30000.0f, IsPropertySaveable.Yes, description: "How far away this guide can be detected from, 10000.0f is the default sonar range."), Editable]

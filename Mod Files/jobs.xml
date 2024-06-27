@@ -9,7 +9,8 @@
             <Skill identifier="helm" level="5,10" />
         </Skills>
         <AutonomousObjectives>
-            <Order identifier="assaultenemy" prioritymodifier="1" />
+            <Order identifier="fightintruders" prioritymodifier="1" />
+            <Order identifier="assaultenemy" prioritymodifier="0.5" />
             <Order identifier="inspectnoises" prioritymodifier="0.5" />
             <Order identifier="extinguishfires" prioritymodifier="0.75" />
         </AutonomousObjectives>

@@ -137,11 +137,13 @@
             <SpawnAction npcsetidentifier="mapfeaturenpc"
                 npcidentifier="huskcultist_waystation" spawnpointtag="waystation"
                 spawnlocation="any" targettag="cultist"
-                requirespawnpointtag="true" team="Team2" />
+                requirespawnpointtag="true" team="FriendlyNPC" />
             <SpawnAction npcsetidentifier="mapfeaturenpc"
                 npcidentifier="huskcultist_waystation" spawnpointtag="waystation"
                 spawnlocation="any" targettag="cultist"
-                requirespawnpointtag="true" team="Team2" />
+                requirespawnpointtag="true" team="FriendlyNPC" />
+
+            <NPCChangeTeamAction npctag="cultist" teamid="Team2" />
 
             <Label name="checkhusks" />
             <ClearTagAction tag="trigger_player" />

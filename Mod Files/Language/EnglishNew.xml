@@ -93,4 +93,8 @@
      <sonarbeacon.researcher>Researcher</sonarbeacon.researcher>
      <abyssresearch.findbodies>Locate the missing researchers</abyssresearch.findbodies>
      <abyssresearch.returnitem>Return the alien device</abyssresearch.returnitem>
+
+     <mlc.gamemodewarning.header>Invalid Gamemode!</mlc.gamemodewarning.header>
+     <mlc.gamemodewarning.description>More Level Content does not support multiplayer gamemodes other than campaign! Using it in other gamemodes will cause issues and may even crash your game.</mlc.gamemodewarning.description>
+ 
 </infotexts>

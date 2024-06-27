@@ -13,11 +13,16 @@ namespace MoreLevelContent
     partial class Main
     {
         public static bool IsDedicatedServer => GameMain.Server.OwnerConnection == null;
+        public static bool CurrentGameModeValid = true;
         public void InitServer()
         {
             Log.Debug("Init Server");
-            if (!PreventRoundEnd) return;
-            Main.Harmony.Patch(AccessTools.Method(typeof(GameServer), nameof(GameServer.Update)), transpiler: new HarmonyMethod(AccessTools.Method(typeof(Main), nameof(Main.PatchEndRound))));
+            Harmony.Patch(AccessTools.PropertySetter(typeof(NetLobbyScreen), nameof(NetLobbyScreen.SelectedModeIndex)), postfix: new HarmonyMethod(AccessTools.Method(typeof(Main), nameof(Main.OnGameModeChange))));
+            OnGameModeChange(GameMain.NetLobbyScreen);
+            if (PreventRoundEnd)
+            {
+                Main.Harmony.Patch(AccessTools.Method(typeof(GameServer), nameof(GameServer.Update)), transpiler: new HarmonyMethod(AccessTools.Method(typeof(Main), nameof(Main.PatchEndRound))));
+            }
         }
 
         static IEnumerable<CodeInstruction> PatchEndRound(IEnumerable<CodeInstruction> instructions, ILGenerator il)
@@ -37,9 +42,31 @@ namespace MoreLevelContent
             }
         }
 
-        static void Fuck(object arg1, object arg2, object arg3, object arg4, object arg5)
+        internal static void OnClientInstallCheck(Client client)
         {
-            Log.Debug("Consumed call");
+            Log.Debug($"{CurrentGameModeValid}");
+            if (CurrentGameModeValid) return;
+            if (client.HasPermission(ClientPermissions.ManageSettings) || client.Connection == GameMain.Server.OwnerConnection)
+            {
+                GameMain.Server.SendDirectChatMessage(
+                    TextManager.GetServerMessage($"mlc.gamemodewarning.description").Value,
+                    client,
+                    ChatMessageType.ServerMessageBox);
+                Log.Debug($"Sent");
+                return;
+            }
+            Log.Debug($"Doesn't have perms");
+        }
+
+        static void OnGameModeChange(NetLobbyScreen __instance)
+        {
+            var gameMode = __instance.GameModes[__instance.SelectedModeIndex];
+            if (gameMode.GameModeType != typeof(MultiPlayerCampaign))
+            {
+                CurrentGameModeValid = false;
+                return;
+            }
+            CurrentGameModeValid = true;
         }
 
         static void SetRoundEndDelay()

@@ -117,12 +117,12 @@
     
     <MapFeature.mailman.impatient>There's an impatient looking researcher here.</MapFeature.mailman.impatient>
     <MapFeature.mailman.waiting>Waiting for something?</MapFeature.mailman.waiting>
-    <MapFeature.mailman.exposition>He turns to look at you. Yes, actually. A devlivery crew was supposed to deliver some important research from a colleague of mine yesterday but they've been a no-show so far. I'm begining to think an abyss creature got them.</MapFeature.mailman.exposition>
+    <MapFeature.mailman.exposition>He turns to look at you. "Yes, actually. A devlivery crew was supposed to deliver some important research from a colleague of mine yesterday but they've been a no-show so far. I'm begining to think an abyss creature got them."</MapFeature.mailman.exposition>
     <MapFeature.mailman.handover>Hand over research data.</MapFeature.mailman.handover>
     <MapFeature.mailman.later>Later.</MapFeature.mailman.later>
     <MapFeature.mailman.missing>Where did you leave that research data again?</MapFeature.mailman.missing>
-    <MapFeature.mailman.snatch>He snatches the bundle of paper from your hands. "Aha! Ha HA! This is it! This IS IT! So much to go through and so little time..." He turns to walk away.</MapFeature.mailman.snatch>
-    <MapFeature.mailman.payment>About my payment...</MapFeature.mailman.payment>
+    <MapFeature.mailman.snatch>He snatches the bundle of paper from your hands and begins to franticly read it. "Aha! Ha HA! This is it! This IS IT! So much to go through and so little time..." He turns to walk away.</MapFeature.mailman.snatch>
+    <MapFeature.mailman.payment>*cough* About my payment...</MapFeature.mailman.payment>
     <MapFeature.mailman.groan>He lets out a groan before turning back around, "You submariners, always wanting to get paid for your work, as if labor to further humanity isn't a reward in itself! I suppose you want marks, although.." He looks around, as if to see if anyone is listening. Seemingly satisfied, he leans in close, "I could also part ways with whatever's in this mystery box..</MapFeature.mailman.groan>
     <MapFeature.mailman.box>Mystery box! Mystery box!</MapFeature.mailman.box>
     <MapFeature.mailman.sucker>With a florish he produces a strange box shaped object, before abruptly shoving it into your arms. "It's your problem now sucker!!" He yells out before running away.</MapFeature.mailman.sucker>
@@ -130,51 +130,54 @@
     <MapFeature.mailman.lame>"No sense of adventure! Bah, here's your marks. I've got work to do!"</MapFeature.mailman.lame>
     <MapFeature.mailman.wasteoftime>What a colossal waste of time.</MapFeature.mailman.wasteoftime>
 
-    <EventText.clownstation_preformanceofalifetime.c1>Oh hello! You must be here for the show!</EventText.clownstation_preformanceofalifetime.c1>
+    <EventText.clownstation_preformanceofalifetime.c1>The preformer looks up from their papers. "Oh hello! You must be here for the show!" They bounce up and down slightly.</EventText.clownstation_preformanceofalifetime.c1>
     <EventText.clownstation_preformanceofalifetime.o1>Show? What show?</EventText.clownstation_preformanceofalifetime.o1>
-    <EventText.clownstation_preformanceofalifetime.o1.c1>Oh, surely you've heard about it! The famous clown Pagliacci is here to give the preformance of a life time! Free for all to see, as is his wish.</EventText.clownstation_preformanceofalifetime.o1.c1>
+    <EventText.clownstation_preformanceofalifetime.o1.c1>"Oh, surely you've heard about it!" They dramatically lean backwards, "The famous clown Pagliacci is here to give the preformance of a life time!" They jump up into a ta-da pose. "Free for all to see, as is his wish." They look at you, expectantly.</EventText.clownstation_preformanceofalifetime.o1.c1>
     <EventText.clownstation_preformanceofalifetime.o1.o1>I'm interested.</EventText.clownstation_preformanceofalifetime.o1.o1>
-    <EventText.clownstation_preformanceofalifetime.o1.o1.c1>Perfect! Head down to the theatre and get ready for a show!</EventText.clownstation_preformanceofalifetime.o1.o1.c1>
+    <EventText.clownstation_preformanceofalifetime.o1.o1.c1>"Perfect! Head down to the theatre and get ready for a show!" They giggle to themselves. Typical clown.</EventText.clownstation_preformanceofalifetime.o1.o1.c1>
     <EventText.clownstation_preformanceofalifetime.o1.o2>I've got no time for clowns.</EventText.clownstation_preformanceofalifetime.o1.o2>
-    <EventText.clownstation_preformanceofalifetime.o1.o2.c1>Such a shame, everyone should take time to enjoy themselves, even you!</EventText.clownstation_preformanceofalifetime.o1.o2.c1>
-    <EventText.clownstation_preformanceofalifetime.c2>And now, please give a warm welcome to Pagliacci!</EventText.clownstation_preformanceofalifetime.c2>
-    <EventText.clownstation_preformanceofalifetime.c3>Hello, hello everyone! Thank you for such a warm welcome! I remind audience members to keep well away from me while I preform!</EventText.clownstation_preformanceofalifetime.c3>
-    <EventText.clownstation_preformanceofalifetime.c4>And now, without further delay... My preformance of a life time!</EventText.clownstation_preformanceofalifetime.c4>
+    <EventText.clownstation_preformanceofalifetime.o1.o2.c1>"Such a shame, everyone should take time to enjoy themselves, even you!" Was that a hint of distain in their voice? You must have imagined it.</EventText.clownstation_preformanceofalifetime.o1.o2.c1>
+    <EventText.clownstation_preformanceofalifetime.c2>The lights dim as a hidden annoucer proclaims, "And now, please give a warm welcome to Pagliacci!"</EventText.clownstation_preformanceofalifetime.c2>
+    <EventText.clownstation_preformanceofalifetime.c3>Where did that cheer come from? You look around for hidden speakers before the clown starts speaking, "Hello, hello everyone! Thank you for such a warm welcome!" He bows, "I remind audience members to keep well away from me while I preform!"</EventText.clownstation_preformanceofalifetime.c3>
+    <EventText.clownstation_preformanceofalifetime.c4>"And now, without further delay... My preformance of a life time!"</EventText.clownstation_preformanceofalifetime.c4>
     
-    <EventText.abyssresearch_teleportmishap.c1>You can hear a conversation on the other side of the door.</EventText.abyssresearch_teleportmishap.c1>
-    <EventText.abyssresearch_teleportmishap.c2>'Are you sure we should be messing around with this thing?'.</EventText.abyssresearch_teleportmishap.c2>
-    <EventText.abyssresearch_teleportmishap.c3>'The institute wouldn't have given it to us if they didn't want it messed with.'</EventText.abyssresearch_teleportmishap.c3>
-    <EventText.abyssresearch_teleportmishap.c4>'You heard that sound too, right? Where are the researchers?'</EventText.abyssresearch_teleportmishap.c4>
+    <EventText.abyssresearch_teleportmishap.c1>As you aproach the door, you can hear a heated conversaion on the other side.</EventText.abyssresearch_teleportmishap.c1>
+    <EventText.abyssresearch_teleportmishap.c2>"You're nuts! You'll get us both KILLED one of these days messing around with these things with no saftey precautions!".</EventText.abyssresearch_teleportmishap.c2>
+    <EventText.abyssresearch_teleportmishap.c3>"You're just jealous the institute mentioned ME by name!" Another voice snears.</EventText.abyssresearch_teleportmishap.c3>
+    <EventText.abyssresearch_teleportmishap.c4>"That.. That has nothing to do with it! The institute clearly gave it to use because they didn't want to test it on an outpost and now you're just touching it with your bare hands!"</EventText.abyssresearch_teleportmishap.c4>
+    <EventText.abyssresearch_teleportmishap.c5>"And that's why they addressed me by name and not you. Now shut up and help me with this next experiment, I think if I-"</EventText.abyssresearch_teleportmishap.c5>
+
+    <EventText.abyssresearch_teleportmishap.c6>The guard looks concerned. "You heard that sound too, right? Where are the researchers?" They look around the lab, grasping for anything that might give them a hint of the researchers location.</EventText.abyssresearch_teleportmishap.c6>
     <EventText.abyssresearch_teleportmishap.o1>I think they vanished.</EventText.abyssresearch_teleportmishap.o1>
-    <EventText.abyssresearch_teleportmishap.o1.c1>'Ah shit, this is the second time this month.' The guard sizes you up. 'You're a submariner, right? I had the new batch of researchers equipped with tracking beacons in case it happened again. Would you be willing to recover whatever's left of them?'</EventText.abyssresearch_teleportmishap.o1.c1>
+    <EventText.abyssresearch_teleportmishap.o1.c1>"Ah shit, this is the second time this month." The guard sizes you up. "You're a submariner, right? How would you be here otherwise, ha. I had the new batch of researchers equipped with tracking beacons in case it happened again. Would you be willing to recover whatever's left of them?"</EventText.abyssresearch_teleportmishap.o1.c1>
     <EventText.abyssresearch_teleportmishap.o1.o1>Sure, why not.</EventText.abyssresearch_teleportmishap.o1.o1>
-    <EventText.abyssresearch_teleportmishap.o1.o1.c1>'Perfect! Here, I'll activate the beacons.' 'Once you find them, grab anything that looks, uh, alieny. And brind it back here. I'll be sure to make it worth your time.'</EventText.abyssresearch_teleportmishap.o1.o1.c1>
+    <EventText.abyssresearch_teleportmishap.o1.o1.c1>"Perfect! Here, I'll activate the beacons." The guard takes out a small device from their belt and pressed a button on it. 'You should be able to see the beacons on your sonar now. Once you find them, grab anything that looks, uh, alien-y I guess and brind it back here. I'll be sure to make it worth your time."</EventText.abyssresearch_teleportmishap.o1.o1.c1>
     <EventText.abyssresearch_teleportmishap.o1.o2>Sorry, we're busy already.</EventText.abyssresearch_teleportmishap.o1.o2>
-    <EventText.abyssresearch_teleportmishap.o1.o2.c1>'Oh well, it never hurts to ask.' 'The institude is going to be pissed to hear we lost more researchers...'</EventText.abyssresearch_teleportmishap.o1.o2.c1>
-    <EventText.abyssresearch_teleportmishap.c5>'Did you find whatever they were messing with?'</EventText.abyssresearch_teleportmishap.c5>
+    <EventText.abyssresearch_teleportmishap.o1.o2.c1>"Oh well, it never hurts to ask." The guard looks around the research lab, "The institude is going to be pissed to hear we lost more researchers..." They mutter under their breath.</EventText.abyssresearch_teleportmishap.o1.o2.c1>
+    <EventText.abyssresearch_teleportmishap.c5>"Did you find whatever they were messing with?"</EventText.abyssresearch_teleportmishap.c5>
     <EventText.abyssresearch_teleportmishap.o2>Hand over device.</EventText.abyssresearch_teleportmishap.o2>
     <EventText.abyssresearch_teleportmishap.o2.c1>Where did we put that alien object again?</EventText.abyssresearch_teleportmishap.o2.c1>
-    <EventText.abyssresearch_teleportmishap.o2.c2>'Ah, perfect! I'll store this somewhere safe. Oh, and your reward! The researchers have got some trinkets here if you want them or I could give you some marks.'</EventText.abyssresearch_teleportmishap.o2.c2>
+    <EventText.abyssresearch_teleportmishap.o2.c2>"Ah, perfect! I'll store this somewhere safe." The guard slots the device into a strange looking box on their belt. "Oh, and your reward! The researchers have got some trinkets here if you want them or I could give you some marks."</EventText.abyssresearch_teleportmishap.o2.c2>
     <EventText.abyssresearch_teleportmishap.o2.o1>We'll take the marks.</EventText.abyssresearch_teleportmishap.o2.o1>
     <EventText.abyssresearch_teleportmishap.o2.o2>We'll go for the trinkets.</EventText.abyssresearch_teleportmishap.o2.o2>
     <EventText.abyssresearch_teleportmishap.o3>Not yet.</EventText.abyssresearch_teleportmishap.o3>
     
-    <EventText.waystation_revealresearch.c1>Hey, you look like a submariner. I've got some colleagues researching the abyss I've been trying to contact. Could you pay them a vist to see if they need anything?</EventText.waystation_revealresearch.c1>
+    <EventText.waystation_revealresearch.c1>The researcher sizes you up, "Hey, you look like a submariner. I've got some colleagues researching the abyss I've been trying to contact. Could you pay them a vist to see if they need anything?"</EventText.waystation_revealresearch.c1>
     <EventText.waystation_revealresearch.o1>Sure, where are they?</EventText.waystation_revealresearch.o1>
     <EventText.waystation_revealresearch.o1.c1>Here, I'll give you the coordinates.</EventText.waystation_revealresearch.o1.c1>
     <EventText.waystation_revealresearch.o2>Do I look like an erran boy?</EventText.waystation_revealresearch.o2>
-    <EventText.waystation_revealresearch.o2.c1>Your type are usually all too happy to do tasks. Maybe at the next outpost I'll be able to find some real help.</EventText.waystation_revealresearch.o2.c1>
+    <EventText.waystation_revealresearch.o2.c1>The researcher groans, "Your type are usually all too happy to do tasks. Maybe at the next outpost I'll be able to find some real help."</EventText.waystation_revealresearch.o2.c1>
 
-    <EventText.waystation_husk.c1>There's no way I'm coming out of here until those husks and jove forsaken cultists are dead!</EventText.waystation_husk.c1>
-    <EventText.waystation_husk.c2>They're all dead? Here, let me get the door.</EventText.waystation_husk.c2>
-    <EventText.waystation_husk.c3>I knew we should have kicked those cultists out the airlock the second they came on board, here's something for your trouble.</EventText.waystation_husk.c3>
+    <EventText.waystation_husk.c1>"There's no way I'm coming out of here until those husks and jove forsaken cultists are dead!" The outpost manager shouts through the door.</EventText.waystation_husk.c1>
+    <EventText.waystation_husk.c2>You knock on the door and let the manager know the coast is clear, "They're all dead? Here, let me get the door."</EventText.waystation_husk.c2>
+    <EventText.waystation_husk.c3>"I knew we should have kicked those cultists out the airlock the second they came on board" The manager kicks the wall, "Here's something for your trouble. Now I need to make some calls..."</EventText.waystation_husk.c3>
     
-    <EventText.waystation_revealtheatre.c1>An ad catches your eye, 'Europa got you down? The depths not treating you well? Looking for some jovial fun? Come relax and catch a show! We're always open.'. There's coordinates to a clown theatre attached.</EventText.waystation_revealtheatre.c1>
+    <EventText.waystation_revealtheatre.c1>An ad catches your eye, "Europa got you down? The depths not treating you well? Looking for some jovial fun? Come relax and catch a show! We're ALWAYS open." There's coordinates to a clown theatre attached.</EventText.waystation_revealtheatre.c1>
     
-    <EventText.huskchurch_unlockescort.c1>Welcome to our humble church traveler. Say, you look like the type that would help the church. We've got some acolytes on a nearby outpost looking for transport. Here, I'll mark it down for you.</EventText.huskchurch_unlockescort.c1>
-    <EventText.huskchurch_cargo.c1>Welcome to our humble church traveler. Say, you look like the type that would help the church. We've got some... goods on a nearby outpost looking for transport. Here, I'll mark it down for you. Those that help the church in turn help themselves.</EventText.huskchurch_cargo.c1>
+    <EventText.huskchurch_unlockescort.c1>"Welcome to our humble church traveler." You swear you hear a clicking sound whne they talk,  "Say, you look like the type that would help the church. We've got some acolytes on a nearby outpost looking for transport. Here, I'll mark it down for you."</EventText.huskchurch_unlockescort.c1>
+    <EventText.huskchurch_cargo.c1>"Welcome to our humble church traveler." You can hear the smile in their voice, it makes you shiver,  "Say, you look like the type that would help the church. We've got some... goods on a nearby outpost looking for transport. Here, I'll mark it down for you. Those that help the church in turn help themselves."</EventText.huskchurch_cargo.c1>
     
-    <EventText.clownstation_unlockescort.c1>You look like a jovial fella, I've got some other jovial friends looking for transport, if you're interested. I'll mark it on your map.</EventText.clownstation_unlockescort.c1>
-    <EventText.clownstation_unlockwreck.c1>You look like a jovial fella, we recently lost some supplies. If you could get them back, you'd be helping us spread the fun. I'll mark it on your map.</EventText.clownstation_unlockwreck.c1>
+    <EventText.clownstation_unlockescort.c1>"You look like a jovial fella, I've got some other jovial friends looking for transport, if you're interested. I'll mark it on your map."</EventText.clownstation_unlockescort.c1>
+    <EventText.clownstation_unlockwreck.c1>"You look like a jovial fella, we recently lost some supplies. If you could get them back, you'd be helping us spread the fun. I'll mark it on your map."</EventText.clownstation_unlockwreck.c1>
 
 </infotexts>

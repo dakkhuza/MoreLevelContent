@@ -276,7 +276,8 @@
                 spawnlocation="any" targettag="admin"
                 requirespawnpointtag="true" team="FriendlyNPC" />
 
-            <ConversationAction text="EventText.clownstation_preformanceofalifetime.c1" speakertag="admin"
+            <ConversationAction text="EventText.clownstation_preformanceofalifetime.c1"
+                speakertag="admin"
                 invokertag="triggerer_player" endeventifinterrupted="false" eventsprite="clown">
                 <Option text="EventText.clownstation_preformanceofalifetime.o1">
                     <ConversationAction
@@ -737,13 +738,22 @@
                 endeventifinterrupted="false" continueconversation="true"
                 text="EventText.abyssresearch_teleportmishap.c1"
                 waitforinteraction="false" eventsprite="" />
+
             <ConversationAction targettag="trigger_player"
                 endeventifinterrupted="false" continueconversation="true"
                 text="EventText.abyssresearch_teleportmishap.c2"
                 waitforinteraction="false" eventsprite="" />
             <ConversationAction targettag="trigger_player"
-                endeventifinterrupted="false" continueconversation="false"
+                endeventifinterrupted="false" continueconversation="true"
                 text="EventText.abyssresearch_teleportmishap.c3"
+                waitforinteraction="false" eventsprite="" />
+            <ConversationAction targettag="trigger_player"
+                endeventifinterrupted="false" continueconversation="true"
+                text="EventText.abyssresearch_teleportmishap.c4"
+                waitforinteraction="false" eventsprite="" />
+            <ConversationAction targettag="trigger_player"
+                endeventifinterrupted="false" continueconversation="false"
+                text="EventText.abyssresearch_teleportmishap.c5"
                 waitforinteraction="false" eventsprite="" />
 
             <SpawnAction itemidentifier="abyssresearch_alienobject" targettag="alienobject"
@@ -821,10 +831,12 @@
                                 identifier="abyssresearch.returnitem" />
                             <ConversationAction targettag="trigger_player"
                                 text="EventText.abyssresearch_teleportmishap.o2.c2">
-                                <Option text="EventText.abyssresearch_teleportmishap.o2.o1" endconversation="true">
+                                <Option text="EventText.abyssresearch_teleportmishap.o2.o1"
+                                    endconversation="true">
                                     <MoneyAction amount="8000" />
                                 </Option>
-                                <Option text="EventText.abyssresearch_teleportmishap.o2.o2" endconversation="true">
+                                <Option text="EventText.abyssresearch_teleportmishap.o2.o2"
+                                    endconversation="true">
                                     <SpawnAction itemidentifier="alientrinket1"
                                         targetinventory="trigger_player" amount="2" />
                                     <SpawnAction itemidentifier="alientrinket2"

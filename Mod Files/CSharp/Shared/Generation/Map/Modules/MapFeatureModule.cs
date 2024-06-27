@@ -191,6 +191,9 @@ namespace MoreLevelContent.Shared.Generation
                 }
             }
 
+            // No damaging map features
+            MapFeatureSub.GodMode = true;
+
             if (GameMain.GameSession?.EventManager == null)
             {
                 Log.Error("Event manager was null");

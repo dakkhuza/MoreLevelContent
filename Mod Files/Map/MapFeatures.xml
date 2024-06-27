@@ -20,7 +20,7 @@
 
         <MapFeature path="%ModDir%/Map/MapFeatures/Waystation.sub"
             identifier="waystation" spawnPosition="PathWall"
-            placement="Top" commonnessperzone="1: 0.10, 2: 0.25, 3: 0.5, 4: 0.3, 5: 0.2"
+            placement="Top" commonnessperzone="1: 0.25, 2: 0.5, 3: 0.45, 4: 0.3, 5: 0.1"
             chance="0.5f" allowstealing="false">
             <Display icon="WayStation" tooltip="mapfeature.waystation" hideuntilrevealed="false" />
         </MapFeature>

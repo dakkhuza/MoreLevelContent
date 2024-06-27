@@ -127,11 +127,12 @@ namespace MoreLevelContent.Shared.Generation
 #if SERVER
         private void RequestConnectionEquality(object[] args)
         {
+            if (GameMain.GameSession.GameMode.GetType() == typeof(MultiPlayerCampaign)) return;
             Log.Debug("Got request for quality check");
             Client c = (Client)args[1];
             if (IdConnectionLookup.Count == 0)
             {
-                c.Kick("Client requested the map equality check before the server generated it, this will happen if you're running the game in a mode other than campaign. Either change to campaign or disable more level content in the mod menu.");
+                c.Kick("Client requested the map equality check before the server generated it. This means the campaign map did not exist on the server when the client requested this request. Are you playing campaign mode?");
                 return;
             }
             

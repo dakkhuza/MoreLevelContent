@@ -505,6 +505,8 @@
         <!-- Deliver research papers to a nearby research outpost -->
         <ScriptedEvent identifier="abyssresearch_mailman">
             <TagAction criteria="player" tag="player" />
+            <TagAction criteria="itemtag:researchchair1" tag="chair1" />
+            <TagAction criteria="itemtag:researchchair2" tag="chair2" />
             <SpawnAction npcsetidentifier="outpostnpcs1"
                 npcidentifier="researcher" spawnpointtag="abyssresearch_researcher"
                 spawnlocation="any" targettag="researcher"
@@ -521,6 +523,9 @@
                 npcidentifier="securitynpccoalition" spawnpointtag="abyssresearch"
                 spawnlocation="any"
                 requirespawnpointtag="true" team="FriendlyNPC" />
+
+            <NPCOperateItemAction npctag="questgiver" targettag="chair1" priority="70" />
+            <NPCOperateItemAction npctag="researcher" targettag="chair2" priority="70" />
 
             <TriggerAction target1tag="questgiver" target2tag="player"
                 applytotarget2="triggerer_player" radius="100" waitforinteraction="true" />

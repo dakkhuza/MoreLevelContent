@@ -67,8 +67,11 @@ namespace MoreLevelContent.Shared.AI
                 ShowSonarMarker = false,
             };
             DummySub.PhysicsBody.BodyType = FarseerPhysics.BodyType.Static;
+            DummySub.SetPosition(cave.Area.Center.ToVector2());
+            var caveRect = cave.Area;
+            caveRect.Inflate(cave.Area.Width * 1.25f, cave.Area.Height * 1.25f);
             // Dumb
-            CaveGenerationDirector.subbody_visibleBorders.SetValue(DummySub.SubBody, new Rectangle(0, 0, int.MaxValue, int.MaxValue));
+            CaveGenerationDirector.subbody_visibleBorders.SetValue(DummySub.SubBody, caveRect);
             
 
             allThalamusItems.ForEach(i => i.Submarine = DummySub);

@@ -56,8 +56,18 @@ namespace MoreLevelContent.Shared.Generation
 
             MethodInfo level_remove = AccessTools.Method(typeof(Level), "Remove");
             _ = Main.Harmony.Patch(level_remove, postfix: new HarmonyMethod(AccessTools.Method(typeof(CaveGenerationDirector), nameof(CaveGenerationDirector.Remove))));
+#if CLIENT
+            MethodInfo submarine_cullEntities = AccessTools.Method(typeof(Submarine), nameof(Submarine.CullEntities));
+            _ = Main.Harmony.Patch(submarine_cullEntities, postfix: new HarmonyMethod(AccessTools.Method(typeof(CaveGenerationDirector), nameof(CaveGenerationDirector.SubmarineCullEntities))));
+#endif
         }
-
+#if CLIENT
+        static void SubmarineCullEntities(List<MapEntity> ___visibleEntities)
+        {
+            if (Instance.ActiveThalaCave == null) return;
+            ___visibleEntities.AddRange(Instance.ActiveThalaCave.ThalamusItems);
+        }
+#endif
 
         public const float MIN_DIST_FROM_START = Sonar.DefaultSonarRange * 2;
         const int REQUIRED_EDGE_COUNT = 1;

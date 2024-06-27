@@ -204,6 +204,11 @@
                 npcidentifier="researcher" spawnpointtag="waystation"
                 spawnlocation="any" targettag="researcher"
                 requirespawnpointtag="true" team="FriendlyNPC" />
+
+            <!-- Use a trigger to stop the conversation bubble from appearing cross level -->
+            <TagAction criteria="player" tag="player" />
+            <TriggerAction target1tag="researcher" target2tag="player" radius="800" />
+
             <ConversationAction
                 text="EventText.waystation_revealresearch.c1"
                 speakertag="researcher" invokertag="triggerer_player" endeventifinterrupted="false"
@@ -260,6 +265,7 @@
 
         <!-- Watch a clown explode -->
         <ScriptedEvent identifier="clownstation_preformanceofalifetime">
+
             <SpawnAction npcsetidentifier="mapfeaturenpc"
                 npcidentifier="clownsecurity" spawnpointtag="clownstation"
                 spawnlocation="any"
@@ -277,6 +283,10 @@
                 npcidentifier="clownadmin" spawnpointtag="clownstation_admin"
                 spawnlocation="any" targettag="admin"
                 requirespawnpointtag="true" team="FriendlyNPC" />
+
+            <!-- Use a trigger to stop the conversation bubble from appearing cross level -->
+            <TagAction criteria="player" tag="player" />
+            <TriggerAction target1tag="admin" target2tag="player" radius="800" />
 
             <ConversationAction text="EventText.clownstation_preformanceofalifetime.c1"
                 speakertag="admin"
@@ -427,6 +437,10 @@
 
             <TriggerEventAction identifier="clownstation_brawl" />
 
+            <!-- Use a trigger to stop the conversation bubble from appearing cross level -->
+            <TagAction criteria="player" tag="player" />
+            <TriggerAction target1tag="admin" target2tag="player" radius="800" />
+
             <ConversationAction
                 text="EventText.clownstation_unlockescort.c1"
                 speakertag="admin"
@@ -455,8 +469,12 @@
                 requirespawnpointtag="true" team="FriendlyNPC" />
             <TriggerEventAction identifier="clownstation_brawl" />
 
+            <!-- Use a trigger to stop the conversation bubble from appearing cross level -->
+            <TagAction criteria="player" tag="player" />
+            <TriggerAction target1tag="admin" target2tag="player" radius="800" />
+
             <ConversationAction
-                text="You look like a jovial fella, I've got some other jovial friends you could help out, if you're interested. I'll mark it on your map."
+                text="EventText.clownstation_unlockwreck.c1"
                 speakertag="admin"
                 invokertag="triggerer_player" endeventifinterrupted="false" eventsprite="clown" />
             <MissionAction missiontag="escortcommonersclowns" requirefaction="clowns" />
@@ -950,6 +968,10 @@
                 spawnlocation="any" targettag="admin"
                 requirespawnpointtag="true" team="FriendlyNPC" />
 
+            <!-- Use a trigger to stop the conversation bubble from appearing cross level -->
+            <TagAction criteria="player" tag="player" />
+            <TriggerAction target1tag="admin" target2tag="player" radius="800" />
+
             <ConversationAction
                 text="EventText.huskchurch_unlockescort.c1"
                 speakertag="admin"
@@ -976,6 +998,10 @@
                 npcidentifier="huskcultist_admin" spawnpointtag="huskchurch_admin"
                 spawnlocation="any" targettag="admin"
                 requirespawnpointtag="true" team="FriendlyNPC" />
+
+            <!-- Use a trigger to stop the conversation bubble from appearing cross level -->
+            <TagAction criteria="player" tag="player" />
+            <TriggerAction target1tag="admin" target2tag="player" radius="800" />
 
             <ConversationAction
                 text="EventText.huskchurch_cargo.c1"

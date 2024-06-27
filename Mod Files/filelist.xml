@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<contentpackage name="More Level Content dev" modversion="0.0.99" corepackage="False" steamworkshopid="2814493175" gameversion="1.5.8.0">
+<contentpackage name="More Level Content dev" modversion="0.0.100" corepackage="False" steamworkshopid="2814493175" gameversion="1.5.9.1">
   <Item file="%ModDir%/dummyitem.xml" />
   <Text file="%ModDir%/Language/English.xml" />
   <Text file="%ModDir%/Language/PatchNotes.xml" />
   <Text file="%ModDir%/Language/MissionText.xml" />
   <Text file="%ModDir%/Language/EnglishNew.xml" />
+  <Text file="%ModDir%/Language/EventText.xml" />
   <UIStyle file="%ModDir%/Style/map.xml" />
   <UIStyle file="%ModDir%/Style/menu.xml" />
   <LocationTypes file="%ModDir%/Map/LocationDefs.xml" />
@@ -25,6 +26,7 @@
   <Missions file="%ModDir%/Pirate/PirateOutposts.xml" />
   <Missions file="%ModDir%/Map/MapFeatures.xml" />
   <Missions file="%ModDir%/Map/MapFeatureMissions.xml" />
+  <Missions file="%ModDir%/Map/MapFeatureEventSet.xml" />
   <NPCSets file="%ModDir%/Missions/MissionNPCs.xml" />
   <NPCSets file="%ModDir%/Map/MapFeatureNPCS.xml" />
   <RandomEvents file="%ModDir%/Missions/MissionEvents.xml" />
@@ -61,6 +63,6 @@
   <Jobs file="%ModDir%/jobs.xml" />
   <Submarine file="%ModDir%/Map/MapFeatures/Waystation.sub" />
   <Submarine file="%ModDir%/Map/MapFeatures/ClownStation.sub" />
-  <Submarine file="%ModDir%/Map/MapFeatures/AbyssResearch.sub" />
   <Submarine file="%ModDir%/Map/MapFeatures/HuskChurch.sub" />
+  <Submarine file="%ModDir%/Map/MapFeatures/AbyssResearch.sub" />
 </contentpackage>

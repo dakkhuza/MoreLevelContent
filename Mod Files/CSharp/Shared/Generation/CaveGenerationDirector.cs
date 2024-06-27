@@ -127,10 +127,7 @@ namespace MoreLevelContent.Shared.Generation
             {
                 Log.Error("Unable to find thalacave perfab!");
                 return;
-            }
-
-            Log.Debug($"{Loaded.Caves.Count} Caves in level");
-            
+            }            
 
             foreach (var cave in Loaded.Caves)
             {

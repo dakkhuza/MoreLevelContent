@@ -29,7 +29,6 @@ namespace MoreLevelContent
         {
             Log.Debug(">>>> Starting end round transpile");
             var code = new List<CodeInstruction>(instructions);
-            Log.Debug($"{code.Count}");
             for (int i = 0; i < code.Count; i++)
             {
                 if (i >= 514 && i <= 519)
@@ -44,7 +43,6 @@ namespace MoreLevelContent
 
         internal static void OnClientInstallCheck(Client client)
         {
-            Log.Debug($"{CurrentGameModeValid}");
             if (CurrentGameModeValid) return;
             if (client.HasPermission(ClientPermissions.ManageSettings) || client.Connection == GameMain.Server.OwnerConnection)
             {
@@ -52,10 +50,8 @@ namespace MoreLevelContent
                     TextManager.GetServerMessage($"mlc.gamemodewarning.description").Value,
                     client,
                     ChatMessageType.ServerMessageBox);
-                Log.Debug($"Sent");
                 return;
             }
-            Log.Debug($"Doesn't have perms");
         }
 
         static void OnGameModeChange(NetLobbyScreen __instance)

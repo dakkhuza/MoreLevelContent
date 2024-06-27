@@ -11,6 +11,7 @@ using static MoreLevelContent.Shared.Generation.MissionGenerationDirector;
 using Barotrauma.Items.Components;
 using Steamworks.Ugc;
 using Microsoft.Xna.Framework;
+using System.Reflection.Metadata.Ecma335;
 
 namespace MoreLevelContent.Shared.Generation
 {
@@ -29,6 +30,9 @@ namespace MoreLevelContent.Shared.Generation
             _Features.Clear();
             _DisallowedLocations = new();
             var features = MissionPrefab.Prefabs.Where(m => m.Tags.Contains("mapfeatureset"));
+            var featureEvents = MissionPrefab.Prefabs.Where(m => m.Tags.Contains("mapfeatureeventset"));
+
+            // Parse map features
             var featureDict = new Dictionary<Identifier, MapFeature>();
             foreach (var item in features)
             {
@@ -47,6 +51,25 @@ namespace MoreLevelContent.Shared.Generation
 
             _IdentifierToFeature = featureDict;
             _Features = featureDict.Values.OrderBy(f => f.Name).ToList();
+
+            foreach (var featureEvent in featureEvents)
+            {
+                var config = featureEvent.ConfigElement;
+                foreach (var eventElement in config.GetChildElements("Events"))
+                {
+                    var targets = eventElement.GetAttributeIdentifierArray("features", Array.Empty<Identifier>(), true);
+                    foreach (var target in targets)
+                    {
+                        if (!_IdentifierToFeature.TryGetValue(target, out MapFeature feature))
+                        {
+                            DebugConsole.ThrowError($"MLC: Tried to add a event set to unknown map feature {target}", contentPackage: featureEvent.ContentPackage);
+                            continue;
+                        }
+                        feature.AddEventSet(eventElement, featureEvent.ContentPackage);
+                    }
+                }
+            }
+
             Hooks.Instance.AddUpdateAction(Update);
             Log.Debug($"Collected {_Features.Count} map features");
         }
@@ -237,10 +260,6 @@ namespace MoreLevelContent.Shared.Generation
             AllowStealing = element.GetAttributeBool("allowstealing", true);
             Display = new MapFeatureDisplay(element.GetChildElement("Display"), Name);
             PossibleEvents = new();
-            foreach (var item in element.GetChildElements("ScriptedEvent"))
-            {
-                PossibleEvents.Add(new MapFeatureEvent(item));
-            }
         }
 
         public ContentPackage Package { get; private set; }
@@ -271,11 +290,15 @@ namespace MoreLevelContent.Shared.Generation
 
         public struct MapFeatureEvent
         {
-            public MapFeatureEvent(XElement element)
+            public MapFeatureEvent(XElement element, ContentPackage package)
             {
                 Probability = element.GetAttributeFloat("probability", 0);
                 Commonness = element.GetAttributeFloat("commonness", 0);
                 EventIdentifier = element.GetAttributeIdentifier("identifier", "");
+                if (EventIdentifier.IsEmpty)
+                {
+                    DebugConsole.ThrowError("Map feature EventSet missing identifier!", contentPackage: package);
+                }
             }
             public float Probability { get; private set; }
             public float Commonness { get; private set; }
@@ -299,9 +322,12 @@ namespace MoreLevelContent.Shared.Generation
             }
         }
 
-        void ParseMinPerSone(string[] array)
+        public void AddEventSet(XElement element, ContentPackage package)
         {
-
+            foreach (var item in element.GetChildElements("ScriptedEvent"))
+            {
+                PossibleEvents.Add(new MapFeatureEvent(item, package));
+            }
         }
     }
 

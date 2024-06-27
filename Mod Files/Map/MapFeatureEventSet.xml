@@ -1,0 +1,39 @@
+<Missions tags="MLC, mapfeatureeventset">
+    <MapFeatures
+        identifier="mapfeatureeventset_0"
+        tags="mlc, mapfeatureeventset"
+        type="GoTo">
+
+        <Events features="autotrader_weapons, autotrader_supplies">
+            <ScriptedEvent identifier="autotrader_overdose" commonness="3" probability="1" />
+            <ScriptedEvent identifier="autotrader_crawler" commonness="5" probability="0.25" />
+            <ScriptedEvent identifier="autotrader_huskcrawler" commonness="5" probability="0.25" />
+        </Events>
+
+        <Events features="waystation">
+            <ScriptedEvent identifier="waystation_revealtheatre" commonness="8" probability="1" />
+            <ScriptedEvent identifier="waystation_revealresearch" commonness="5" probability="1" />
+            <ScriptedEvent identifier="waystation_husk" commonness="3" probability="1" />
+        </Events>
+
+        <Events features="clownstation">
+            <ScriptedEvent identifier="clownstation_unlockescort" commonness="5"
+                probability="1" />
+            <ScriptedEvent identifier="clownstation_unlockwreck" commonness="5"
+                probability="1" />
+            <ScriptedEvent identifier="clownstation_preformanceofalifetime" commonness="3"
+                probability="1" />
+        </Events>
+
+        <Events features="abyssresearch">
+            <ScriptedEvent identifier="abyssresearch_mailman" commonness="10" probability="1" />
+            <ScriptedEvent identifier="abyssresearch_nasonovtesting" commonness="8" probability="1" />
+        </Events>
+
+        <Events features="huskchurch">
+            <ScriptedEvent identifier="huskchurch_unlockescort" commonness="10" probability="1" />
+            <ScriptedEvent identifier="huskchurch_cargo" commonness="10" probability="1" />
+
+        </Events>
+    </MapFeatures>
+</Missions>

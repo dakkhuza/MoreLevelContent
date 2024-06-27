@@ -971,15 +971,5 @@
 
         </ScriptedEvent>
 
-        <ScriptedEvent identifier="mlctestevent">
-            <TagAction criteria="player" tag="player" />
-            <SpawnAction itemidentifier="divingknife" targetinventory="player" targettag="knife" />
-            <StatusEffectAction targettag="knife">
-                <StatusEffect target="This" NonPlayerTeamInteractable="true" setvalue="true">
-
-                </StatusEffect>
-            </StatusEffectAction>
-        </ScriptedEvent>
-
     </EventPrefabs>
 </Randomevents>

@@ -1,41 +1,53 @@
 ﻿using Barotrauma;
+using Microsoft.CodeAnalysis;
+using MoreLevelContent.Shared.Generation;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Xml.Linq;
 
 namespace MoreLevelContent.Shared.Data
 {
     public class LevelData_MLCData : DataBase
     {
-        [SaveData(false)]
+        [AttributeSaveData(false)]
         public bool HasBeaconConstruction;
 
-        [SaveData(false)]
+        [AttributeSaveData(false)]
         public bool HasDistress;
 
-        [SaveData(7)]
+        [AttributeSaveData(7)]
         public int DistressStepsLeft;
 
-        [SaveData(false)]
+        [AttributeSaveData(false)]
         public bool HasPirateActivity;
 
-        [SaveData(false)]
+        [AttributeSaveData(false)]
         public bool HasBlackMarket;
 
-        [SaveData(false)]
+        [AttributeSaveData(RelayStationStatus.None)]
+        public RelayStationStatus RelayStationStatus;
+
+        [AttributeSaveData(false)]
         public bool HasLostCargo;
 
-        [SaveData(4)]
+        [AttributeSaveData(4)]
         public int CargoStepsLeft;
 
-        [SaveData(0)]
+        [AttributeSaveData(0)]
         public int RequestedU;
 
-        [SaveData(0)]
+        [AttributeSaveData(0)]
         public int RequestedS;
 
-        [SaveData(0)]
+        [AttributeSaveData(0)]
         public int RequestedE;
+
+        public MapFeatureData MapFeatureData;
+
+        internal PirateData PirateData;
+
+        public bool HasRelayStation => RelayStationStatus != RelayStationStatus.None;
 
         public LocalizedString GetRequestedSupplies()
         {
@@ -71,6 +83,56 @@ namespace MoreLevelContent.Shared.Data
                     return null;
             }
         }
+
+        protected override void LoadSpecific(XElement saveFile)
+        {
+            var pirateData = saveFile.GetChildElement("PirateData");
+            if (pirateData != null)
+            {
+                PirateData = new PirateData()
+                {
+                    Status = pirateData.GetAttributeEnum("status", PirateOutpostStatus.None),
+                    Difficulty = pirateData.GetAttributeFloat("difficulty", 0),
+                    Revealed = pirateData.GetAttributeBool("revealed", false)
+                };
+            }
+            var mapFeatureData = saveFile.GetChildElement("MapFeatureData");
+            if (mapFeatureData != null)
+            {
+                MapFeatureData = new MapFeatureData()
+                {
+                    Name = mapFeatureData.GetAttributeIdentifier("name", null),
+                    Revealed = mapFeatureData.GetAttributeBool("revealed", false)
+                };
+                if (MapFeatureModule.TryGetFeature(MapFeatureData.Name, out MapFeature feature))
+                {
+                    MapFeatureData.Feature = feature;
+                }
+            }
+        }
+
+        protected override void SaveSpecific(XElement saveFile)
+        {
+            var pirateData = new XElement("PirateData",
+                new XAttribute("status", PirateData.Status),
+                new XAttribute("difficulty", PirateData.Difficulty),
+                new XAttribute("revealed", PirateData.Revealed));
+
+            var mapFeatureData = new XElement("MapFeatureData",
+                new XAttribute("name", MapFeatureData.Name),
+                new XAttribute("revealed", MapFeatureData.Revealed));
+
+            saveFile.Add(pirateData);
+            saveFile.Add(mapFeatureData);
+        }
+    }
+
+    public struct MapFeatureData
+    {
+        public Identifier Name;
+        public bool Revealed;
+        internal MapFeature Feature;
+        public bool HasFeature => Feature != null;
     }
 
     public static partial class MLCData
@@ -86,5 +148,54 @@ namespace MoreLevelContent.Shared.Data
                 levelData_data.Add(levelData, additional);
             } catch(Exception e) { Log.Error(e.ToString()); }
         }
+    }
+
+    public enum PirateOutpostStatus
+    {
+        None,
+        Active,
+        Destroyed,
+        Husked
+    }
+
+    public enum RelayStationStatus
+    {
+        None,
+        Inactive,
+        Active
+    }
+
+    internal struct PirateData
+    {
+        public PirateData()
+        {
+            Status = PirateOutpostStatus.None;
+            Difficulty = 0;
+            Revealed = false;
+        }
+
+        public PirateData(PirateSpawnData spawnData)
+        {
+            Difficulty = 0;
+            Status = PirateOutpostStatus.None;
+            Revealed = false;
+
+            if (spawnData.WillSpawn)
+            {
+                Status = PirateOutpostStatus.Active;
+                Difficulty = spawnData.PirateDifficulty;
+
+                if (spawnData.Husked)
+                {
+                    Status = PirateOutpostStatus.Husked;
+                }
+            }
+        }
+
+        public PirateOutpostStatus Status;
+        public float Difficulty;
+        public bool Revealed;
+
+        public bool HasPirateOutpost => Status != PirateOutpostStatus.None;
     }
 }

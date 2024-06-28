@@ -1,5 +1,6 @@
 ﻿using Barotrauma;
 using Microsoft.Xna.Framework;
+using MoreLevelContent.Shared.Utils;
 using System;
 using System.Linq;
 using System.Xml.Linq;
@@ -134,13 +135,24 @@ namespace MoreLevelContent.Shared.Generation
             }
 #endif
         }
+        protected void AddNewsStory(string tag, LocationConnection connection)
+        {
+#if CLIENT
+            string randomTag = MLCUtils.GetRandomTag(tag, connection.LevelData);
+            string msg = TextManager.GetWithVariables(randomTag, ("[location1]", $"‖color:gui.orange‖{connection.Locations[0].DisplayName}‖end‖"), ("[location2]", $"‖color:gui.orange‖{connection.Locations[1].DisplayName}‖end‖")).Value;
+            Log.Debug($"Added text tag {randomTag} : {msg} to news ticket");
+            MapDirector.Instance.AddNewsStory(msg);
+#endif
+        }
 
         public virtual void OnAddExtraMissions(CampaignMode __instance, LevelData levelData) { }
-        public virtual void OnRoundStart(LevelData levelData) { }
+        public virtual void OnPreRoundStart(LevelData levelData) { }
+        public virtual void OnPostRoundStart(LevelData levelData) { }
         public virtual void OnLevelDataGenerate(LevelData __instance, LocationConnection locationConnection) { }
         public virtual void OnProgressWorld(Map __instance) { }
         public virtual void OnLevelDataLoad(LevelData __instance, XElement element) { }
         public virtual void OnLevelDataSave(LevelData __instance, XElement parentElement) { }
-        public virtual void OnNewMap(Map __instance) { }
+        public virtual void OnMapLoad(Map __instance) { }
+        public virtual void OnLevelGenerate(LevelData levelData, bool mirror) { }
     }
 }

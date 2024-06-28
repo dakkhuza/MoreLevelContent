@@ -6,15 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Xml.Linq;
-using System.Linq;
-using MoreLevelContent.Shared.Content;
-using MoreLevelContent.Shared.Generation.Interfaces;
-using MoreLevelContent.Missions;
 using Microsoft.Xna.Framework;
-using FarseerPhysics.Collision;
 using MoreLevelContent.Networking;
 using Barotrauma.Networking;
-using MoreLevelContent.Shared.Utils;
 
 namespace MoreLevelContent.Shared.Generation
 {
@@ -56,8 +50,8 @@ namespace MoreLevelContent.Shared.Generation
             Check(campaignmode_AddExtraMissions, "campaignmode_addextramissions");
 
             // Map data
-            _ = Main.Harmony.Patch(map_ctr_1, postfix: new HarmonyMethod(GetType().GetMethod(nameof(OnNewMap), BindingFlags.Static | BindingFlags.NonPublic)));
-            _ = Main.Harmony.Patch(map_ctr_2, postfix: new HarmonyMethod(GetType().GetMethod(nameof(OnNewMap), BindingFlags.Static | BindingFlags.NonPublic)));
+            _ = Main.Harmony.Patch(map_ctr_1, postfix: new HarmonyMethod(GetType().GetMethod(nameof(OnMapLoad), BindingFlags.Static | BindingFlags.NonPublic)));
+            _ = Main.Harmony.Patch(map_ctr_2, postfix: new HarmonyMethod(GetType().GetMethod(nameof(OnMapLoad), BindingFlags.Static | BindingFlags.NonPublic)));
             
             // Level data
             _ = Main.Harmony.Patch(leveldata_ctr_load, postfix: new HarmonyMethod(GetType().GetMethod(nameof(OnLevelDataLoad), BindingFlags.Static | BindingFlags.NonPublic)));
@@ -66,22 +60,31 @@ namespace MoreLevelContent.Shared.Generation
 
             // Campaign
             _ = Main.Harmony.Patch(campaignmode_AddExtraMissions, postfix: new HarmonyMethod(AccessTools.Method(typeof(MapDirector), nameof(OnAddExtraMissions))));
-            _ = Main.Harmony.Patch(gamesession_StartRound, prefix: new HarmonyMethod(AccessTools.Method(typeof(MapDirector), nameof(OnRoundStart))));
+            _ = Main.Harmony.Patch(gamesession_StartRound, prefix: new HarmonyMethod(AccessTools.Method(typeof(MapDirector), nameof(OnPreRoundStart))));
+            _ = Main.Harmony.Patch(gamesession_StartRound, postfix: new HarmonyMethod(AccessTools.Method(typeof(MapDirector), nameof(OnPostRoundStart))));
             extraMissions = AccessTools.Field(typeof(CampaignMode), "extraMissions");
 
             _ = Main.Harmony.Patch(map_progressworld, postfix: new HarmonyMethod(AccessTools.Method(typeof(MapDirector), nameof(OnProgressWorld))));
 
             Modules.Add(new ConstructionMapModule());
             Modules.Add(new DistressMapModule());
+            Modules.Add(new PirateOutpostMapModule());
+            Modules.Add(new CablePuzzleMapModule());
+
+            Modules.Add(new MapFeatureModule());
             //Modules.Add(new LostCargoMapModule());
 
-#if CLIENT
-            NetUtil.Register(NetEvent.MAP_CONNECTION_EQUALITYCHECK_SENDCLIENT, ConnectionEqualityCheck);
-#endif
-#if SERVER
-            NetUtil.Register(NetEvent.MAP_CONNECTION_EQUALITYCHECK_REQUEST, RequestConnectionEquality);
-#endif
+            SetupProjSpecific();
         }
+
+        public void SetForcedDistressMission(bool force, string identifier)
+        {
+            var distressModule = (DistressMapModule)Modules.Find(m => m.GetType() == typeof(DistressMapModule));
+            distressModule.ForceSpawnMission = force;
+            distressModule.ForcedMissionIdentifier = identifier;
+        }
+
+        partial void SetupProjSpecific();
 
 #if CLIENT
         private void ConnectionEqualityCheck(object[] args)
@@ -124,11 +127,12 @@ namespace MoreLevelContent.Shared.Generation
 #if SERVER
         private void RequestConnectionEquality(object[] args)
         {
+            if (GameMain.GameSession.GameMode.GetType() == typeof(MultiPlayerCampaign)) return;
             Log.Debug("Got request for quality check");
             Client c = (Client)args[1];
             if (IdConnectionLookup.Count == 0)
             {
-                c.Kick("Client requested equality check too soon!");
+                c.Kick("Client requested the map equality check before the server generated it. This means the campaign map did not exist on the server when the client requested this request. Are you playing campaign mode?");
                 return;
             }
             
@@ -143,6 +147,8 @@ namespace MoreLevelContent.Shared.Generation
         }
 #endif
 
+        internal partial void RoundEnd(CampaignMode.TransitionType transitionType);
+
         private void Check(object info, string name)
         {
             if (info == null) Log.Error(name);
@@ -151,8 +157,9 @@ namespace MoreLevelContent.Shared.Generation
         internal FieldInfo extraMissions;
         internal List<MapModule> Modules = new();
 
-        private static void OnRoundStart(GameSession __instance, LevelData levelData)
+        private static void OnPreRoundStart(GameSession __instance, LevelData levelData)
         {
+            // This needs to get reset when returning to the lobby
 #if CLIENT
             if (!_validatedConnectionLookup && GameMain.IsMultiplayer)
             {
@@ -163,9 +170,18 @@ namespace MoreLevelContent.Shared.Generation
 
             foreach (var item in Instance.Modules)
             {
-                item.OnRoundStart(levelData);
+                item.OnPreRoundStart(levelData);
             }
         }
+
+        private static void OnPostRoundStart(GameSession __instance, LevelData levelData)
+        {
+            foreach (var item in Instance.Modules)
+            {
+                item.OnPostRoundStart(levelData);
+            }
+        }
+
 
         private static void OnAddExtraMissions(CampaignMode __instance, LevelData levelData)
         {
@@ -217,16 +233,17 @@ namespace MoreLevelContent.Shared.Generation
             }
         }
 
-        private static void OnNewMap(Map __instance)
+        private static void OnMapLoad(Map __instance)
         {
             Log.Debug("OnMapLoad:Postfix");
-
+            IdConnectionLookup.Clear();
+            ConnectionIdLookup.Clear();
             // Generate location connection lookup 
             GenerateConnectionLookup(__instance);
 
             foreach (var item in Instance.Modules)
             {
-                item.OnNewMap(__instance);
+                item.OnMapLoad(__instance);
             }
         }
 
@@ -235,10 +252,17 @@ namespace MoreLevelContent.Shared.Generation
             Log.Debug("OnMapSave");
         }
 
+        internal void OnLevelGenerate(LevelData levelData, bool mirror)
+        {
+            foreach (var item in Modules)
+            {
+                item.OnLevelGenerate(levelData, mirror);
+            }
+        }
+
 
         private static void GenerateConnectionLookup(Map map)
         {
-            if (IdConnectionLookup.Count > 0) return;
             for (int i = 0; i < map.Connections.Count; i++)
             {
                 var connection = map.Connections[i];
@@ -249,16 +273,11 @@ namespace MoreLevelContent.Shared.Generation
         }
     }
 
-    internal class BlackMarketModule
-    {
-
-    }
-
     internal static class MapExtensions
     {
         internal static int GetZoneIndex(this Location location, Map map)
         {
-            float zoneWidth = map.Width / MapGenerationParams.Instance.DifficultyZones;
+            float zoneWidth = MapGenerationParams.Instance.Width / MapGenerationParams.Instance.DifficultyZones;
             return MathHelper.Clamp((int)Math.Floor(location.MapPosition.X / zoneWidth) + 1, 1, MapGenerationParams.Instance.DifficultyZones);
         }
     }

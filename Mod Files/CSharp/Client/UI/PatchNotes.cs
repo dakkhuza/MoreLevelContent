@@ -1,10 +1,6 @@
 ﻿using Barotrauma.Extensions;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using Barotrauma.MoreLevelContent.Shared.Config;
 using Barotrauma.MoreLevelContent.Config;
-using Barotrauma;
 using MoreLevelContent;
 
 namespace Barotrauma.MoreLevelContent.Client.UI
@@ -22,7 +18,7 @@ namespace Barotrauma.MoreLevelContent.Client.UI
             backgroundBlocker = new GUIFrame(new RectTransform(Vector2.One, Screen.Selected.Frame.RectTransform, Anchor.Center), style: null);
             _ = new GUIFrame(new RectTransform(GUI.Canvas.RelativeSize, backgroundBlocker.RectTransform, Anchor.Center), style: "GUIBackgroundBlocker");
 
-            var mainParent = new GUIFrame(new RectTransform(new Vector2(0.5f, 0.4f), backgroundBlocker.RectTransform, Anchor.Center, scaleBasis: ScaleBasis.Smallest) { MinSize = new Point(640, 480) }).RectTransform;
+            var mainParent = new GUIFrame(new RectTransform(new Vector2(0.5f, 0.55f), backgroundBlocker.RectTransform, Anchor.Center, scaleBasis: ScaleBasis.Smallest) { MinSize = new Point(640, 480) }).RectTransform;
 
             mainFrame = new GUIFrame(new RectTransform(Vector2.One, mainParent));
             var mainLayout = new GUILayoutGroup(new RectTransform(Vector2.One * 0.95f, mainFrame.RectTransform, Anchor.Center, Pivot.Center),
@@ -64,6 +60,7 @@ namespace Barotrauma.MoreLevelContent.Client.UI
         {
             Instance?.Close();
             Instance = new PatchNotes();
+            ConfigManager.ShouldDisplayPatchNotes = false;
         }
 
         public void Close()

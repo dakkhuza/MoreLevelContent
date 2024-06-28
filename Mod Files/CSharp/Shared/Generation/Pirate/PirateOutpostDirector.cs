@@ -1,36 +1,78 @@
 ﻿using Barotrauma;
 using Barotrauma.MoreLevelContent.Config;
 using Barotrauma.MoreLevelContent.Shared.Config;
-using Barotrauma.MoreLevelContent.Shared.Utils;
-using Microsoft.Xna.Framework;
+using Barotrauma.Networking;
+using HarmonyLib;
+using MoreLevelContent.Networking;
+using MoreLevelContent.Shared.Data;
 using MoreLevelContent.Shared.Generation.Interfaces;
 using MoreLevelContent.Shared.Store;
+using MoreLevelContent.Shared.Utils;
 using System;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 
 namespace MoreLevelContent.Shared.Generation.Pirate
 {
-    public class PirateOutpostDirector : GenerationDirector<PirateOutpostDirector>, IGenerateSubmarine, IGenerateNPCs, ILevelStartGenerate
+    public class PirateOutpostDirector : GenerationDirector<PirateOutpostDirector>, IGenerateSubmarine, IGenerateNPCs, ILevelStartGenerate, IRoundStatus
     {
+        public string ForcedPirateOutpost = "";
         public bool ForceSpawn { get; set; } = false;
         public bool ForceHusk { get; set; } = false;
 
-        public PirateConfig Config => ConfigManager.Instance.Config.NetworkedConfig.PirateConfig;
+        public static PirateConfig Config => ConfigManager.Instance.Config.NetworkedConfig.PirateConfig;
 
-        private PirateSpawnData levelSpawnData;
-        private PirateOutpost enemyOutpost;
+        private PirateOutpost _PirateOutpost;
 
         public override bool Active => PirateStore.HasContent;
 
-        public override void Setup() => PirateStore.Instance.Setup();
+        public override void Setup()
+        {
+            PirateStore.Instance.Setup();
+            Hooks.Instance.AddUpdateAction(Update);
+#if CLIENT
+            NetUtil.Register(NetEvent.PIRATEBASE_STATUS, StatusUpdated);
+#endif
+        }
+
+        internal void UpdateStatus(PirateData data, LocationConnection con)
+        {
+#if SERVER
+            Log.Debug("Send status");
+            var msg = NetUtil.CreateNetMsg(NetEvent.PIRATEBASE_STATUS);
+            Int32 id = MapDirector.ConnectionIdLookup[con];
+            msg.WriteInt32(id);
+            msg.WriteBoolean(data.Revealed);
+            msg.WriteInt16((short)data.Status);
+            NetUtil.SendAll(msg);
+#endif
+        }
+
+#if CLIENT
+        public void StatusUpdated(object[] args)
+        {
+            IReadMessage inMsg = (IReadMessage)args[0];
+            int conId = inMsg.ReadInt32();
+            bool revealed = inMsg.ReadBoolean();
+            PirateOutpostStatus status = (PirateOutpostStatus)inMsg.ReadInt16();
+            // Look up connection
+            var connection = MapDirector.IdConnectionLookup[conId];
+            connection.LevelData.MLC().PirateData.Revealed = revealed;
+            connection.LevelData.MLC().PirateData.Status = status;
+            Log.Debug("Updated pirate status");
+        }
+#endif
+
+        static void Update(float deltaTime, Camera cam)
+        {
+            if (Instance._PirateOutpost != null)
+            {
+                Instance._PirateOutpost.Update(deltaTime);
+            }
+        }
 
         void ILevelStartGenerate.OnLevelGenerationStart(LevelData levelData, bool _)
         {
-            enemyOutpost = null;
-            // Exit if it's an outpost level
-            if (levelData.Type == LevelData.LevelType.Outpost) return;
+            _PirateOutpost = null;
 
             // Prevent an outpost from spawning if the mission is a pirate
             // It will brick the pirates if it does
@@ -42,70 +84,27 @@ namespace MoreLevelContent.Shared.Generation.Pirate
                 }
             }
 
-            levelSpawnData = GetSpawnData(levelData);
-            if (levelSpawnData.WillSpawn)
+            if (levelData.MLC().PirateData.HasPirateOutpost)
             {
-                enemyOutpost = new PirateOutpost(levelSpawnData);
+                _PirateOutpost = new PirateOutpost(levelData.MLC().PirateData, ForcedPirateOutpost, levelData.Seed);
                 Log.Verbose("Set pirate outpost");
             }
         }
 
-        public void GenerateSub() => enemyOutpost?.Generate();
-        public void SpawnNPCs() => enemyOutpost?.Populate();
-
-        private PirateSpawnData GetSpawnData(LevelData levelData)
+        public void GenerateSub() => _PirateOutpost?.Generate();
+        public void SpawnNPCs() => _PirateOutpost?.Populate();
+        public void BeforeRoundStart() { }
+        public void RoundEnd()
         {
-            Log.InternalDebug("Rolling for a pirate spawn...");
-            Random rand = new MTRandom(ToolBox.StringToInt(levelData.Seed));
-            PirateSpawnData spawnData = new PirateSpawnData(rand, levelData.Difficulty);
-            Log.InternalDebug(spawnData.ToString());
-            return spawnData;
+            Log.Debug("Pirate director round end");
+            if (_PirateOutpost != null)
+            {
+                _PirateOutpost.OnRoundEnd(Level.Loaded.LevelData);
+                _PirateOutpost = null;
+            } else
+            {
+                Log.Debug("Pirate outpost not set");
+            }
         }
     }
-
-    public class PirateSpawnData
-    {
-        public PirateSpawnData(Random rand, float levelDiff)
-        {
-            UpdatePirateSpawnData(levelDiff, rand);
-
-            int spawnInt = rand.Next(100);
-            int huskInt = rand.Next(100);
-
-            WillSpawn = PirateOutpostDirector.Instance.ForceSpawn ? PirateOutpostDirector.Instance.ForceSpawn : modifiedSpawnChance > spawnInt;
-            Husked = modifiedHuskChance > huskInt;
-
-            Log.InternalDebug($"spawn int {spawnInt}, husk int {huskInt}");
-        }
-
-        public bool WillSpawn { get; set; }
-        public bool Husked { get; set; }
-        public float PirateDifficulty { get; private set; }
-
-        public override string ToString() => $"Will Spawn: {WillSpawn}, Is Husked: {Husked}";
-
-        private float modifiedSpawnChance;
-        private float modifiedHuskChance;
-
-        private void UpdatePirateSpawnData(float levelDiff, Random rand)
-        {
-            float baseChance = levelDiff < 100 ? 
-                MathF.Min(levelDiff / 2, (levelDiff / 5) + 15) : 
-                100f;
-            float spawnOffset = MathHelper.Lerp(-PirateOutpostDirector.Instance.Config.SpawnChanceNoise, PirateOutpostDirector.Instance.Config.SpawnChanceNoise, (float)rand.NextDouble());
-
-            modifiedSpawnChance = baseChance + spawnOffset + PirateOutpostDirector.Instance.Config.BasePirateSpawnChance;
-            if (PirateOutpostDirector.Instance.Config.BasePirateSpawnChance == 100) modifiedSpawnChance = 100;
-            Log.Debug($"Modified pirate spawn chance for diff {levelDiff} is {modifiedSpawnChance}, base chance {baseChance}, offset {spawnOffset}");
-
-            float diffOffset = Math.Abs(MathHelper.Lerp(-PirateOutpostDirector.Instance.Config.DifficultyNoise, PirateOutpostDirector.Instance.Config.DifficultyNoise, (float)rand.NextDouble()));
-            PirateDifficulty = levelDiff + diffOffset;
-            Log.Debug($"Modified pirate diff is {PirateDifficulty}, level diff {levelDiff}, offset {diffOffset}");
-
-            modifiedHuskChance = MathF.Max(PirateOutpostDirector.Instance.Config.BaseHuskChance, levelDiff / 10);
-            Log.Debug($"Modified chance for pirates to be husked is {modifiedHuskChance}");
-        }
-
-    }
-
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MoreLevelContent.Shared.Generation
 {
+    // Server
     internal partial class LostCargoMapModule : TimedEventMapModule
     {
         protected override void InitProjSpecific() { }

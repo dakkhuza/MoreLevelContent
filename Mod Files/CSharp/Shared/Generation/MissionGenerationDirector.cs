@@ -4,6 +4,7 @@ using Barotrauma.Extensions;
 using Barotrauma.Items.Components;
 using FarseerPhysics;
 using Microsoft.Xna.Framework;
+using MoreLevelContent.Missions;
 using MoreLevelContent.Shared.Data;
 using MoreLevelContent.Shared.Generation.Interfaces;
 using MoreLevelContent.Shared.Store;
@@ -26,7 +27,10 @@ namespace MoreLevelContent.Shared.Generation
         readonly Queue<Submarine> AutoFillQueue = new();
         internal delegate void OnSubmarineCreated(Submarine createdSubmarine);
         internal delegate void OnDecoCreated(List<Submarine> decoItems, Cave decoratedCave);
+        public static List<(Vector2, Vector2)> DebugPoints = new();
 
+        internal static void RequestSubmarine(SubmarineSpawnRequest info) =>
+            Instance.SubCreationQueue.Enqueue(info);
         internal static void RequestStaticSubmarine(ContentFile contentFile, OnSubmarineCreated onSubmarineCreated, bool autoFill = true) => 
             Instance.RequestStaticSub(contentFile, onSubmarineCreated, autoFill);
         internal static void RequestSubmarine(ContentFile contentFile, OnSubmarineCreated onSubmarineCreated, bool autoFill = true) => 
@@ -47,31 +51,50 @@ namespace MoreLevelContent.Shared.Generation
             }
         }
 
-        struct SubmarineSpawnRequest
+        internal struct SubmarineSpawnRequest
         {
-            public ContentFile ContentFile;
+            public ContentFile File;
             public OnSubmarineCreated Callback;
-            public bool AutoFill;
-            public PositionType SpawnPosition;
+            public bool AutoFill = false;
+            public bool AllowStealing = true;
+            public AutoFillPrefix Prefix = AutoFillPrefix.None;
+            public SubSpawnPosition SpawnPosition = SubSpawnPosition.PathWall;
+            public PlacementType PlacementType = PlacementType.Bottom;
+            public bool IgnoreCrushDpeth = true;
 
-            public SubmarineSpawnRequest(ContentFile submarineFile, OnSubmarineCreated callback, bool autoFill)
+            public SubmarineSpawnRequest()
             {
-                ContentFile = submarineFile;
-                Callback = callback;
-                AutoFill = autoFill;
-                SpawnPosition = PositionType.Wreck;
+                File = null;
+                Callback = null;
+            }
+
+            public enum AutoFillPrefix
+            {
+                None,
+                Wreck,
+                Abandoned
             }
         }
 
         void RequestStaticSub(ContentFile contentFile, OnSubmarineCreated onSubmarineCreated, bool autoFill)
         {
-            SubCreationQueue.Enqueue(new SubmarineSpawnRequest(contentFile, onSubmarineCreated, autoFill));
+            SubCreationQueue.Enqueue(new SubmarineSpawnRequest() 
+            { 
+                File = contentFile, 
+                Callback = onSubmarineCreated,
+                AutoFill = autoFill
+            });
             Log.Debug("Enqueued spawn request for submarine");
         }
 
         void RequestSub(ContentFile contentFile, OnSubmarineCreated onSubmarineCreated, bool autoFill)
         {
-            SubCreationQueue.Enqueue(new SubmarineSpawnRequest(contentFile, onSubmarineCreated, autoFill) { SpawnPosition = PositionType.MainPath });
+            SubCreationQueue.Enqueue(new SubmarineSpawnRequest() { 
+                File = contentFile,
+                Callback = onSubmarineCreated,
+                AutoFill = autoFill,
+                SpawnPosition = SubSpawnPosition.PathWall
+        });
             Log.Debug("Enqueued spawn request for submarine on path");
         }
 
@@ -84,20 +107,32 @@ namespace MoreLevelContent.Shared.Generation
         public void GenerateSub()
         {
             SpawnConstructionSite();
+            SpawnRelayStation();
             SpawnRequestedSubs();
             DecorateCaves();
         }
 
         void SpawnRequestedSubs()
         {
+            DebugPoints.Clear();
             while (SubCreationQueue.Count > 0)
             {
-                var request = SubCreationQueue.Dequeue();
-                string subName = System.IO.Path.GetFileNameWithoutExtension(request.ContentFile.Path.Value);
-
-                Submarine submarine = request.SpawnPosition == PositionType.Wreck
-                    ? SpawnSubOnPath(subName, request.ContentFile)
-                    : SpawnSub(request.ContentFile);
+                SubmarineSpawnRequest request = SubCreationQueue.Dequeue();
+                string subName = System.IO.Path.GetFileNameWithoutExtension(request.File.Path.Value);
+                Submarine submarine;
+                if (request.SpawnPosition == SubSpawnPosition.PathWall)
+                {
+                    submarine = SpawnSubOnPath(subName, request.File, ignoreCrushDepth: request.IgnoreCrushDpeth, placementType: request.PlacementType);
+                } else
+                {
+                    if (request.SpawnPosition == SubSpawnPosition.AbyssIsland)
+                    {
+                        submarine = PositionAbyssCave(request);
+                    } else
+                    {
+                        submarine = SpawnSub(request.File);
+                    }
+                }
 
                 if (submarine != null)
                 {
@@ -109,8 +144,18 @@ namespace MoreLevelContent.Shared.Generation
                         foreach (Item item in Item.ItemList)
                         {
                             if (item.Submarine != submarine) { continue; }
-                            if (item.GetRootInventoryOwner() is Character) { continue; }
                             if (item.NonInteractable) { continue; }
+                            item.AllowStealing = request.AllowStealing;
+                            if (item.GetRootInventoryOwner() is Character) { continue; }
+                            int len = item.Tags.Length;
+                            for (int i = 0; i < len; i++)
+                            {
+                                if (request.Prefix != SubmarineSpawnRequest.AutoFillPrefix.None)
+                                {
+                                    item.AddTag($"{request.Prefix}{item.Tags[i]}");
+                                }
+                            }
+
                             foreach (var container in item.GetComponents<ItemContainer>())
                             {
                                 container.AutoFill = true;
@@ -131,7 +176,7 @@ namespace MoreLevelContent.Shared.Generation
         {
             if (Level.Loaded.LevelData.MLC().HasBeaconConstruction)
             {
-                Submarine beacon = SpawnSubOnPath("Beacon Station", BeaconConstStore.Instance.GetBeaconForLevel(), ignoreCrushDepth: true, SubmarineType.EnemySubmarine);
+                Submarine beacon = SpawnSubOnPath("Construction Site", BeaconConstStore.Instance.GetBeaconForLevel(), ignoreCrushDepth: true, SubmarineType.EnemySubmarine);
                 beacon.PhysicsBody.BodyType = BodyType.Static;
                 Level.Loaded.MLC().BeaconConstructionStation = beacon;
                 Item storageItem = Item.ItemList.Find(it => it.Submarine == beacon && it.GetComponent<ItemContainer>() != null && it.Tags.Contains("dropoff"));
@@ -143,6 +188,18 @@ namespace MoreLevelContent.Shared.Generation
                 Level.Loaded.MLC().DropOffPoint = storageItem;
                 
             }
+        }
+
+        void SpawnRelayStation()
+        {
+            if (!Loaded.LevelData.MLC().HasRelayStation) return;
+            Log.Debug("Trying to spawn relay station");
+            Submarine relayStation = SpawnSubOnPath("Relay Station", CablePuzzleMission.SubmarineFile, ignoreCrushDepth: true, SubmarineType.EnemySubmarine, PlacementType.Top);
+            Log.Debug("Spawned relay station");
+            relayStation.PhysicsBody.FarseerBody.BodyType = FarseerPhysics.BodyType.Static;
+            relayStation.TeamID = CharacterTeamType.FriendlyNPC;
+            relayStation.ShowSonarMarker = false;
+            Level.Loaded.MLC().RelayStation = relayStation;
         }
 
         void DecorateCaves()
@@ -193,7 +250,124 @@ namespace MoreLevelContent.Shared.Generation
             }
         }
 
+        void PositionAbyss(Submarine sub)
+        {
+            Log.Error("Position Type Abyss is not implemented");
+        }
+        
+        Submarine PositionAbyssCave(SubmarineSpawnRequest request)
+        {
+            var subDoc = SubmarineInfo.OpenFile(request.File.Path.Value);
+            Rectangle subBorders = Submarine.GetBorders(subDoc.Root);
+            SubmarineInfo info = new SubmarineInfo(request.File.Path.Value);
 
+            int maxAttempts = 25;
+            int attemptsLeft = maxAttempts;
+            var rand = MLCUtils.GetLevelRandom();
+            var validIslands = Loaded.AbyssIslands.Where(i => !Loaded.Caves.Any(c => c.Area.Intersects(i.Area))).ToList();
+            if (!validIslands.Any())
+            {
+                // If we found NO islands, tolerate spawning on caves
+                validIslands = Loaded.AbyssIslands;
+            }
+            Vector2 startPoint = default;
+            bool foundPos = false;
+            int offset = 1;
+            int dir = request.PlacementType == PlacementType.Bottom ? 1 : -1;
+
+
+            SpawnOnIsland(validIslands);
+
+            if (!foundPos)
+            {
+                Log.Error("Failed to find a spawn position");
+                return null;
+            }
+
+            Submarine sub = new Submarine(info);
+            sub.SetPosition(startPoint, forceUndockFromStaticSubmarines: false);
+            return sub;
+
+            void SpawnOnIsland(List<AbyssIsland> islands)
+            {
+                var island = validIslands.GetRandom(rand);
+                if (island == null)
+                {
+                    Log.Debug("Failed to find a valid island to spawn on");
+                    return;
+                }
+                startPoint = island.Area.Center.ToVector2();
+
+                // Check if position is overlapping
+                while (attemptsLeft > 0)
+                {
+                    if (TryPosition())
+                    {
+                        foundPos = true;
+                        return;
+                    }
+                    offset++;
+                }
+
+                // We found no position for this island
+                // Remove it and try again if we still have islands left
+                _ = validIslands.Remove(island);
+                attemptsLeft = maxAttempts;
+                if (islands.Count == 0)
+                {
+                    Log.Error("NO valid abyss islands found :((");
+                    return;
+                }
+                SpawnOnIsland(islands);
+
+                bool TryPosition()
+                {
+                    float halfHeight = subBorders.Height / 10;
+                    float startY = startPoint.Y + (halfHeight * offset * dir);
+                    float x1 = startPoint.X - (subBorders.Width / 2);
+                    float x2 = startPoint.X;
+                    float x3 = startPoint.X + (subBorders.Width / 2);
+
+
+                    Vector2 rayStart = new Vector2(x2, startY);
+                    Vector2 to = new Vector2(x2, startY - (halfHeight * dir));
+                    DebugPoints.Add((rayStart, to));
+
+                    Vector2 simPos = ConvertUnits.ToSimUnits(rayStart);
+                    if (Submarine.PickBody(simPos, ConvertUnits.ToSimUnits(to),
+                        customPredicate: f => f.Body?.UserData is VoronoiCell cell,
+                        collisionCategory: Physics.CollisionLevel | Physics.CollisionWall,
+                        allowInsideFixture: true) != null)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        startPoint = new Vector2(to.X, to.Y + ((subBorders.Height / 2) * dir));
+                        //for (int i = 0; i < 50; i++)
+                        //{
+                        //    if (Slam()) break;
+                        //}
+                        return true;
+                    }
+
+                    bool Slam()
+                    {
+                        if (Submarine.PickBody(simPos, ConvertUnits.ToSimUnits(to),
+                            customPredicate: f => f.Body?.UserData is VoronoiCell cell,
+                            collisionCategory: Physics.CollisionLevel | Physics.CollisionWall,
+                            allowInsideFixture: true) != null)
+                        {
+                            return false;
+                        } else
+                        {
+                            return true;
+                        }
+                    }
+                }
+
+            }
+        }
 
         private Submarine SpawnSub(ContentFile contentFile)
         {
@@ -419,5 +593,13 @@ namespace MoreLevelContent.Shared.Generation
             }
         }
 
+
+        public enum SubSpawnPosition
+        {
+            Path,
+            PathWall,
+            Abyss,
+            AbyssIsland
+        }
     }
 }

@@ -2,12 +2,99 @@
     <mlc.title>More Level Content</mlc.title>
 
     <!-- Distress Missions -->
-    <entityname.captains_notebook>Captain's Notebook</entityname.captains_notebook>
-    <entitydescription.captains_notebook>A small, wellworn paper book. Typically used by sub captains to record their travels. Can be sold for a high price at stations or read to garner some experience.</entitydescription.captains_notebook>
+    <distress.new0>Listening stations have detected a ‖color:gui.Red‖distress beacon‖end‖ between [location1] and [location2]</distress.new0>
+    <distress.new1>A ‖color:gui.Red‖distress beacon‖end‖ has been reported between [location1] and [location2]</distress.new1>
+    <distress.new2>[location1] has reported a new ‖color:gui.Red‖distress beacon‖end‖ in the caves leading to [location2]</distress.new2>
 
-    <missionmessage1.distress_shiprescue>The shuttle crew has perished, an all too common fate. They won't be paying for this rescue anymore but the shuttle can still be claimed as salvage if navigated out of this cave.</missionmessage1.distress_shiprescue>
+    <distress.faint0>Listening stations report the ‖color:gui.Red‖distress beacon‖end‖ between [location1] and [location2] is growing faint</distress.faint0>
+    <distress.faint1>Projected ice movement will soon leave the ‖color:gui.Red‖distress beacon‖end‖ between [location1] and [location2] unaccessable</distress.faint1>
 
+    <distress.lost0>The ‖color:gui.Red‖distress beacon‖end‖ between [location1] and [location2] can no longer be detected</distress.lost0>
+    <distress.lost1>Ice drift has rendered the ‖color:gui.Red‖distress beacon‖end‖ between [location1] and [location2] inaccessible</distress.lost1>
+    <distress.lost2>A submarine crew passing through [location1] to [location2] report there were no survivors at the ‖color:gui.Red‖distress beacon‖end‖</distress.lost2>
 
+    <!-- Distress Events -->
+    <charactername.captain_dakota>Captain Dakota</charactername.captain_dakota>
+    <charactername.clowncorpse>Clown Corpse</charactername.clowncorpse>
+    <charactername.pagliacci>Pagliacci</charactername.pagliacci>
+
+    <!-- Lost Cargo -->
+    <mlc.cargopodhidden>Cargo Pod?</mlc.cargopodhidden>
+    <mlc.cargopod>Cargo Pod</mlc.cargopod>
+
+    <mlc.lostcargonew0>Lost cargo has been reported between [location1] and [location2].</mlc.lostcargonew0>
+
+    <mlc.lostcargotooltip>A freighter submarine has ditched some of it's cargo due to 'complications' in this passage.</mlc.lostcargotooltip>
+    
+    <mlc.lostcargo.tooslow0>The lost cargo between [location1] and [location2] has been claimed by another crew.</mlc.lostcargo.tooslow0>
+    <mlc.lostcargo.tooslow1>Long range listening stations can no longer detect the lost cargo between [location1] and [location2].</mlc.lostcargo.tooslow1>
+    <mlc.lostcargo.tooslow2>Based on projected currents and ice movement, the lost cargo between [location1] and [location2] is no longer recoverable.</mlc.lostcargo.tooslow2>
+
+    <!-- Relay Repair -->
+    <mlc.relaystationtooltip.inactive>An old ‖color:gui.Orange‖relay station‖end‖ in this passage has stopped transmitting signals. Bringing it back online will help local communication.</mlc.relaystationtooltip.inactive>
+    <mlc.relaystationtooltip.active>There's an active ‖color:gui.Orange‖relay station‖end‖ in this passage.</mlc.relaystationtooltip.active>
+    
     <!-- Hint -->
-    <mlc.hint.jumpstarter>A ‖color:gui.orange‖Jump Starter‖end‖ can be used to temporarily power dead electrical devices. They can be crafted or bought at outposts.</mlc.hint.jumpstarter>
+    <relayrepair.terminal>KONETCO RELAY v[version]\nStation [station]\n------------------------\n\nCalibration Table\nIN [input0] | [step10] - [step20] - [step30] | OUT [output0]\nIN [input1] | [step11] - [step21] - [step31] | OUT [output1]\nIN [input2] | [step12] - [step22] - [step32] | OUT [output2]</relayrepair.terminal>
+
+    <!-- Config -->
+    <mlc.config.pirate.peakspawnchance>Peak spawn chance</mlc.config.pirate.peakspawnchance>
+    <mlc.config.pirate.peakspawnchance.tooltip>The peak percentage chance for a pirate base to be generated. Bases are most common at 50% level difficulty. For instance if this is set to 100%, if the level difficulty is exactly 50% a pirate base will be guaranteed to be generated.</mlc.config.pirate.peakspawnchance.tooltip>
+
+    <!-- Pirate -->
+    <piratebase.active>There's an active pirate base in this passage, be careful!</piratebase.active>
+    <piratebase.husked>The unlucky pirates in this passage have been turned into husks.</piratebase.husked>
+    <piratebase.destroyed>The pirate base in this passage has been destroyed.</piratebase.destroyed>
+    <entityname.sonarjammer>Sonar Jammer</entityname.sonarjammer>
+    <entitydescription.sonarjammer>Produces powerful, high amplitude frequences that disrupt sonar.</entitydescription.sonarjammer>
+
+    <!-- Machines -->
+    <entityname.autotrader_weapons>Auto-Trader (Weapons)</entityname.autotrader_weapons>
+    <entityname.autotrader_supplies>Auto-Trader (Supplies)</entityname.autotrader_supplies>
+    <autotrader.instock>[count] in stock</autotrader.instock>
+
+    <entityname.sonarguide>Sonar Guide</entityname.sonarguide>
+    <entitydescription.sonarguide>A device that produces sonar pings detectable over long distances, used to guide passing submarines to points of interest.</entitydescription.sonarguide>
+
+    <!-- Map Feature Tooltips -->
+    
+    <mapfeature.autotrader_weapons>There's an automatic weapons trader in this passage.</mapfeature.autotrader_weapons>
+    <mapfeature.autotrader_supplies>There's an automatic supplies trader in this passage.</mapfeature.autotrader_supplies>
+    <mapfeature.waystation>There's a waystation in this passage.</mapfeature.waystation>
+    <mapfeature.clownstation>There's a clown theatre in this passage.</mapfeature.clownstation>
+    <mapfeature.abyssresearch>There's an abyssal research facility somewhere under this passage.</mapfeature.abyssresearch>
+    <mapfeature.huskchurch>There's a husk church in this passage.</mapfeature.huskchurch>
+
+    <mapfeature.huskchurch.name>Husk Church</mapfeature.huskchurch.name>
+    <mapfeature.autotrader_weapons.name>Automatic Weapons Trader</mapfeature.autotrader_weapons.name>
+    <mapfeature.autotrader_supplies.name>Automatic Supplies Trader</mapfeature.autotrader_supplies.name>
+    <mapfeature.waystation.name>Waystation</mapfeature.waystation.name>
+    <mapfeature.clownstation.name>Clown Theatre</mapfeature.clownstation.name>
+    <mapfeature.abyssresearch.name>Abyssal Research Facility</mapfeature.abyssresearch.name>
+
+    <mapfeature.revealed.header>[feature] Revealed</mapfeature.revealed.header>   
+    <mapfeature.revealed.description>Check the campaign map for more information.</mapfeature.revealed.description>
+
+    <!-- Loading Tips -->
+    <loadingscreentip>Distress beacons won't last forever, they will disapear from the map after some time.</loadingscreentip>
+    <loadingscreentip>Jump starters can be used to restart shuttles that have run out of power.</loadingscreentip>
+    <loadingscreentip>If you take your time on a distress mission, whoever activated it might be dead by the time you show up.</loadingscreentip>
+    <loadingscreentip>If you have Dynamic Europa installed, high reputation with the Bandit faction will turn pirate bases passive.</loadingscreentip>
+    <loadingscreentip>There have been reports of pirate bases using unknown technology to jam sonnar.</loadingscreentip>
+    <loadingscreentip>Following stange sonar pings may lead to automatic traders, waystations or other structures. Who knows what you could find!</loadingscreentip>
+
+    <!-- Misc -->
+     <entityname.mailman_researchdata>Research Data</entityname.mailman_researchdata>
+     <entitydescription.mailman_researchdata>Some kind of important research data pertaining to the abyssal depths of Europa. You can't make much sense of it.</entitydescription.mailman_researchdata>
+
+     <entityname.abyssresearch_alienobject>Strange Alien Object</entityname.abyssresearch_alienobject>
+     <entitydescription.abyssresearch_alienobject>An alien object of unknown function. It seems to have transported the researchers here. You could probably sell this for a lot to the right people.</entitydescription.abyssresearch_alienobject>
+
+     <sonarbeacon.researcher>Researcher</sonarbeacon.researcher>
+     <abyssresearch.findbodies>Locate the missing researchers</abyssresearch.findbodies>
+     <abyssresearch.returnitem>Return the alien device</abyssresearch.returnitem>
+
+     <mlc.gamemodewarning.header>Invalid Gamemode!</mlc.gamemodewarning.header>
+     <mlc.gamemodewarning.description>More Level Content does not support multiplayer gamemodes other than campaign! Using it in other gamemodes will cause issues and may even crash your game.</mlc.gamemodewarning.description>
+ 
 </infotexts>

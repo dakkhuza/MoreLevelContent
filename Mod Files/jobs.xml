@@ -1,0 +1,19 @@
+<Jobs>
+    <Job identifier="hostileinfriendlysub" onlyjobspecificdialog="false" minnumber="0" maxnumber="0"
+        initialcount="0" hiddenjob="true" idlebehavior="Patrol">
+        <Skills>
+            <Skill identifier="weapons" level="60,70" primary="true" />
+            <Skill identifier="medical" level="25,35" />
+            <Skill identifier="mechanical" level="15,25" />
+            <Skill identifier="electrical" level="15,25" />
+            <Skill identifier="helm" level="5,10" />
+        </Skills>
+        <AutonomousObjectives>
+            <Order identifier="fightintruders" prioritymodifier="1" />
+            <Order identifier="assaultenemy" prioritymodifier="0.5" />
+            <Order identifier="inspectnoises" prioritymodifier="0.5" />
+            <Order identifier="extinguishfires" prioritymodifier="0.75" />
+        </AutonomousObjectives>
+    </Job>
+
+</Jobs>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Missions>
+    <GotoMission
+        name=""
+        identifier="gotoresearch"
+        type="GoTo"
+        difficulty="1"
+        commonness="0"
+        reward="0"
+        BlockLocationTypeChanges="true">
+        <Icon texture="Content/UI/MissionIcons2.png" sourcerect="512,0,256,256" color="49,93,233" />
+        <TriggerEvent state="1" delay="5" eventidentifier="mailman_delivery"
+            campaignonly="true" />
+        <LocationType identifier="Research" />
+    </GotoMission>
+
+</Missions>

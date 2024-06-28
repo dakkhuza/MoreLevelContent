@@ -2,6 +2,7 @@
 using Barotrauma.MoreLevelContent.Shared.Utils;
 using MoreLevelContent.Shared.Generation;
 using MoreLevelContent.Shared.Generation.Pirate;
+using MoreLevelContent.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace MoreLevelContent.Shared.Store
     {
         public static bool HasContent { get; protected set; }
 
-        protected Element GetElementWithPreferedDifficulty<Element>(float preferedDifficulty, List<Element> elements, float maxDifference = 20f) where Element : DefWithDifficultyRange
+        protected Element GetElementWithPreferedDifficulty<Element>(float preferedDifficulty, List<Element> elements, string seed, float maxDifference = 20f) where Element : DefWithDifficultyRange
         {
             Log.InternalDebug($"Looking for {typeof(Element).Name} with perfered difficulty of {preferedDifficulty}...");
             List<Element> filtered = elements;
@@ -34,12 +35,13 @@ namespace MoreLevelContent.Shared.Store
             Log.Verbose($"Filtered sets of '{nameof(Element)}' to choose from {filtered.Count}");
 
             filtered = filtered.OrderBy(e => e.AverageDifficulty).ToList();
+            var rand = new MTRandom(ToolBox.StringToInt(seed));
             Element selectedElement = ToolBox.SelectWeightedRandom(filtered, (elm) =>
             {
                 return elm.AverageDifficulty > preferedDifficulty
                     ? preferedDifficulty / elm.AverageDifficulty
                     : elm.AverageDifficulty / preferedDifficulty;
-            }, Rand.RandSync.ServerAndClient);
+            }, rand);
 
             return selectedElement;
         }

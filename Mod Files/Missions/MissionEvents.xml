@@ -12,7 +12,8 @@
                 </Success>
                 <Failure>
                     <TagAction criteria="player" tag="player" />
-                    <MessageBoxAction header="mlc.title" text="mlc.hint.jumpstarter" iconstyle="GUINotificationButton" targettag="player"/>
+                    <MessageBoxAction header="mlc.title" text="mlc.hint.jumpstarter"
+                        iconstyle="GUINotificationButton" targettag="player" />
                     <SetDataAction identifier="mlc-hints-jumpstarter-shown" value="1" />
                 </Failure>
             </CheckDataAction>
@@ -475,6 +476,51 @@
             </CheckDataAction>
         </ScriptedEvent>
 
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <!--                        Relay Station Events                               -->
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+        <ScriptedEvent identifier="relayhusk">
+            <SpawnAction npcsetidentifier="mlc_distress_corpses"
+                npcidentifier="distress_engineer"
+                targettag="relay_husk" spawnpointtag="relaystation"
+                spawnlocation="any" spawnpointtype="Corpse"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+            <AfflictionAction targettag="relay_husk" affliction="huskinfection"
+                strength="100" />
+            <AfflictionAction targettag="relay_husk" affliction="internaldamage"
+                strength="98" />
+        </ScriptedEvent>
+
+        <ScriptedEvent identifier="relaycrawler1">
+            <SpawnAction speciesname="Crawler"
+                targettag="relay_husk" spawnpointtag="relaystation"
+                spawnlocation="any" spawnpointtype="Enemy"
+                requirespawnpointtag="true" />
+        </ScriptedEvent>
+
+        <ScriptedEvent identifier="relaycrawler2">
+            <SpawnAction speciesname="Crawler" spawnpointtag="relaystation"
+                spawnlocation="any" spawnpointtype="Enemy"
+                requirespawnpointtag="true" />
+            <SpawnAction speciesname="Crawler_hatchling" spawnpointtag="relaystation"
+                spawnlocation="any" spawnpointtype="Enemy"
+                requirespawnpointtag="true" />
+            <SpawnAction speciesname="Crawler_hatchling" spawnpointtag="relaystation"
+                spawnlocation="any" spawnpointtype="Enemy"
+                requirespawnpointtag="true" />
+        </ScriptedEvent>
+
+
+        <ScriptedEvent identifier="relaycrawlerhusk">
+            <SpawnAction speciesname="Crawlerhusk" spawnpointtag="relaystation"
+                spawnlocation="any" spawnpointtype="Enemy"
+                requirespawnpointtag="true" />
+            <SpawnAction speciesname="Crawlerhusk" spawnpointtag="relaystation"
+                spawnlocation="any" spawnpointtype="Enemy"
+                requirespawnpointtag="true" />
+        </ScriptedEvent>
+
 
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <!--                          Distress Events                                  -->
@@ -482,7 +528,10 @@
 
         <ScriptedEvent identifier="distress_outofuel">
             <TagAction criteria="humanprefabidentifier:captain_dakota" tag="captain" />
-            <TagAction criteria="player" tag="player" />
+            <TagAction criteria="crew" tag="player" />
+            <TagAction criteria="itemtag:distress_reactor" tag="reactor" />
+            <NPCWaitAction npctag="captain" wait="true" />
+
             <TriggerAction target1tag="player" target2tag="captain"
                 applytotarget1="triggerer_player" waitforinteraction="true" />
 
@@ -548,6 +597,7 @@
                             </CheckItemAction>
 
                             <Label name="rodloop" />
+                            <NPCWaitAction npctag="captain" wait="true" />
                             <ConversationAction targettag="triggerer_player"
                                 text="DistressEvent.outoffuel.o1.o1.c2"
                                 eventsprite="captain" speakertag="captain" dialogtype="Small" />
@@ -593,7 +643,36 @@
 
                         <!-- Decline -->
                         <Option text="DistressEvent.outoffuel.o1.o2">
-
+                            <ConversationAction targettag="triggerer_player"
+                                text="DistressEvent.outoffuel.o1.o2.c1"
+                                eventsprite="captain" continueconversation="true">
+                                <!-- Don't try it -->
+                                <Option text="DistressEvent.outoffuel.o1.o2.c1.o1">
+                                    <SkillCheckAction requiredskill="weapons" requiredlevel="80"
+                                        targettag="triggerer_player">
+                                        <Success>
+                                            <ConversationAction targettag="triggerer_player"
+                                                text="DistressEvent.outoffuel.o1.o2.c1.o1.c1"
+                                                eventsprite="captain">
+                                                <Option
+                                                    text="DistressEvent.outoffuel.o1.o2.c1.o1.c1.o1"
+                                                    endconversation="true">
+                                                    <GoTo name="end" />
+                                                </Option>
+                                            </ConversationAction>
+                                        </Success>
+                                        <Failure>
+                                            <ConversationAction targettag="triggerer_player"
+                                                text="DistressEvent.outoffuel.o1.o1.o1.o3.c2.o1"
+                                                eventsprite="captain" />
+                                            <GoTo name="attack" />
+                                        </Failure>
+                                    </SkillCheckAction>
+                                </Option>
+                                <Option text="DistressEvent.outoffuel.o1.o2.c1.o2">
+                                    <Label name="rodloop" />
+                                </Option>
+                            </ConversationAction>
                         </Option>
 
                     </ConversationAction>
@@ -601,7 +680,6 @@
 
                 </Option>
             </ConversationAction>
-
 
             <Label name="giverod" />
             <CheckReputationAction targettype="faction" identifier="clowns" condition="gte 20">
@@ -647,7 +725,7 @@
                                         increase="25" />
                                 </Success>
                             </CheckDataAction>
-                            <GoTo name="end" />
+                            <GoTo name="putrodinreactor" />
                         </Option>
                     </ConversationAction>
 
@@ -678,10 +756,7 @@
                         eventsprite="captain" continueconversation="true">
                         <Option text="DistressEvent.outoffuel.o1.o1.o1.o3.c2.o1"
                             endconversation="true">
-                            <CombatAction combatmode="offensive" npctag="captain"
-                                enemytag="triggerer_player" isinstigator="true" guardreaction="none"
-                                witnessreaction="none" />
-                            <GoTo name="end" />
+                            <GoTo name="attack" />
                         </Option>
                     </ConversationAction>
                 </Failure>
@@ -692,6 +767,7 @@
                 text="DistressEvent.outoffuel.o1.o1.o1.o3.c1.o1.c1"
                 eventsprite="captain" speakertag="captain" dialogtype="Small" />
 
+            <!-- Intimidate give rod -->
             <CheckItemAction targettag="triggerer_player"
                 itemidentifiers="fuelrod">
                 <Failure>
@@ -758,77 +834,171 @@
                 </Success>
             </CheckItemAction>
 
+            <Label name="putrodinreactor" />
+            <!--SpawnAction
+            itemidentifier="fuelrod" targetinventory="captain" /-->
+            <!-- This is really dumb, for some reason the AI won't walk to the tagged reactor -->
+            <!-- So instead we tell the AI to walk to the ballast tank, due to the ship layout -->
+            <!-- The AI has to walk past the reactor, then we just stop the AI -->
+            <NPCWaitAction npctag="captain" wait="false" />
+            <NPCFollowAction npctag="captain" targettag="reactor" follow="true" />
+            <TriggerAction target1tag="captain"
+                target2tag="reactor"
+                radius="300"
+                waitforinteraction="false"
+                disableiftargetincapacitated="false" />
+
+            <CheckDataAction identifier="distress_outoffuel_side_clown" condition="eq true">
+                <Failure>
+                    <SpawnAction itemidentifier="fuelrod" targetinventory="reactor" />
+                    <WaitAction time="5" />
+                    <NPCWaitAction npctag="captain" wait="false" />
+                </Failure>
+                <!-- Sabotaged the rod -->
+                <Success>
+                    <SpawnAction itemidentifier="fuelrod" targetinventory="reactor" />
+                    <WaitAction time="5" />
+                    <NPCWaitAction npctag="captain" wait="false" />
+                    <WaitAction time="15" />
+                    <StatusEffectAction targettag="reactor">
+                        <StatusEffect target="This" FissionRate="0.0" disabledeltatime="true">
+                            <sound file="Content/Items/Weapons/ExplosionLarge1.ogg" range="50000" />
+                            <sound file="Content/Items/Weapons/ExplosionLarge2.ogg" range="50000" />
+                            <Explosion range="750" ballastfloradamage="1000" structuredamage="300"
+                                itemdamage="500" force="25.0" camerashake="0" flashrange="10000"
+                                flashduration="5.0" debris="true" screencolor="255,255,255,255"
+                                screencolorrange="5000" screencolorduration="3.0" decal="explosion"
+                                decalsize="1">
+                                <Affliction identifier="explosiondamage" strength="500" />
+                                <Affliction identifier="burn" strength="500" />
+                                <Affliction identifier="stun" strength="15" />
+                            </Explosion>
+                            <Explosion range="2000" force="0.0" camerashake="200"
+                                camerashakerange="50000" showEffects="false" empstrength="1.25"
+                                applyfireeffects="false" ignorecover="true">
+                                <Affliction identifier="radiationsickness" strength="75" />
+                                <Affliction identifier="emp" strength="50"
+                                    multiplybymaxvitality="true" />
+                            </Explosion>
+                            <ParticleEmitter particle="underwaterexplosion" anglemin="0"
+                                anglemax="360" particleamount="3" velocitymin="0" velocitymax="0"
+                                scalemin="15" scalemax="15" />
+                        </StatusEffect>
+                    </StatusEffectAction>
+                </Success>
+            </CheckDataAction>
+
+            <Label name="attack" />
+            <NPCWaitAction npctag="captain" wait="false" />
+            <CombatAction combatmode="Offensive" npctag="captain"
+                enemytag="triggerer_player" isinstigator="true"
+                guardreaction="none" witnessreaction="retreat" />
 
             <Label name="end" />
+        </ScriptedEvent>
 
-            <!--ConversationAction
-            targettag="triggerer_player" text="DistressEvent.outoffuel.c1"
-                eventsprite="captain">
-                <Option text="EventText.huskcultist.o1">
-                    <CheckItemAction targettag="triggerer_player" itemidentifiers="huskeggsbasic">
+        <ScriptedEvent identifier="distress_ghostship_clowns">
+            <SetDataAction identifier="distress_clowns_reward" value="false" />
+            <TriggerEventAction identifier="suprise_clown" />
+            <WaitAction time="1" />
+            <TriggerEventAction identifier="suprise_clown" />
+            <WaitAction time="1" />
+            <TriggerEventAction identifier="suprise_clown" />
+            <WaitAction time="1" />
+            <TriggerEventAction identifier="suprise_clown" />
+            <WaitAction time="1" />
+            <TriggerEventAction identifier="suprise_clown" />
+        </ScriptedEvent>
+
+        <ScriptedEvent identifier="suprise_clown">
+            <TagAction criteria="crew" tag="player" />
+            <SpawnAction npcsetidentifier="mlc_special_npcs" npcidentifier="clowncorpse"
+                targettag="clown" spawnlocation="Any" spawnpointtype="Human"
+                spawnpointtag="distress_ghostship" team="None" requirespawnpointtag="true"
+                lootingisstealing="false" />
+            <AfflictionAction targettag="clown" affliction="bloodloss"
+                strength="1000" />
+            <TriggerAction target1tag="clown" target2tag="player"
+                radius="100" disableiftargetincapacitated="false" WaitForInteraction="true"
+                DisableInCombat="false" />
+            <CheckDataAction identifier="distress_clowns_reward" condition="eq true">
+                <Success>
+                    <!-- Clown Disapears -->
+                    <StatusEffectAction targettag="clown">
+                        <StatusEffect target="This">
+                            <sound file="%ModDir%/Sounds/vanish.ogg"
+                                range="500" />
+                            <RemoveCharacter />
+                        </StatusEffect>
+                    </StatusEffectAction>
+
+                </Success>
+
+                <Failure>
+                    <RNGAction chance="0.25">
                         <Success>
-                            <Label name="checkpockets" />
-                            <ConversationAction targettag="triggerer_player"
-                                text="EventText.huskcultist.o1.c1">
-                                <Option text="EventText.huskcultist.o1.o1">
-                                    <RemoveItemAction targettag="triggerer_player"
-                                        itemidentifier="huskeggsbasic" />
-                                    <ConversationAction targettag="triggerer_player"
-                                        text="EventText.huskcultist.o1.o1.c1" />
-                                    <MoneyAction amount="1000" />
-                                </Option>
-                                <Option text="EventText.huskcultist.o1.o2">
-                                    <RemoveItemAction targettag="triggerer_player"
-                                        itemidentifier="huskeggsbasic" />
-                                    <ConversationAction targettag="triggerer_player"
-                                        text="EventText.huskcultist.o1.o2.c1" />
-                                    <ReputationAction targettype="Faction" identifier="huskcult"
-                                        increase="5" />
-                                    <ReputationAction targettype="Faction" identifier="clowns"
-                                        increase="-3" />
-                                </Option>
-                                <Option text="EventText.huskcultist.o1.o3" />
-                            </ConversationAction>
+                            <!-- Give money -->
+                            <MoneyAction amount="2500" targettag="triggerer_player" />
+                            <GiveExpAction amount="1000" targettag="triggerer_player" />
+                            <ReputationAction targettype="Faction" identifier="clowns" increase="15" />
+                            <SetDataAction identifier="distress_clowns_reward" value="true" />
+                            <StatusEffectAction targettag="clown">
+                                <StatusEffect target="This">
+                                    <sound file="%ModDir%/Sounds/confetti.ogg"
+                                        range="500" />
+                                </StatusEffect>
+                            </StatusEffectAction>
+                            <WaitAction time="1" />
+                            <StatusEffectAction targettag="clown">
+                                <StatusEffect target="This">
+                                    <sound file="%ModDir%/Sounds/vanish.ogg"
+                                        range="500" />
+                                    <RemoveCharacter />
+                                </StatusEffect>
+                            </StatusEffectAction>
+
                         </Success>
+
                         <Failure>
-                            <ConversationAction targettag="triggerer_player"
-                                text="EventText.huskcultist.o1.c2">
-                                <Option text="EventText.huskcultist.o1.o4">
-                                    <ConversationAction targettag="triggerer_player"
-                                        text="EventText.huskcultist.o1.o4.c1" />
-                                    <Label name="waitingforeggs" />
-                                    <ConversationAction text="EventText.huskcultist_return.c1"
-                                        eventsprite="cultist" speakertag="huskcultist"
-                                        dialogtype="Small">
-                                        <Option text="EventText.huskcultist_return.o1"
-                                            endconversation="true">
-                                            <CheckItemAction targettag="triggerer_player"
-                                                itemidentifiers="huskeggsbasic">
-                                                <Success>
-                                                    <GoTo name="checkpockets" />
-                                                </Success>
-                                                <Failure>
-                                                    <ConversationAction targettag="triggerer_player"
-                                                        waitforinteraction="false"
-                                                        text="EventText.huskcultist_return.o1.c2"
-                                                        eventsprite="cultist" dialogtype="Small" />
-                                                    <GoTo name="waitingforeggs" />
-                                                </Failure>
-                                            </CheckItemAction>
-                                        </Option>
-                                        <Option text="EventText.huskcultist_return.o2"
-                                            endconversation="true">
-                                            <GoTo name="waitingforeggs" />
-                                        </Option>
-                                    </ConversationAction>
-                                </Option>
-                                <Option text="EventText.huskcultist.o1.o5" />
-                            </ConversationAction>
+                            <!-- Explode -->
+                            <StatusEffectAction targettag="clown">
+                                <StatusEffect target="This">
+                                    <sound file="%ModDir%/Sounds/womp.ogg"
+                                        range="500" />
+                                </StatusEffect>
+                            </StatusEffectAction>
+                            <StatusEffectAction targettag="clown">
+                                <StatusEffect target="This">
+                                    <sound file="Content/Items/Weapons/ExplosionMedium1.ogg"
+                                        range="5000" />
+                                    <sound file="Content/Items/Weapons/ExplosionMedium2.ogg"
+                                        range="5000" />
+                                    <sound file="Content/Items/Weapons/ExplosionMedium3.ogg"
+                                        range="5000" />
+                                    <Explosion range="750.0" ballastfloradamage="100"
+                                        structuredamage="0" levelwalldamage="0" itemdamage="0"
+                                        force="30" severlimbsprobability="0" debris="true"
+                                        decal="explosion" decalsize="0.5">
+                                        <Affliction identifier="explosiondamage" strength="10" />
+                                        <Affliction identifier="bleeding" strength="10" />
+                                        <Affliction identifier="bleeding" strength="5"
+                                            probability="0.1" dividebylimbcount="false" />
+                                        <Affliction identifier="stun" strength="2" />
+                                    </Explosion>
+                                </StatusEffect>
+                            </StatusEffectAction>
+                            <WaitAction time="2" />
+                            <StatusEffectAction targettag="clown">
+                                <StatusEffect target="This">
+                                    <sound file="%ModDir%/Sounds/vanish.ogg"
+                                        range="500" />
+                                    <RemoveCharacter />
+                                </StatusEffect>
+                            </StatusEffectAction>
                         </Failure>
-                    </CheckItemAction>
-                </Option>
-                <Option text="EventText.huskcultist.o2" />
-            </ConversationAction-->
+                    </RNGAction>
+                </Failure>
+            </CheckDataAction>
         </ScriptedEvent>
 
         <ScriptedEvent identifier="distress_ghostship_bandit_2">
@@ -880,7 +1050,7 @@
                 targettag="prisoner1" />
 
             <StatusEffectAction targettag="prisoner1">
-                <StatusEffect>
+                <StatusEffect target="This">
                     <GiveTalentInfo giverandom="false"
                         talentidentifiers="swole, crustyseaman, stonewall" />
                 </StatusEffect>
@@ -891,7 +1061,7 @@
                 team="None" requirespawnpointtag="true" lootingisstealing="false"
                 targettag="prisoner2" />
             <StatusEffectAction targettag="prisoner2">
-                <StatusEffect>
+                <StatusEffect target="This">
                     <GiveTalentInfo giverandom="false"
                         talentidentifiers="swole, inordinateexsanguination, implacable" />
                 </StatusEffect>
@@ -903,7 +1073,7 @@
                 team="None" requirespawnpointtag="true" lootingisstealing="false"
                 targettag="prisoner3" />
             <StatusEffectAction targettag="prisoner3">
-                <StatusEffect>
+                <StatusEffect target="This">
                     <GiveTalentInfo giverandom="false"
                         talentidentifiers="swole, phdinnuclearphysics, multifunctional" />
                 </StatusEffect>
@@ -915,7 +1085,7 @@
                 team="None" requirespawnpointtag="true" lootingisstealing="false"
                 targettag="prisoner4" />
             <StatusEffectAction targettag="prisoner4">
-                <StatusEffect>
+                <StatusEffect target="This">
                     <GiveTalentInfo giverandom="false"
                         talentidentifiers="swole, berserker, foolhardy" />
                 </StatusEffect>

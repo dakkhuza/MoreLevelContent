@@ -8,6 +8,8 @@ namespace MoreLevelContent.Shared.Data
     class Character_MLCData
     {
         public XElement NPCElement;
+        public bool IsDistressShuttle;
+        public bool IsDistressDiver;
     }
 
     public static partial class MLCData

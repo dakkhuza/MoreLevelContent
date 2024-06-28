@@ -55,8 +55,10 @@ namespace Barotrauma.MoreLevelContent.Config
 
         private void MigrateConfig()
         {
+            Config.NetworkedConfig.GeneralConfig.EnableThalamusCaves = true;
             Config.NetworkedConfig.GeneralConfig.DistressSpawnChance = 35;
             Config.NetworkedConfig.GeneralConfig.MaxActiveDistressBeacons = 5;
+            Config.NetworkedConfig.PirateConfig.PeakSpawnChance = 35;
         }
 
         private void DefaultConfig()

@@ -34,7 +34,7 @@ namespace MoreLevelContent.Shared.Utils
             {
                 maxIndex++;
             }
-            return "mlc.lostcargo.tooslow" + rand.Next(0, maxIndex);
+            return baseTag + rand.Next(0, maxIndex);
         }
 
 
@@ -59,6 +59,11 @@ namespace MoreLevelContent.Shared.Utils
             }
 
             return new MTRandom(ToolBox.StringToInt(Level.Loaded.LevelData.Seed));
+        }
+
+        internal static Random GetRandomFromString(string seed)
+        {
+            return new MTRandom(ToolBox.StringToInt(seed));
         }
     }
 }

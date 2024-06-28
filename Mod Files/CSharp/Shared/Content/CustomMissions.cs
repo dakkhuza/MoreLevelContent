@@ -14,7 +14,7 @@ namespace MoreLevelContent.Shared.Content
             { CustomMissionType.DistressEscort, typeof(DistressEscortMission) },
             { CustomMissionType.DistressSubmarine, typeof(DistressSubmarineMission) },
             { CustomMissionType.DistressGhostship, typeof(DistressGhostshipMission) },
-            //{ CustomMissionType.DistressOutpost, typeof(DistressOutpostMission) }
+            { CustomMissionType.CablePuzzle, typeof(CablePuzzleMission) }
         };
     }
 
@@ -23,7 +23,8 @@ namespace MoreLevelContent.Shared.Content
         BeaconConstruction,
         DistressEscort,
         DistressSubmarine,
-        DistressGhostship
+        DistressGhostship,
+        CablePuzzle
         //DistressOutpost
     }
 }

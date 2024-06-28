@@ -59,6 +59,10 @@
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
+        <Item identifier="weldingtool">
+          <Item identifier="weldingfueltank" />
+        </Item>
+
       </ItemSet>
       <ItemSet commonness="0.5">
         <Item identifier="pirateclothesnovice" equip="true" />
@@ -75,6 +79,10 @@
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
+        <Item identifier="weldingtool">
+          <Item identifier="weldingfueltank" />
+        </Item>
+
       </ItemSet>
     </npc>
 
@@ -108,6 +116,9 @@
         <Item identifier="ballistichelmet2" equip="true" />
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
+        </Item>
+        <Item identifier="weldingtool">
+          <Item identifier="weldingfueltank" />
         </Item>
       </ItemSet>
     </npc>
@@ -235,6 +246,9 @@
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
+        <Item identifier="weldingtool">
+          <Item identifier="weldingfueltank" />
+        </Item>
       </ItemSet>
 
       <ItemSet commonness="0.5">
@@ -254,6 +268,9 @@
         <Item identifier="piratebandana" equip="true" />
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
+        </Item>
+        <Item identifier="weldingtool">
+          <Item identifier="weldingfueltank" />
         </Item>
       </ItemSet>
     </npc>
@@ -296,6 +313,7 @@
         <Item identifier="revolverround" />
         <Item identifier="steroids"/>
         <Item identifier="captainspipe" equip="false" />
+        
       </ItemSet>
     </npc>
 
@@ -329,6 +347,10 @@
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
+        <Item identifier="weldingtool">
+          <Item identifier="weldingfueltank" />
+        </Item>
+
       </ItemSet>
 
       <ItemSet commonness="0.5">
@@ -349,6 +371,10 @@
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
+        <Item identifier="weldingtool">
+          <Item identifier="weldingfueltank" />
+        </Item>
+
       </ItemSet>
     </npc>
 
@@ -383,6 +409,10 @@
         <Item identifier="divingmask">
           <Item identifier="oxygentank" />
         </Item>
+        <Item identifier="weldingtool">
+          <Item identifier="weldingfueltank" />
+        </Item>
+
       </ItemSet>
     </npc>
 
@@ -414,6 +444,7 @@
         <Item identifier="antibleeding1"/>
         <Item identifier="antibiotics"/>
         <Item identifier="antidama1"/>
+        
       </ItemSet>
     </npc>
 
@@ -445,6 +476,7 @@
         <Item identifier="weldingtool">
           <Item identifier="weldingfueltank" />
         </Item>
+        <Item identifier="weldingfueltank" />
       </ItemSet>
     </npc>
 
@@ -475,6 +507,7 @@
         <Item identifier="weldingtool">
           <Item identifier="weldingfueltank" />
         </Item>
+        <Item identifier="weldingfueltank" />
       </ItemSet>
     </npc>
   </npcset>
@@ -706,7 +739,7 @@
           <Item identifier="batterycell" showpreview="false" />
         </Item>
 
-        <Item identifier="syringegun" tags="weapon,gun">
+        <Item identifier="syringegun_weapon" tags="weapon,gun">
           <Item identifier="chloralhydrate"/>
           <Item identifier="chloralhydrate"/>
           <Item identifier="chloralhydrate"/>
@@ -1071,7 +1104,7 @@
           <Item identifier="batterycell" showpreview="false" />
         </Item>
 
-        <Item identifier="syringegun" tags="weapon,gun">
+        <Item identifier="syringegun_weapon" tags="weapon,gun">
           <Item identifier="paralyzant"/>
           <Item identifier="paralyzant"/>
           <Item identifier="paralyzant"/>
@@ -1104,7 +1137,7 @@
           <Item identifier="batterycell" showpreview="false" />
         </Item>
 
-        <Item identifier="syringegun" tags="weapon,gun">
+        <Item identifier="syringegun_weapon" tags="weapon,gun">
           <Item identifier="cyanide"/>
           <Item identifier="cyanide"/>
           <Item identifier="cyanide"/>
@@ -1140,7 +1173,7 @@
           <Item identifier="batterycell" showpreview="false" />
         </Item>
 
-        <Item identifier="syringegun" tags="weapon,gun">
+        <Item identifier="syringegun_weapon" tags="weapon,gun">
           <Item identifier="sufforin"/>
           <Item identifier="sufforin"/>
           <Item identifier="sufforin"/>
@@ -1462,7 +1495,7 @@
           <Item identifier="batterycell" showpreview="false" />
         </Item>
 
-        <Item identifier="syringegun" tags="weapon,gun">
+        <Item identifier="syringegun_weapon" tags="weapon,gun">
           <Item identifier="cyanide"/>
           <Item identifier="cyanide"/>
           <Item identifier="cyanide"/>
@@ -1496,7 +1529,7 @@
           <Item identifier="batterycell" showpreview="false" />
         </Item>
 
-        <Item identifier="syringegun" tags="weapon,gun">
+        <Item identifier="syringegun_weapon" tags="weapon,gun">
           <Item identifier="antidama2" />
           <Item identifier="antidama2" />
           <Item identifier="antidama2" />

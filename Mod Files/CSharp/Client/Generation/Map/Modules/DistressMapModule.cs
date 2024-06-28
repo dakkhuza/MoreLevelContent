@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace MoreLevelContent.Shared.Generation
 {
     // Client
-    internal partial class DistressMapModule
+    internal partial class OldDistressMapModule
     {
         protected override void InitProjSpecific()
         {
@@ -25,5 +25,9 @@ namespace MoreLevelContent.Shared.Generation
             LocationConnection connection = MapDirector.IdConnectionLookup[id];
             CreateDistress(connection, steps);
         }
+    }
+
+    internal partial class DistressMapModule : TimedEventMapModule
+    {
     }
 }

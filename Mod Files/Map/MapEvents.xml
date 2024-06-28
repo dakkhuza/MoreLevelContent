@@ -206,8 +206,8 @@
                 requirespawnpointtag="true" team="FriendlyNPC" />
 
             <!-- Use a trigger to stop the conversation bubble from appearing cross level -->
-            <TagAction criteria="player" tag="player" />
-            <TriggerAction target1tag="researcher" target2tag="player" radius="800" />
+            <TagAction criteria="crew" tag="crew" />
+            <TriggerAction target1tag="researcher" target2tag="crew" radius="800" />
 
             <ConversationAction
                 text="EventText.waystation_revealresearch.c1"
@@ -285,8 +285,8 @@
                 requirespawnpointtag="true" team="FriendlyNPC" />
 
             <!-- Use a trigger to stop the conversation bubble from appearing cross level -->
-            <TagAction criteria="player" tag="player" />
-            <TriggerAction target1tag="admin" target2tag="player" radius="800" />
+            <TagAction criteria="crew" tag="crew" />
+            <TriggerAction target1tag="admin" target2tag="crew" radius="800" />
 
             <ConversationAction text="EventText.clownstation_preformanceofalifetime.c1"
                 speakertag="admin"
@@ -438,8 +438,8 @@
             <TriggerEventAction identifier="clownstation_brawl" />
 
             <!-- Use a trigger to stop the conversation bubble from appearing cross level -->
-            <TagAction criteria="player" tag="player" />
-            <TriggerAction target1tag="admin" target2tag="player" radius="800" />
+            <TagAction criteria="crew" tag="crew" />
+            <TriggerAction target1tag="admin" target2tag="crew" radius="800" />
 
             <ConversationAction
                 text="EventText.clownstation_unlockescort.c1"
@@ -470,8 +470,8 @@
             <TriggerEventAction identifier="clownstation_brawl" />
 
             <!-- Use a trigger to stop the conversation bubble from appearing cross level -->
-            <TagAction criteria="player" tag="player" />
-            <TriggerAction target1tag="admin" target2tag="player" radius="800" />
+            <TagAction criteria="crew" tag="crew" />
+            <TriggerAction target1tag="admin" target2tag="crew" radius="800" />
 
             <ConversationAction
                 text="EventText.clownstation_unlockwreck.c1"
@@ -969,8 +969,8 @@
                 requirespawnpointtag="true" team="FriendlyNPC" />
 
             <!-- Use a trigger to stop the conversation bubble from appearing cross level -->
-            <TagAction criteria="player" tag="player" />
-            <TriggerAction target1tag="admin" target2tag="player" radius="800" />
+            <TagAction criteria="crew" tag="crew" />
+            <TriggerAction target1tag="admin" target2tag="crew" radius="800" />
 
             <ConversationAction
                 text="EventText.huskchurch_unlockescort.c1"
@@ -1000,8 +1000,8 @@
                 requirespawnpointtag="true" team="FriendlyNPC" />
 
             <!-- Use a trigger to stop the conversation bubble from appearing cross level -->
-            <TagAction criteria="player" tag="player" />
-            <TriggerAction target1tag="admin" target2tag="player" radius="800" />
+            <TagAction criteria="crew" tag="crew" />
+            <TriggerAction target1tag="admin" target2tag="crew" radius="800" />
 
             <ConversationAction
                 text="EventText.huskchurch_cargo.c1"

@@ -305,6 +305,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
                     item.AllowStealing = false;
                     item.SpawnedInCurrentOutpost = true;
                 }
+                _Sub.TeamID = CharacterTeamType.FriendlyNPC;
             }
 
             HuskOutpost();

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<contentpackage name="More Level Content dev" modversion="0.0.101" corepackage="False" steamworkshopid="2814493175" gameversion="1.5.9.1">
+<contentpackage name="More Level Content dev" modversion="0.0.102" corepackage="False" steamworkshopid="2814493175" gameversion="1.5.9.1">
   <Item file="%ModDir%/dummyitem.xml" />
   <Text file="%ModDir%/Language/English.xml" />
   <Text file="%ModDir%/Language/PatchNotes.xml" />
@@ -49,7 +49,6 @@
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_15-25.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o3_diff_15-25.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o4_diff_15-25.sub" />
-  <OutpostModule file="%ModDir%/Pirate/Outposts/PirateOutpost_Ceiling01.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_25-35.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_40-50.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_50-70.sub" />
@@ -65,4 +64,5 @@
   <Submarine file="%ModDir%/Map/MapFeatures/AutoTrader_Weapons.sub" />
   <Submarine file="%ModDir%/Map/MapFeatures/ClownStation.sub" />
   <Submarine file="%ModDir%/Map/MapFeatures/HuskChurch.sub" />
+  <OutpostModule file="%ModDir%/Pirate/Outposts/PirateOutpost_Ceiling01.sub" />
 </contentpackage>

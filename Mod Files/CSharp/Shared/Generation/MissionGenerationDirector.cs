@@ -192,8 +192,8 @@ namespace MoreLevelContent.Shared.Generation
 
         void SpawnRelayStation()
         {
-            if (!Loaded?.LevelData?.MLC()?.HasRelayStation ?? true) return;
-            Log.Debug("Trying to spawn relay station");
+            if (Loaded.LevelData.MLC().RelayStationStatus == RelayStationStatus.None) return;
+            Log.Debug($"Trying to spawn relay station for status {Loaded.LevelData.MLC().RelayStationStatus}");
             if (CablePuzzleMission.SubmarineFile == null)
             {
                 Log.Debug("Sub file was null, how did this happen? Skipping attempting to make the relay station.");

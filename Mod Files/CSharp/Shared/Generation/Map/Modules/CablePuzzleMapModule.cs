@@ -14,9 +14,18 @@ namespace MoreLevelContent.Shared.Generation
 
         public override void OnAddExtraMissions(CampaignMode __instance, LevelData levelData)
         {
-            if (levelData.Type == LevelData.LevelType.Outpost) return; // Ignore outpost levels
+            CablePuzzleMission.SubmarineFile = null; // Clear the sub file at the start of every level
+            if (levelData.Type == LevelData.LevelType.Outpost)
+            {
+                Log.Debug("Ignored level due to being an outpost");
+                return; // Ignore outpost levels
+            }
             LevelData_MLCData data = levelData.MLC();
-            if (data.RelayStationStatus == RelayStationStatus.None) return; // Do nothing if we don't have a relay station
+            if (data.RelayStationStatus == RelayStationStatus.None)
+            {
+                Log.Debug("No relay station");
+                return; // Do nothing if we don't have a relay station
+            }
 
             var missions = MissionPrefab.Prefabs.Where(m => m.Tags.Contains("relayrepair")).OrderBy(m => m.UintIdentifier);
             if (!missions.Any())

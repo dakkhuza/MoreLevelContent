@@ -19,7 +19,7 @@ namespace MoreLevelContent.Missions
         /// <summary>
         /// This sucks ass but we should /NEVER/ have more than one relay station in one level
         /// </summary>
-        public static SubmarineFile SubmarineFile { get; private set; }
+        public static SubmarineFile SubmarineFile { get; set; }
 
         const float INTERVAL = 2.5f;
         const int RANGE_MIN = 50;

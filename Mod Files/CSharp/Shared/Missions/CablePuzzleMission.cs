@@ -38,6 +38,7 @@ namespace MoreLevelContent.Missions
             _SubmarineConfig = prefab.ConfigElement.GetChildElement("Submarine");
             defaultSonarLabel = TextManager.Get("relaysonarlabel");
             terminalTag = _SubmarineConfig.GetAttributeString("welcomemsg", "relayrepair.terminal");
+            SubmarineFile = null;
             LevelData levelData = locations[0].Connections.Where(c => c.Locations.Contains(locations[1])).FirstOrDefault()?.LevelData ?? locations[0]?.LevelData;
             if (levelData != null)
             {
@@ -62,11 +63,16 @@ namespace MoreLevelContent.Missions
                 return;
             }
             _LevelData = level;
-            ContentPath subPath = _SubmarineConfig.GetAttributeContentPath("path", Prefab.ContentPackage);
+            SetSub(_SubmarineConfig, Prefab);
+        }
+
+        public static void SetSub(XElement config, MissionPrefab prefab)
+        {
+            ContentPath subPath = config.GetAttributeContentPath("path", prefab.ContentPackage);
 
             if (subPath.IsNullOrEmpty())
             {
-                Log.Error($"No path used for submarine for the shuttle rescue mission \"{Prefab.Identifier}\"!");
+                Log.Error($"No path used for submarine for the relay station mission \"{prefab.Identifier}\"!");
                 return;
             }
 
@@ -77,6 +83,7 @@ namespace MoreLevelContent.Missions
                 return;
             }
             SubmarineFile = file;
+            Log.Debug("Set relay station sub file");
         }
 
 

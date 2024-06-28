@@ -16,7 +16,7 @@ namespace MoreLevelContent.Shared.Generation
         {
             if (levelData.Type == LevelData.LevelType.Outpost) return; // Ignore outpost levels
             LevelData_MLCData data = levelData.MLC();
-            if (!data.HasRelayStation) return; // Do nothing if we don't have a relay station
+            if (data.RelayStationStatus == RelayStationStatus.None) return; // Do nothing if we don't have a relay station
 
             var missions = MissionPrefab.Prefabs.Where(m => m.Tags.Contains("relayrepair")).OrderBy(m => m.UintIdentifier);
             if (!missions.Any())
@@ -26,15 +26,23 @@ namespace MoreLevelContent.Shared.Generation
             }
 
             Random rand = new MTRandom(ToolBox.StringToInt(levelData.Seed));
-            var cablePuzzles = ToolBox.SelectWeightedRandom(missions, p => p.Commonness, rand);
-            if (!__instance.Missions.Any(m => m.Prefab.Type == cablePuzzles.Type))
+            var cablePuzzleMissionPrefab = ToolBox.SelectWeightedRandom(missions, p => p.Commonness, rand);
+
+            // Add the mission if the station is inactive
+            if (!__instance.Missions.Any(m => m.Prefab.Type == cablePuzzleMissionPrefab.Type) && data.RelayStationStatus == RelayStationStatus.Inactive)
             {
                 List<Mission> _extraMissions = (List<Mission>)Instance.extraMissions.GetValue(__instance);
-                Mission inst = cablePuzzles.Instantiate(__instance.Map.SelectedConnection.Locations, Submarine.MainSub);
+                Mission inst = cablePuzzleMissionPrefab.Instantiate(__instance.Map.SelectedConnection.Locations, Submarine.MainSub);
                 _extraMissions.Add(inst);
                 Instance.extraMissions.SetValue(__instance, _extraMissions);
                 Log.Debug("Added relay staion mission to extra missions!");
+                return;
             }
+
+            // Otherwise the station is active, so we need to assign the sub file
+            var configElement = cablePuzzleMissionPrefab.ConfigElement.GetChildElement("Submarine");
+            CablePuzzleMission.SetSub(configElement, cablePuzzleMissionPrefab);
+            Log.Debug("Set the relay station sub for a completed relay station");
         }
 
         public override void OnLevelDataGenerate(LevelData __instance, LocationConnection locationConnection)

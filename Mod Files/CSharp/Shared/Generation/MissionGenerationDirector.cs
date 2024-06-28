@@ -194,6 +194,11 @@ namespace MoreLevelContent.Shared.Generation
         {
             if (!Loaded?.LevelData?.MLC()?.HasRelayStation ?? true) return;
             Log.Debug("Trying to spawn relay station");
+            if (CablePuzzleMission.SubmarineFile == null)
+            {
+                Log.Debug("Sub file was null, how did this happen? Skipping attempting to make the relay station.");
+                return;
+            }
             Submarine relayStation = SpawnSubOnPath("Relay Station", CablePuzzleMission.SubmarineFile, ignoreCrushDepth: true, SubmarineType.EnemySubmarine, PlacementType.Top);
             if (relayStation == null)
             {

@@ -27,6 +27,7 @@ namespace MoreLevelContent.Missions
         const int REQUIRED_CYCLES = 2;
 
         private readonly LocalizedString defaultSonarLabel;
+        private readonly string terminalTag; 
         private readonly XElement _SubmarineConfig;
         private Submarine _Station;
         private LevelData _LevelData;
@@ -36,6 +37,7 @@ namespace MoreLevelContent.Missions
         {
             _SubmarineConfig = prefab.ConfigElement.GetChildElement("Submarine");
             defaultSonarLabel = TextManager.Get("relaysonarlabel");
+            terminalTag = _SubmarineConfig.GetAttributeString("welcomemsg", "relayrepair.terminal");
             LevelData levelData = locations[0].Connections.Where(c => c.Locations.Contains(locations[1])).FirstOrDefault()?.LevelData ?? locations[0]?.LevelData;
             if (levelData != null)
             {

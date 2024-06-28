@@ -192,14 +192,19 @@ namespace MoreLevelContent.Shared.Generation
 
         void SpawnRelayStation()
         {
-            if (!Loaded.LevelData.MLC().HasRelayStation) return;
+            if (!Loaded?.LevelData?.MLC()?.HasRelayStation ?? true) return;
             Log.Debug("Trying to spawn relay station");
             Submarine relayStation = SpawnSubOnPath("Relay Station", CablePuzzleMission.SubmarineFile, ignoreCrushDepth: true, SubmarineType.EnemySubmarine, PlacementType.Top);
+            if (relayStation == null)
+            {
+                Log.Error("Failed to spawn relay station");
+                return;
+            }
             Log.Debug("Spawned relay station");
             relayStation.PhysicsBody.FarseerBody.BodyType = FarseerPhysics.BodyType.Static;
             relayStation.TeamID = CharacterTeamType.FriendlyNPC;
             relayStation.ShowSonarMarker = false;
-            Level.Loaded.MLC().RelayStation = relayStation;
+            Loaded.MLC().RelayStation = relayStation;
         }
 
         void DecorateCaves()

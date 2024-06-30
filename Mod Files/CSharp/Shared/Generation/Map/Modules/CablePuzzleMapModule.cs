@@ -38,7 +38,7 @@ namespace MoreLevelContent.Shared.Generation
             var cablePuzzleMissionPrefab = ToolBox.SelectWeightedRandom(missions, p => p.Commonness, rand);
 
             // Add the mission if the station is inactive
-            if (!__instance.Missions.Any(m => m.Prefab.Type == cablePuzzleMissionPrefab.Type) && data.RelayStationStatus == RelayStationStatus.Inactive)
+            if (!__instance.Missions.Any(m => m.Prefab.Tags.Contains("relayrepair")) && data.RelayStationStatus == RelayStationStatus.Inactive)
             {
                 List<Mission> _extraMissions = (List<Mission>)Instance.extraMissions.GetValue(__instance);
                 Mission inst = cablePuzzleMissionPrefab.Instantiate(__instance.Map.SelectedConnection.Locations, Submarine.MainSub);

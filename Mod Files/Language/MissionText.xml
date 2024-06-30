@@ -81,7 +81,7 @@
     <relaysonarlabel>Relay Station</relaysonarlabel>
 
     <missionheader0.relayrepair>Relay Repair</missionheader0.relayrepair>
-    <missionmessage0.relayrepair>Unlike modern Beacon stations, Relay stations operate by modulating the incoming signal before sending it. The given input must match the expected target value to bring the station back online.</missionmessage0.relayrepair>
+    <missionmessage0.relayrepair>Unlike modern Beacon stations, Relay stations operate by modulating the incoming signal through 4 steps before sending it. The given input must match the expected target value to bring the station back online.</missionmessage0.relayrepair>
 
     <missionheader1.relayrepair>Relay Repaired</missionheader1.relayrepair>
     <missionmessage1.relayrepair>The station is back online and relaying signals again.</missionmessage1.relayrepair>

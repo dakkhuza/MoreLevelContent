@@ -229,7 +229,7 @@ namespace MoreLevelContent.Missions
 
             SubPlacementUtils.PositionSubmarine(submarine, Level.PositionType.SidePath | Level.PositionType.MainPath);
 
-            //make the shuttle resist at least it's spawn position + 100m
+            //make the shuttle resist at least it's spawn position + 1000m
             SubPlacementUtils.SetCrushDepth(submarine);
 
             // tag all sub waypoints

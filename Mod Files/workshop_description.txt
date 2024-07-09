@@ -1,11 +1,10 @@
 [img]https://raw.githubusercontent.com/dakkhuza/MoreLevelContent/main/Images/LOGO.png[/img]
-[img]https://raw.githubusercontent.com/dakkhuza/MoreLevelContent/main/Images/anim_alpha_banner.gif[/img]
-                                                                    [i]Expect Issues[/i]
 
-[h1]INSTALLING[/h1]
-- Install Lua for Barotrauma + Client side lua, [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2559634234]see here for info [/url]
-- If everything is installed correctly, you'll see a join message in chat when you join a server running MLC
-- In singleplayer, press escape and you should see a settings button
+[h1][b]IN MULTIPLAYER ALL PLAYERS MUST FOLLOW THE CLIENT INSTALL, OTHERWISE THEY WILL GET KICKED FROM THE GAME[/b][/h1]
+
+[h1][url=https://github.com/dakkhuza/MoreLevelContent/wiki]MORE LEVEL CONTENT WIKI[/url][/h1]
+
+[h1][url=https://github.com/dakkhuza/MoreLevelContent/wiki/Installing]INSTALLING THE MOD[/url][/h1]
 
 [h1]TRANSLATIONS[/h1]
 There's a [url=https://steamcommunity.com/workshop/filedetails/?id=2984257107]collection[/url] linked at the top of the page containing all translations I'm aware of. If you would like your translation mod added, either leave a comment linking it or message me on discord (Dak#0001)
@@ -13,19 +12,13 @@ There's a [url=https://steamcommunity.com/workshop/filedetails/?id=2984257107]co
 [h2]Join the discord![/h2]
 https://discord.gg/XFp5vq67MY 
 
+[img]https://raw.githubusercontent.com/dakkhuza/MoreLevelContent/main/Images/hero_map.png[/img]
+
 Ever get bored of levels? Ruins, shipwrecks and beacons a plenty not filling that void in your dented diving suit?
 
 Ever wanted MORE things to do in levels? And not just a different looking wreck or a beacon station with hostile humans but actual NEW content? 
 
 Well then it's a good thing you're already on this page!
-
-
-I made More Level Content (MLC) because I was in the same sinking sub as you. Bored out of my mind as I got dragged to the bottom by a thalamus after going three outposts with "kill hammer head / crawler / spineling" and NO pirate missions. A thought crossed my mind as the flesh spike carried my crew to the great beyond...
-
-
-                                                   What if the Thalamus was pirates?
-
-
 
 [img]https://raw.githubusercontent.com/dakkhuza/MoreLevelContent/main/Images/LOGO_PirateOutpost.png[/img]
 
@@ -40,73 +33,43 @@ The pirates themselves aren't pushovers either. Each area has it's own set of bl
 [img]https://raw.githubusercontent.com/dakkhuza/MoreLevelContent/main/Images/hero_pirate_npc_showcase.gif[/img]
                                         [i]Maybe I should have opened with a stun grenade...[/i]
 
+[img]https://raw.githubusercontent.com/dakkhuza/MoreLevelContent/main/Images/hero_newmissions.png[/img]
+
+
+[h1]NEW MISSIONS[/h1]
+
+More Level Content also adds new custom missions!
+
+Delivering supplies to construction sites, invetigating distress beacons, solving puzzles to repair a relay station... 
+
+More Level Content has it all!
+
+[img]https://raw.githubusercontent.com/dakkhuza/MoreLevelContent/main/Images/hero_puzzle.png[/img]
+
 [img]https://raw.githubusercontent.com/dakkhuza/MoreLevelContent/main/Images/LOGO_Extendable.png[/img]
 
-Want to make your own pirate outposts? Just follow these 4 easy* steps!
-[i]*As long as you already know how to use the sub editor...[/i]
+All features added by this mod are fully extendable by other mods using only xml! See this [url=https://github.com/dakkhuza/MoreLevelContent/wiki/Modding-Guide]wiki page[/url] for more information.
 
-                                        Simply design the outpost in the submarine editor...
-[img]https://raw.githubusercontent.com/dakkhuza/MoreLevelContent/main/Images/Tutorial/pirate_outpost_tutorial_0.jpg[/img]
-                                                        And when you go to save the file...
-[img]https://raw.githubusercontent.com/dakkhuza/MoreLevelContent/02192c73372628684d532f4cda28d842bbe8afa9/Images/Tutorial/pirate_outpost_tutorial_1.jpg[/img]
-[b]
-SET THE SUBMARINE TYPE TO OUTPOST MODULE
-DO NOT BUILD YOUR PIRATE OUTPOST AS AN OUTPOST MODULE
-[/b]
-
-Then...
-
-[olist]
- [*] Append the difficulty range of this outpost to the end of the name. For example if my outpost was named "[i]coolpirateoutpost[/i]" and I wanted it to spawn in difficulties between 15%-30% it's name would become "[i]coolpirateoutpost[b]_diff_15-30[/b][/i]"
- [*] Set the "[i]location types[/i]" to "[i][b]ilo_PirateOutpost[/b][/i]"
- [*] Go to the "Required Content Packages" tab
- [*] Select "More Level Content"
-[/olist]
-
-You're done! Your outpost now has a chance to spawn anywhere in the difficulty range you selected and is ready to upload to the workshop!
-
-[img]https://raw.githubusercontent.com/dakkhuza/MoreLevelContent/main/Images/hero_pirate_bump_0.png[/img]
+[img]https://raw.githubusercontent.com/dakkhuza/MoreLevelContent/main/Images/hero_horrors.png[/img]
 
 
-[img]https://raw.githubusercontent.com/dakkhuza/MoreLevelContent/main/Images/LOGO_Planned.png[/img]
-[url=https://trello.com/b/soZSEESb/more-level-content][img]https://raw.githubusercontent.com/dakkhuza/MoreLevelContent/8a2d43f454db9a8db4ce2e9ba0c7d27ee55d4107/Images/LOGO_Roadmap.png[/img][/url]
-There's a lot of things I want to add to this mod and if you've got any suggestions feel free to post them in the thread below. Here's the things I have planned for now, in order of priority.
-
-[b]In game config[/b] ADDED
-
-[b]Move the ruins to the abyss islands[/b] ADDED (Disabled in multiplayer)
-
-[b]More pirate outpost variation[/b] ADDED
-I'll keep improving and adding more pirate outposts every update
-
-[b]S.O.S. calls[/b] ADDED
-
-[b]Hermits, black-markets and other weirdos[/b] PLANNED 
-Why does everyone out there in the ice cold blue gotta shoot us, our only salvation found at outposts? Not everyone likes to do business within sight of the law. Sometimes you'll find little abodes, automated shops and maybe even a black-market or two hiding between the ice, away from the prying eyes of the coalition. Keep your eyes peeled and your sonar on.
-
-[b]New Level Hazards[/b] PLANNED 
-Balast flora is fun! But once you know how to deal with / spot it loses a bit of it's charm. There should be more plants that mess with the submarine and the crew inside in fun and interesting ways. 
+[h2]Feature List[/h2]
+- Pirate bases that attack the player
+- Randomly appearing distress beacons
+- Hidden in-level outposts containing events
+- Variations of beacon stations: Beacon construction and Relay station
+- Integration with Dynamic Europa
+- Fully extendable by other XML mods
+- Horrors
+- And more!
 
 Also try...
 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2651035690][img]https://raw.githubusercontent.com/dakkhuza/MiscWorkshopAssets/main/logo_wantedalive.png[/img][/url]
 
-[h2]FAQ[/h2]
-Q: I'm getting level check-sum mismatches!
-A: Every player in the server needs to have the mod installed + client side lua + the CS module for this mod to function correctly. If everyone for sure has it installed and setup correctly, I'm not sure of the cause and seems to be something intrinsic to barotrauma (it's some floating point ♥♥♥♥♥♥♥)
+FREQUENTLY ASKED QUESTIONS
 
-Q: I have client side lua installed and the mod still isn't loading!
-A: Check console to see if there are any other client side lua mods throwing errors, if there are it prevents MLC from loading. Other than that try re-starting your game, sometimes CS mods don't load for clients and I have no idea why.
+Q: Can I add this mod mid-campaign?
+A: Yes, it will even back port its content into your campaign.
 
-Q: Can this mod be added mid campaign?
-A: This mod currently only affects level generation so it's safe to add mid-campaign! In the future I'm planning on experimenting with map changes so this may change.
-
-Q: Is this mod compatible with x/y/z?
-A: This mod uses it's own hook into level generation and is thus not affected by any other level gen editing mod. It also doesn't override any XML. This means it's compatible(?) with everything! Please let me know if there's any issues however.
-
-[h2]KNOWN ISSUES[/h2]
-
-Joining mid-game when a distress beacon is active will kick you.
-Solution: Don't join when a distress beacon is active.
-
-On creating a new campaign, all clients will be kicked. 
-Solution: Just load the campaign up again
+Q: Can I remove this mod mid-campaign?
+A: Yes.

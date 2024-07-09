@@ -9,9 +9,12 @@ using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 using MoreLevelContent.Networking;
 using Barotrauma.Networking;
+using System.Reflection.Emit;
+using System.Diagnostics;
 
 namespace MoreLevelContent.Shared.Generation
 {
+    // Shared
     public partial class MapDirector : Singleton<MapDirector>
     {
         internal static readonly Dictionary<Int32, LocationConnection> IdConnectionLookup = new();
@@ -22,8 +25,8 @@ namespace MoreLevelContent.Shared.Generation
         public override void Setup()
         {
             // Map
-            var map_ctr_1 = AccessTools.Constructor(typeof(Map), new Type[] { typeof(CampaignMode), typeof(XElement) });
-            var map_ctr_2 = AccessTools.Constructor(typeof(Map), new Type[] { typeof(CampaignMode), typeof(string) });
+            var map_ctr_loadFromFile = AccessTools.Constructor(typeof(Map), new Type[] { typeof(CampaignMode), typeof(XElement) });
+            var map_ctr_createNewMap = AccessTools.Constructor(typeof(Map), new Type[] { typeof(CampaignMode), typeof(string) });
 
             var map_save = typeof(Map).GetMethod(nameof(Map.Save));
             var map_progressworld = AccessTools.Method(typeof(Map), "ProgressWorld", new Type[] { typeof(CampaignMode) });
@@ -39,8 +42,8 @@ namespace MoreLevelContent.Shared.Generation
 
             // level generate
 
-            Check(map_ctr_1, "map load");
-            Check(map_ctr_2, "map loadstate");
+            Check(map_ctr_loadFromFile, "Map Created From File");
+            Check(map_ctr_createNewMap, "Map Created From Seed");
             Check(map_save, "map_save");
             Check(map_progressworld, "map_progressworld");
             Check(leveldata_ctr_load, "leveldata_ctr_load");
@@ -50,9 +53,9 @@ namespace MoreLevelContent.Shared.Generation
             Check(campaignmode_AddExtraMissions, "campaignmode_addextramissions");
 
             // Map data
-            _ = Main.Harmony.Patch(map_ctr_1, postfix: new HarmonyMethod(GetType().GetMethod(nameof(OnMapLoad), BindingFlags.Static | BindingFlags.NonPublic)));
-            _ = Main.Harmony.Patch(map_ctr_2, postfix: new HarmonyMethod(GetType().GetMethod(nameof(OnMapLoad), BindingFlags.Static | BindingFlags.NonPublic)));
-            
+            _ = Main.Harmony.Patch(map_ctr_loadFromFile, postfix: new HarmonyMethod(GetType().GetMethod(nameof(OnMapLoad), BindingFlags.Static | BindingFlags.NonPublic)));
+            _ = Main.Harmony.Patch(map_ctr_createNewMap, postfix: new HarmonyMethod(GetType().GetMethod(nameof(OnMapLoad), BindingFlags.Static | BindingFlags.NonPublic)));
+
             // Level data
             _ = Main.Harmony.Patch(leveldata_ctr_load, postfix: new HarmonyMethod(GetType().GetMethod(nameof(OnLevelDataLoad), BindingFlags.Static | BindingFlags.NonPublic)));
             _ = Main.Harmony.Patch(leveldata_ctr_generate, postfix: new HarmonyMethod(GetType().GetMethod(nameof(OnLevelDataGenerate), BindingFlags.Static | BindingFlags.NonPublic)));
@@ -72,9 +75,14 @@ namespace MoreLevelContent.Shared.Generation
             Modules.Add(new CablePuzzleMapModule());
 
             Modules.Add(new MapFeatureModule());
-            //Modules.Add(new LostCargoMapModule());
 
             SetupProjSpecific();
+        }
+
+        public void ForceDistress()
+        {
+            var distressModule = (DistressMapModule)Modules.Find(m => m.GetType() == typeof(DistressMapModule));
+            distressModule.TrySpawnEvent(GameMain.GameSession.Map, true);
         }
 
         public void SetForcedDistressMission(bool force, string identifier)
@@ -85,6 +93,14 @@ namespace MoreLevelContent.Shared.Generation
         }
 
         partial void SetupProjSpecific();
+
+        public enum MapSyncState
+        {
+            Syncing,
+            NotCampaign,
+            MapNotCreated,
+            MapSynced
+        }
 
 #if CLIENT
         private void ConnectionEqualityCheck(object[] args)
@@ -108,7 +124,8 @@ namespace MoreLevelContent.Shared.Generation
                 }
             }
 
-            Log.Debug("Equality good!");
+            Log.Debug("Equality good! Requesting map sync");
+            NetUtil.SendServer(NetUtil.CreateNetMsg(NetEvent.MAP_REQUEST_STATE));
         }
 
 
@@ -127,7 +144,7 @@ namespace MoreLevelContent.Shared.Generation
 #if SERVER
         private void RequestConnectionEquality(object[] args)
         {
-            if (GameMain.GameSession.GameMode.GetType() == typeof(MultiPlayerCampaign)) return;
+            if (GameMain.GameSession.GameMode.GetType() != typeof(MultiPlayerCampaign)) return;
             Log.Debug("Got request for quality check");
             Client c = (Client)args[1];
             if (IdConnectionLookup.Count == 0)
@@ -159,15 +176,6 @@ namespace MoreLevelContent.Shared.Generation
 
         private static void OnPreRoundStart(GameSession __instance, LevelData levelData)
         {
-            // This needs to get reset when returning to the lobby
-#if CLIENT
-            if (!_validatedConnectionLookup && GameMain.IsMultiplayer)
-            {
-                _validatedConnectionLookup = true;
-                NetUtil.SendServer(NetUtil.CreateNetMsg(NetEvent.MAP_CONNECTION_EQUALITYCHECK_REQUEST));
-            }
-#endif
-
             foreach (var item in Instance.Modules)
             {
                 item.OnPreRoundStart(levelData);
@@ -241,6 +249,18 @@ namespace MoreLevelContent.Shared.Generation
             // Generate location connection lookup 
             GenerateConnectionLookup(__instance);
 
+#if CLIENT
+            if (!_validatedConnectionLookup && GameMain.IsMultiplayer)
+            {
+                _validatedConnectionLookup = true;
+                NetUtil.SendServer(NetUtil.CreateNetMsg(NetEvent.MAP_CONNECTION_EQUALITYCHECK_REQUEST));
+                Log.Debug("Sent request for connection equality");
+            } else
+            {
+                Log.Debug($"Skipped validating the connection lookup: {_validatedConnectionLookup}, {GameMain.IsMultiplayer}");
+            }
+#endif
+
             foreach (var item in Instance.Modules)
             {
                 item.OnMapLoad(__instance);
@@ -270,6 +290,7 @@ namespace MoreLevelContent.Shared.Generation
                 IdConnectionLookup.Add(i, connection);
                 ConnectionIdLookup.Add(connection, i);
             }
+            Log.Debug("Generated map connection lookup");
         }
     }
 

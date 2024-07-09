@@ -1,15 +1,17 @@
 ﻿using Barotrauma;
 using Barotrauma.Networking;
 using HarmonyLib;
+using MoreLevelContent.Networking;
 using MoreLevelContent.Shared;
+using MoreLevelContent.Shared.Generation;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection.Emit;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
 
 namespace MoreLevelContent
 {
+    // Server
     partial class Main
     {
         public static bool IsDedicatedServer => GameMain.Server.OwnerConnection == null;
@@ -41,28 +43,21 @@ namespace MoreLevelContent
             }
         }
 
-        internal static void OnClientInstallCheck(Client client)
-        {
-            if (CurrentGameModeValid) return;
-            if (client.HasPermission(ClientPermissions.ManageSettings) || client.Connection == GameMain.Server.OwnerConnection)
-            {
-                GameMain.Server.SendDirectChatMessage(
-                    TextManager.GetServerMessage($"mlc.gamemodewarning.description").Value,
-                    client,
-                    ChatMessageType.ServerMessageBox);
-                return;
-            }
-        }
-
         static void OnGameModeChange(NetLobbyScreen __instance)
         {
             var gameMode = __instance.GameModes[__instance.SelectedModeIndex];
-            if (gameMode.GameModeType != typeof(MultiPlayerCampaign))
+            CurrentGameModeValid = gameMode.GameModeType == typeof(MultiPlayerCampaign);
+            var validClients = GameMain.Server.ConnectedClients.Where(c => c.HasPermission(ClientPermissions.SelectMode));
+            if (!CurrentGameModeValid)
             {
-                CurrentGameModeValid = false;
-                return;
+                foreach (var client in validClients)
+                {
+                    GameMain.Server.SendDirectChatMessage(
+                        TextManager.GetServerMessage($"mlc.gamemodewarning.description").Value,
+                        client,
+                        ChatMessageType.ServerMessageBox);
+                }
             }
-            CurrentGameModeValid = true;
         }
 
         static void SetRoundEndDelay()

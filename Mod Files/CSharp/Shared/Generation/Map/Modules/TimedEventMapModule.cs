@@ -115,7 +115,7 @@ namespace MoreLevelContent.Shared.Generation
 
         protected abstract void HandleUpdate(LevelData_MLCData data, LocationConnection connection);
 
-        private void TrySpawnEvent(Map __instance, bool force = false)
+        public void TrySpawnEvent(Map __instance, bool force = false)
         {
             if (Main.IsClient) return;
             // Check if we're at the max
@@ -159,6 +159,10 @@ namespace MoreLevelContent.Shared.Generation
                 msg.WriteUInt32((uint)MapDirector.ConnectionIdLookup[targetConnection]);
                 msg.WriteByte((byte)duration);
                 NetUtil.SendAll(msg);
+            }
+            if (GameMain.GameSession?.GameMode is MultiPlayerCampaign campaign)
+            {
+                campaign.IncrementLastUpdateIdForFlag(MultiPlayerCampaign.NetFlags.MapAndMissions);
             }
 #endif
         }

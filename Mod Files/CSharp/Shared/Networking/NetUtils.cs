@@ -74,12 +74,34 @@ namespace MoreLevelContent.Networking
         /// </summary>
         COMMAND_STEPWORLD,
 
+        /// <summary>
+        /// Request a map connection equality check from the server
+        /// </summary>
         MAP_CONNECTION_EQUALITYCHECK_REQUEST,
 
+        /// <summary>
+        /// Sends the result to the client
+        /// </summary>
         MAP_CONNECTION_EQUALITYCHECK_SENDCLIENT,
 
+        /// <summary>
+        /// Reveals the specified map feature
+        /// </summary>
         EVENT_REVEALMAPFEATURE,
 
-        PIRATEBASE_STATUS
+        /// <summary>
+        /// Updates the status of a pirate base
+        /// </summary>
+        PIRATEBASE_STATUS,
+
+        /// <summary>
+        /// Request information on custom data added to the campaign map by mlc
+        /// </summary>
+        MAP_REQUEST_STATE,
+        
+        /// <summary>
+        /// Information on the current map state, distress beacons, pirate state, etc
+        /// </summary>
+        MAP_SEND_STATE
     }
 }

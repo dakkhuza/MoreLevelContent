@@ -25,6 +25,17 @@ namespace MoreLevelContent
             CommandUtils.AddCommand("mlc_forcepirate", "Toggles forcing a specific pirate base to spawn", _forcePirate, isCheat: true);
             CommandUtils.AddCommand("mlc_toggleMapDisplay", "Toggles if all map locations should be shown, even if they are not discovered yet", _toggleMapDisplay, isCheat: true);
             CommandUtils.AddCommand("mlc_showpatchnotes", "Displays the patch notes", _showPatchnotes);
+            CommandUtils.AddCommand("mlc_leveldatadebug", "Displays debug info on the current level's generation data", _isDistressActive);
+        }
+
+        private void _isDistressActive(object[] args)
+        {
+            if (Level.Loaded == null)
+            {
+                Log.Debug("No level loaded");
+                return;
+            }
+            Log.Debug($"HasDistress: {Level.Loaded.LevelData.MLC().HasDistress}, Steps left: {Level.Loaded.LevelData.MLC().DistressStepsLeft}");
         }
 
         private void _showPatchnotes(object[] args)
@@ -51,6 +62,7 @@ namespace MoreLevelContent
 
         private void _forceDistress(object[] args)
         {//ForcedMissionIdentifier
+            if (GameMain.IsMultiplayer) return;
             string additional = "";
             string[] arg = (string[])args[0];
             string identifier = arg.Length == 2 ? arg[1] : "";
@@ -108,9 +120,9 @@ namespace MoreLevelContent
                 Log.Error($"Can't create a distress beacon when not in campaign! ({GameMain.GameSession?.Campaign != null} || {GameMain.IsSingleplayer}) -> {GameMain.GameSession?.Campaign != null || GameMain.IsSingleplayer}");
                 return;
             }
+            if (Main.IsClient) return;
             Log.Debug("Creating distress");
-            if (Main.IsClient) _createDistressClient();
-            else OldDistressMapModule.ForceDistress();
+            MapDirector.Instance.ForceDistress();
         }
 
 

@@ -91,7 +91,7 @@ namespace Barotrauma.MoreLevelContent.Config
         private bool CheckClientVersion(Client client, string clientVersion)
         {
             if (correctInstalls.Contains(client.SteamID)) return true;
-            Main.OnClientInstallCheck(client);
+            
             if (clientVersion != Main.Version)
             {
                 GameMain.Server.SendDirectChatMessage(

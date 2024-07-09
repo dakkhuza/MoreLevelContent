@@ -24,7 +24,7 @@ namespace MoreLevelContent
         public const string GUID = "com.dak.mlc";
         public static bool IsRelase = true;
         public static bool IsNightly = false;
-        public static bool PreventRoundEnd = false;
+        public static bool PreventRoundEnd = true;
 
 
         public static Main Instance;
@@ -110,6 +110,8 @@ namespace MoreLevelContent
                 this);
 
             _ = Harmony.Patch(eventManager_TriggerOnEndRoundActions, postfix: new HarmonyMethod(AccessTools.Method(typeof(Main), nameof(Main.OnRoundEnd))));
+
+
 
             Log.Verbose("Done!");
         }

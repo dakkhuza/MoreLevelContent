@@ -130,6 +130,7 @@ namespace MoreLevelContent.Shared.Generation
 
             void OnSubSpawned(Submarine sub)
             {
+                Log.Debug("Spawned map feature sub");
                 MapFeatureSub = sub;
                 CurrentMapFeature = feature.Name;
                 SubPlacementUtils.SetCrushDepth(sub, true);
@@ -178,6 +179,7 @@ namespace MoreLevelContent.Shared.Generation
             if (MapFeatureSub == null)
             {
                 DebugConsole.ThrowError("MLC: This level calls for a map feature but no map feature sub was spawned!");
+                return;
             }
 
             // Set allow stealing

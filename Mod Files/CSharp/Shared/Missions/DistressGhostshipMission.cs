@@ -74,6 +74,18 @@ namespace MoreLevelContent.Missions
             }
         }
 
+        public override int Reward
+        {
+            get
+            {
+                if (ghostship == null) return 0;
+                if (SubSalvaged) return (int)Math.Round(ghostship.Info.Price * 0.85f);
+                return 0;
+            }
+        }
+
+        private bool SubSalvaged => ghostship.AtEndExit || ghostship.AtStartExit;
+
         public override IEnumerable<(LocalizedString Label, Vector2 Position)> SonarLabels
         {
             get
@@ -391,6 +403,8 @@ namespace MoreLevelContent.Missions
         private bool finalSubSetup = false;
         const float FINAL_SETUP_DELAY = 5;
         float setupDelay = FINAL_SETUP_DELAY;
+        partial void UpdateProjSpecific(float deltaTime);
+
         protected override void UpdateMissionSpecific(float deltaTime)
         {
             if (!finalSubSetup && !IsClient && setupDelay <= 0)
@@ -419,7 +433,7 @@ namespace MoreLevelContent.Missions
                 setupDelay -= deltaTime;
             }
             trackingSonarMarker.Update(deltaTime);
-
+            UpdateProjSpecific(deltaTime);
 
             bool crewMemberInSub = CrewInSub();
             switch (State)

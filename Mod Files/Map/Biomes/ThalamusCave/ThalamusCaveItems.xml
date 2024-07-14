@@ -136,7 +136,7 @@
   </Item>
   <Item name="" description="" identifier="fleshspike_cave_small" nameidentifier="fleshspike1" Tags="fleshspikesmall_cave,turret,thalamus,ignoreaimdelay" category="Thalamus" interactthroughwalls="true" Scale="0.4" interactdistance="10" spritecolor="1.0,1.0,1.0,1.0" focusonselected="true" offsetonselected="750" linkable="true" health="100">
     <Sprite texture="Content/Map/Thalamus/thalamus.png" depth="0.896" sourcerect="96,0,352,96" canflipy="false" origin="0.5,0.5" />
-    <StaticBody width="150" height="50" />
+    <StaticBody width="150" height="25" />
     <Turret targetcharacters="true" TargetSubmarines="false" AICurrentTargetPriorityMultiplier="0.1" targetitems="false" ignoreaimdelay="true" airange="1000" launchwithoutprojectile="true" canbeselected="false" characterusable="false" linkable="true" barrelpos="176,20" rotationlimits="270,270" powerconsumption="0.0" showchargeindicator="true" showprojectileindicator="true" recoildistance="-700" reload="2.0" retractiondurationmultiplier="0.15" recoiltime="0.25" retractiondelay="0.5" springstiffnesslowskill="2" springstiffnesshighskill="50" springdampinglowskill="0.5" springdampinghighskill="10" rotationspeedlowskill="1" rotationspeedhighskill="8">
       <Sound file="Content/Map/Thalamus/Sounds/CARRIER_spikeLaunch1.ogg" range="800" type="OnUse" />
       <Sound file="Content/Map/Thalamus/Sounds/CARRIER_spikeLaunch2.ogg" range="800" type="OnUse" />
@@ -158,6 +158,49 @@
           <Affliction identifier="blunttrauma" strength="10" />
           <Affliction identifier="lacerations" strength="10" probability="0.2" />
           <Affliction identifier="blunttrauma" strength="10" probability="0.2" />
+        </Explosion>
+      </StatusEffect>
+    </Turret>
+  </Item>
+  
+  <Item name="" description="" identifier="stomach_acid_vent" Tags="stomachacidvent,turret,thalamus,ignoreaimdelay" category="Thalamus" interactthroughwalls="true" Scale="0.4" interactdistance="10" spritecolor="1.0,1.0,1.0,1.0" focusonselected="true" offsetonselected="750" linkable="true" health="100">
+    <Sprite texture="%ModDir%/Map/Biomes/ThalamusCave/CaveHazards.png" depth="0.896" sourcerect="0,184,313,77" canflipy="false" origin="0.5,0.5" damagedbyexplosions="true" damagedbyprojectiles="true" damagedbymeleeweapons="true" damagedbyrepairtools="true" itemdamagemultiplier="3" />
+    <StaticBody width="150" height="25" bodytype="Static" />
+    <!-- Death -->
+    <StatusEffect type="OnDeath" target="This">
+      <Sound file="Content/Map/Thalamus/Sounds/CARRIER_organs2.ogg" range="2000" selectionmode="Random" />
+      <Sound file="Content/Map/Thalamus/Sounds/CARRIER_organs3.ogg" range="2000" selectionmode="Random" />
+      <Sound file="Content/Map/Thalamus/Sounds/CARRIER_organs4.ogg" range="2000" selectionmode="Random" />
+      <Sound file="Content/Map/Thalamus/Sounds/CARRIER_organs5.ogg" range="2000" selectionmode="Random" />
+      <ParticleEmitter particle="organeruption" particleamount="50" scalemin="0.5" scalemax="1" velocitymin="100" velocitymax="500" anglemin="0" anglemax="360" />
+      <ParticleEmitter particle="heavygib" drawontop="true" particleamount="1" scalemin="1" scalemax="1" velocitymin="0" velocitymax="0" anglemin="0" anglemax="360" />
+      <ParticleEmitter particle="gib" particleamount="10" scalemin="0.25" scalemax="1" velocitymin="100" velocitymax="300" anglemin="0" anglemax="360" />
+      <ParticleEmitter particle="bloodsplash" particleamount="5" velocitymin="0" velocitymax="300" anglemin="0" anglemax="360" scalemin="0.5" scalemax="1" />
+      <ParticleEmitter particle="whitegoosplash" particleamount="5" velocitymin="0" velocitymax="300" anglemin="0" anglemax="360" scalemin="0.5" scalemax="1" />
+    </StatusEffect>
+    <!-- Damaged -->
+    <StatusEffect type="OnDamaged" target="This">
+      <Sound file="Content/Map/Thalamus/Sounds/CARRIER_organs6.ogg" range="1000" selectionmode="Random" />
+      <Sound file="Content/Map/Thalamus/Sounds/CARRIER_organs7.ogg" range="1000" selectionmode="Random" />
+      <Sound file="Content/Map/Thalamus/Sounds/CARRIER_organs8.ogg" range="1000" selectionmode="Random" />
+      <Sound file="Content/Map/Thalamus/Sounds/CARRIER_organs9.ogg" range="1000" selectionmode="Random" />
+      <ParticleEmitter particle="bloodsplash" particleamount="1" scalemin="1" scalemax="1.5" velocitymin="0" velocitymax="100" anglemin="0" anglemax="360" />
+      <ParticleEmitter particle="waterblood" particleamount="1" anglemin="0" anglemax="360" scalemin="2" scalemax="4" />
+      <ParticleEmitter particle="gib" particleamount="4" scalemin="0.25" scalemax="1" velocitymin="100" velocitymax="300" anglemin="0" anglemax="360" />
+    </StatusEffect>
+
+    <StatusEffect type="OnFire" target="This" Condition="-5.0" />
+
+    <Turret targetcharacters="true" TargetSubmarines="false" AICurrentTargetPriorityMultiplier="0.1" targetitems="false" ignoreaimdelay="true" airange="1000" launchwithoutprojectile="true" canbeselected="false" characterusable="false" linkable="true" barrelpos="176,20" rotationlimits="270,270" powerconsumption="0.0" showchargeindicator="true" showprojectileindicator="true" recoildistance="-700" reload="0.5" retractiondurationmultiplier="0.15" recoiltime="0.25" retractiondelay="0.5" springstiffnesslowskill="2" springstiffnesshighskill="50" springdampinglowskill="0.5" springdampinghighskill="10" rotationspeedlowskill="1" rotationspeedhighskill="8">
+      <Sound file="Content/Sounds/Water/BlackSmoker.ogg" range="800" />
+      <BarrelSprite name="" texture="%ModDir%/Map/Biomes/ThalamusCave/CaveHazards.png" depth="0.897" sourcerect="1,1,1,1" origin="0.5,0.1" />
+      <ParticleEmitter particle="toxinmistlargefade" copyentityangle="true" particlespersecond="2" position="0,0" anglemin="220" anglemax="320" scalemin="1.0" scalemax="1.5" distancemin="0" distancemax="0" velocitymin="50" velocitymax="550" />
+      <ParticleEmitter particle="toxinmist" copyentityangle="true" particlespersecond="20" position="0,40" anglemin="255" anglemax="285" scalemin="1.0" scalemax="1.0" distancemin="0" distancemax="0" velocitymin="300" velocitymax="800" />
+      <!-- Shoot -->
+      <StatusEffect type="OnUse" target="This" offset="0,300" delay="0.1" disabledeltatime="true">
+        <Explosion range="200.0" force="0.01" camerashake="0.5" flames="false" smoke="false" sparks="false" underwaterbubble="false" shockwave="false" flash="false">
+          <Affliction identifier="acidburn" strength="3" probability="0.25" />
+          <Affliction identifier="acidburn" strength="2" />
         </Explosion>
       </StatusEffect>
     </Turret>

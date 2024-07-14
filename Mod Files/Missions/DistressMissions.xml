@@ -704,8 +704,9 @@
                                 minmoney="25"
                                 maxmoney="70"
                                 alive="true">
-                                <Affliction identifier="huskinfection" strength="100" />
+                                <Affliction identifier="huskinfection" strength="200" />
                                 <Affliction identifier="internaldamage" strength="99" />
+                                <Affliction identifier="stun" strength="1" />
                         </Item>
 
                         <Item

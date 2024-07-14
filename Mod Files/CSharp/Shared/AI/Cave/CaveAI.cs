@@ -107,6 +107,7 @@ namespace MoreLevelContent.Shared.AI
 
             // need to setup positions for initial cells to spawn
             IsAlive = true;
+            ClearCave();
         }
 
         private readonly List<Item> destroyedOrgans = new List<Item>();
@@ -164,7 +165,6 @@ namespace MoreLevelContent.Shared.AI
                 if (!initialCellsSpawned)
                 {
                     SpawnInitialCells();
-                    ClearCave();
                 }
                 UpdateReinforcements(deltaTime);
             }

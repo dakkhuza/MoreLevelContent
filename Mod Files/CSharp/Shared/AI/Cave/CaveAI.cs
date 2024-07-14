@@ -35,11 +35,11 @@ namespace MoreLevelContent.Shared.AI
         public bool IsAlive { get; private set; }
 
         public readonly List<Item> ThalamusItems;
+        public readonly Cave Cave;
         private readonly List<Turret> turrets = new List<Turret>();
         private readonly List<Item> spawnOrgans = new List<Item>();
         private readonly List<VoronoiCell> spawnPoints = new List<VoronoiCell>();
         private readonly Item brain;
-        private readonly Cave cave;
         // Auto operate turrets need to have a submarine to work
         public readonly Submarine DummySub;
 
@@ -60,7 +60,7 @@ namespace MoreLevelContent.Shared.AI
         public CaveAI(List<Item> allThalamusItems, GraphEdge spawnEdge, Cave cave)
         {
             Log.Debug($"it {allThalamusItems == null} se: {spawnEdge == null} cave: {cave == null}");
-            this.cave = cave;
+            this.Cave = cave;
             DummySub = new Submarine(new SubmarineInfo(), showErrorMessages: false)
             {
                 TeamID = CharacterTeamType.None,
@@ -111,7 +111,7 @@ namespace MoreLevelContent.Shared.AI
         {
             // General AI management
             if (!IsAlive) { return; }
-            if (cave == null)
+            if (Cave == null)
             {
                 Remove();
                 return;
@@ -139,7 +139,7 @@ namespace MoreLevelContent.Shared.AI
             foreach (Submarine submarine in Submarine.Loaded)
             {
                 if (submarine.Info.Type != SubmarineType.Player) { continue; }
-                if (Vector2.DistanceSquared(submarine.WorldPosition, cave.StartPos.ToVector2()) < minDist * minDist)
+                if (Vector2.DistanceSquared(submarine.WorldPosition, Cave.StartPos.ToVector2()) < minDist * minDist)
                 {
                     someoneNearby = true;
                     break;
@@ -148,7 +148,7 @@ namespace MoreLevelContent.Shared.AI
             foreach (Character c in Character.CharacterList)
             {
                 if (c != Character.Controlled && !c.IsRemotePlayer) { continue; }
-                if (Vector2.DistanceSquared(c.WorldPosition, cave.StartPos.ToVector2()) < minDist * minDist)
+                if (Vector2.DistanceSquared(c.WorldPosition, Cave.StartPos.ToVector2()) < minDist * minDist)
                 {
                     someoneNearby = true;
                     break;
@@ -171,8 +171,8 @@ namespace MoreLevelContent.Shared.AI
         {
             var wallsNearCave = Loaded.ExtraWalls.Where(w => 
             w.Cells.Any(c => c.IsDestructible && 
-            (cave.Area.Contains(c.Center) || 
-            Vector2.DistanceSquared(cave.StartPos.ToVector2(), c.Center) < Sonar.DefaultSonarRange * Sonar.DefaultSonarRange)));
+            (Cave.Area.Contains(c.Center) || 
+            Vector2.DistanceSquared(Cave.StartPos.ToVector2(), c.Center) < Sonar.DefaultSonarRange * Sonar.DefaultSonarRange)));
 
             foreach (var wall in wallsNearCave)
             {
@@ -236,7 +236,7 @@ namespace MoreLevelContent.Shared.AI
                                 {
                                     // Sonar distance is used also for wreck positioning. No wreck should be closer to each other than this.
                                     float maxDistance = Sonar.DefaultSonarRange;
-                                    if (Vector2.DistanceSquared(character.WorldPosition, cave.StartPos.ToVector2()) < maxDistance * maxDistance)
+                                    if (Vector2.DistanceSquared(character.WorldPosition, Cave.StartPos.ToVector2()) < maxDistance * maxDistance)
                                     {
                                         character.Kill(CauseOfDeathType.Unknown, null);
                                     }

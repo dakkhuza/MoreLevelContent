@@ -45,7 +45,7 @@ namespace MoreLevelContent.Shared.AI
         public void DebugDraw(Microsoft.Xna.Framework.Graphics.SpriteBatch sb, Camera cam)
         {
             float lineThickness = 1f / Screen.Selected.Cam.Zoom;
-            sb.DrawPoint(new Vector2(cave.StartPos.X, -cave.StartPos.Y), Color.Pink, 10 / Screen.Selected.Cam.Zoom);
+            sb.DrawPoint(new Vector2(Cave.StartPos.X, -Cave.StartPos.Y), Color.Pink, 10 / Screen.Selected.Cam.Zoom);
             foreach (var turret in turrets)
             {
                 const float coneRadius = 300.0f;

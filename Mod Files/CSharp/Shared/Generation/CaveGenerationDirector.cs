@@ -62,10 +62,24 @@ namespace MoreLevelContent.Shared.Generation
 #endif
         }
 #if CLIENT
-        static void SubmarineCullEntities(List<MapEntity> ___visibleEntities)
+        // This could be improved with a transpiler
+        static void SubmarineCullEntities(Camera cam, List<MapEntity> ___visibleEntities)
         {
             if (Instance.ActiveThalaCave == null) return;
-            ___visibleEntities.AddRange(Instance.ActiveThalaCave.ThalamusItems);
+            Rectangle camView = cam.WorldView;
+            int ___CullMargin = 50;
+            camView = new Rectangle(camView.X - ___CullMargin, camView.Y + ___CullMargin, camView.Width + ___CullMargin * 2, camView.Height + ___CullMargin * 2);
+            var caveRect = new Rectangle(Instance.ActiveThalaCave.Cave.Area.X, Instance.ActiveThalaCave.Cave.Area.Y, Instance.ActiveThalaCave.Cave.Area.Width, -Instance.ActiveThalaCave.Cave.Area.Height);
+            if (Submarine.RectsOverlap(camView, caveRect))
+            {
+                foreach (var item in Instance.ActiveThalaCave.ThalamusItems)
+                {
+                    if (item.IsVisible(camView))
+                    {
+                        ___visibleEntities.Add(item);
+                    }
+                }
+            }
         }
 #endif
 
@@ -389,6 +403,7 @@ namespace MoreLevelContent.Shared.Generation
                 spike.SpriteDepth = 1;
                 Turret turret = spike.GetComponent<Turret>();
                 turret.RotationLimits = new Vector2(-angle + 1, -angle - 1);
+                turret.RandomAimAmount = 0;
 
                 // config status effects
                 Dictionary<ActionType, List<StatusEffect>> dic = (Dictionary<ActionType, List<StatusEffect>>)item_statusEffectList.GetValue(spike);

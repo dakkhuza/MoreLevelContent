@@ -31,6 +31,7 @@ namespace MoreLevelContent.Shared.Generation
         internal static PropertyInfo statusEffect_offset;
         internal static PropertyInfo statusEffect_characterSpawn_offset;
         internal static PropertyInfo subbody_visibleBorders;
+        internal static PropertyInfo turret_aiCurrentTargetPriority;
 
         internal CaveAI ActiveThalaCave;
         public readonly List<CaveInitalCheckInfo> _InitialCaveCheckDebug = new();
@@ -47,6 +48,7 @@ namespace MoreLevelContent.Shared.Generation
             statusEffect_offset = AccessTools.Property(typeof(StatusEffect), "Offset");
             statusEffect_characterSpawn_offset = AccessTools.Property(typeof(StatusEffect.CharacterSpawnInfo), "Offset");
             subbody_visibleBorders = AccessTools.Property(typeof(SubmarineBody), "VisibleBorders");
+            turret_aiCurrentTargetPriority = AccessTools.Property(typeof(Turret), nameof(Turret.AICurrentTargetPriorityMultiplier));
 
             MethodInfo Level_Generate = AccessTools.Method(typeof(Level), "Generate", new Type[] { typeof(bool), typeof(Location), typeof(Location) });
             _ = Main.Harmony.Patch(Level_Generate, transpiler: new HarmonyMethod(AccessTools.Method(typeof(CaveGenerationDirector), nameof(CaveGenerationDirector.SwapCavesTranspiler))));
@@ -69,7 +71,9 @@ namespace MoreLevelContent.Shared.Generation
             Rectangle camView = cam.WorldView;
             int ___CullMargin = 50;
             camView = new Rectangle(camView.X - ___CullMargin, camView.Y + ___CullMargin, camView.Width + ___CullMargin * 2, camView.Height + ___CullMargin * 2);
-            var caveRect = new Rectangle(Instance.ActiveThalaCave.Cave.Area.X, Instance.ActiveThalaCave.Cave.Area.Y, Instance.ActiveThalaCave.Cave.Area.Width, -Instance.ActiveThalaCave.Cave.Area.Height);
+
+            var caveRect = new Rectangle(Instance.ActiveThalaCave.Cave.Area.X, Instance.ActiveThalaCave.Cave.Area.Y + Instance.ActiveThalaCave.Cave.Area.Height, Instance.ActiveThalaCave.Cave.Area.Width, Instance.ActiveThalaCave.Cave.Area.Height);
+           
             if (Submarine.RectsOverlap(camView, caveRect))
             {
                 foreach (var item in Instance.ActiveThalaCave.ThalamusItems)
@@ -230,6 +234,11 @@ namespace MoreLevelContent.Shared.Generation
 
         static bool MakeThalaCave(Cave cave)
         {
+            // Roll
+            var lvlRand = MLCUtils.GetLevelRandom();
+            // 65% chance to check if the level can have a cave, should make it decently rare
+            if (lvlRand.NextDouble() > 0.65 && Main.IsRelase) return false;
+
             // PoCM3hEa <- seed
 
             List<VoronoiCell> caveWallCells = GetCaveWallCells(cave);
@@ -244,6 +253,7 @@ namespace MoreLevelContent.Shared.Generation
             var spawnerPrefab = thalamusPrefabs.Where(p => p.Tags.Contains("cellspawnorgan_cave")).FirstOrDefault();
             var ammosackPrefab = thalamusPrefabs.Where(p => p.Tags.Contains("fleshgunequipment_cave")).FirstOrDefault();
             var storageOrgan = thalamusPrefabs.Where(p => p.Tags.Contains("storageorgan_cave")).FirstOrDefault();
+            var acidVent = thalamusPrefabs.Where(p => p.Tags.Contains("stomachacidvent")).FirstOrDefault();
 
             var pathPoint = ClosestPathPoint(cave);
             List<GraphEdge> entranceEdges = GetEdgesFacingPoint();
@@ -333,7 +343,14 @@ namespace MoreLevelContent.Shared.Generation
                     }
                     else
                     {
-                        SpawnSmallFleshSpike();
+                        if (i % 3 == 0)
+                        {
+                            SpawnSmallFleshSpike();
+                        } else
+                        {
+                            SpawnAcidVent();
+                        }
+                        
                     }
                 }
 
@@ -361,8 +378,8 @@ namespace MoreLevelContent.Shared.Generation
                 Vector2 dir = MLCUtils.PositionItemOnEdge(fleshgun, edge, radius);
                 float angle = Angle(dir);
                 Turret turret = fleshgun.GetComponent<Turret>();
-                turret.RotationLimits = new Vector2(-angle - 90, -angle + 90);                
-                turret.AIRange = Sonar.DefaultSonarRange / 2;
+                turret.RotationLimits = new Vector2(-angle - 90, -angle + 90);
+                turret.AIRange = (float)(Sonar.DefaultSonarRange * 0.8);
                 turret.Reload = 10f;
 
                 Log.Debug($"Placed fleshgun at {fleshgun.Position}");
@@ -372,28 +389,39 @@ namespace MoreLevelContent.Shared.Generation
             {
                 Item spike = new Item(smallSpikePrefab, Vector2.Zero, null);
                 GraphEdge edge = GetEdge(insideEdges);
-                Turret turret = ConfigureFleshSpike(spike, edge);
+                Turret turret = ConfigureTurret(spike, edge);
                 if (turret == null) return;
+                turret.TargetCharacters = true;
                 turret.TargetHumans = true;
-                turret.TargetMonsters = true;
-                turret.TargetItems = true;
+                turret.TargetItems = false;
                 Log.Debug($"Placed small spike at {spike.Position}");
+            }
+
+            void SpawnAcidVent()
+            {
+                Item vent = new Item(acidVent, Vector2.Zero, null);
+                GraphEdge edge = GetEdge(insideEdges);
+                Turret turret = ConfigureTurret(vent, edge, 35);
+                if (turret == null) return;
+                turret.TargetCharacters = true;
+                turret.TargetHumans = true;
+                turret.TargetItems = false;
+                Log.Debug($"Placed acid vent at {vent.Position}");
             }
 
             void SpawnFleshSpike()
             {
                 Item spike = new Item(largeSpikePrefab, Vector2.Zero, null);
                 GraphEdge edge = GetEdge(entranceEdges);
-                Turret turret = ConfigureFleshSpike(spike, edge);
+                Turret turret = ConfigureTurret(spike, edge);
                 if (turret == null) return;
                 turret.TargetItems = true;
                 turret.TargetSubmarines = true;
                 turret.TargetCharacters = false;
-                turret.AimDelay = false;
                 Log.Debug($"Placed spike at {spike.Position}");
             }
 
-            Turret ConfigureFleshSpike(Item spike, GraphEdge edge)
+            Turret ConfigureTurret(Item spike, GraphEdge edge, float angleRange = 1f)
             {
                 thalamusItems.Add(spike);
                 if (edge == null) return null;
@@ -402,8 +430,11 @@ namespace MoreLevelContent.Shared.Generation
                 float angle = Angle(dir);
                 spike.SpriteDepth = 1;
                 Turret turret = spike.GetComponent<Turret>();
-                turret.RotationLimits = new Vector2(-angle + 1, -angle - 1);
-                turret.RandomAimAmount = 0;
+                turret.RotationLimits = new Vector2(-angle - angleRange, -angle + angleRange);
+                turret.RandomMovement = false;
+                turret.AimDelay = false;
+                // special sauce?
+                // turret_aiCurrentTargetPriority.SetValue(turret, 0.1f);
 
                 // config status effects
                 Dictionary<ActionType, List<StatusEffect>> dic = (Dictionary<ActionType, List<StatusEffect>>)item_statusEffectList.GetValue(spike);

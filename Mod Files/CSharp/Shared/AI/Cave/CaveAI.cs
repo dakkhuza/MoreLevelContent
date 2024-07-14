@@ -10,6 +10,7 @@ using MoreLevelContent.Shared.Utils;
 using static Barotrauma.Level;
 using Voronoi2;
 using MoreLevelContent.Shared.Generation;
+using HarmonyLib;
 
 namespace MoreLevelContent.Shared.AI
 {
@@ -64,9 +65,10 @@ namespace MoreLevelContent.Shared.AI
             DummySub = new Submarine(new SubmarineInfo(), showErrorMessages: false)
             {
                 TeamID = CharacterTeamType.None,
-                ShowSonarMarker = false,
+                ShowSonarMarker = false
             };
-            DummySub.PhysicsBody.BodyType = FarseerPhysics.BodyType.Static;            
+            DummySub.PhysicsBody.BodyType = FarseerPhysics.BodyType.Static;
+            DummySub.Info.Type = SubmarineType.EnemySubmarine;
 
             allThalamusItems.ForEach(i => i.Submarine = DummySub);
 
@@ -92,6 +94,7 @@ namespace MoreLevelContent.Shared.AI
                 if (turret != null)
                 {
                     turrets.Add(turret);
+                    turret.AutoOperate = false;
                 }
                 if (item.HasTag(Config.Spawner))
                 {

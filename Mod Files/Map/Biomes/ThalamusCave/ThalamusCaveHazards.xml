@@ -20,9 +20,8 @@
     <ParticleEmitter particle="toxinmistlargefade" particlespersecond="30" position="0,0" anglemin="0" anglemax="360" scalemin="4.0" scalemax="5.0" distancemin="615" distancemax="1600" velocitymin="0" velocitymax="10" />
   </ballastfloraspores>
   <!-- Specific Objects -->
-  <teethwall identifier="teethwall" spawnpos="Wall, RuinWall" minsurfacewidth="390" minsize="0.9" maxsize="1.1" randomrotation="0,0" randomoffset="20,20" commonness="0" depthrange="-1,-0.1" alignment="TopLeft, BottomRight" clusteringamount="0" clusteringgroup="0" alignwithsurface="True" swingamount="0" swingfrequency="0" scaleoscillation="0,0" scaleoscillationfrequency="0" sonardisruption="0" TakeLevelWallDamage="true" HideWhenBroken="true" Health="100">
+  <teethwall identifier="teethwall" spawnpos="Wall, RuinWall" minsurfacewidth="390" minsize="0.9" maxsize="1.1" randomrotation="0,0" randomoffset="20,20" commonness="0" depthrange="-1,-0.1" alignment="TopLeft, BottomRight" clusteringamount="0" clusteringgroup="0" alignwithsurface="True" swingamount="0" swingfrequency="0" scaleoscillation="0,0" scaleoscillationfrequency="0" sonardisruption="0" TakeLevelWallDamage="true" HideWhenBroken="true" Health="100" maxcount="100">
     <Sprite texture="%ModDir%/Map/Biomes/ThalamusCave/CaveHazards.png" sourcerect="0,113,402,71" origin="0.5,0.5" />
-    <overridecommonness leveltype="thalamuscave" commonness="70" />
     <Trigger position="0,0" width="300" height="75" sensor="false" triggeredby="Human">
       <StatusEffect target="This" interval="5" disabledeltatime="true">
         <Conditional currentspeed="gt 0.15" />
@@ -40,10 +39,13 @@
         <ParticleEmitter particle="bloodsplash" particleamount="30" velocitymin="0" velocitymax="300" anglemin="0" anglemax="360" scalemin="1" scalemax="1.5" />
       </StatusEffect>
     </Trigger>
+    <overridecommonness leveltype="thalamuscave" commonness="30" />
   </teethwall>
-  <deadmeat identifier="deadmeat" spawnpos="Wall, RuinWall" minsurfacewidth="390" minsize="0.9" maxsize="1.1" randomrotation="0,0" randomoffset="20,20" commonness="0" depthrange="-1,-0.1" alignment="TopLeft, BottomRight" clusteringamount="0" clusteringgroup="0" alignwithsurface="True" swingamount="0" swingfrequency="0" scaleoscillation="0,0" scaleoscillationfrequency="0" sonardisruption="0" TakeLevelWallDamage="true" HideWhenBroken="true" Health="100">
-    <Sprite texture="%ModDir%/Map/Biomes/ThalamusCave/CaveHazards.png" sourcerect="0,412,359,110" origin="0.5,0.5" />
-    <Sprite texture="%ModDir%/Map/Biomes/ThalamusCave/CaveHazards2.png" sourcerect="56,311,193,59" origin="0.5,0.5" />
+  <deadmeat identifier="deadmeat" spawnpos="Wall, RuinWall" minsurfacewidth="390" minsize="1.5" maxsize="2" randomrotation="0,0" randomoffset="20,20" commonness="0" depthrange="-1,-0.1" alignment="TopLeft, BottomRight" clusteringamount="0" clusteringgroup="0" alignwithsurface="True" swingamount="0" swingfrequency="0" scaleoscillation="0,0" scaleoscillationfrequency="0" sonardisruption="0" maxcount="1000">
+    <Sprite texture="%ModDir%/Map/Biomes/ThalamusCave/CaveHazards2.png" sourcerect="55,312,199,56" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Map/Biomes/ThalamusCave/CaveHazards2.png" sourcerect="268,309,199,56" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Map/Biomes/ThalamusCave/CaveHazards2.png" sourcerect="72,377,158,73" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Map/Biomes/ThalamusCave/CaveHazards2.png" sourcerect="269,397,171,55" origin="0.5,0.5" />
     <overridecommonness leveltype="thalamuscave" commonness="70" />
   </deadmeat>
 </levelobjects>

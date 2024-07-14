@@ -1,3 +1,15 @@
 <infotexts language="English" nowhitespace="false" translatedname="English">
     <!-- Loading Tips -->
+    <loadingscreentip>‖color:gui.blue‖More Level Content Tip: ‖end‖Distress beacons won't last forever, they will disapear from the map after some time.</loadingscreentip>
+    <loadingscreentip>‖color:gui.blue‖More Level Content Tip: ‖end‖Jump starters can be used to restart shuttles that have run out of power.</loadingscreentip>
+    <loadingscreentip>‖color:gui.blue‖More Level Content Tip: ‖end‖If you take your time on a distress mission, whoever activated it might be dead by the time you show up.</loadingscreentip>
+    <loadingscreentip>‖color:gui.blue‖More Level Content Tip: ‖end‖If you have Dynamic Europa installed, high reputation with the Bandit faction will turn pirate bases passive.</loadingscreentip>
+    <loadingscreentip>‖color:gui.blue‖More Level Content Tip: ‖end‖There have been reports of pirate bases using unknown technology to jam sonnar.</loadingscreentip>
+    <loadingscreentip>‖color:gui.blue‖More Level Content Tip: ‖end‖Following stange sonar pings may lead to automatic traders, waystations or other structures. Who knows what you could find!</loadingscreentip>
+    <loadingscreentip>‖color:gui.blue‖More Level Content Tip: ‖end‖When responding to a distress beacon, submariners may find whoever activated it dead on arrival. For submariners looking for a reward, all is not lost as if they had a sub it can be salvaged.</loadingscreentip>
+
+    <!-- Distress Ghostship Objective -->
+    <dgs.obj.exploreship>Explore at least 50% of the ship.</dgs.obj.exploreship>
+    <dgs.obj.optionalsalvage>(OPTIONAL) Salvage the ghostship by bringing it to the end of the level.</dgs.obj.optionalsalvage>
+    <dgs.inrageforsalvage>The drifting ghostship is in range for salvage.</dgs.inrageforsalvage>
 </infotexts>

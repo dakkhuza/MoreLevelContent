@@ -17,7 +17,7 @@
                         text="missionmessage0.beaconconstruction" />
                 <Reputation
                         identifier="location"
-                        amount="10" />
+                        amount="8" amountforopposingfaction="-2" />
                 <Icon
                         texture="%ModDir%/Missions/Icons.png"
                         sourcerect="0,0,256,256"
@@ -47,7 +47,7 @@
 
                 <Reputation
                         identifier="location"
-                        amount="10" />
+                        amount="4" amountforopposingfaction="-1" />
                 <Icon
                         texture="%ModDir%/Missions/Icons.png"
                         sourcerect="0,0,256,256"
@@ -75,7 +75,7 @@
 
                 <Reputation
                         identifier="location"
-                        amount="10" />
+                        amount="4" amountforopposingfaction="-1" />
                 <Icon
                         texture="%ModDir%/Missions/Icons.png"
                         sourcerect="0,0,256,256"
@@ -106,7 +106,7 @@
 
                 <Reputation
                         identifier="location"
-                        amount="10" />
+                        amount="4" amountforopposingfaction="-1" />
                 <Icon
                         texture="%ModDir%/Missions/Icons.png"
                         sourcerect="0,0,256,256"
@@ -136,7 +136,7 @@
 
                 <Reputation
                         identifier="location"
-                        amount="10" />
+                        amount="4" amountforopposingfaction="-1" />
                 <Icon
                         texture="%ModDir%/Missions/Icons.png"
                         sourcerect="0,0,256,256"
@@ -166,7 +166,7 @@
 
                 <Reputation
                         identifier="location"
-                        amount="10" />
+                        amount="4" amountforopposingfaction="-1" />
                 <Icon
                         texture="%ModDir%/Missions/Icons.png"
                         sourcerect="0,0,256,256"

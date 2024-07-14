@@ -19,8 +19,8 @@ namespace MoreLevelContent.Shared.Generation
             InitProjSpecific();
         }
 
-        public string ForcedMissionIdentifier;
-        public bool ForceSpawnMission;
+        public string ForcedMissionIdentifier = "";
+        public bool ForceSpawnMission = false;
 
         // Networking
         protected abstract NetEvent EventCreated { get; }
@@ -71,7 +71,7 @@ namespace MoreLevelContent.Shared.Generation
         {
             if (levelData == null) return;
             if (!Main.IsCampaign) return;
-            
+
             if (!LevelHasEvent(levelData.MLC()) && !ForceSpawnMission)
             {
                 Log.Debug($"Level has no {EventTag}");

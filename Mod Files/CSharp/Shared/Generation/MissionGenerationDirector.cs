@@ -147,15 +147,16 @@ namespace MoreLevelContent.Shared.Generation
                             if (item.NonInteractable) { continue; }
                             item.AllowStealing = request.AllowStealing;
                             if (item.GetRootInventoryOwner() is Character) { continue; }
-                            int len = item.Tags.Length;
-                            for (int i = 0; i < len; i++)
+                            IEnumerable<Identifier> splitTags = item.Tags.Split(',').ToIdentifiers();
+                            int len = splitTags.Count();
+                            foreach (var tag in splitTags)
                             {
                                 if (request.Prefix != SubmarineSpawnRequest.AutoFillPrefix.None)
                                 {
-                                    item.AddTag($"{request.Prefix}{item.Tags[i]}");
+                                    Log.Debug($"Added tag {request.Prefix}{tag}");
+                                    item.AddTag($"{request.Prefix}{tag}");
                                 }
                             }
-
                             foreach (var container in item.GetComponents<ItemContainer>())
                             {
                                 container.AutoFill = true;

@@ -67,12 +67,20 @@ namespace MoreLevelContent
             string[] arg = (string[])args[0];
             string identifier = arg.Length == 2 ? arg[1] : "";
 
-            if (arg.Length == 0) return;
-            if (!bool.TryParse(arg[0], out bool force)) return;
+            if (arg.Length == 0)
+            {
+                Log.Debug("Missing arguments");
+                return;
+            }
+            if (!bool.TryParse(arg[0], out bool force))
+            {
+                Log.Debug("First argument must be a boolean");
+                return;
+            }
             MapDirector.Instance.SetForcedDistressMission(force, identifier);
 
 
-            DebugConsole.NewMessage((force ? "Enabled" : "Disabled") + " forceing of distress mission" + additional, Color.White);
+            DebugConsole.NewMessage((force ? "Enabled" : "Disabled") + " forceing of distress mission " + identifier, Color.White);
         }
 
         private void _forcePirate(object[] args)

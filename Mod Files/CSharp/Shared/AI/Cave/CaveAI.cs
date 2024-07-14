@@ -179,6 +179,7 @@ namespace MoreLevelContent.Shared.AI
                 if (wall is DestructibleLevelWall destructible)
                 {
                     destructible.Destroy();
+                    destructible.NetworkUpdatePending = true;
                 }
             }
         }

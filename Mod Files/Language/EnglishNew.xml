@@ -12,4 +12,6 @@
     <dgs.obj.exploreship>Explore at least 50% of the ship.</dgs.obj.exploreship>
     <dgs.obj.optionalsalvage>(OPTIONAL) Salvage the ghostship by bringing it to the end of the level.</dgs.obj.optionalsalvage>
     <dgs.inrageforsalvage>The drifting ghostship is in range for salvage.</dgs.inrageforsalvage>
+
+    <entityname.stomach_acid_vent>Stomach Acid Vent</entityname.stomach_acid_vent>
 </infotexts>

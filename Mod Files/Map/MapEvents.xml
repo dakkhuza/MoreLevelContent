@@ -88,6 +88,7 @@
         </ScriptedEvent>
 
 
+
         <!--
         
             WAYSATION EVENTS
@@ -177,8 +178,8 @@
                 endeventifinterrupted="false"
                 text="EventText.waystation_husk.c3"
                 waitforinteraction="true" eventsprite="officeinside" />
-            <MoneyAction amount="8000" />
-            <GiveExpAction amount="800" targettag="players" />
+            <MoneyAction amount="4000" />
+            <GiveExpAction amount="500" targettag="players" />
 
         </ScriptedEvent>
 
@@ -853,7 +854,8 @@
                                 text="EventText.abyssresearch_teleportmishap.o2.c2">
                                 <Option text="EventText.abyssresearch_teleportmishap.o2.o1"
                                     endconversation="true">
-                                    <MoneyAction amount="8000" />
+                                    <MoneyAction amount="5500" />
+                                    <GiveExpAction amount="500" targettag="player" />
                                 </Option>
                                 <Option text="EventText.abyssresearch_teleportmishap.o2.o2"
                                     endconversation="true">

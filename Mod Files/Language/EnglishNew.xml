@@ -1,13 +1,16 @@
 <infotexts language="English" nowhitespace="false" translatedname="English">
     <!-- Loading Tips -->
     <loadingscreentip>‖color:gui.blue‖More Level Content Tip: ‖end‖Distress beacons won't last forever, they will disapear from the map after some time.</loadingscreentip>
-    <loadingscreentip>‖color:gui.blue‖More Level Content Tip: ‖end‖Jump starters can be used to restart shuttles that have run out of power.</loadingscreentip>
+    <loadingscreentip>‖color:gui.blue‖More Level Content Tip: ‖end‖Jump starters can be used to restart shuttles that have run out of power. Some systems (Oxygen generators) should be turned off when jump starting a shuttle, as they use an excessive amount of power.</loadingscreentip>
     <loadingscreentip>‖color:gui.blue‖More Level Content Tip: ‖end‖If you take your time on a distress mission, whoever activated it might be dead by the time you show up.</loadingscreentip>
     <loadingscreentip>‖color:gui.blue‖More Level Content Tip: ‖end‖If you have Dynamic Europa installed, high reputation with the Bandit faction will turn pirate bases passive.</loadingscreentip>
     <loadingscreentip>‖color:gui.blue‖More Level Content Tip: ‖end‖There have been reports of pirate bases using sonar jammers to mask their presence.</loadingscreentip>
     <loadingscreentip>‖color:gui.blue‖More Level Content Tip: ‖end‖Following stange sonar pings may lead to automatic traders, waystations or other structures. Who knows what you could find!</loadingscreentip>
-    <loadingscreentip>‖color:gui.blue‖More Level Content Tip: ‖end‖When responding to a distress beacon, submariners may find whoever activated it dead on arrival. For submariners looking for a reward, all is not lost as if they had a sub it can be salvaged.</loadingscreentip>
+    <loadingscreentip>‖color:gui.blue‖More Level Content Tip: ‖end‖When responding to a distress beacon, submariners may find whoever activated it dead on arrival. All is not lost, however, as if they had a sub it can be salvaged.</loadingscreentip>
     <loadingscreentip>‖color:gui.blue‖More Level Content Tip: ‖end‖Visiting a waystation will often reveal another location on the map.</loadingscreentip>
+    <loadingscreentip>‖color:gui.blue‖More Level Content Tip: ‖end‖Relay Stations require basic knowledge of math and the wiring system to complete. When in doubt, ask your nearest engineer.</loadingscreentip>
+    <loadingscreentip>‖color:gui.blue‖More Level Content Tip: ‖end‖Created by the Keletco conglomerate, Relay Stations are one of the few remaining creations of it's brief stint on Europa.</loadingscreentip>
+    <loadingscreentip>‖color:gui.blue‖More Level Content Tip: ‖end‖Relay stations were superseded by beacon stations, however some outposts still rely on the outdated system. In recent years, many of these stations have broken down due to lack of maintence.</loadingscreentip>
 
     <!-- Distress Ghostship Objective -->
     <dgs.obj.exploreship>Explore at least 50% of the ship.</dgs.obj.exploreship>

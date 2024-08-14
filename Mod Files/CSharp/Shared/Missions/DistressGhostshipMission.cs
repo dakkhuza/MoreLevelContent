@@ -144,7 +144,7 @@ namespace MoreLevelContent.Missions
             ghostship = submarine;
             ghostship.FlipX();
             submarine.ShowSonarMarker = false;
-            submarine.TeamID = CharacterTeamType.FriendlyNPC;
+            submarine.TeamID = CharacterTeamType.Team2;
             ghostship.Info.Type = (SubmarineType)7;
             submarine.PhysicsBody.FarseerBody.BodyType = FarseerPhysics.BodyType.Dynamic;
 

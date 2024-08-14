@@ -25,6 +25,7 @@ namespace MoreLevelContent.Missions
         const int RANGE_MIN = 50;
         const int RANGE_MAX = 200;
         const int REQUIRED_CYCLES = 2;
+        const float REQUIRED_CYCLE_TIME = 2;
 
         private readonly LocalizedString defaultSonarLabel;
         private readonly string terminalTag; 
@@ -258,8 +259,9 @@ namespace MoreLevelContent.Missions
             }
             return output;
         }
-        int successfulCycles = 0;
 
+        int successfulCycles = 0;
+        float cycleTimer = 0;
         protected override void UpdateMissionSpecific(float deltaTime)
         {
             if (IsClient) return;
@@ -273,6 +275,40 @@ namespace MoreLevelContent.Missions
                 }
             }
 
+            if (State == 1)
+            {
+                if (_WpLight.IsOn)
+                {
+                    // When the light is on, start counting up the cycle time
+                    cycleTimer += deltaTime;
+
+                    // When the cycle time gets over the required cycle time
+                    // Reset the timer and increment the successful cycles
+                    if (cycleTimer > REQUIRED_CYCLE_TIME)
+                    {
+                        successfulCycles++;
+                        cycleTimer = 0;
+                    }
+
+                    // When the successful cycles goes over the required cycles
+                    // Complete the mission!
+                    if (successfulCycles >= REQUIRED_CYCLES)
+                    {
+                        State = 2;
+                    }
+                } else
+                {
+                    // If the light turns off at any point, reset the cycle timer
+                    // As well as the successful cycles
+                    cycleTimer = 0;
+                    successfulCycles = 0;
+                }
+            }
+
+
+
+
+            // Return if timer is counting
             if (_Timer > 0)
             {
                 _Timer -= deltaTime;
@@ -290,21 +326,6 @@ namespace MoreLevelContent.Missions
 #endif
 
             _Timer = INTERVAL;
-
-            if (State == 1)
-            {
-                if (_WpLight.IsOn)
-                {
-                    successfulCycles++;
-                    if (successfulCycles >= REQUIRED_CYCLES)
-                    {
-                        State = 2;
-                    }
-                } else
-                {
-                    successfulCycles = 0;
-                }
-            }
 
 
             bool CrewInSub()

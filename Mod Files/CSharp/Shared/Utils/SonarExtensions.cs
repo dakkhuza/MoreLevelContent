@@ -18,7 +18,7 @@ namespace MoreLevelContent.Shared.Utils
             Dictionary<BlipType, Color[]> sonarBlips = (Dictionary<BlipType, Color[]>)ReflectionInfo.Instance.blipColorGradient.GetValue(null);
             if (!sonarBlips.ContainsKey((BlipType)5))
             {
-                sonarBlips.Add((BlipType)5, new Color[] { Color.TransparentBlack, Color.TransparentBlack, new Color(0, 68, 65) * 0.8f, Color.TransparentBlack });
+                sonarBlips.Add((BlipType)5, new Color[] { Color.TransparentBlack, new Color(0, 68, 65) * 0.9f, new Color(0, 68, 65) * 0.65f, new Color(0, 68, 65) * 0.25f });
             }
 #endif
         }

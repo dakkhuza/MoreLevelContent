@@ -156,7 +156,6 @@ namespace MoreLevelContent.Missions
                 if (item.HasTag("wp_add")) AddOperation(OperationType.Add);
                 if (item.HasTag("wp_sub")) AddOperation(OperationType.Sub);
                 if (item.HasTag("wp_mul")) AddOperation(OperationType.Mul);
-                if (item.HasTag("wp_div")) AddOperation(OperationType.Div, 1, 4);
 
                 void AddOperation(OperationType type, int low = 5, int high = 25)
                 {

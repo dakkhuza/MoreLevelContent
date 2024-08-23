@@ -49,6 +49,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
         public void Update(float deltaTime)
         {
             if (Main.IsClient || _Revealed) return;
+            if (_Sub == null) return;
             float minDist = Sonar.DefaultSonarRange / 2f;
             foreach (Submarine submarine in Submarine.Loaded)
             {

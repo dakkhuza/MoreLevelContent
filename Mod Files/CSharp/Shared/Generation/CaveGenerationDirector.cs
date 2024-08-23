@@ -337,6 +337,7 @@ namespace MoreLevelContent.Shared.Generation
 
                 for (int i = 0; i < cellSpawns; i++)
                 {
+                    if (insideEdges.Count != 0) break;
                     if (i % 2 == 0)
                     {
                         SpawnCellSpawner(GetEdge(insideEdges, true));

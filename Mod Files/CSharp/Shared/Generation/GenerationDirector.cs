@@ -30,6 +30,11 @@ namespace MoreLevelContent.Shared.Generation
         internal Submarine SpawnSubOnPath(string name, string path, bool ignoreCrushDepth = false, SubmarineType submarineType = SubmarineType.EnemySubmarine, PlacementType placementType = PlacementType.Bottom)
         {
             Submarine placedSub = SubPlacementUtils.SpawnSubOnPath(name, path, submarineType, placementType);
+            if (placedSub == null)
+            {
+                Log.Error("SpawnSubOnPath failed to spawn wanted sub.");
+                return null;
+            }
             SubPlacementUtils.SetCrushDepth(placedSub, ignoreCrushDepth);
             return placedSub;
         }

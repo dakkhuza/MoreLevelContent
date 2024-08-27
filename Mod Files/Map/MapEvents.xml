@@ -527,6 +527,7 @@
         <!-- Deliver research papers to a nearby research outpost -->
         <ScriptedEvent identifier="abyssresearch_mailman">
             <TagAction criteria="player" tag="player" />
+            <TagAction criteria="crew" tag="crew" />
             <TagAction criteria="itemtag:researchchair1" tag="chair1" />
             <TagAction criteria="itemtag:researchchair2" tag="chair2" />
             <SpawnAction npcsetidentifier="outpostnpcs1"
@@ -634,13 +635,15 @@
                                 enemytag="triggerer_player" />
                             <ReputationAction targettype="Faction" increase="5"
                                 identifier="huskcult" />
+                            <GiveExpAction amount="500" targettag="crew" />
                             <MissionStateAction missionidentifier="gotoresearch" operation="set"
                                 state="2" />
                         </Option>
                         <Option text="MapFeature.mailman.marks">
                             <ConversationAction targettag="triggerer_player"
                                 text="MapFeature.mailman.lame" />
-                            <MoneyAction targettag="triggerer_player" amount="3500" />
+                            <MoneyAction targettag="triggerer_player" amount="4500" />
+                            <GiveExpAction amount="500" targettag="crew" />
                             <ReputationAction targettype="Faction" increase="1"
                                 identifier="huskcult" />
                             <MissionStateAction missionidentifier="gotoresearch" operation="set"

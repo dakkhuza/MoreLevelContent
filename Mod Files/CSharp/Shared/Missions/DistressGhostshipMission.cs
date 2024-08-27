@@ -37,7 +37,7 @@ namespace MoreLevelContent.Missions
         private LevelData levelData;
         private TrackingSonarMarker trackingSonarMarker;
         private ReputationDamageTracker damageTracker;
-
+        private int salvagedReward = 0;
 
         enum TravelTarget
         {
@@ -78,8 +78,7 @@ namespace MoreLevelContent.Missions
         {
             get
             {
-                if (ghostship == null) return 0;
-                if (SubSalvaged) return (int)Math.Round(ghostship.Info.Price * 0.85f);
+                if (SubSalvaged) return salvagedReward;
                 return 0;
             }
         }
@@ -150,7 +149,8 @@ namespace MoreLevelContent.Missions
 
             SubPlacementUtils.PositionSubmarine(submarine, Level.PositionType.MainPath);
             SubPlacementUtils.SetCrushDepth(submarine);
-            
+
+            salvagedReward = (int)Math.Round(ghostship.Info.Price * 0.85f);
 
             double minFlood = submarineConfig.GetAttributeDouble("minfloodpercentage", 0);
             double maxFlood = submarineConfig.GetAttributeDouble("maxfloodpercentage", 0);

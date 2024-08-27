@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<contentpackage name="More Level Content dev" modversion="0.0.105" corepackage="False" gameversion="1.5.9.1">
+<contentpackage name="More Level Content dev" modversion="0.0.106" corepackage="False" gameversion="1.5.9.1">
   <Item file="%ModDir%/dummyitem.xml" />
   <Text file="%ModDir%/Language/English.xml" />
   <Text file="%ModDir%/Language/PatchNotes.xml" />
@@ -63,6 +63,6 @@
   <Submarine file="%ModDir%/Map/MapFeatures/ClownStation.sub" />
   <Submarine file="%ModDir%/Map/MapFeatures/HuskChurch.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/PirateOutpost_Ceiling01.sub" />
-  <Submarine file="%ModDir%/Missions/WirePuzzle.sub" />
   <Submarine file="%ModDir%/Map/MapFeatures/AbyssResearch.sub" />
+  <Submarine file="%ModDir%/Missions/WirePuzzle.sub" />
 </contentpackage>

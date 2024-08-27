@@ -33,6 +33,7 @@ namespace MoreLevelContent.Missions
         {
             get
             {
+                if (State != 1)
                 yield return (Prefab.SonarLabel.IsNullOrEmpty() ? sonarLabel : Prefab.SonarLabel, spawnPosition);
             }
         }
@@ -171,6 +172,12 @@ namespace MoreLevelContent.Missions
         {
             if (IsClient) return;
             // Exit if we're client or if we're already active or if all of the characters are dead
+
+            if (missionNPCs.characters.Any(c => !MissionNPCCollection.IsAlive(c)))
+            {
+                State = 1;
+            }
+
             if (triggered || missionNPCs.characters.Any(c => !MissionNPCCollection.IsAlive(c))) return;
 
             foreach (var aiCharacter in missionNPCs.characters.Where(c => MissionNPCCollection.IsAlive(c)))

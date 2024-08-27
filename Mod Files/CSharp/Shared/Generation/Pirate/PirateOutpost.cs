@@ -319,6 +319,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
                 Log.Debug("Was client");
                 return;
             }
+            if (_Sub == null) return;
 #if CLIENT
             bool success = GameMain.GameSession.CrewManager!.GetCharacters().Any(c => !c.IsDead);
 #else
@@ -339,19 +340,25 @@ namespace MoreLevelContent.Shared.Generation.Pirate
                 Log.Debug("Base was destroyed");
                 return;
             }
-
-            // If more than half of the crew or the commander is dead / incapacited / arrested, the outpost is destroyed
-            bool crewStatus = characters.Select(c => c.IsDead || c.Removed || c.IsIncapacitated || c.IsHandcuffed).Count() > characters.Count / 2;
-            if (_Commander.IsDead || _Commander.Removed || _Commander.IsHandcuffed || crewStatus)
+            try
             {
-                levelData.MLC().PirateData.Status = PirateOutpostStatus.Destroyed;
-                Log.Debug("base destroyed");
-            } else
+                // If more than half of the crew or the commander is dead / incapacited / arrested, the outpost is destroyed
+                bool crewStatus = characters.Select(c => c.IsDead || c.Removed || c.IsIncapacitated || c.IsHandcuffed).Count() > characters.Count / 2;
+                if (_Commander.IsDead || _Commander.Removed || _Commander.IsHandcuffed || crewStatus)
+                {
+                    levelData.MLC().PirateData.Status = PirateOutpostStatus.Destroyed;
+                    Log.Debug("base destroyed");
+                }
+                else
+                {
+                    Log.Debug($"Base still active: {crewStatus} dead: {_Commander.IsDead} removed: {_Commander.Removed} handcuffed: {_Commander.IsHandcuffed}");
+                }
+                LocationConnection con = Level.Loaded.StartLocation.Connections.Where(c => c.OtherLocation(Level.Loaded.StartLocation) == Level.Loaded.EndLocation).First();
+                PirateOutpostDirector.Instance.UpdateStatus(levelData.MLC().PirateData, con);
+            } catch(Exception e) 
             {
-                Log.Debug($"Base still active: {crewStatus} dead: {_Commander.IsDead} removed: {_Commander.Removed} handcuffed: {_Commander.IsHandcuffed}");
+                DebugConsole.ThrowError("Error in pirate outpost OnRoundEnd", e);
             }
-            LocationConnection con = Level.Loaded.StartLocation.Connections.Where(c => c.OtherLocation(Level.Loaded.StartLocation) == Level.Loaded.EndLocation).First();
-            PirateOutpostDirector.Instance.UpdateStatus(levelData.MLC().PirateData, con);
         }
 
         private void HuskOutpost()

@@ -8,6 +8,7 @@ using MoreLevelContent.Shared.Generation;
 using MoreLevelContent.Shared.Utils;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -25,7 +26,8 @@ namespace MoreLevelContent.Missions
         const int RANGE_MIN = 50;
         const int RANGE_MAX = 200;
         const int REQUIRED_CYCLES = 2;
-        const float REQUIRED_CYCLE_TIME = 2;
+        const float REQUIRED_CYCLE_TIME = 1;
+        const double CYCLE_GRACE_PERIOD = Timing.Step * 2;
 
         private readonly LocalizedString defaultSonarLabel;
         private readonly string terminalTag; 
@@ -262,6 +264,7 @@ namespace MoreLevelContent.Missions
 
         int successfulCycles = 0;
         float cycleTimer = 0;
+        double gracePeriod = 0;
         protected override void UpdateMissionSpecific(float deltaTime)
         {
             if (IsClient) return;
@@ -281,6 +284,7 @@ namespace MoreLevelContent.Missions
                 {
                     // When the light is on, start counting up the cycle time
                     cycleTimer += deltaTime;
+                    gracePeriod = CYCLE_GRACE_PERIOD;
 
                     // When the cycle time gets over the required cycle time
                     // Reset the timer and increment the successful cycles
@@ -299,12 +303,19 @@ namespace MoreLevelContent.Missions
                 } else
                 {
                     // If the light turns off at any point, reset the cycle timer
-                    // As well as the successful cycles
-                    cycleTimer = 0;
-                    successfulCycles = 0;
+                    // As well as the successful cycles, AFTER the grace period runs out
+                    if (gracePeriod > 0)
+                    {
+                        gracePeriod -= deltaTime;
+                    } else
+                    {
+                        cycleTimer = 0;
+                        successfulCycles = 0;
+                    }
                 }
             }
 
+            Log.Debug($"Cycle Timer: {cycleTimer}, Successful Cycles: {successfulCycles}");
 
 
 

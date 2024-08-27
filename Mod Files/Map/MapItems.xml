@@ -1,168 +1,106 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Items>
-  <Item name="Auto-Trader (Weapons)" identifier="autotrader_weapons" allowattachitems="true"
-    width="128" height="271" texturescale="1.0,1.0" scale="0.5" category="Machine">
-    <sprite texture="Content/Map/Outposts/Art/Storage.png" sourcerect="1103,0,128,271" depth="0.97"
-      premultiplyalpha="false" origin="0.5,0.5" />
-    <SimpleStore canbeselected="true" powerconsumption="0.0" msg="ItemMsgInteractSelect"
-      createbuttontext="campaignstoretab.buy">
+  <Item name="Auto-Trader (Weapons)" identifier="autotrader_weapons" allowattachitems="true" width="128" height="271" texturescale="1.0,1.0" scale="0.5" category="Machine">
+    <sprite texture="Content/Map/Outposts/Art/Storage.png" sourcerect="1103,0,128,271" depth="0.97" premultiplyalpha="false" origin="0.5,0.5" />
+    <SimpleStore canbeselected="true" powerconsumption="0.0" msg="ItemMsgInteractSelect" createbuttontext="campaignstoretab.buy">
       <GuiFrame relativesize="0.4,0.5" style="ItemUI" anchor="Center" />
       <sound file="%ModDir%/Sounds/cash-register.ogg" type="OnUse" range="200.0" loop="false" />
       <!-- Weapons -->
-      <SellableItem identifier="revolver" requiredtime="1" requiredmoney="250"
-        fabricationlimitmin="0" fabricationlimitmax="4" quality="3" />
-      <SellableItem identifier="rifle" requiredtime="1" requiredmoney="500" fabricationlimitmin="0"
-        fabricationlimitmax="1" quality="2" />
-      <SellableItem identifier="harpooncoilrifle" requiredtime="1" requiredmoney="370"
-        fabricationlimitmin="0" fabricationlimitmax="2" quality="2" />
-      <SellableItem identifier="smg" requiredtime="1" requiredmoney="170" fabricationlimitmin="0"
-        fabricationlimitmax="1" quality="2" />
+      <SellableItem identifier="revolver" requiredtime="1" requiredmoney="250" fabricationlimitmin="0" fabricationlimitmax="4" quality="3" />
+      <SellableItem identifier="rifle" requiredtime="1" requiredmoney="500" fabricationlimitmin="0" fabricationlimitmax="1" quality="2" />
+      <SellableItem identifier="harpooncoilrifle" requiredtime="1" requiredmoney="370" fabricationlimitmin="0" fabricationlimitmax="2" quality="2" />
+      <SellableItem identifier="smg" requiredtime="1" requiredmoney="170" fabricationlimitmin="0" fabricationlimitmax="1" quality="2" />
       <!-- Gun Ammo -->
-      <SellableItem identifier="smgmagazine" requiredtime="1" requiredmoney="60"
-        fabricationlimitmin="0" fabricationlimitmax="5" />
-      <SellableItem identifier="revolverround" requiredtime="1" requiredmoney="10"
-        fabricationlimitmin="0" fabricationlimitmax="25" />
-      <SellableItem identifier="shotgunshell" requiredtime="1" requiredmoney="15"
-        fabricationlimitmin="0" fabricationlimitmax="15" />
-      <SellableItem identifier="riflebullet" requiredtime="1" requiredmoney="15"
-        fabricationlimitmin="0" fabricationlimitmax="10" />
+      <SellableItem identifier="smgmagazine" requiredtime="1" requiredmoney="60" fabricationlimitmin="0" fabricationlimitmax="5" />
+      <SellableItem identifier="revolverround" requiredtime="1" requiredmoney="10" fabricationlimitmin="0" fabricationlimitmax="25" />
+      <SellableItem identifier="shotgunshell" requiredtime="1" requiredmoney="15" fabricationlimitmin="0" fabricationlimitmax="15" />
+      <SellableItem identifier="riflebullet" requiredtime="1" requiredmoney="15" fabricationlimitmin="0" fabricationlimitmax="10" />
       <!-- Spears -->
-      <SellableItem identifier="spear" requiredtime="1" requiredmoney="5" fabricationlimitmin="0"
-        fabricationlimitmax="30" />
-      <SellableItem identifier="alienspear" requiredtime="1" requiredmoney="40"
-        fabricationlimitmin="0" fabricationlimitmax="15" />
-      <SellableItem identifier="explosivespear" requiredtime="1" requiredmoney="50"
-        fabricationlimitmin="0" fabricationlimitmax="15" />
+      <SellableItem identifier="spear" requiredtime="1" requiredmoney="5" fabricationlimitmin="0" fabricationlimitmax="30" />
+      <SellableItem identifier="alienspear" requiredtime="1" requiredmoney="40" fabricationlimitmin="0" fabricationlimitmax="15" />
+      <SellableItem identifier="explosivespear" requiredtime="1" requiredmoney="50" fabricationlimitmin="0" fabricationlimitmax="15" />
       <!-- Grenades -->
-      <SellableItem identifier="40mmgrenade" requiredtime="1" requiredmoney="50"
-        fabricationlimitmin="0" fabricationlimitmax="8" />
-      <SellableItem identifier="40mmstungrenade" requiredtime="1" requiredmoney="55"
-        fabricationlimitmin="0" fabricationlimitmax="4" />
+      <SellableItem identifier="40mmgrenade" requiredtime="1" requiredmoney="50" fabricationlimitmin="0" fabricationlimitmax="8" />
+      <SellableItem identifier="40mmstungrenade" requiredtime="1" requiredmoney="55" fabricationlimitmin="0" fabricationlimitmax="4" />
       <!-- Flak Ammo -->
-      <SellableItem identifier="flakcannonammobox" requiredtime="1" requiredmoney="130"
-        fabricationlimitmin="0" fabricationlimitmax="4" />
-      <SellableItem identifier="flakcannondirectionalammobox" requiredtime="1" requiredmoney="250"
-        fabricationlimitmin="0" fabricationlimitmax="4" />
-      <SellableItem identifier="flakcannonammoboxexplosive" requiredtime="1" requiredmoney="395"
-        fabricationlimitmin="0" fabricationlimitmax="2" />
-      <SellableItem identifier="flakcannonammoboxphysicorium" requiredtime="1" requiredmoney="450"
-        fabricationlimitmin="0" fabricationlimitmax="2" />
+      <SellableItem identifier="flakcannonammobox" requiredtime="1" requiredmoney="130" fabricationlimitmin="0" fabricationlimitmax="4" />
+      <SellableItem identifier="flakcannondirectionalammobox" requiredtime="1" requiredmoney="250" fabricationlimitmin="0" fabricationlimitmax="4" />
+      <SellableItem identifier="flakcannonammoboxexplosive" requiredtime="1" requiredmoney="395" fabricationlimitmin="0" fabricationlimitmax="2" />
+      <SellableItem identifier="flakcannonammoboxphysicorium" requiredtime="1" requiredmoney="450" fabricationlimitmin="0" fabricationlimitmax="2" />
       <!-- Coilgun -->
-      <SellableItem identifier="coilgunammobox" requiredtime="1" requiredmoney="120"
-        fabricationlimitmin="0" fabricationlimitmax="16" />
-      <SellableItem identifier="physicoriumammobox" requiredtime="1" requiredmoney="330"
-        fabricationlimitmin="0" fabricationlimitmax="2" />
-      <SellableItem identifier="coilgunammoboxexplosive" requiredtime="1" requiredmoney="350"
-        fabricationlimitmin="0" fabricationlimitmax="2" />
-      <SellableItem identifier="coilgunammoboxpiercing" requiredtime="1" requiredmoney="260"
-        fabricationlimitmin="0" fabricationlimitmax="2" />
+      <SellableItem identifier="coilgunammobox" requiredtime="1" requiredmoney="120" fabricationlimitmin="0" fabricationlimitmax="16" />
+      <SellableItem identifier="physicoriumammobox" requiredtime="1" requiredmoney="330" fabricationlimitmin="0" fabricationlimitmax="2" />
+      <SellableItem identifier="coilgunammoboxexplosive" requiredtime="1" requiredmoney="350" fabricationlimitmin="0" fabricationlimitmax="2" />
+      <SellableItem identifier="coilgunammoboxpiercing" requiredtime="1" requiredmoney="260" fabricationlimitmin="0" fabricationlimitmax="2" />
       <!-- Chaingun -->
-      <SellableItem identifier="chaingunammobox" requiredtime="1" requiredmoney="180"
-        fabricationlimitmin="0" fabricationlimitmax="8" />
-      <SellableItem identifier="chaingunammoboxshredder" requiredtime="1" requiredmoney="300"
-        fabricationlimitmin="0" fabricationlimitmax="4" />
-      <SellableItem identifier="chaingunammoboxphysicorium" requiredtime="1" requiredmoney="410"
-        fabricationlimitmin="0" fabricationlimitmax="2" />
+      <SellableItem identifier="chaingunammobox" requiredtime="1" requiredmoney="180" fabricationlimitmin="0" fabricationlimitmax="8" />
+      <SellableItem identifier="chaingunammoboxshredder" requiredtime="1" requiredmoney="300" fabricationlimitmin="0" fabricationlimitmax="4" />
+      <SellableItem identifier="chaingunammoboxphysicorium" requiredtime="1" requiredmoney="410" fabricationlimitmin="0" fabricationlimitmax="2" />
       <!-- Laser -->
-      <SellableItem identifier="pulselaserammobox" requiredtime="1" requiredmoney="250"
-        fabricationlimitmin="0" fabricationlimitmax="6" />
-      <SellableItem identifier="pulselaserammoboxtrilaser" requiredtime="1" requiredmoney="435"
-        fabricationlimitmin="0" fabricationlimitmax="2" />
+      <SellableItem identifier="pulselaserammobox" requiredtime="1" requiredmoney="250" fabricationlimitmin="0" fabricationlimitmax="6" />
+      <SellableItem identifier="pulselaserammoboxtrilaser" requiredtime="1" requiredmoney="435" fabricationlimitmin="0" fabricationlimitmax="2" />
       <!-- Depth Charges -->
-      <SellableItem identifier="depthchargeshell" requiredtime="1" requiredmoney="120"
-        fabricationlimitmin="0" fabricationlimitmax="4" />
-      <SellableItem identifier="nucleardepthcharge" requiredtime="1" requiredmoney="450"
-        fabricationlimitmin="0" fabricationlimitmax="2" />
+      <SellableItem identifier="depthchargeshell" requiredtime="1" requiredmoney="120" fabricationlimitmin="0" fabricationlimitmax="4" />
+      <SellableItem identifier="nucleardepthcharge" requiredtime="1" requiredmoney="450" fabricationlimitmin="0" fabricationlimitmax="2" />
     </SimpleStore>
-    <ItemContainer capacity="0" canbeselected="false" hideitems="true" slotsperrow="1" uilabel=""
-      allowuioverlap="true" />
-    <ItemContainer capacity="1" canbeselected="true" hideitems="true" slotsperrow="1" uilabel=""
-      allowuioverlap="true" />
+    <ItemContainer capacity="0" canbeselected="false" hideitems="true" slotsperrow="1" uilabel="" allowuioverlap="true" />
+    <ItemContainer capacity="1" canbeselected="true" hideitems="true" slotsperrow="1" uilabel="" allowuioverlap="true" />
   </Item>
-  <Item name="Auto-Trader (Supplies)" identifier="autotrader_supplies" allowattachitems="true"
-    width="128" height="271" texturescale="1.0,1.0" scale="0.5" category="Machine">
-    <sprite texture="Content/Map/Outposts/Art/Storage.png" sourcerect="1103,0,128,271" depth="0.97"
-      premultiplyalpha="false" origin="0.5,0.5" />
-    <SimpleStore canbeselected="true" powerconsumption="0.0" msg="ItemMsgInteractSelect"
-      createbuttontext="campaignstoretab.buy">
+  <Item name="Auto-Trader (Supplies)" identifier="autotrader_supplies" allowattachitems="true" width="128" height="271" texturescale="1.0,1.0" scale="0.5" category="Machine">
+    <sprite texture="Content/Map/Outposts/Art/Storage.png" sourcerect="1103,0,128,271" depth="0.97" premultiplyalpha="false" origin="0.5,0.5" />
+    <SimpleStore canbeselected="true" powerconsumption="0.0" msg="ItemMsgInteractSelect" createbuttontext="campaignstoretab.buy">
       <GuiFrame relativesize="0.4,0.5" style="ItemUI" anchor="Center" />
       <sound file="%ModDir%/Sounds/cash-register.ogg" type="OnUse" range="200.0" loop="false" />
       <!-- Fuel -->
-      <SellableItem identifier="fuelrod" requiredtime="1" requiredmoney="150"
-        fabricationlimitmin="0" fabricationlimitmax="4" quality="4" />
-      <SellableItem identifier="fulguriumfuelrod" requiredtime="1" requiredmoney="250"
-        fabricationlimitmin="0" fabricationlimitmax="1" quality="2" />
-      <SellableItem identifier="thoriumfuelrod" requiredtime="1" requiredmoney="200"
-        fabricationlimitmin="0" fabricationlimitmax="2" quality="2" />
+      <SellableItem identifier="fuelrod" requiredtime="1" requiredmoney="150" fabricationlimitmin="0" fabricationlimitmax="4" quality="4" />
+      <SellableItem identifier="fulguriumfuelrod" requiredtime="1" requiredmoney="250" fabricationlimitmin="0" fabricationlimitmax="1" quality="2" />
+      <SellableItem identifier="thoriumfuelrod" requiredtime="1" requiredmoney="200" fabricationlimitmin="0" fabricationlimitmax="2" quality="2" />
       <!-- Consumables -->
-      <SellableItem identifier="flare" requiredtime="1" requiredmoney="5"
-        fabricationlimitmin="0" fabricationlimitmax="16" />
-      <SellableItem identifier="glowstick" requiredtime="1" requiredmoney="5"
-        fabricationlimitmin="0" fabricationlimitmax="16" />
-
+      <SellableItem identifier="flare" requiredtime="1" requiredmoney="5" fabricationlimitmin="0" fabricationlimitmax="16" />
+      <SellableItem identifier="glowstick" requiredtime="1" requiredmoney="5" fabricationlimitmin="0" fabricationlimitmax="16" />
       <!-- Equipment -->
-      <SellableItem identifier="flamer" requiredtime="1" requiredmoney="100"
-        fabricationlimitmin="0" fabricationlimitmax="2" />
-      <SellableItem identifier="backpack" requiredtime="1" requiredmoney="100"
-        fabricationlimitmin="0" fabricationlimitmax="2" />
-      <SellableItem identifier="toolbelt" requiredtime="1" requiredmoney="65"
-        fabricationlimitmin="0" fabricationlimitmax="2" />
-      <SellableItem identifier="weldingtool" requiredtime="1" requiredmoney="150"
-        fabricationlimitmin="0" fabricationlimitmax="2" quality="2" />
-      <SellableItem identifier="plasmacutter" requiredtime="1" requiredmoney="150"
-        fabricationlimitmin="0" fabricationlimitmax="2" quality="2" />
-      <SellableItem identifier="screwdriver" requiredtime="1" requiredmoney="100"
-        fabricationlimitmin="0" fabricationlimitmax="1" quality="2" />
-      <SellableItem identifier="wrench" requiredtime="1" requiredmoney="100"
-        fabricationlimitmin="0" fabricationlimitmax="1" quality="2" />
-      <SellableItem identifier="crowbar" requiredtime="1" requiredmoney="100"
-        fabricationlimitmin="0" fabricationlimitmax="1" quality="2" />
-
-
+      <SellableItem identifier="flamer" requiredtime="1" requiredmoney="100" fabricationlimitmin="0" fabricationlimitmax="2" />
+      <SellableItem identifier="backpack" requiredtime="1" requiredmoney="100" fabricationlimitmin="0" fabricationlimitmax="2" />
+      <SellableItem identifier="toolbelt" requiredtime="1" requiredmoney="65" fabricationlimitmin="0" fabricationlimitmax="2" />
+      <SellableItem identifier="weldingtool" requiredtime="1" requiredmoney="150" fabricationlimitmin="0" fabricationlimitmax="2" quality="2" />
+      <SellableItem identifier="plasmacutter" requiredtime="1" requiredmoney="150" fabricationlimitmin="0" fabricationlimitmax="2" quality="2" />
+      <SellableItem identifier="screwdriver" requiredtime="1" requiredmoney="100" fabricationlimitmin="0" fabricationlimitmax="1" quality="2" />
+      <SellableItem identifier="wrench" requiredtime="1" requiredmoney="100" fabricationlimitmin="0" fabricationlimitmax="1" quality="2" />
+      <SellableItem identifier="crowbar" requiredtime="1" requiredmoney="100" fabricationlimitmin="0" fabricationlimitmax="1" quality="2" />
       <!-- Tanks -->
-      <SellableItem identifier="weldingfueltank" requiredtime="1" requiredmoney="120"
-        fabricationlimitmin="0" fabricationlimitmax="4" quality="2" />
-      <SellableItem identifier="incendiumfueltank" requiredtime="1" requiredmoney="250"
-        fabricationlimitmin="0" fabricationlimitmax="2" quality="2" />
-      <SellableItem identifier="oxygentank" requiredtime="1" requiredmoney="75"
-        fabricationlimitmin="0" fabricationlimitmax="4" quality="2" />
-      <SellableItem identifier="oxygenitetank" requiredtime="1" requiredmoney="175"
-        fabricationlimitmin="0" fabricationlimitmax="2" quality="2" />
-
-
+      <SellableItem identifier="weldingfueltank" requiredtime="1" requiredmoney="120" fabricationlimitmin="0" fabricationlimitmax="4" quality="2" />
+      <SellableItem identifier="incendiumfueltank" requiredtime="1" requiredmoney="250" fabricationlimitmin="0" fabricationlimitmax="2" quality="2" />
+      <SellableItem identifier="oxygentank" requiredtime="1" requiredmoney="75" fabricationlimitmin="0" fabricationlimitmax="4" quality="2" />
+      <SellableItem identifier="oxygenitetank" requiredtime="1" requiredmoney="175" fabricationlimitmin="0" fabricationlimitmax="2" quality="2" />
     </SimpleStore>
-    <ItemContainer capacity="0" canbeselected="false" hideitems="true" slotsperrow="1" uilabel=""
-      allowuioverlap="true" />
-    <ItemContainer capacity="1" canbeselected="true" hideitems="true" slotsperrow="1" uilabel=""
-      allowuioverlap="true" />
+    <ItemContainer capacity="0" canbeselected="false" hideitems="true" slotsperrow="1" uilabel="" allowuioverlap="true" />
+    <ItemContainer capacity="1" canbeselected="true" hideitems="true" slotsperrow="1" uilabel="" allowuioverlap="true" />
   </Item>
-  <Item name="Sonar Guide" identifier="sonarguide" tags="command" category="Machine,Weapon"
-    spritecolor="255,255,255,255" Scale="1">
-    <Sprite texture="%ModDir%/Pirate/pirate_weapons.png" sourcerect="2,147,91,95" depth="0.8"
-      origin="0.5,0.5" />
+  <Item name="Sonar Guide" identifier="sonarguide" tags="command" category="Machine,Weapon" spritecolor="255,255,255,255" Scale="1">
+    <Sprite texture="%ModDir%/Pirate/pirate_weapons.png" sourcerect="2,147,91,95" depth="0.8" origin="0.5,0.5" />
     <SonarGuide PowerConsumption="800" minvoltage="0.5" />
     <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver">
-      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center"
-        style="ConnectionPanel" />
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
       <requireditem items="screwdriver" type="Equipped" />
       <input name="power_in" displayname="connection.powerin" />
     </ConnectionPanel>
     <aitarget soundrange="8000" fadeouttime="5" />
   </Item>
-  <Item name="Research Data" identifier="mailman_researchdata" category="Misc" hideinmenus="true"
-    Tags="smallitem" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_soft">
+  <Item name="Research Data" identifier="mailman_researchdata" category="Misc" hideinmenus="true" Tags="smallitem" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_soft">
+    <Price baseprice="4500" sold="false">
+      <Price storeidentifier="merchantoutpost" sold="false" multiplier="0.1" />
+      <Price storeidentifier="merchantcity" sold="false" multiplier="1" />
+      <Price storeidentifier="merchantresearch" sold="false" multiplier="1.5" />
+      <Price storeidentifier="merchantmilitary" sold="false" multiplier="0.1" />
+      <Price storeidentifier="merchantmine" sold="false" multiplier="0.1" />
+    </Price>
     <PreferredContainer primary="crewcab" secondary="locker" />
-    <InventoryIcon texture="%ModDir%/Missions/mission_items.png" sourcerect="411,253,35,53"
-      origin="0.5,0.5" />
-    <sprite texture="%ModDir%/Missions/mission_items.png" sourcerect="448,256,31,37" depth="0.8"
-      origin="0.5,0.5" />
+    <InventoryIcon texture="%ModDir%/Missions/mission_items.png" sourcerect="411,253,35,53" origin="0.5,0.5" />
+    <sprite texture="%ModDir%/Missions/mission_items.png" sourcerect="448,256,31,37" depth="0.8" origin="0.5,0.5" />
     <Body width="19" height="40" density="20" />
-    <Holdable slots="Any,RightHand,LeftHand" holdangle="30" handle1="-10,0"
-      msg="ItemMsgPickUpSelect" />
+    <Holdable slots="Any,RightHand,LeftHand" holdangle="30" handle1="-10,0" msg="ItemMsgPickUpSelect" />
   </Item>
-  <Item name="Alien Object" identifier="abyssresearch_alienobject" category="Misc"
-    hideinmenus="true" Tags="smallitem" cargocontaineridentifier="metalcrate" scale="0.5"
-    impactsoundtag="impact_soft">
+  <Item name="Alien Object" identifier="abyssresearch_alienobject" category="Misc" hideinmenus="true" Tags="smallitem" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_soft">
     <PreferredContainer primary="crewcab" secondary="locker" />
     <Price baseprice="10000" sold="false">
       <Price storeidentifier="merchantoutpost" sold="false" multiplier="0.1" />
@@ -171,22 +109,15 @@
       <Price storeidentifier="merchantmilitary" sold="false" multiplier="0.1" />
       <Price storeidentifier="merchantmine" sold="false" multiplier="0.1" />
     </Price>
-    <InventoryIcon texture="Content/Items/Alien/AlienRuins_Items.png" sourcerect="431,1779,44,46"
-      origin="0.5,0.5" />
-    <sprite texture="Content/Items/Alien/AlienRuins_Items.png" sourcerect="431,1779,44,46"
-      origin="0.5,0.5" />
+    <InventoryIcon texture="Content/Items/Alien/AlienRuins_Items.png" sourcerect="431,1779,44,46" origin="0.5,0.5" />
+    <sprite texture="Content/Items/Alien/AlienRuins_Items.png" sourcerect="431,1779,44,46" origin="0.5,0.5" />
     <Body width="44" height="46" density="20" />
-    <Holdable slots="Any,RightHand,LeftHand" holdangle="30" handle1="-10,0"
-      msg="ItemMsgPickUpSelect">
+    <Holdable slots="Any,RightHand,LeftHand" holdangle="30" handle1="-10,0" msg="ItemMsgPickUpSelect">
       <StatusEffect type="OnSecondaryUse" target="This" Condition="0" setvalue="true">
         <Conditional Condition="eq 100" />
         <!-- TODO: Sound and effect -->
         <Sound file="Content/Items/Weapons/Emp.ogg" />
-        <Explosion range="800.0" structuredamage="0" itemdamage="0" force="5"
-          severlimbsprobability="0" flash="true" sparks="false" shockwave="false"
-          flames="false" underwaterbubble="false" smoke="false" debris="false"
-          flashduration="5" ignorecover="true" />
-
+        <Explosion range="800.0" structuredamage="0" itemdamage="0" force="5" severlimbsprobability="0" flash="true" sparks="false" shockwave="false" flames="false" underwaterbubble="false" smoke="false" debris="false" flashduration="5" ignorecover="true" />
         <TriggerEvent>
           <ScriptedEvent identifier="alienobject_tp">
             <TeleportCharacterAction TargetTag="statuseffectuser" />
@@ -198,39 +129,28 @@
             <StatusEffectAction targettag="statuseffectuser">
               <StatusEffect target="this">
                 <Sound file="Content/Items/Weapons/Emp.ogg" />
-                <Explosion range="3000.0" structuredamage="0" itemdamage="0" force="5"
-                  severlimbsprobability="0" flash="true" sparks="false" shockwave="false"
-                  flames="false" underwaterbubble="false" smoke="false" debris="false"
-                  flashduration="5" ignorecover="true" />
+                <Explosion range="3000.0" structuredamage="0" itemdamage="0" force="5" severlimbsprobability="0" flash="true" sparks="false" shockwave="false" flames="false" underwaterbubble="false" smoke="false" debris="false" flashduration="5" ignorecover="true" />
               </StatusEffect>
             </StatusEffectAction>
           </ScriptedEvent>
         </TriggerEvent>
       </StatusEffect>
-
       <StatusEffect type="Always" target="this" Condition="0.5" disabledeltatime="true" />
-
     </Holdable>
   </Item>
-  <Item name="Notice Board" identifier="mlc_noticeboard" nameidentifier="opdeco_hrelectricpanel"
-    category="Decorative" scale="0.5">
-    <sprite texture="Content/Map/Outposts/Art/HumanResourcesAssets.png" sourcerect="576,416,320,235"
-      depth="0.98" premultiplyalpha="false" origin="0.5,0.5" />
+  <Item name="Notice Board" identifier="mlc_noticeboard" nameidentifier="opdeco_hrelectricpanel" category="Decorative" scale="0.5">
+    <sprite texture="Content/Map/Outposts/Art/HumanResourcesAssets.png" sourcerect="576,416,320,235" depth="0.98" premultiplyalpha="false" origin="0.5,0.5" />
   </Item>
-  <Item name="" identifier="syringegun_weapon" nameidentifier="syringegun" variantof="syringegun"
-    category="Weapon" hideinmenus="true"
-    tags="smallitem,weapon,gun,provocativetohumanai,mountableweapon">
+  <Item name="" identifier="syringegun_weapon" nameidentifier="syringegun" variantof="syringegun" category="Weapon" hideinmenus="true" tags="smallitem,weapon,gun,provocativetohumanai,mountableweapon">
     <PreferredContainer secondary="secarmcab,weaponholder" />
     <Price baseprice="310" sold="false"></Price>
     <Fabricate />
-
     <Deconstruct time="10">
       <Item identifier="titaniumaluminiumalloy" />
       <Item identifier="plastic" />
     </Deconstruct>
     <InventoryIcon />
-    <RangedWeapon launchimpulse="10.0" barrelpos="71,30" spread="0" unskilledspread="10"
-      drawhudwhenequipped="true" crosshairscale="0.2" combatPriority="70">
+    <RangedWeapon launchimpulse="10.0" barrelpos="71,30" spread="0" unskilledspread="10" drawhudwhenequipped="true" crosshairscale="0.2" combatPriority="70">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <Sound file="Content/Items/Weapons/SyringeGun1.ogg" type="OnUse" range="1000" volume="0.75" />
@@ -239,34 +159,25 @@
       <RequiredSkill identifier="weapons" level="30" />
       <RequiredSkill identifier="medical" level="50" />
     </RangedWeapon>
-    <ItemContainer capacity="1" maxstacksize="8" itempos="0,25" itemrotation="-90" hideitems="false"
-      containedstateindicatorstyle="syringe" ShowTotalStackCapacityInContainedStateIndicator="true"
-      containedstateindicatorslot="0">
-      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="384,448,64,64"
-        origin="0.5,0.5" />
+    <ItemContainer capacity="1" maxstacksize="8" itempos="0,25" itemrotation="-90" hideitems="false" containedstateindicatorstyle="syringe" ShowTotalStackCapacityInContainedStateIndicator="true" containedstateindicatorslot="0">
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="384,448,64,64" origin="0.5,0.5" />
       <Containable items="syringe" />
     </ItemContainer>
     <SkillRequirementHint identifier="weapons" level="30" />
     <SkillRequirementHint identifier="medical" level="50" />
   </Item>
-  <Item name="" identifier="sonarbeacon_abyssresearch" nameidentifier="sonarbeacon"
-    hideinmenus="true" category="Equipment,Diving" Tags="smallitem,sonar,provocative" Scale="0.5"
-    impactsoundtag="impact_metal_light">
+  <Item name="" identifier="sonarbeacon_abyssresearch" nameidentifier="sonarbeacon" hideinmenus="true" category="Equipment,Diving" Tags="smallitem,sonar,provocative" Scale="0.5" impactsoundtag="impact_metal_light">
     <Price baseprice="150" sold="false" />
     <Deconstruct time="15">
       <Item identifier="copper" />
       <Item identifier="plastic" amount="2" />
     </Deconstruct>
-    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="832,320,64,64"
-      origin="0.5,0.5" />
-    <Sprite texture="Content/Items/Tools/tools.png" sourcerect="473,1,29,65" depth="0.55"
-      origin="0.5,0.5" />
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="832,320,64,64" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Tools/tools.png" sourcerect="473,1,29,65" depth="0.55" origin="0.5,0.5" />
     <Body width="27" height="60" density="12" />
-    <Holdable slots="Any,RightHand,LeftHand" holdangle="30" handle1="0,-15"
-      msg="ItemMsgPickUpSelect" />
+    <Holdable slots="Any,RightHand,LeftHand" holdangle="30" handle1="0,-15" msg="ItemMsgPickUpSelect" />
     <AiTarget soundrange="50000" sonarlabel="sonarbeacon.researcher" sight="500" staticsight="true" />
-    <LightComponent LightColor="0.0,1.0,0.0,1.0" range="50" powerconsumption="10" blinkfrequency="2"
-      IsOn="true" canbeselected="false">
+    <LightComponent LightColor="0.0,1.0,0.0,1.0" range="50" powerconsumption="10" blinkfrequency="2" IsOn="true" canbeselected="false">
       <StatusEffect type="OnActive" targettype="Contained" Condition="-0.1">
         <RequiredItem items="mobilebattery" type="Contained" />
       </StatusEffect>
@@ -275,23 +186,17 @@
         <sound file="Content/Items/Weapons/SonarDecoy.ogg" range="500.0" loop="true" volume="0.25" />
       </StatusEffect>
     </LightComponent>
-    <ItemContainer capacity="1" maxstacksize="1" hideitems="true"
-      containedstateindicatorstyle="battery">
-      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="128,448,64,64"
-        origin="0.5,0.5" />
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="battery">
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="128,448,64,64" origin="0.5,0.5" />
       <Containable items="mobilebattery">
         <StatusEffect type="OnContaining" targettype="This" Voltage="1.0" setvalue="true" />
       </Containable>
     </ItemContainer>
   </Item>
-  <Item name="" identifier="toyhammer_sec" nameidentifier="toyhammer" variantof="toyhammer"
-    category="Weapon" hideinmenus="true" tags="smallitem,weapon,stunner,mountableweapon">
-    <Price baseprice="80" sold="false">
-    </Price>
+  <Item name="" identifier="toyhammer_sec" nameidentifier="toyhammer" variantof="toyhammer" category="Weapon" hideinmenus="true" tags="smallitem,weapon,stunner,mountableweapon">
+    <Price baseprice="80" sold="false"></Price>
     <Fabricate />
-    <MeleeWeapon slots="RightHand+LeftHand,Any" controlpose="true" aimpos="45,10" handle1="-20,0"
-      handle2="-10,5" holdangle="60" reload="1" range="100" combatpriority="35"
-      msg="ItemMsgPickUpSelect">
+    <MeleeWeapon slots="RightHand+LeftHand,Any" controlpose="true" aimpos="45,10" handle1="-20,0" handle2="-10,5" holdangle="60" reload="1" range="100" combatpriority="35" msg="ItemMsgPickUpSelect">
       <StatusEffect type="OnUse" target="UseTarget" delay="1" comparison="Or">
         <Conditional speciesname="latcher" />
         <Conditional speciesname="endworm" />
@@ -302,8 +207,7 @@
         <Affliction identifier="stun" strength="3" />
       </Attack>
       <StatusEffect type="OnUse" target="This" forceplaysounds="true">
-        <Sound type="OnUse" file="Content/Items/Weapons/ToyHammerHit1.ogg" range="800"
-          selectionmode="Random" />
+        <Sound type="OnUse" file="Content/Items/Weapons/ToyHammerHit1.ogg" range="800" selectionmode="Random" />
         <Sound type="OnUse" file="Content/Items/Weapons/ToyHammerHit2.ogg" range="800" />
         <Sound type="OnUse" file="Content/Items/Weapons/ToyHammerHit3.ogg" range="800" />
         <Sound type="OnUse" file="Content/Items/Weapons/ToyHammerHit4.ogg" range="800" />
@@ -311,7 +215,15 @@
         <Sound type="OnUse" file="Content/Items/Weapons/ToyHammerHit6.ogg" range="800" />
       </StatusEffect>
     </MeleeWeapon>
-
   </Item>
-
+  <Item name="" identifier="relaystationsmaintenceguide" category="Misc" Tags="smallitem" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_soft">
+    <PreferredContainer primary="crewcab" secondary="locker" />
+    <InventoryIcon texture="%ModDir%/Missions/mission_items.png" sourcerect="412,308,31,52" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Missions/mission_items.png" sourcerect="450,313,31,44" origin="0.5,0.5" depth="0.8" />
+    <Body width="35" height="40" density="8" />
+    <Holdable slots="Any,RightHand,LeftHand" holdangle="30" handle1="-10,0" msg="ItemMsgPickUpSelect" />
+    <Terminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" AutoHideScrollbar="true" readonly="true" autoscrolltobottom="false" linestartsymbol="" marginmultiplier="1.5" drawhudwhenequipped="true" welcomemessage="relaystation.maintenceguide" textcolor="50,50,50,255">
+      <GuiFrame relativesize="0.3,0.5" anchor="Center" style="Paper" hidedragicons="true" />
+    </Terminal>
+  </Item>
 </Items>

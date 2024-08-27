@@ -523,7 +523,6 @@
             ABYSS RESEARCH
         
         -->
-
         <!-- Deliver research papers to a nearby research outpost -->
         <ScriptedEvent identifier="abyssresearch_mailman">
             <TagAction criteria="player" tag="player" />
@@ -805,7 +804,7 @@
             <WaitAction time="10" />
 
             <ConversationAction speakertag="sec" invokertag="trigger_player"
-                text="EventText.abyssresearch_teleportmishap.c4">
+                text="EventText.abyssresearch_teleportmishap.c6">
                 <Option text="EventText.abyssresearch_teleportmishap.o1">
                     <ConversationAction targettag="trigger_player"
                         text="EventText.abyssresearch_teleportmishap.o1.c1">
@@ -840,7 +839,7 @@
             <Label name="deliveritem" />
             <ClearTagAction tag="trigger_player" />
             <ConversationAction speakertag="sec" invokertag="trigger_player"
-                text="EventText.abyssresearch_teleportmishap.c5">
+                text="EventText.abyssresearch_teleportmishap.c7">
                 <Option text="EventText.abyssresearch_teleportmishap.o2">
                     <CheckItemAction targettag="trigger_player" itemtags="alienobject">
                         <Failure>

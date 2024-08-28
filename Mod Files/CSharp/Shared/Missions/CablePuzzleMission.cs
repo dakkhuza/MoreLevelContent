@@ -315,10 +315,6 @@ namespace MoreLevelContent.Missions
                 }
             }
 
-            Log.Debug($"Cycle Timer: {cycleTimer}, Successful Cycles: {successfulCycles}");
-
-
-
             // Return if timer is counting
             if (_Timer > 0)
             {

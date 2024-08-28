@@ -221,6 +221,12 @@ namespace MoreLevelContent.Missions
 
         void OnSubCreated(Submarine submarine)
         {
+            if (submarine == null)
+            {
+                State = -1;
+                DebugConsole.ThrowError("Distress submarine failed to spawn! Mission will now fail.");
+                return;
+            }
             lostSubmarine = submarine;
             lostSubmarine.Info.Type = SubmarineType.Player;
             submarine.TeamID = CharacterTeamType.FriendlyNPC;
@@ -342,6 +348,7 @@ namespace MoreLevelContent.Missions
         private bool _migrate = false;
         protected override void UpdateMissionSpecific(float deltaTime)
         {
+            if (State == -1) return;
             UpdateLastPing(deltaTime);
 #if CLIENT
             if (SubSalvaged && _salvedState != SubSalvaged)
@@ -393,6 +400,11 @@ namespace MoreLevelContent.Missions
         readonly float sonarClose = Sonar.DefaultSonarRange / 0.8f;
         void UpdateLastPing(float deltaTime)
         {
+            if (Submarine.MainSub == null)
+            {
+                Log.Warn($"Skipped updating last ping as main sub was null");
+                return;
+            }
             outsideOfSonarRange = Vector2.DistanceSquared(lostSubmarine.WorldPosition, Submarine.MainSub.WorldPosition) > Sonar.DefaultSonarRange * Sonar.DefaultSonarRange;
             playerSubClose = Vector2.DistanceSquared(lostSubmarine.WorldPosition, Submarine.MainSub.WorldPosition) < sonarClose * sonarClose;
 

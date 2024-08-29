@@ -124,11 +124,11 @@ namespace MoreLevelContent.Shared.Generation
             {
                 if (force)
                 {
-                    Log.Debug("Ignoring max distress cap due to force creation");
+                    Log.Debug($"Ignoring max {EventTag} cap due to force creation");
                 }
                 else
                 {
-                    Log.Debug($"Skipped creating new distress due to being at the limit ({MaxActiveEvents})");
+                    Log.Debug($"Skipped creating new {EventTag} due to being at the limit ({MaxActiveEvents})");
                     return;
                 }
             }
@@ -145,6 +145,11 @@ namespace MoreLevelContent.Shared.Generation
             // Find a location connection to spawn a distress beacon at
             int wantedEventSpawnDistance = Rand.Range(MinDistance, MaxDistance, Rand.RandSync.Unsynced);
             LocationConnection targetConnection = WalkConnection(__instance.CurrentLocation, rand, wantedEventSpawnDistance);
+            if (targetConnection == null)
+            {
+                Log.Warn($"Failed to spawn new {EventTag} due to target connection being null.");
+                return;
+            }
             int duration = rand.Next(MinEventDuration, MaxEventDuration);
 
             if (!MapDirector.ConnectionIdLookup.ContainsKey(targetConnection)) return; // how does this happen?

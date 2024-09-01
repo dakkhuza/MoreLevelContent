@@ -229,20 +229,20 @@ namespace MoreLevelContent.Missions
             }
             lostSubmarine = submarine;
             lostSubmarine.Info.Type = SubmarineType.Player;
-            submarine.TeamID = CharacterTeamType.FriendlyNPC;
+            lostSubmarine.TeamID = CharacterTeamType.FriendlyNPC;
             lostSubmarine.ShowSonarMarker = false;
-            submarine.PhysicsBody.FarseerBody.BodyType = FarseerPhysics.BodyType.Dynamic;
+            lostSubmarine.PhysicsBody.FarseerBody.BodyType = FarseerPhysics.BodyType.Dynamic;
 
-            SubPlacementUtils.PositionSubmarine(submarine, Level.PositionType.SidePath | Level.PositionType.MainPath);
+            SubPlacementUtils.PositionSubmarine(lostSubmarine, Level.PositionType.SidePath | Level.PositionType.MainPath);
 
             //make the shuttle resist at least it's spawn position + 1000m
-            SubPlacementUtils.SetCrushDepth(submarine);
+            SubPlacementUtils.SetCrushDepth(lostSubmarine);
 
             // tag all sub waypoints
-            submarine.TagSubmarineWaypoints("distress_shuttle");
+            lostSubmarine.TagSubmarineWaypoints("distress_shuttle");
 
             // Init sonar tracking 
-            trackingSonarMarker = new TrackingSonarMarker(30, submarine, Prefab.SonarLabel.IsNullOrEmpty() ? sonarLabel : Prefab.SonarLabel);
+            trackingSonarMarker = new TrackingSonarMarker(30, lostSubmarine, Prefab.SonarLabel.IsNullOrEmpty() ? sonarLabel : Prefab.SonarLabel);
             // TriggerEvents(0);
         }
 
@@ -348,7 +348,7 @@ namespace MoreLevelContent.Missions
         private bool _migrate = false;
         protected override void UpdateMissionSpecific(float deltaTime)
         {
-            if (State == -1) return;
+            if (State == -1 || lostSubmarine == null) return;
             UpdateLastPing(deltaTime);
 #if CLIENT
             if (SubSalvaged && _salvedState != SubSalvaged)

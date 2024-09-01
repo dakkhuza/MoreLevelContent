@@ -407,6 +407,7 @@ namespace MoreLevelContent.Missions
 
         protected override void UpdateMissionSpecific(float deltaTime)
         {
+            if (ghostship == null) return;
             if (!finalSubSetup && !IsClient && setupDelay <= 0)
             {
                 SpawnDecals();

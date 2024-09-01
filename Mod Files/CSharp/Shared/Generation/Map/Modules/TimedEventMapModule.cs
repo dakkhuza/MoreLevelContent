@@ -128,7 +128,7 @@ namespace MoreLevelContent.Shared.Generation
                 }
                 else
                 {
-                    Log.Debug($"Skipped creating new {EventTag} due to being at the limit ({MaxActiveEvents})");
+                    Log.Verbose($"Skipped creating new {EventTag} due to being at the limit ({MaxActiveEvents})");
                     return;
                 }
             }

@@ -71,19 +71,19 @@
 
         <ScriptedEvent identifier="autotrader_crawler">
             <SpawnAction speciesname="crawler" spawnpointtag="autotrader"
-                spawnlocation="any" SpawnPointType="Monster"
+                spawnlocation="any" SpawnPointType="Enemy"
                 requirespawnpointtag="true" />
             <SpawnAction speciesname="crawler" spawnpointtag="autotrader"
-                spawnlocation="any" SpawnPointType="Monster"
+                spawnlocation="any" SpawnPointType="Enemy"
                 requirespawnpointtag="true" />
         </ScriptedEvent>
 
         <ScriptedEvent identifier="autotrader_huskcrawler">
             <SpawnAction speciesname="Crawlerhusk" spawnpointtag="autotrader"
-                spawnlocation="any" SpawnPointType="Monster"
+                spawnlocation="any" SpawnPointType="Enemy"
                 requirespawnpointtag="true" />
             <SpawnAction speciesname="Crawlerhusk" spawnpointtag="autotrader"
-                spawnlocation="any" SpawnPointType="Monster"
+                spawnlocation="any" SpawnPointType="Enemy"
                 requirespawnpointtag="true" />
         </ScriptedEvent>
 

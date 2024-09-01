@@ -27,7 +27,7 @@
 
         <Events features="abyssresearch">
             <ScriptedEvent identifier="abyssresearch_mailman" commonness="10" probability="1" />
-            <ScriptedEvent identifier="abyssresearch_nasonovtesting" commonness="8" probability="1" />
+            <ScriptedEvent identifier="abyssresearch_teleportmishap" commonness="8" probability="1" />
         </Events>
 
         <Events features="huskchurch">

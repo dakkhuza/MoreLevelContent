@@ -6,7 +6,7 @@
 
 
         <ScriptedEvent identifier="hint_jumpstarter">
-            <CheckDataAction identifier="mlc-hints-jumpstarter-shown" condition="eq 1">
+            <CheckDataAction identifier="mlc-hints-jumpstarter-shown" condition="eq 2">
                 <Success>
                     <!-- Do nothing -->
                 </Success>
@@ -14,7 +14,7 @@
                     <TagAction criteria="player" tag="player" />
                     <MessageBoxAction header="mlc.title" text="mlc.hint.jumpstarter"
                         iconstyle="GUINotificationButton" targettag="player" />
-                    <SetDataAction identifier="mlc-hints-jumpstarter-shown" value="1" />
+                    <SetDataAction identifier="mlc-hints-jumpstarter-shown" value="2" />
                 </Failure>
             </CheckDataAction>
         </ScriptedEvent>

@@ -12,7 +12,9 @@
 
         <Events features="waystation">
             <ScriptedEvent identifier="waystation_revealtheatre" commonness="8" probability="1" />
+            <ScriptedEvent identifier="waystation_cargoad" commonness="8" probability="1" />
             <ScriptedEvent identifier="waystation_revealresearch" commonness="5" probability="1" />
+            <ScriptedEvent identifier="waystation_basenpcs" commonness="3" probability="1" />
             <ScriptedEvent identifier="waystation_husk" commonness="1" probability="1" />
         </Events>
 

@@ -88,7 +88,6 @@
         </ScriptedEvent>
 
 
-
         <!--
         
             WAYSATION EVENTS
@@ -185,22 +184,7 @@
 
         <!-- Reveals a research station -->
         <ScriptedEvent identifier="waystation_revealresearch">
-            <SpawnAction npcsetidentifier="outpostnpcs1"
-                npcidentifier="securitynpccoalition" spawnpointtag="waystation"
-                spawnlocation="any" targettag="sec"
-                requirespawnpointtag="true" team="FriendlyNPC" />
-            <SpawnAction npcsetidentifier="outpostnpcs1"
-                npcidentifier="watchman" spawnpointtag="waystation_admin"
-                spawnlocation="any" targettag="admin"
-                requirespawnpointtag="true" team="FriendlyNPC" />
-            <SpawnAction npcsetidentifier="outpostnpcs1"
-                npcidentifier="commoner" spawnpointtag="waystation"
-                spawnlocation="any" targettag="commoner1"
-                requirespawnpointtag="true" team="FriendlyNPC" />
-            <SpawnAction npcsetidentifier="outpostnpcs1"
-                npcidentifier="commoner" spawnpointtag="waystation"
-                spawnlocation="any" targettag="commoner2"
-                requirespawnpointtag="true" team="FriendlyNPC" />
+            <TriggerEventAction identifier="waystation_basenpcs" />
             <SpawnAction npcsetidentifier="outpostnpcs1"
                 npcidentifier="researcher" spawnpointtag="waystation"
                 spawnlocation="any" targettag="researcher"
@@ -232,6 +216,31 @@
 
         <!-- Reveals a clown theatre -->
         <ScriptedEvent identifier="waystation_revealtheatre">
+            <TriggerEventAction identifier="waystation_basenpcs" />
+            <TagAction criteria="player" tag="player" />
+            <TagAction criteria="itemtag:waystation_noticeboard" tag="ad" />
+            <TriggerAction target1tag="player" target2tag="ad" waitforinteraction="true"
+                applytotarget1="reader" />
+            <ConversationAction
+                text="EventText.waystation_revealtheatre.c1"
+                invokertag="reader" endeventifinterrupted="false" eventsprite="noticeboard" />
+            <RevealMapFeatureAction mapfeatureidentifier="clownstation" />
+        </ScriptedEvent>
+
+        <ScriptedEvent identifier="waystation_cargoad">
+            <TriggerEventAction identifier="waystation_basenpcs" />
+            <TagAction criteria="player" tag="player" />
+            <TagAction criteria="itemtag:waystation_noticeboard" tag="ad" />
+            <TriggerAction target1tag="player" target2tag="ad" waitforinteraction="true"
+                applytotarget1="reader" />
+            <ConversationAction
+                text="EventText.waystation_cargoad.c1"
+                invokertag="reader" endeventifinterrupted="false" eventsprite="noticeboard" />
+            <MissionAction MissionTag="cargo" UnlockFurtherOnMap="true" MinLocationDistance="2" />
+        </ScriptedEvent>
+
+
+        <ScriptedEvent identifier="waystation_basenpcs">
             <SpawnAction npcsetidentifier="outpostnpcs1"
                 npcidentifier="securitynpccoalition" spawnpointtag="waystation"
                 spawnlocation="any" targettag="sec"
@@ -248,14 +257,7 @@
                 npcidentifier="commoner" spawnpointtag="waystation"
                 spawnlocation="any" targettag="commoner2"
                 requirespawnpointtag="true" team="FriendlyNPC" />
-            <TagAction criteria="player" tag="player" />
-            <TagAction criteria="itemtag:waystation_noticeboard" tag="ad" />
-            <TriggerAction target1tag="player" target2tag="ad" waitforinteraction="true"
-                applytotarget1="reader" />
-            <ConversationAction
-                text="EventText.waystation_revealtheatre.c1"
-                invokertag="reader" endeventifinterrupted="false" eventsprite="noticeboard" />
-            <RevealMapFeatureAction mapfeatureidentifier="clownstation" />
+
         </ScriptedEvent>
 
         <!-- 

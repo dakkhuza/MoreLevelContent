@@ -1,0 +1,19 @@
+<Talents>
+    <Talent identifier="mlcaddict" coloroverride="gui.red">
+        <Icon texture="Content/UI/TalentsIcons3.png" sheetindex="1,5" sheetelementsize="128,128" />
+        <Description tag="talentdescription.mlcaddict" />
+        <AbilityGroupInterval interval="1">
+            <Abilities>
+                <CharacterAbilityApplyStatusEffects>
+                    <StatusEffects>
+                        <StatusEffect type="OnAbility" target="Character"
+                            multiplyafflictionsbymaxvitality="true" disabledeltatime="true">
+                            <Affliction identifier="opiateaddiction" amount="0.06" />
+                        </StatusEffect>
+                    </StatusEffects>
+                </CharacterAbilityApplyStatusEffects>
+            </Abilities>
+        </AbilityGroupInterval>
+    </Talent>
+
+</Talents>

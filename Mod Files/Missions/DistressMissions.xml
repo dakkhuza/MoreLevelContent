@@ -297,8 +297,8 @@
                 <message text="missionmessage1.distress_shiprescue" />
 
                 <Reputation
-                identifier="location"
-                amount="3" amountforopposingfaction="-1" />
+                        identifier="location"
+                        amount="3" amountforopposingfaction="-1" />
 
                 <TriggerEvent state="1" delay="20" eventidentifier="hint_jumpstarter" />
                 <TriggerEvent state="2" delay="20" eventidentifier="hint_jumpstarter" />
@@ -380,8 +380,8 @@
                 <TriggerEvent state="2" delay="20" eventidentifier="hint_jumpstarter" />
 
                 <Reputation
-                identifier="location"
-                amount="3" amountforopposingfaction="-1" />
+                        identifier="location"
+                        amount="3" amountforopposingfaction="-1" />
 
                 <TriggerEvent state="0" delay="5" eventidentifier="hint_jumpstarter" />
 
@@ -423,7 +423,7 @@
 
                 <TriggerEvent state="1" delay="20" eventidentifier="hint_jumpstarter" />
                 <TriggerEvent state="2" delay="20" eventidentifier="hint_jumpstarter" />
-        
+
 
                 <Icon
                         texture="%ModDir%/Missions/Icons.png"
@@ -657,55 +657,59 @@
                         <Item
                                 from="mlc_distress_corpses"
                                 identifier="distress_captain"
-                                minmoney="100"
-                                maxmoney="300"
+                                minmoney="1"
+                                maxmoney="1"
                                 alive="true">
                                 <AdditionalItems>
                                         <Item identifier="captains_notebook" />
                                 </AdditionalItems>
 
                                 <Affliction identifier="huskinfection" strength="100" />
-                                <Affliction identifier="internaldamage" strength="99" />
+                                <Affliction identifier="internaldamage" strength="199" />
+                                <Affliction identifier="stun" strength="1" />
                         </Item>
 
                         <Item
                                 from="mlc_distress_corpses"
                                 identifier="distress_engineer"
-                                minmoney="25"
-                                maxmoney="70"
+                                minmoney="1"
+                                maxmoney="1"
                                 alive="true">
                                 <Affliction identifier="huskinfection" strength="100" />
-                                <Affliction identifier="internaldamage" strength="99" />
+                                <Affliction identifier="internaldamage" strength="199" />
+                                <Affliction identifier="stun" strength="1" />
                         </Item>
 
                         <Item
                                 from="mlc_distress_corpses"
                                 identifier="distress_mechanic"
-                                minmoney="25"
-                                maxmoney="70"
+                                minmoney="1"
+                                maxmoney="1"
                                 alive="true">
                                 <Affliction identifier="huskinfection" strength="100" />
-                                <Affliction identifier="internaldamage" strength="99" />
+                                <Affliction identifier="internaldamage" strength="199" />
+                                <Affliction identifier="stun" strength="1" />
                         </Item>
 
                         <Item
                                 from="mlc_distress_corpses"
                                 identifier="distress_mechanic"
-                                minmoney="25"
-                                maxmoney="70"
+                                minmoney="1"
+                                maxmoney="1"
                                 alive="true">
                                 <Affliction identifier="huskinfection" strength="100" />
-                                <Affliction identifier="internaldamage" strength="99" />
+                                <Affliction identifier="internaldamage" strength="199" />
+                                <Affliction identifier="stun" strength="1" />
                         </Item>
 
                         <Item
                                 from="mlc_distress_corpses"
                                 identifier="distress_officer"
-                                minmoney="25"
-                                maxmoney="70"
+                                minmoney="1"
+                                maxmoney="1"
                                 alive="true">
                                 <Affliction identifier="huskinfection" strength="200" />
-                                <Affliction identifier="internaldamage" strength="99" />
+                                <Affliction identifier="internaldamage" strength="199" />
                                 <Affliction identifier="stun" strength="1" />
                         </Item>
 
@@ -716,7 +720,8 @@
                                 maxmoney="1"
                                 alive="true">
                                 <Affliction identifier="huskinfection" strength="100" />
-                                <Affliction identifier="internaldamage" strength="99" />
+                                <Affliction identifier="internaldamage" strength="199" />
+                                <Affliction identifier="stun" strength="1" />
                         </Item>
 
 
@@ -724,8 +729,8 @@
                         <Item
                                 from="mlc_distress_corpses"
                                 identifier="distress_officer"
-                                minmoney="25"
-                                maxmoney="70"
+                                minmoney="100"
+                                maxmoney="300"
                                 alive="false">
                                 <Affliction identifier="bitewounds" randomLimb="true"
                                         randomStrength="true" count="6" />
@@ -737,8 +742,8 @@
                         <Item
                                 from="mlc_distress_corpses"
                                 identifier="distress_medic"
-                                minmoney="25"
-                                maxmoney="70"
+                                minmoney="50"
+                                maxmoney="100"
                                 alive="false">
                                 <Affliction identifier="bitewounds" randomLimb="true"
                                         randomStrength="true" count="6" />
@@ -766,6 +771,127 @@
                         sourcerect="256,0,256,256"
                         color="255,106,106" />
         </DistressGhostship>
+
+        <DistressGhostship
+                identifier="distress_ghostship_husks1"
+                textidentifier="distressmission"
+                tags="distress, mlc"
+                type="GoTo"
+                customType="DistressGhostship"
+                commonness="5"
+                reward="0"
+                successmessage="distress.success.distress_ghostship_husks"
+        >
+                <Submarines>
+                        <Sub path="Content/Submarines/Camel.sub" commonness="1" />
+                        <Sub path="Content/Submarines/Orca.sub" commonness="1" />
+                </Submarines>
+
+                <Reputation
+                        identifier="location"
+                        amount="3" amountforopposingfaction="-1" />
+
+
+                <Characters>
+                        <!-- Husks -->
+                        <Item
+                                from="mlc_distress_corpses"
+                                identifier="distress_captain"
+                                minmoney="1"
+                                maxmoney="1"
+                                alive="true">
+                                <AdditionalItems>
+                                        <Item identifier="captains_notebook" />
+                                </AdditionalItems>
+
+                                <Affliction identifier="huskinfection" strength="100" />
+                                <Affliction identifier="internaldamage" strength="199" />
+                                <Affliction identifier="stun" strength="1" />
+                        </Item>
+
+                        <Item
+                                from="mlc_distress_corpses"
+                                identifier="distress_engineer"
+                                minmoney="1"
+                                maxmoney="1"
+                                alive="true">
+                                <Affliction identifier="huskinfection" strength="100" />
+                                <Affliction identifier="internaldamage" strength="199" />
+                                <Affliction identifier="stun" strength="1" />
+                        </Item>
+
+                        <Item
+                                from="mlc_distress_corpses"
+                                identifier="distress_mechanic"
+                                minmoney="1"
+                                maxmoney="1"
+                                alive="true">
+                                <Affliction identifier="huskinfection" strength="100" />
+                                <Affliction identifier="internaldamage" strength="199" />
+                                <Affliction identifier="stun" strength="1" />
+                        </Item>
+
+                        <Item
+                                from="mlc_distress_corpses"
+                                identifier="distress_officer"
+                                minmoney="1"
+                                maxmoney="1"
+                                alive="true">
+                                <Affliction identifier="huskinfection" strength="200" />
+                                <Affliction identifier="internaldamage" strength="199" />
+                                <Affliction identifier="stun" strength="1" />
+                        </Item>
+
+                        <!-- Corpses -->
+                        <Item
+                                from="mlc_distress_corpses"
+                                identifier="distress_officer"
+                                minmoney="100"
+                                maxmoney="300"
+                                alive="false">
+                                <Affliction identifier="bitewounds" randomLimb="true"
+                                        randomStrength="true" count="6" />
+                                <Affliction identifier="bleeding" randomLimb="true"
+                                        randomStrength="true" count="3" />
+                                <Affliction identifier="huskinfectionresistance" strength="80" />
+                        </Item>
+
+                        <Item
+                                from="mlc_distress_corpses"
+                                identifier="distress_medic"
+                                minmoney="50"
+                                maxmoney="100"
+                                alive="false">
+                                <Affliction identifier="bitewounds" randomLimb="true"
+                                        randomStrength="true" count="6" />
+                                <Affliction identifier="bleeding" randomLimb="true"
+                                        randomStrength="true" count="3" />
+                                <Affliction identifier="huskinfectionresistance" strength="80" />
+                        </Item>
+
+
+                </Characters>
+
+                <Decals>
+                        <Item prefab="blood" count="20" />
+                </Decals>
+
+                <message header="missionheader0.distress_ghostship"
+                        text="missionmessage0.distress_ghostship" />
+
+                <message header="missionheader1.distress_ghostship"
+                        text="missionmessage1.distress_ghostship_husks" />
+
+                <TriggerEvent state="0"
+                        delay="5" eventidentifier="distress_ghostship_husks"
+                        campaignonly="true" />
+
+                <Icon
+                        texture="%ModDir%/Missions/Icons.png"
+                        sourcerect="256,0,256,256"
+                        color="255,106,106" />
+        </DistressGhostship>
+
 
         <DistressGhostship
                 identifier="distress_ghostship_crawlers"

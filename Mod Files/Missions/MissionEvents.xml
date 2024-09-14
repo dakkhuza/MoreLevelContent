@@ -897,6 +897,25 @@
             <Label name="end" />
         </ScriptedEvent>
 
+        <ScriptedEvent identifier="distress_ghostship_husks">
+            <SpawnAction npcsetidentifier="mapfeaturenpc"
+                npcidentifier="huskcultist_waystation" spawnpointtag="distress_ghostship"
+                spawnlocation="any" targettag="cultist"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+
+            <SpawnAction npcsetidentifier="mapfeaturenpc"
+                npcidentifier="huskcultist_waystation" spawnpointtag="distress_ghostship"
+                spawnlocation="any" targettag="cultist"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+
+            <SpawnAction npcsetidentifier="mapfeaturenpc"
+                npcidentifier="huskcultist_waystation" spawnpointtag="distress_ghostship"
+                spawnlocation="any" targettag="cultist"
+                requirespawnpointtag="true" team="FriendlyNPC" />
+
+            <NPCChangeTeamAction npctag="cultist" teamid="Team2" />
+        </ScriptedEvent>
+
         <ScriptedEvent identifier="distress_ghostship_clowns">
             <SetDataAction identifier="distress_clowns_reward" value="false" />
             <TriggerEventAction identifier="suprise_clown" />

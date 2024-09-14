@@ -143,7 +143,7 @@ namespace MoreLevelContent.Missions
             ghostship = submarine;
             ghostship.FlipX();
             submarine.ShowSonarMarker = false;
-            submarine.TeamID = CharacterTeamType.Team2;
+            submarine.TeamID = CharacterTeamType.FriendlyNPC;
             ghostship.Info.Type = (SubmarineType)7;
             submarine.PhysicsBody.FarseerBody.BodyType = FarseerPhysics.BodyType.Dynamic;
 
@@ -188,6 +188,61 @@ namespace MoreLevelContent.Missions
 
             // Init tracking sonar marker
             trackingSonarMarker = new TrackingSonarMarker(30, submarine, Prefab.SonarLabel.IsNullOrEmpty() ? defaultSonarLabel : Prefab.SonarLabel);
+        }
+
+        private void SpawnCharacters()
+        {
+            missionNPCs.CreateHumansInSubmarine(ghostship, onCharacterCreated: (character, config) =>
+            {
+                if (character.AIController is not HumanAIController humanAI) return;
+
+                bool alive = config.GetAttributeBool("alive", true);
+                if (!alive)
+                {
+                    character.Kill(CauseOfDeathType.Unknown, causeOfDeathAffliction: null, log: false);
+                }
+                else
+                {
+                    humanAI.InitMentalStateManager();
+                }
+
+                int minMoney = config.GetAttributeInt("minmoney", 0);
+                int maxMoney = config.GetAttributeInt("maxmoney", 0);
+
+                if (maxMoney > 0)
+                {
+                    int money = Rand.Range(minMoney, maxMoney, Rand.RandSync.Unsynced);
+                    character.Wallet.Give(money);
+                    Log.InternalDebug($"Gave {money} to {character.Name}");
+                }
+
+                foreach (var affliction in config.GetChildElements("affliction"))
+                {
+                    string identifier = affliction.GetAttributeString("identifier", null);
+                    LimbType limb = affliction.GetAttributeEnum("limb", LimbType.None);
+                    float strength = affliction.GetAttributeFloat("strength", 1);
+                    bool targetRandomLimb = affliction.GetAttributeBool("randomLimb", false);
+                    bool randomStrength = affliction.GetAttributeBool("randomStrength", false);
+                    int count = affliction.GetAttributeInt("count", 1);
+
+                    if (AfflictionHelper.TryGetAffliction(identifier, out AfflictionPrefab prefab))
+                    {
+                        for (int i = 0; i < count; i++)
+                        {
+                            Limb targetLimb = character.AnimController.MainLimb;
+                            if (limb != LimbType.None) targetLimb = character.AnimController.GetLimb(limb);
+                            if (targetRandomLimb) targetLimb = character.AnimController.Limbs.GetRandomUnsynced();
+                            if (randomStrength) strength = Rand.Range(10f, 70f, Rand.RandSync.Unsynced);
+                            character.CharacterHealth.ApplyAffliction(targetLimb, new Affliction(prefab, strength));
+                        }
+                    }
+                    else
+                    {
+                        Log.Error($"Unable to get affliction with identifier {identifier}");
+                    }
+                }
+                character.CharacterHealth.ForceUpdateVisuals();
+            });
         }
 
         private void SpawnDecals()
@@ -281,61 +336,12 @@ namespace MoreLevelContent.Missions
             {
                 StartServer();
                 InitShip();
+                SpawnCharacters();
             }
         }
 
         void StartServer()
         {
-            missionNPCs.CreateHumansInSubmarine(ghostship, onCharacterCreated: (character, config) =>
-            {
-                if (character.AIController is not HumanAIController humanAI) return;
-
-                bool alive = config.GetAttributeBool("alive", true);
-                if (!alive)
-                {
-                    character.Kill(CauseOfDeathType.Unknown, causeOfDeathAffliction: null, log: false);
-                }
-                else
-                {
-                    humanAI.InitMentalStateManager();
-                }
-
-                int minMoney = config.GetAttributeInt("minmoney", 0);
-                int maxMoney = config.GetAttributeInt("maxmoney", 0);
-
-                if (maxMoney > 0)
-                {
-                    int money = Rand.Range(minMoney, maxMoney, Rand.RandSync.Unsynced);
-                    character.Wallet.Give(money);
-                    Log.InternalDebug($"Gave {money} to {character.Name}");
-                }
-
-                foreach (var affliction in config.GetChildElements("affliction"))
-                {
-                    string identifier = affliction.GetAttributeString("identifier", null);
-                    LimbType limb = affliction.GetAttributeEnum("limb", LimbType.None);
-                    float strength = affliction.GetAttributeFloat("strength", 1);
-                    bool targetRandomLimb = affliction.GetAttributeBool("randomLimb", false);
-                    bool randomStrength = affliction.GetAttributeBool("randomStrength", false);
-                    int count = affliction.GetAttributeInt("count", 1);
-                
-                    if (AfflictionHelper.TryGetAffliction(identifier, out AfflictionPrefab prefab))
-                    {
-                        for (int i = 0; i < count; i++)
-                        {
-                            Limb targetLimb = character.AnimController.MainLimb;
-                            if (limb != LimbType.None) targetLimb = character.AnimController.GetLimb(limb);
-                            if (targetRandomLimb) targetLimb = character.AnimController.Limbs.GetRandomUnsynced();
-                            if (randomStrength) strength = Rand.Range(10f, 70f, Rand.RandSync.Unsynced);
-                            character.CharacterHealth.ApplyAffliction(targetLimb, new Affliction(prefab, strength));
-                        }
-                    } else
-                    {
-                        Log.Error($"Unable to get affliction with identifier {identifier}");
-                    }
-                }
-                character.CharacterHealth.ForceUpdateVisuals();
-            });
             // Reputation stuff
             damageTracker = new ReputationDamageTracker(ghostship, 2.0f, 20f, 1f, 2f);
         }

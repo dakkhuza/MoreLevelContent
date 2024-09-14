@@ -248,6 +248,7 @@ namespace MoreLevelContent.Missions
 
         protected override void StartMissionSpecific(Level level)
         {
+            if (lostSubmarine == null) return;
             if (!IsClient) StartServer();
         }
 
@@ -257,23 +258,20 @@ namespace MoreLevelContent.Missions
             lostSubmarine.EnableMaintainPosition();
 
             Item sonarItem = Item.ItemList.Find(it => it.Submarine == lostSubmarine && it.GetComponent<Sonar>() != null);
-            if (sonarItem == null)
+            if (sonarItem != null)
             {
-                DebugConsole.ThrowError($"No sonar found in the beacon station \"{lostSubmarine.Info.Name}\"!");
-                return;
-            }
+                // Always allow the lost sub sonar to run so it attracts monsters :)
+                Powered sonarPower = sonarItem.GetComponent<Powered>();
+                sonarPower.MinVoltage = 0;
 
-            // Always allow the lost sub sonar to run so it attracts monsters :)
-            Powered sonarPower = sonarItem.GetComponent<Powered>();
-            sonarPower.MinVoltage = 0;
-
-            var sonar = sonarItem.GetComponent<Sonar>();
-            var steering = sonarItem.GetComponent<Steering>();
-            sonar.CurrentMode = Sonar.Mode.Active;
-            // Notify clients of the sonar's state
+                var sonar = sonarItem.GetComponent<Sonar>();
+                var steering = sonarItem.GetComponent<Steering>();
+                sonar.CurrentMode = Sonar.Mode.Active;
+                // Notify clients of the sonar's state
 #if SERVER
                 sonar.Item.CreateServerEvent(sonar);
 #endif
+            }
 
 
             bool givenCharge = false;
@@ -331,10 +329,8 @@ namespace MoreLevelContent.Missions
                     _ = ballastHulls.Add(item.CurrentHull);
                 }
 
-                foreach (Hull hull in Hull.HullList)
+                foreach (Hull hull in ballastHulls)
                 {
-                    if (hull.Submarine != lostSubmarine) { continue; }
-                    if (!ballastHulls.Contains(hull)) { continue; }
                     hull.WaterVolume = hull.Volume;
                 }
             }

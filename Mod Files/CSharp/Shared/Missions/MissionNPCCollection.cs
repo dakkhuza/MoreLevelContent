@@ -1,10 +1,12 @@
 ﻿using Barotrauma;
+using Barotrauma.Items.Components;
 using Barotrauma.MoreLevelContent.Shared.Utils;
 using Barotrauma.Networking;
 using FarseerPhysics.Dynamics;
 using Microsoft.Xna.Framework;
 using MoreLevelContent.Shared;
 using MoreLevelContent.Shared.Data;
+using MoreLevelContent.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -81,7 +83,7 @@ namespace MoreLevelContent.Missions
                 return;
             }
             WayPoint explicitStayInHullPos = WayPoint.GetRandom(SpawnType.Human, null, submarine);
-            Rand.RandSync randSync = Rand.RandSync.ServerAndClient;
+            Rand.RandSync randSync = Rand.RandSync.Unsynced;
             List<(HumanPrefab prefab, XElement config)> humanPrefabsToSpawn = new List<(HumanPrefab, XElement)>();
             foreach (XElement element in characterConfig.Elements())
             {
@@ -102,7 +104,7 @@ namespace MoreLevelContent.Missions
                 XElement additionalItemsElement = config?.GetChildElement("additionalitems");
                 ContentXElement additionalItems = new ContentXElement(null, additionalItemsElement);
 
-                Character spawnedCharacter = CreateHuman(humanPrefab, characters, characterItems, submarine, team, stayPos, humanPrefabRandSync: randSync, additionalItems: additionalItemsElement != null ? additionalItems.Elements() : null);
+                Character spawnedCharacter = CreateHuman(humanPrefab, characters, characterItems, submarine, team, stayPos, additionalItems: additionalItemsElement != null ? additionalItems.Elements() : null);
                 spawnedCharacter.EnableDespawn = false; // don't let mission npcs despawn
                 spawnedCharacter.GiveIdCardTags(stayPos, false);
                 onCharacterCreated?.Invoke(spawnedCharacter, characterSpecificConfig);
@@ -121,9 +123,9 @@ namespace MoreLevelContent.Missions
             InitCharacters();
         }
 
-        internal Character CreateHuman(HumanPrefab humanPrefab, List<Character> characters, Dictionary<Character, List<Item>> characterItems, Submarine submarine, CharacterTeamType teamType, ISpatialEntity positionToStayIn = null, Rand.RandSync humanPrefabRandSync = Rand.RandSync.ServerAndClient, bool giveTags = true, IEnumerable<ContentXElement> additionalItems = null)
+        internal Character CreateHuman(HumanPrefab humanPrefab, List<Character> characters, Dictionary<Character, List<Item>> characterItems, Submarine submarine, CharacterTeamType teamType, ISpatialEntity positionToStayIn = null, bool giveTags = true, IEnumerable<ContentXElement> additionalItems = null)
         {
-            var characterInfo = humanPrefab.CreateCharacterInfo(Rand.RandSync.ServerAndClient);
+            var characterInfo = humanPrefab.CreateCharacterInfo(Rand.RandSync.Unsynced);
             characterInfo.TeamID = teamType;
 
             if (positionToStayIn == null)
@@ -132,11 +134,16 @@ namespace MoreLevelContent.Missions
                     WayPoint.GetRandom(SpawnType.Human, characterInfo.Job?.Prefab, submarine) ??
                     WayPoint.GetRandom(SpawnType.Human, null, submarine);
             }
-
             Character spawnedCharacter = Character.Create(characterInfo.SpeciesName, positionToStayIn.WorldPosition, ToolBox.RandomSeed(8), characterInfo, createNetworkEvent: false);
             spawnedCharacter.HumanPrefab = humanPrefab;
             humanPrefab.InitializeCharacter(spawnedCharacter, positionToStayIn);
-            _ = humanPrefab.GiveItems(spawnedCharacter, submarine, null, Rand.RandSync.ServerAndClient, createNetworkEvents: false);
+            _ = humanPrefab.GiveItems(spawnedCharacter, submarine, null, createNetworkEvents: false);
+            foreach (var item in spawnedCharacter.Inventory.AllItems)
+            {
+                IdCard card = item.GetComponent<IdCard>();
+                if (card == null) continue;
+                card.SubmarineSpecificID = submarine.SubmarineSpecificIDTag;
+            }
 
             if (additionalItems != null)
             {
@@ -151,7 +158,7 @@ namespace MoreLevelContent.Missions
             }
             characters.Add(spawnedCharacter);
             characterItems.Add(spawnedCharacter, spawnedCharacter.Inventory.FindAllItems(recursive: true));
-
+            
             return spawnedCharacter;
         }
 

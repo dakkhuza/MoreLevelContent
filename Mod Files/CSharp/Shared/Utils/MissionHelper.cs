@@ -229,6 +229,10 @@ namespace MoreLevelContent.Shared.Utils
     // trying to patch local methods through IL code is fuckin ass
     public static class SubPlacementUtils
     {
+        private static List<Rectangle> BlockedRects = new List<Rectangle>();
+
+        public static void ClearBlockedRects() => BlockedRects.Clear(); 
+
         internal static Submarine SpawnSubOnPath(string subName, ContentFile contentFile, SubmarineType type, PlacementType placementType = PlacementType.Bottom) => SpawnSubOnPath(subName, contentFile.Path.Value, type, placementType);
 
         internal static Submarine SpawnSubOnPath(string subName, string path, SubmarineType type, PlacementType placementType = PlacementType.Bottom)
@@ -294,16 +298,10 @@ namespace MoreLevelContent.Shared.Utils
                 Debug.WriteLine($"Sub {subName} successfully positioned to {spawnPoint} in {tempSW.ElapsedMilliseconds} (ms)");
                 tempSW.Restart();
                 Submarine sub = new Submarine(info);
-                // sub.ShowSonarMarker = false;
-                // sub.DockedTo.ForEach(s => s.ShowSonarMarker = false);
-                // sub.PhysicsBody.FarseerBody.BodyType = BodyType.Static;
-                // sub.TeamID = CharacterTeamType.None;
-
                 tempSW.Stop();
                 Debug.WriteLine($"Sub {sub.Info.Name} loaded in {tempSW.ElapsedMilliseconds} (ms)");
                 sub.SetPosition(spawnPoint);
-                // wreckPositions.Add(sub, positions);
-                // blockedRects.Add(sub, rects);
+                BlockedRects.Add(sub.GetDockedBorders());
                 return sub;
             }
             else

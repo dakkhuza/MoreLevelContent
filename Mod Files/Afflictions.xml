@@ -1,0 +1,21 @@
+<Afflictions>
+    <InternalDamage
+        name="Instant Death"
+        identifier="instantdeath"
+        description="Instant death! Just add water or air."
+        type="damage"
+        causeofdeathdescription="???"
+        selfcauseofdeathdescription="You have died, instantly! That's the instant death promise."
+        limbspecific="false"
+        maxstrength="1"
+        showiconthreshold="1000"
+        showinhealthscannerthreshold="1000"
+        damageoverlayalpha="0.1">
+        <Effect minstrength="0" maxstrength="1" multiplybymaxvitality="true"
+            minvitalitydecrease="2"
+            maxvitalitydecrease="4" />
+        <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="128,768,128,128"
+            color="195,136,60,255" origin="0,0" />
+    </InternalDamage>
+
+</Afflictions>

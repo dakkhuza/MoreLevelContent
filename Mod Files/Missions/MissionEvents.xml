@@ -935,8 +935,8 @@
                 targettag="clown" spawnlocation="Any" spawnpointtype="Human"
                 spawnpointtag="distress_ghostship" team="Team2" requirespawnpointtag="true"
                 lootingisstealing="false" />
-            <AfflictionAction targettag="clown" affliction="bloodloss"
-                strength="1000" />
+            <AfflictionAction targettag="clown" affliction="instantdeath"
+                strength="1" />
             <TriggerAction target1tag="clown" target2tag="player"
                 radius="100" disableiftargetincapacitated="false" WaitForInteraction="true"
                 DisableInCombat="false" />

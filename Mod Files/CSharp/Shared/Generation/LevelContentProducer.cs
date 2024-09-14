@@ -1,6 +1,7 @@
 ﻿using Barotrauma;
 using MoreLevelContent.Shared.Generation.Interfaces;
 using MoreLevelContent.Shared.Generation.Pirate;
+using MoreLevelContent.Shared.Utils;
 using System.Collections.Generic;
 
 namespace MoreLevelContent.Shared.Generation
@@ -66,6 +67,7 @@ namespace MoreLevelContent.Shared.Generation
 
         internal void LevelGenerate(LevelData levelData, bool mirror)
         {
+            SubPlacementUtils.ClearBlockedRects();
             Log.Verbose("Called level generate");
             foreach (ILevelStartGenerate levelStart in levelStartGenerators)
             {

@@ -123,6 +123,18 @@ namespace MoreLevelContent.Shared.Generation
                 if (request.SpawnPosition == SubSpawnPosition.PathWall)
                 {
                     submarine = SpawnSubOnPath(subName, request.File, ignoreCrushDepth: request.IgnoreCrushDpeth, placementType: request.PlacementType);
+                    if (submarine == null)
+                    {
+                        Log.Error("Failed to spawn submarine at requested location, spawning it anywhere...");
+                        submarine = SpawnSub(request.File);
+                        if (Level.Loaded.TryGetInterestingPosition(true, Level.PositionType.MainPath, Level.Loaded.Size.X * 0.3f, out var potentialSpawnPos))
+                        {
+                            submarine.SetPosition(submarine.FindSpawnPos(potentialSpawnPos.Position.ToVector2()));
+                        } else
+                        {
+                            submarine.SetPosition(submarine.FindSpawnPos(Level.Loaded.EndPosition));
+                        }
+                    }
                 } else
                 {
                     if (request.SpawnPosition == SubSpawnPosition.AbyssIsland)
@@ -153,7 +165,6 @@ namespace MoreLevelContent.Shared.Generation
                             {
                                 if (request.Prefix != SubmarineSpawnRequest.AutoFillPrefix.None)
                                 {
-                                    Log.Debug($"Added tag {request.Prefix}{tag}");
                                     item.AddTag($"{request.Prefix}{tag}");
                                 }
                             }

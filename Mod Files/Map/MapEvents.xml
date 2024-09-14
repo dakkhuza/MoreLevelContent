@@ -557,8 +557,8 @@
                 text="MapFeature.abyssresearch.c1" eventsprite="Receptiondude"
                 invokertag="triggerer_player" endeventifinterrupted="false" />
             <SpawnAction ItemIdentifier="mailman_researchdata" TargetInventory="triggerer_player" />
-            <MissionAction MissionIdentifier="gotoresearch" MinLocationDistance="2"
-                CreateLocationIfNotFound="true" UnlockFurtherOnMap="true" locationtype="Research" />
+            <MissionAction MissionIdentifier="gotoresearch" minlocationdistance="2"
+                CreateLocationIfNotFound="true" unlockfurtheronmap="true" locationtype="Research, City, Study" />
         </ScriptedEvent>
 
         <!-- TODO: Update the sprite used here -->

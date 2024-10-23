@@ -227,7 +227,6 @@ namespace MoreLevelContent.Shared.Generation
 
             while(timer < WAIT_TIME)
             {
-                Log.Debug("Waiting...");
                 timer += CoroutineManager.DeltaTime;
                 yield return CoroutineStatus.Running;
             }

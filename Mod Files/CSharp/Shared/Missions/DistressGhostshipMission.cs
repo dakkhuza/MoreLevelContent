@@ -78,11 +78,12 @@ namespace MoreLevelContent.Missions
         {
             get
             {
-                if (SubSalvaged) return salvagedReward;
+                if (_SubWasSalvaged) return salvagedReward;
                 return 0;
             }
         }
 
+        private bool _SubWasSalvaged = false;
         private bool SubSalvaged => ghostship.AtEndExit || ghostship.AtStartExit;
 
         public override IEnumerable<(LocalizedString Label, Vector2 Position)> SonarLabels
@@ -464,6 +465,8 @@ namespace MoreLevelContent.Missions
                 default:
                     break;
             }
+
+            if (SubSalvaged) _SubWasSalvaged = true;
 
             if (IsClient) return;
             damageTracker.Update();

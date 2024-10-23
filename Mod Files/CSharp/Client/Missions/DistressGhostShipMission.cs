@@ -4,6 +4,7 @@ using MoreLevelContent.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,14 +39,14 @@ namespace MoreLevelContent.Missions
             Salvage
         }
 
-        private bool _salvedState = false;
+        private bool _salvaged = false;
 
         partial void UpdateProjSpecific(float deltaTime)
         {
-            if (SubSalvaged && _salvedState != SubSalvaged)
+            if (SubSalvaged && !_salvaged)
             {
                 ObjectiveManager.CompleteSegment(SALVAGE_SUB);
-                _salvedState = SubSalvaged;
+                _salvaged = true;
                 CoroutineManager.StartCoroutine(_showMessageBox(TextManager.Get("missionheader0.distress_ghostship"), TextManager.Get("dgs.inrageforsalvage")));
             }
             IEnumerable<CoroutineStatus> _showMessageBox(LocalizedString header, LocalizedString message)

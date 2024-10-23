@@ -1,6 +1,7 @@
 ﻿using MoreLevelContent.Shared.Generation.Interfaces;
 using Barotrauma;
 using System.Linq;
+using static Barotrauma.CheckMissionAction;
 
 namespace MoreLevelContent.Shared.Generation.Pirate
 {
@@ -11,7 +12,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
 
         public override void Setup()
         {
-            pirateMission = MissionPrefab.Prefabs.Find(m => m.Type == MissionType.Pirate);
+            pirateMission = MissionPrefab.Prefabs.Find(m => m.Type == "Pirate");
             if (pirateMission == null)
             {
                 Log.Error("Couldn't find a pirate mission!");

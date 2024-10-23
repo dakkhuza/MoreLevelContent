@@ -414,7 +414,7 @@ namespace MoreLevelContent.Shared.AI
         }
 
         // never abort
-        protected override bool CheckObjectiveSpecific() => false;
-
+        //protected bool CheckObjectiveSpecific() => false;
+        protected override bool CheckObjectiveState() => throw new NotImplementedException();
     }
 }

@@ -217,9 +217,25 @@ namespace MoreLevelContent.Shared.Generation
 
             if (GameMain.GameSession?.EventManager != null)
             {
-                var newEvent = eventPrefab.CreateInstance(GameMain.GameSession.EventManager.RandomSeed);
-                GameMain.GameSession.EventManager.ActivateEvent(newEvent);
+                _ = CoroutineManager.StartCoroutine(SpawnMapFeatureEvent(eventPrefab));
             }
+        }
+        const float WAIT_TIME = 5;
+        private IEnumerable<CoroutineStatus> SpawnMapFeatureEvent(EventPrefab prefab)
+        {
+            float timer = 0;
+
+            while(timer < WAIT_TIME)
+            {
+                Log.Debug("Waiting...");
+                timer += CoroutineManager.DeltaTime;
+                yield return CoroutineStatus.Running;
+            }
+
+
+            var newEvent = prefab.CreateInstance(GameMain.GameSession.EventManager.RandomSeed);
+            GameMain.GameSession.EventManager.ActivateEvent(newEvent);
+            yield return CoroutineStatus.Success;
         }
 
         void RollForFeature(LevelData data, LocationConnection connection)

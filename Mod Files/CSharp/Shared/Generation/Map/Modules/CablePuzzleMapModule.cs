@@ -88,8 +88,8 @@ namespace MoreLevelContent.Shared.Generation
             if (!levelData.HasBeaconStation && !levelData.MLC().HasBeaconConstruction)
             {
                 double roll = rand.NextDouble();
-                // Relay stations have a 15% chance to spawn on any connection
-                extraData.RelayStationStatus = roll < 0.15f ? RelayStationStatus.Inactive : RelayStationStatus.None;
+                // Relay stations have a 10% chance to spawn on any connection
+                extraData.RelayStationStatus = roll < 0.10f ? RelayStationStatus.Inactive : RelayStationStatus.None;
             }
         }
 

@@ -1023,43 +1023,52 @@
         <ScriptedEvent identifier="distress_ghostship_bandit_2">
             <SpawnAction npcsetidentifier="abandonedoutpostnpcs" npcidentifier="bandit"
                 spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
-                team="Team2" requirespawnpointtag="true" lootingisstealing="false" />
+                team="FriendlyNPC" requirespawnpointtag="true" lootingisstealing="false"
+                targettag="bandit" />
             <SpawnAction npcsetidentifier="abandonedoutpostnpcs" npcidentifier="banditleader"
                 spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
-                team="Team2" requirespawnpointtag="true" lootingisstealing="false" />
+                team="FriendlyNPC" requirespawnpointtag="true" lootingisstealing="false"
+                targettag="bandit" />
+            <NPCChangeTeamAction npctag="bandit" teamid="Team2" />
         </ScriptedEvent>
 
         <ScriptedEvent identifier="distress_ghostship_bandit_4_easy">
             <SpawnAction npcsetidentifier="abandonedoutpostnpcs" npcidentifier="bandit"
                 spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
-                team="Team2" requirespawnpointtag="true" lootingisstealing="false" />
+                team="FriendlyNPC" requirespawnpointtag="true" lootingisstealing="false"
+                targettag="bandit" />
             <SpawnAction npcsetidentifier="abandonedoutpostnpcs" npcidentifier="bandit"
                 spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
-                team="Team2" requirespawnpointtag="true" lootingisstealing="false" />
+                team="FriendlyNPC" requirespawnpointtag="true" lootingisstealing="false"
+                targettag="bandit" />
             <SpawnAction npcsetidentifier="abandonedoutpostnpcs" npcidentifier="bandit"
                 spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
-                team="Team2" requirespawnpointtag="true" lootingisstealing="false" />
+                team="FriendlyNPC" requirespawnpointtag="true" lootingisstealing="false"
+                targettag="bandit" />
             <SpawnAction npcsetidentifier="abandonedoutpostnpcs" npcidentifier="banditleader"
                 spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
-                team="Team2" requirespawnpointtag="true" lootingisstealing="false" />
+                team="FriendlyNPC" requirespawnpointtag="true" lootingisstealing="false"
+                targettag="bandit" />
+            <NPCChangeTeamAction npctag="bandit" teamid="Team2" />
         </ScriptedEvent>
 
         <ScriptedEvent identifier="distress_ghostship_bandit_5_hard">
             <SpawnAction npcsetidentifier="abandonedoutpostnpcs" npcidentifier="bandit"
                 spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
-                team="Team2" requirespawnpointtag="true" lootingisstealing="false" />
+                team="FriendlyNPC" requirespawnpointtag="true" lootingisstealing="false" />
             <SpawnAction npcsetidentifier="abandonedoutpostnpcs" npcidentifier="bandit"
                 spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
-                team="Team2" requirespawnpointtag="true" lootingisstealing="false" />
+                team="FriendlyNPC" requirespawnpointtag="true" lootingisstealing="false" />
             <SpawnAction npcsetidentifier="abandonedoutpostnpcs" npcidentifier="bandit"
                 spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
-                team="Team2" requirespawnpointtag="true" lootingisstealing="false" />
+                team="FriendlyNPC" requirespawnpointtag="true" lootingisstealing="false" />
             <SpawnAction npcsetidentifier="abandonedoutpostnpcs" npcidentifier="banditleader"
                 spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
-                team="Team2" requirespawnpointtag="true" lootingisstealing="false" />
+                team="FriendlyNPC" requirespawnpointtag="true" lootingisstealing="false" />
             <SpawnAction npcsetidentifier="abandonedoutpostnpcs" npcidentifier="banditleader_heavy"
                 spawnlocation="Any" spawnpointtype="Human" spawnpointtag="distress_ghostship"
-                team="Team2" requirespawnpointtag="true" lootingisstealing="false" />
+                team="FriendlyNPC" requirespawnpointtag="true" lootingisstealing="false" />
+            <NPCChangeTeamAction npctag="bandit" teamid="Team2" />
         </ScriptedEvent>
 
         <ScriptedEvent identifier="distress_ghostship_prisonbreak">

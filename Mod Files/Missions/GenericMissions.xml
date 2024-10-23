@@ -17,7 +17,7 @@
                         text="missionmessage0.beaconconstruction" />
                 <Reputation
                         identifier="location"
-                        amount="8" amountforopposingfaction="-2" />
+                        amount="8" amountforopposingfaction="-4" />
                 <Icon
                         texture="%ModDir%/Missions/Icons.png"
                         sourcerect="0,0,256,256"
@@ -33,7 +33,7 @@
                 type="GoTo"
                 customType="CablePuzzle"
                 commonness="10"
-                reward="2800">
+                reward="1000">
                 <message
                         header="missionheader0.relayrepair"
                         text="missionmessage0.relayrepair" />
@@ -47,7 +47,7 @@
 
                 <Reputation
                         identifier="location"
-                        amount="4" amountforopposingfaction="-1" />
+                        amount="1" />
                 <Icon
                         texture="%ModDir%/Missions/Icons.png"
                         sourcerect="0,0,256,256"
@@ -61,7 +61,7 @@
                 type="GoTo"
                 customType="CablePuzzle"
                 commonness="5"
-                reward="2800">
+                reward="1000">
                 <message
                         header="missionheader0.relayrepair"
                         text="missionmessage0.relayrepair" />
@@ -75,7 +75,7 @@
 
                 <Reputation
                         identifier="location"
-                        amount="4" amountforopposingfaction="-1" />
+                        amount="1" />
                 <Icon
                         texture="%ModDir%/Missions/Icons.png"
                         sourcerect="0,0,256,256"
@@ -92,7 +92,7 @@
                 type="GoTo"
                 customType="CablePuzzle"
                 commonness="5"
-                reward="2800">
+                reward="1000">
                 <message
                         header="missionheader0.relayrepair"
                         text="missionmessage0.relayrepair" />
@@ -106,7 +106,7 @@
 
                 <Reputation
                         identifier="location"
-                        amount="4" amountforopposingfaction="-1" />
+                        amount="1" />
                 <Icon
                         texture="%ModDir%/Missions/Icons.png"
                         sourcerect="0,0,256,256"
@@ -115,6 +115,7 @@
                         campaignonly="true" />
 
         </RelayRepair>
+
         <RelayRepair
                 identifier="relayrepair4"
                 textidentifier="relayrepair"
@@ -122,7 +123,7 @@
                 type="GoTo"
                 customType="CablePuzzle"
                 commonness="4"
-                reward="2800">
+                reward="1000">
                 <message
                         header="missionheader0.relayrepair"
                         text="missionmessage0.relayrepair" />
@@ -136,7 +137,7 @@
 
                 <Reputation
                         identifier="location"
-                        amount="4" amountforopposingfaction="-1" />
+                        amount="1" />
                 <Icon
                         texture="%ModDir%/Missions/Icons.png"
                         sourcerect="0,0,256,256"
@@ -145,6 +146,7 @@
                         campaignonly="true" />
 
         </RelayRepair>
+
         <RelayRepair
                 identifier="relayrepair5"
                 textidentifier="relayrepair"
@@ -152,7 +154,7 @@
                 type="GoTo"
                 customType="CablePuzzle"
                 commonness="2"
-                reward="2800">
+                reward="1000">
                 <message
                         header="missionheader0.relayrepair"
                         text="missionmessage0.relayrepair" />
@@ -166,7 +168,7 @@
 
                 <Reputation
                         identifier="location"
-                        amount="4" amountforopposingfaction="-1" />
+                        amount="1" />
                 <Icon
                         texture="%ModDir%/Missions/Icons.png"
                         sourcerect="0,0,256,256"

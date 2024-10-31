@@ -207,7 +207,7 @@ namespace MoreLevelContent.Shared.Generation
             var mapEvent = ToolBox.SelectWeightedRandom(feature.PossibleEvents, e => e.Commonness, rand);
             if (rand.NextDouble() > mapEvent.Probability) return;
 
-            var eventPrefab = EventSet.GetAllEventPrefabs().Find(p => p.Identifier == mapEvent.EventIdentifier);
+            EventPrefab eventPrefab = EventSet.GetAllEventPrefabs().Where(p => p.Identifier == mapEvent.EventIdentifier).Distinct().OrderBy(p => p.Identifier).FirstOrDefault();
             if (eventPrefab == null)
             {
                 DebugConsole.ThrowError($"Map Feature \"{feature.Name}\" failed to trigger an event (couldn't find an event with the identifier \"{mapEvent.EventIdentifier}\").",

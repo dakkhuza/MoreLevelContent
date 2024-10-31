@@ -225,7 +225,7 @@ namespace MoreLevelContent.Items
         private void StartFabricating(FabricationRecipe selectedItem, Character user, bool addToServerLog = true)
         {
             if (selectedItem == null) { return; }
-            if (!outputContainer.Inventory.CanBePut(selectedItem.TargetItem, selectedItem.OutCondition * selectedItem.TargetItem.Health)) { return; }
+            if (!outputContainer.Inventory.CanProbablyBePut(selectedItem.TargetItem, selectedItem.OutCondition * selectedItem.TargetItem.Health)) { return; }
 
             IsActive = true;
             this.user = user;

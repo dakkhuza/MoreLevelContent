@@ -1021,7 +1021,7 @@ namespace MoreLevelContent.Items
         {
             if (selectedItem == null) { return false; }
             if (fabricatedItem == null &&
-                !outputContainer.Inventory.CanBePut(selectedItem.TargetItem, selectedItem.OutCondition * selectedItem.TargetItem.Health))
+                !outputContainer.Inventory.CanProbablyBePut(selectedItem.TargetItem, selectedItem.OutCondition * selectedItem.TargetItem.Health))
             {
                 outputSlot.Flash(GUIStyle.Red);
                 return false;

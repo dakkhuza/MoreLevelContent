@@ -119,7 +119,7 @@ namespace MoreLevelContent.Missions
             return msg;
         }
 
-        public override int GetBaseReward(Submarine sub) => Completed ? GetRewardCompleted() : GetRewardInLevel();
+        public override float GetBaseReward(Submarine sub) => Completed ? GetRewardCompleted() : GetRewardInLevel();
 
         int survivingCrewPayout = 0;
 

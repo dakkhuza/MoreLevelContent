@@ -144,6 +144,9 @@ namespace MoreLevelContent.Shared.Generation
 
         static void TrySpawnThalaCave()
         {
+            // TODO: Thalamus Caves currently cause crashes in multiplayer, fix this
+            if (!GameMain.IsSingleplayer) return;
+
             if (!ConfigManager.Instance.Config.NetworkedConfig.GeneralConfig.EnableThalamusCaves || Loaded.GenerationParams.ThalamusProbability == 0 || Instance.ActiveThalaCave != null) return;
             var caveParams = CaveGenerationParams.CaveParams.Where(c =>
             {

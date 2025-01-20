@@ -19,7 +19,7 @@
       <ItemSet commonness="1">
         <Item identifier="idcard" equip="true" showpreview="false" />
         <Item identifier="piratecaptainhat" equip="true" />
-        <Item identifier="pirateclothes" equip="true" outfit="true" />
+        <Item identifier="banditclothes1" equip="true" outfit="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
@@ -49,7 +49,7 @@
       </Character>
 
       <ItemSet commonness="1">
-        <Item identifier="pirateclothesnovice" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
@@ -65,7 +65,7 @@
 
       </ItemSet>
       <ItemSet commonness="0.5">
-        <Item identifier="pirateclothesnovice" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
@@ -99,7 +99,7 @@
       </Character>
 
       <ItemSet>
-        <Item identifier="pirateclothes" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
@@ -167,7 +167,7 @@
       </Character>
 
       <ItemSet>
-        <Item identifier="pirateclothesnovice" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="piratebandana" equip="true" />
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
@@ -198,7 +198,7 @@
       </Character>
 
       <ItemSet>
-        <Item identifier="pirateclothesnovice" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="piratebandana" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
@@ -232,7 +232,7 @@
       </Character>
 
       <ItemSet commonness="1">
-        <Item identifier="pirateclothesnovice" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
@@ -252,7 +252,7 @@
       </ItemSet>
 
       <ItemSet commonness="0.5">
-        <Item identifier="pirateclothesnovice" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
@@ -295,7 +295,7 @@
       <ItemSet commonness="1">
         <Item identifier="idcard" equip="true" showpreview="false" />
         <Item identifier="piratecaptainhat" equip="true" />
-        <Item identifier="pirateclothes" equip="true" outfit="true" />
+        <Item identifier="banditclothes1" equip="true" outfit="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
@@ -331,7 +331,7 @@
 
       
       <ItemSet commonness="1">
-        <Item identifier="pirateclothesnovice" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
@@ -354,7 +354,7 @@
       </ItemSet>
 
       <ItemSet commonness="0.5">
-        <Item identifier="pirateclothesnovice" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
@@ -391,7 +391,7 @@
       </Character>
 
       <ItemSet>
-        <Item identifier="pirateclothes" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
@@ -461,7 +461,7 @@
       </Character>
 
       <ItemSet>
-        <Item identifier="pirateclothesnovice" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="piratebandana" equip="true" />
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
@@ -493,7 +493,7 @@
       </Character>
 
       <ItemSet>
-        <Item identifier="pirateclothesnovice" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="piratebandana" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
@@ -531,7 +531,7 @@
       <ItemSet commonness="1">
         <Item identifier="idcard" equip="true" showpreview="false" />
         <Item identifier="piratecaptainhat" equip="true" />
-        <Item identifier="pirateclothes" equip="true" outfit="true" />
+        <Item identifier="banditclothes1" equip="true" outfit="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
@@ -547,7 +547,7 @@
       <ItemSet commonness="0.5">
         <Item identifier="idcard" equip="true" showpreview="false" />
         <Item identifier="piratecaptainhat" equip="true" />
-        <Item identifier="pirateclothes" equip="true" outfit="true" />
+        <Item identifier="banditclothes1" equip="true" outfit="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
@@ -578,7 +578,7 @@
 
       <ItemSet commonness="1">
         <Item identifier="ballistichelmet2" equip="true" />
-        <Item identifier="pirateclothes" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
@@ -606,7 +606,7 @@
 
       <ItemSet commonness="0.5">
         <Item identifier="ballistichelmet2" equip="true" />
-        <Item identifier="pirateclothes" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
@@ -634,7 +634,7 @@
     <npc identifier="piratesecuritygunner" job="securityofficer" spawnpointtags="security" behavior="Patrol" healthmultiplier="0.75" aimspeed="0.8" aimaccuracy="0.7">
       <ItemSet commonness="1">
         <Item identifier="ballistichelmet2" equip="true" />
-        <Item identifier="pirateclothes" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
@@ -662,7 +662,7 @@
 
       <ItemSet commonness="0.5">
         <Item identifier="ballistichelmet2" equip="true" />
-        <Item identifier="pirateclothes" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
@@ -689,7 +689,7 @@
     <!-- 40-50  -->
     <npc identifier="piratesecuritybrute" job="securityofficer" spawnpointtags="security" behavior="Patrol" healthmultiplier="1.0" aimspeed="2" aimaccuracy="1.0">
       <ItemSet commonness="1">
-        <Item identifier="pirateclothes" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="piratebodyarmor" equip="true" />
         <Item identifier="piratebandana" equip="true" />
 
@@ -761,7 +761,7 @@
     <!-- Engineer -->
     <npc identifier="pirateengineerrecruit" job="engineer" commonness="1" healthmultiplier="0.55" aimspeed="0.7" aimaccuracy="0.3">
       <ItemSet>
-        <Item identifier="pirateclothesnovice" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="piratebandana" equip="true" />
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
@@ -791,7 +791,7 @@
     <!-- Mechanic -->
     <npc identifier="piratemechanicrecruit" job="mechanic" healthmultiplier="0.55" aimspeed="0.7" aimaccuracy="0.3">
       <ItemSet>
-        <Item identifier="pirateclothesnovice" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="piratebandana" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
@@ -838,7 +838,7 @@
       <ItemSet commonness="1">
         <Item identifier="idcard" equip="true" showpreview="false" />
         <Item identifier="piratecaptainhat" equip="true" />
-        <Item identifier="pirateclothes" equip="true" outfit="true" />
+        <Item identifier="banditclothes1" equip="true" outfit="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
@@ -857,7 +857,7 @@
       <ItemSet commonness="0.5">
         <Item identifier="idcard" equip="true" showpreview="false" />
         <Item identifier="piratecaptainhat" equip="true" />
-        <Item identifier="pirateclothes" equip="true" outfit="true" />
+        <Item identifier="banditclothes1" equip="true" outfit="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
@@ -891,7 +891,7 @@
       <ItemSet commonness="1">
         <Item identifier="idcard" equip="true" showpreview="false" />
         <Item identifier="piratecaptainhat" equip="true" />
-        <Item identifier="pirateclothes" equip="true" outfit="true" />
+        <Item identifier="banditclothes1" equip="true" outfit="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
@@ -916,7 +916,7 @@
       <ItemSet commonness="0.5">
         <Item identifier="idcard" equip="true" showpreview="false" />
         <Item identifier="piratecaptainhat" equip="true" />
-        <Item identifier="pirateclothes" equip="true" outfit="true" />
+        <Item identifier="banditclothes1" equip="true" outfit="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
         </Item>
@@ -941,7 +941,7 @@
       <ItemSet commonness="1">
         <Item identifier="piratebodyarmor" equip="true" />
         <Item identifier="piratebandana" equip="true" />
-        <Item identifier="pirateclotheshard" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
 
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
@@ -970,7 +970,7 @@
       <ItemSet commonness="0.5">
         <Item identifier="piratehelmet" equip="true" />
         <Item identifier="piratebodyarmor" equip="true" />
-        <Item identifier="pirateclotheshard" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
@@ -994,7 +994,7 @@
     <!-- 55-65  -->
     <npc identifier="pirateflamer" job="securityofficer" spawnpointtags="security" behavior="Patrol" healthmultiplier="1.5" aimspeed="0.8" aimaccuracy="1.0">
       <ItemSet commonness="1">
-        <Item identifier="pirateclothes" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="piratehelmet" equip="true" />
         <Item identifier="piratebandana" equip="true" />
 
@@ -1016,7 +1016,7 @@
 
     <npc identifier="piratedeadeye" job="securityofficer" spawnpointtags="security" behavior="Patrol" healthmultiplier="0.55" aimspeed="1.0" aimaccuracy="1.0">
       <ItemSet commonness="1">
-        <Item identifier="pirateclothes" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="piratebandana" equip="true" />
 
         <Item identifier="idcard" equip="true" />
@@ -1037,7 +1037,7 @@
 
     <npc identifier="piratesecuritybrute" job="securityofficer" spawnpointtags="security" behavior="Patrol" healthmultiplier="2.0" aimspeed="2" aimaccuracy="1.0">
       <ItemSet commonness="1">
-        <Item identifier="pirateclotheshard" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="piratehelmet" equip="true" />
         <Item identifier="piratebodyarmor" equip="true" />
 
@@ -1071,7 +1071,7 @@
 
     <npc identifier="pirateberserker" job="securityofficer" spawnpointtags="security" behavior="Patrol" healthmultiplier="2.0" aimspeed="2" aimaccuracy="1.0">
       <ItemSet commonness="1">
-        <Item identifier="pirateclotheshard" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="piratehelmet" equip="true" />
         <Item identifier="piratebodyarmor" equip="true" />
 
@@ -1201,7 +1201,7 @@
     <!-- Engineer -->
     <npc identifier="pirateengineerrecruit" job="engineer" commonness="1" healthmultiplier="0.55" aimspeed="0.7" aimaccuracy="0.3">
       <ItemSet>
-        <Item identifier="pirateclothes" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="piratebandana" equip="true" />
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
@@ -1235,7 +1235,7 @@
     <!-- Mechanic -->
     <npc identifier="piratemechanicrecruit" job="mechanic" healthmultiplier="0.55" aimspeed="0.7" aimaccuracy="0.3">
       <ItemSet>
-        <Item identifier="pirateclothes" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="piratebandana" equip="true" />
         <Item identifier="safetyharness" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
@@ -1290,7 +1290,7 @@
       <ItemSet commonness="1">
         <Item identifier="idcard" equip="true" showpreview="false" />
         <Item identifier="piratecaptainhat" equip="true" />
-        <Item identifier="pirateclotheshard" equip="true" outfit="true" />
+        <Item identifier="banditclothes1" equip="true" outfit="true" />
         <Item identifier="mudraptorshell" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
@@ -1324,7 +1324,7 @@
       <ItemSet commonness="1">
         <Item identifier="piratebodyarmor" equip="true" />
         <Item identifier="piratebandana" equip="true" />
-        <Item identifier="pirateclotheshard" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
 
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
@@ -1352,7 +1352,7 @@
       <ItemSet commonness="0.6">
         <Item identifier="piratehelmet" equip="true" />
         <Item identifier="piratebodyarmor" equip="true" />
-        <Item identifier="pirateclotheshard" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
           <Item identifier="batterycell" showpreview="false" />
@@ -1376,7 +1376,7 @@
     <!-- 55-65  -->
     <npc identifier="pirateflamer" job="securityofficer" spawnpointtags="security" behavior="Patrol" healthmultiplier="1.5" aimspeed="0.8" aimaccuracy="1.0">
       <ItemSet commonness="1">
-        <Item identifier="pirateclothes" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="piratehelmet" equip="true" />
         <Item identifier="piratebandana" equip="true" />
 
@@ -1398,7 +1398,7 @@
 
     <npc identifier="piratedeadeye" job="securityofficer" spawnpointtags="security" behavior="Patrol" healthmultiplier="0.55" aimspeed="2" aimaccuracy="1.0">
       <ItemSet commonness="1">
-        <Item identifier="pirateclothes" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="piratebandana" equip="true" />
 
         <Item identifier="idcard" equip="true" />
@@ -1419,7 +1419,7 @@
 
     <npc identifier="piratesecuritybrute" job="securityofficer" spawnpointtags="security" behavior="Patrol" healthmultiplier="1.0" aimspeed="1.0" aimaccuracy="1.0">
       <ItemSet commonness="1">
-        <Item identifier="pirateclotheshard" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="piratehelmet" equip="true" />
 
         <Item identifier="idcard" equip="true" />
@@ -1466,7 +1466,7 @@
 
     <npc identifier="pirateberserker" job="securityofficer" spawnpointtags="security" behavior="Patrol" healthmultiplier="2.0" aimspeed="2" aimaccuracy="1.0">
       <ItemSet commonness="1">
-        <Item identifier="pirateclotheshard" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="piratehelmet" equip="true" />
         <Item identifier="piratebodyarmor" equip="true" />
 
@@ -1487,7 +1487,7 @@
     <npc identifier="piratemedic" job="medicaldoctor" behavior="Patrol" healthmultiplier="0.55" aimspeed="0.8" aimaccuracy="0.3">
       <ItemSet commonness="1">
         <Item identifier="piratebandana" equip="true" />
-        <Item identifier="pirateclotheshard" equip="true" outfit="true" />
+        <Item identifier="banditclothes1" equip="true" outfit="true" />
         <Item identifier="piratebodyarmor" equip="true" />
 
         <Item identifier="idcard" equip="true" />
@@ -1555,7 +1555,7 @@
     <!-- Engineer -->
     <npc identifier="pirateengineerveteran" job="engineer" commonness="1" healthmultiplier="0.55" aimspeed="0.7" aimaccuracy="0.3">
       <ItemSet commonness="1">
-        <Item identifier="pirateclotheshard" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="piratebandana" equip="true" />
         <Item identifier="pucs" equip="true"/>
         <Item identifier="idcard" equip="true" />
@@ -1578,7 +1578,7 @@
         </Item>
       </ItemSet>
       <ItemSet commonness="0.5">
-        <Item identifier="pirateclotheshard" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="piratebandana" equip="true" />
         <Item identifier="pucs" equip="true"/>
         <Item identifier="idcard" equip="true" />
@@ -1605,7 +1605,7 @@
     <!-- Mechanic -->
     <npc identifier="piratemechanicveteran" job="mechanic" healthmultiplier="0.55" aimspeed="0.7" aimaccuracy="0.3">
       <ItemSet>
-        <Item identifier="pirateclothes" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="piratebandana" equip="true" />
         <Item identifier="safetyharness" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
@@ -1647,7 +1647,7 @@
     <!-- Engineer -->
     <npc identifier="pirateengineerrecruit" job="engineer" commonness="1" healthmultiplier="0.55" aimspeed="0.7" aimaccuracy="0.3">
       <ItemSet>
-        <Item identifier="pirateclothes" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="piratebandana" equip="true" />
         <Item identifier="idcard" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">
@@ -1681,7 +1681,7 @@
     <!-- Mechanic -->
     <npc identifier="piratemechanicrecruit" job="mechanic" healthmultiplier="0.55" aimspeed="0.7" aimaccuracy="0.3">
       <ItemSet>
-        <Item identifier="pirateclothes" equip="true" />
+        <Item identifier="banditclothes1" equip="true" />
         <Item identifier="piratebandana" equip="true" />
         <Item identifier="safetyharness" equip="true" />
         <Item identifier="headset" equip="true" showpreview="false">

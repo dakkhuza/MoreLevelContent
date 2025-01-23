@@ -32,7 +32,6 @@
     <entitydescription.distressbeacon>Produces a long range signal that can be detected by a sonar monitor, handheld sonar, or navigation terminal.</entitydescription.distressbeacon>
 
     <entityname.jumpstarter>Jump Starter</entityname.jumpstarter>
-    <entitydescription.jumpstarter>Battery powered electrical device used to jump start dead systems.</entitydescription.jumpstarter>
     <itemmsgdetachcrowbar>[[use]] Detach (Crowbar)</itemmsgdetachcrowbar>
 
     <entityname.captains_notebook>Captain's Notebook</entityname.captains_notebook>

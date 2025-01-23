@@ -137,7 +137,7 @@ namespace MoreLevelContent.Shared.Generation
                 sub.PhysicsBody.FarseerBody.BodyType = FarseerPhysics.BodyType.Static;
                 sub.TeamID = CharacterTeamType.FriendlyNPC;
                 sub.Info.Type = SubmarineType.Outpost;
-                sub.InDetectable = true;
+                sub.GodMode = true;
                 sub.ShowSonarMarker = false;
             }
         }

@@ -6,4 +6,11 @@
     <loadingscreentip>‖color:gui.blue‖More Level Content Tip: ‖end‖If you have ‖color:gui.green‖Dynamic Europa‖end‖ installed, high reputation with the Bandit faction will turn pirate bases passive.</loadingscreentip>
 
 
+    <!-- Pirate Items -->
+    <entityname.mlcpirateradio>‖color:gui.Orange‖Pirate Radio‖end‖</entityname.mlcpirateradio>
+    <entitydescription.mlcpirateradio>A rugged, custom built radio. Used by pirates to announce their presence to each other.\n‖color:gui.green‖You could use this to negotiate safe passage if there's a pirate base in the area,‖end‖ ‖color:gui.red‖for a price.‖end‖\n‖color:gui.blue‖Can be sold for a very high price to military outposts.‖end‖</entitydescription.mlcpirateradio>
+
+    <!-- New Loading Tips -->
+    <loadingscreentip>‖color:gui.blue‖More Level Content Tip: ‖end‖If you have ‖color:gui.green‖Dynamic Europa‖end‖ installed, you may find a Pirate Radio during your travels. Depending on your reputation with the bandit faction, the options this radio gives to you will change.</loadingscreentip>
+
 </infotexts>

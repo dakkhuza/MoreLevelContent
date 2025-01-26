@@ -50,7 +50,7 @@ namespace MoreLevelContent.Shared
 #if SERVER
 			DebugConsole.NewMessage("[SERVER] " + message.ToString(), Color.White);
 #else
-			DebugConsole.NewMessage("[CLIENT] " + message.ToString(), Color.Purple);
+			DebugConsole.NewMessage("[CLIENT] " + message.ToString(), col);
 #endif
 		}
 	}

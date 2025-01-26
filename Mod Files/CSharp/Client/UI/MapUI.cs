@@ -65,7 +65,7 @@ namespace Barotrauma.MoreLevelContent.Client.UI
 
         private static void DrawRevealedFeatures(LocationConnection connection, Map map, SpriteBatch spriteBatch, Rectangle viewArea, Vector2 viewOffset)
         {
-            // Skip if we don't have a connection 
+            // Skip if we don't have a feature 
             if (!CheckValid()) return;
 
             // Both sides are in fog of war

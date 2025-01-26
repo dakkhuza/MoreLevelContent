@@ -34,7 +34,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
 #endif
         }
 
-        internal void UpdateStatus(PirateData data, LocationConnection con)
+        internal static void UpdateStatus(PirateData data, LocationConnection con)
         {
 #if SERVER
             Log.Debug("Send status");

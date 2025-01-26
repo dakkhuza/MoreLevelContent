@@ -7,6 +7,14 @@
         <ScriptedEvent identifier="revealresearch">
             <RevealMapFeatureAction mapfeatureidentifier="abyssresearch" />
         </ScriptedEvent>
+        <ScriptedEvent identifier="revealtrader">
+            <RevealMapFeatureAction mapfeatureidentifier="autotrader_weapons" />
+        </ScriptedEvent>
+        <ScriptedEvent identifier="revealclown">
+            <RevealMapFeatureAction mapfeatureidentifier="clownstation" />
+        </ScriptedEvent>
+
+
         <!-- 
         
             AUTO TRADER EVENTS
@@ -558,7 +566,8 @@
                 invokertag="triggerer_player" endeventifinterrupted="false" />
             <SpawnAction ItemIdentifier="mailman_researchdata" TargetInventory="triggerer_player" />
             <MissionAction MissionIdentifier="gotoresearch" minlocationdistance="2"
-                CreateLocationIfNotFound="true" unlockfurtheronmap="true" locationtype="Research, City, Study" />
+                CreateLocationIfNotFound="true" unlockfurtheronmap="true"
+                locationtype="Research, City, Study" />
         </ScriptedEvent>
 
         <!-- TODO: Update the sprite used here -->

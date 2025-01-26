@@ -73,18 +73,15 @@ namespace MoreLevelContent.Shared.AI
         private void OnAttacked(Character attacker, AttackResult attackResult)
         {
             if (attacker == null) return;
-            if (_hasDoneSusAction && attacker.IsOnPlayerTeam && attackResult.Damage > 1)
+            if (_hasDoneSusAction && attacker.IsOnPlayerTeam && (attackResult.Damage > 1))
             {
                 // we're made! switch team and start attacking
                 if (!character.HasTeamChange(TraitorTeamChangeIdentifier))
                 {
                     _ = character.TryAddNewTeamChange(TraitorTeamChangeIdentifier, new ActiveTeamChange(CharacterTeamType.None, ActiveTeamChange.TeamChangePriorities.Willful));
-                    var fight = objectiveManager.GetObjective<AIObjectiveFightIntruders>();
-                    if (fight != null)
-                    {
-                        // TODO: Fix this
-                        //fight.TargetCharactersInOtherSubs = true;
-                    }
+                    var fight = objectiveManager.GetObjective<AIFightIntrudersAnySubObjective>();
+                    fight.ForceHighestPriority = true;
+                    objectiveManager.AddObjective(fight);
                     character.Speak(TextManager.Get($"dialog.{character.JobIdentifier}.found").Value);
                     Abandon = true;
                 }
@@ -98,11 +95,16 @@ namespace MoreLevelContent.Shared.AI
             if (actCasualTimer > 0) actCasualTimer -= deltaTime;
             base.Update(deltaTime);
         }
-
+        AIObjectiveEscapeHandcuffs _EscapeHandcuffsSubObjective;
         protected override void Act(float deltaTime)
         {
             // don't do anything if we're cuffed 
-            if (character.LockHands) return;
+            if (character.LockHands)
+            {
+                // If we're cuffed, try to break out
+                _ = TryAddSubObjective(ref _EscapeHandcuffsSubObjective, () => new AIObjectiveEscapeHandcuffs(character, objectiveManager));
+                return;
+            }
 
             // don't do anything if we're not in the main sub and not docked to it
             if (!character.Submarine.IsConnectedTo(Submarine.MainSub)) return;
@@ -193,7 +195,7 @@ namespace MoreLevelContent.Shared.AI
             foreach (var hull in character.Submarine.GetHulls(true))
             {
                 // taken form AIObjectiveIdle
-                if (hull == null || hull.AvoidStaying) { continue; }
+                if (hull == null || hull.AvoidStaying || hull.IsWetRoom) { continue; }
                 // Ignore very narrow hulls.
                 if (hull.RectWidth < 200) { continue; }
                 // Ignore hulls that are too low to stand inside.

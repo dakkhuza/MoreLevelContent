@@ -395,7 +395,7 @@ namespace MoreLevelContent.Missions
 
 
                 // Make sure the reactor doesn't explode or irradiate the bots
-                if (CompatabilityHelper.Instance.HazardousReactorsInstalled) CompatabilityHelper.SetupHazReactor(reactor);
+                if (CompatabilityHelper.Instance.ReactorModInstalled) CompatabilityHelper.SetupHazReactor(reactor);
                 Repairable repairable = reactor.Item.GetComponent<Repairable>();
                 if (repairable != null)
                 {

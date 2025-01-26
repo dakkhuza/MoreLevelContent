@@ -20,12 +20,12 @@
     </ConnectionPanel>
     <aitarget soundrange="8000" fadeouttime="5" />
   </Item>
-  <Item name="Pirate Radio" identifier="mlcpirateradio" tags="smallitem" category="Equipment"
+  <Item name="Pirate Radio" identifier="mlc-pirateradio" tags="smallitem" category="Equipment"
     impactsoundtag="impact_metal_light" scale="0.5">
     <PreferredContainer primary="locker" />
     <PreferredContainer secondary="wreckarmcab,abandonedarmcab" amount="1"
-      spawnprobability="0.01" />
-    <PreferredContainer secondary="piratearmcab" amount="1" spawnprobability="0.1" />
+      spawnprobability="0.005" />
+    <PreferredContainer secondary="piratearmcab" amount="1" spawnprobability="0.01" />
 
     <Price baseprice="2000">
       <Price storeidentifier="merchantoutpost" multiplier="0.1" sold="false" />
@@ -35,6 +35,8 @@
       <Price storeidentifier="merchantmine" multiplier="0.1" sold="false" />
       <Price storeidentifier="merchantengineering" multiplier="0.25" sold="false" />
     </Price>
+
+    <Fabricate SuitableFabricator="piratestore" requiredtime="3" requiredmoney="2000" fabricationlimitmin="1" fabricationlimitmax="1" faction="banit" rep="10" />
 
     <Deconstruct time="30">
       <Item identifier="titanium" />

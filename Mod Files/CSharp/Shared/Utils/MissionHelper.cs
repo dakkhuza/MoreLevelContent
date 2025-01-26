@@ -53,30 +53,45 @@ namespace MoreLevelContent.Shared.Utils
         }
     }
 
-    public class ReputationDamageTracker : IDisposable
+    public class StructureDamageTracker : IDisposable
     {
+        public event Action ThresholdCrossed;
+        public event OnStructureTakeDamage DamageAfterThreshold;
+
+        public delegate void OnStructureTakeDamage(float amount);
+
         const float MaxDamagePerSecond = 5.0f;
         const float MaxDamagePerFrame = MaxDamagePerSecond * (float)Timing.Step;
 
         private readonly Submarine _sub;
         private readonly float _threshold;
-        private readonly float _maxRepLoss;
         private readonly float _decayPerSec;
         private readonly float _decayDelay;
         private float _accumulatedDamage;
-        private bool _displayedWarning = false;
-        private float _lostRep = 0.0f;
+        private bool _threshholdCrossed = false;
         private float _decayTimer;
-        
-        internal ReputationDamageTracker(Submarine subToTrack, float threshold = 20f, float maxRepLoss = 20f, float decay = 1f, float decayDelay = 5f)
+
+        internal StructureDamageTracker(Submarine subToTrack, Func<float, float> resetDamageFunc, float threshold = 20f, float decay = 1f, float decayDelay = 5f)
         {
             Hooks.Instance.OnStructureDamaged += OnStructureDamaged;
             _sub = subToTrack;
             _threshold = threshold;
-            _maxRepLoss = maxRepLoss;
             _decayPerSec = decay * (float)Timing.Step;
             _decayDelay = decayDelay;
+            _resetDamageFunc = resetDamageFunc;
         }
+
+        internal StructureDamageTracker(Submarine subToTrack, float threshold = 20f, float decay = 1f, float decayDelay = 5f)
+        {
+            Hooks.Instance.OnStructureDamaged += OnStructureDamaged;
+            _sub = subToTrack;
+            _threshold = threshold;
+            _decayPerSec = decay * (float)Timing.Step;
+            _decayDelay = decayDelay;
+            _resetDamageFunc = (float val) => 0;
+        }
+
+        readonly Func<float, float> _resetDamageFunc;
 
         public void Update()
         {
@@ -103,33 +118,18 @@ namespace MoreLevelContent.Shared.Utils
 
             if (_accumulatedDamage < _threshold) return;
 
-            if (!_displayedWarning)
+            if (!_threshholdCrossed)
             {
-#if SERVER
-                GameMain.Server?.SendChatMessage(TextManager.GetServerMessage("distress.ghostship.damagenotification")?.Value, ChatMessageType.Default);
-#endif
-#if CLIENT
-                if (GameMain.IsSingleplayer)
-                {
-                    GameMain.GameSession?.CrewManager?.AddSinglePlayerChatMessage(
-                        TextManager.Get("mlc.info1")?.Value, TextManager.Get("distress.ghostship.damagenotification")?.Value,
-                        ChatMessageType.MessageBox, null);
-                }
-#endif
-                _accumulatedDamage = 0;
-                _displayedWarning = true;
-                Log.Debug("Showed warning message");
+                ThresholdCrossed?.Invoke();
+                _accumulatedDamage = _resetDamageFunc.Invoke(_accumulatedDamage);
+                _threshholdCrossed = true;
+                Log.Debug($"Reset accumulated damage to {_accumulatedDamage}");
                 return;
             }
 
             if (GameMain.GameSession?.Campaign?.Map?.CurrentLocation?.Reputation != null)
             {
-                if (_lostRep >= _maxRepLoss) return;
-
-                var reputationLoss = damageAmount * Reputation.ReputationLossPerWallDamage;
-                reputationLoss = Math.Min(reputationLoss, 10); // clamp rep loss to a value 0-10
-                GameMain.GameSession.Campaign.Map.CurrentLocation.Reputation.AddReputation(-reputationLoss);
-                _lostRep += reputationLoss;
+                DamageAfterThreshold?.Invoke(damageAmount);
             }
         }
 

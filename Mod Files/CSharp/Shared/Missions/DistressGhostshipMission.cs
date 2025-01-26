@@ -36,7 +36,7 @@ namespace MoreLevelContent.Missions
         private Submarine ghostship;
         private LevelData levelData;
         private TrackingSonarMarker trackingSonarMarker;
-        private ReputationDamageTracker damageTracker;
+        private StructureDamageTracker damageTracker;
         private int salvagedReward = 0;
 
         enum TravelTarget
@@ -144,7 +144,7 @@ namespace MoreLevelContent.Missions
             ghostship = submarine;
             ghostship.FlipX();
             submarine.ShowSonarMarker = false;
-            submarine.TeamID = CharacterTeamType.Team1;
+            submarine.TeamID = CharacterTeamType.FriendlyNPC;
             ghostship.Info.Type = (SubmarineType)7;
             submarine.PhysicsBody.FarseerBody.BodyType = FarseerPhysics.BodyType.Dynamic;
 
@@ -341,11 +341,41 @@ namespace MoreLevelContent.Missions
             }
         }
 
+        const float MAX_REP_LOSS = 20f;
+        float _LostRep = 0;
         void StartServer()
         {
             // Reputation stuff
-            damageTracker = new ReputationDamageTracker(ghostship, 2.0f, 20f, 1f, 2f);
+            damageTracker = new StructureDamageTracker(ghostship, 2.0f, 1f, 2f);
+            damageTracker.DamageAfterThreshold += DamageTracker_DamageAfterThreshold;
+            damageTracker.ThresholdCrossed += DamageTracker_ThresholdCrossed;
+            _LostRep = 0;
         }
+
+        private void DamageTracker_ThresholdCrossed()
+        {
+            #if SERVER
+                            GameMain.Server?.SendChatMessage(TextManager.GetServerMessage("distress.ghostship.damagenotification")?.Value, ChatMessageType.Default);
+            #endif
+            #if CLIENT
+                            if (GameMain.IsSingleplayer)
+                            {
+                                GameMain.GameSession?.CrewManager?.AddSinglePlayerChatMessage(
+                                    TextManager.Get("mlc.info1")?.Value, TextManager.Get("distress.ghostship.damagenotification")?.Value,
+                                    ChatMessageType.MessageBox, null);
+                            }
+            #endif
+        }
+
+        private void DamageTracker_DamageAfterThreshold(float amount)
+        {
+            if (_LostRep >= MAX_REP_LOSS) return;
+            var reputationLoss = amount * Reputation.ReputationLossPerWallDamage;
+            reputationLoss = Math.Min(reputationLoss, 10); // clamp rep loss to a value 0-10
+            GameMain.GameSession.Campaign.Map.CurrentLocation.Reputation.AddReputation(-reputationLoss);
+            _LostRep += reputationLoss;
+        }
+
         void InitShip()
         {
             ghostship.NeutralizeBallast();

@@ -1,4 +1,5 @@
 ﻿using Barotrauma;
+using Barotrauma.Items.Components;
 using Barotrauma.MoreLevelContent.Shared.Utils;
 using Microsoft.Xna.Framework;
 using MoreLevelContent.Networking;
@@ -7,7 +8,9 @@ using MoreLevelContent.Shared.Data;
 using MoreLevelContent.Shared.Generation;
 using MoreLevelContent.Shared.Generation.Pirate;
 using MoreLevelContent.Shared.Store;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace MoreLevelContent
 {
@@ -26,6 +29,58 @@ namespace MoreLevelContent
             CommandUtils.AddCommand("mlc_toggleMapDisplay", "Toggles if all map locations should be shown, even if they are not discovered yet", _toggleMapDisplay, isCheat: true);
             CommandUtils.AddCommand("mlc_showpatchnotes", "Displays the patch notes", _showPatchnotes);
             CommandUtils.AddCommand("mlc_leveldatadebug", "Displays debug info on the current level's generation data", _isDistressActive);
+            CommandUtils.AddCommand("mlc_itemspotcheck", "", _itemSpotCheck, isCheat: true);
+            CommandUtils.AddCommand("mlc_togglelaggymotiondetectors", "", _motionToggle, isCheat: true);
+        }
+
+        private void _motionToggle(object[] args)
+        {
+            Log.Debug($"Checking {Item.ItemList.Count} items...");
+            Stopwatch sw = new Stopwatch();
+            Stopwatch totalTime = new Stopwatch();
+            int duration = 500;
+            totalTime.Start();
+            sw.Start();
+            foreach (Item item in Item.ItemList)
+            {
+                item.Update((float)(Timing.Step), GameMain.GameScreen.Cam);
+                if (sw.ElapsedTicks > duration)
+                {
+                    MotionSensor sensor = item.GetComponent<MotionSensor>();
+                    if (sensor == null) continue;
+                    Log.Debug($"Disabling item: {item.Name} : {item.Prefab.Identifier} width: {sensor.RangeX} height: {sensor.RangeY} with interval {sensor.UpdateInterval} (in room {item.CurrentHull?.RoomName})");
+                    sensor.UpdateInterval = 1;
+                }
+
+                sw.Restart();
+            }
+        }
+
+        private void _itemSpotCheck(object[] args)
+        {
+            Log.Debug("Preforming spot check...");
+            string[] arg = (string[])args[0];
+            int duration = 1;
+            if (arg.Length > 0 && !int.TryParse(arg[0], out duration));
+            bool listAll = false;
+            if (arg.Length > 0 && !bool.TryParse(arg[0], out listAll));
+            Log.Debug($"Checking {Item.ItemList.Count} items...");
+            Stopwatch sw = new Stopwatch();
+            Stopwatch totalTime = new Stopwatch();
+            totalTime.Start();
+            sw.Start();
+            foreach (Item item in Item.ItemList)
+            {
+                item.Update((float)(Timing.Step), GameMain.GameScreen.Cam);
+                if (sw.ElapsedTicks > duration || listAll)
+                {
+                    Log.Debug($"-- Item: {item.Name} : {item.Prefab.Identifier} (in room {item.CurrentHull?.RoomName}) from package {item.Prefab.ContentPackage.Name} took {sw.ElapsedTicks} to update!");
+                }
+                
+                sw.Restart();
+            }
+
+            Log.Debug($"Done: {totalTime.ElapsedMilliseconds}!");
         }
 
         private void _isDistressActive(object[] args)

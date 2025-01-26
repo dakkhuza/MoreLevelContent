@@ -200,6 +200,8 @@
                 crewsurviveidentifier="distress.submarinesuccess.crew"
                 subsalvagedidentifer="distress.submarinesuccess.sub"
                 revealedFailureidentifer="distress.submarinefail"
+                minleveldifficulty="0"
+                maxleveldifficulty="20"
         >
 
                 <Submarine path="Content/Submarines/Selkie.sub" />
@@ -246,6 +248,8 @@
                 crewsurviveidentifier="distress.submarinesuccess.crew"
                 subsalvagedidentifer="distress.submarinesuccess.sub"
                 revealedFailureidentifer="distress.submarinefail"
+                minleveldifficulty="20"
+                maxleveldifficulty="40"
         >
 
                 <Submarine path="Content/Submarines/Venture.sub" />
@@ -253,14 +257,14 @@
                 <monsters commonness="100">
                         <monster
                                 character="Crawler"
-                                min="2"
-                                max="4" />
+                                min="3"
+                                max="6" />
                 </monsters>
                 <monsters commonness="50">
                         <monster
                                 character="Mudraptor"
-                                min="0"
-                                max="1" />
+                                min="1"
+                                max="2" />
                         <monster
                                 character="Mudraptor_unarmored"
                                 min="1"
@@ -269,8 +273,8 @@
                 <monsters commonness="40">
                         <monster
                                 character="Husk"
-                                min="2"
-                                max="5" />
+                                min="4"
+                                max="7" />
                 </monsters>
                 <monsters commonness="20">
                         <monster
@@ -279,18 +283,18 @@
                                 max="3" />
                         <monster
                                 character="Bonethresher"
-                                min="0"
-                                max="1" />
+                                min="1"
+                                max="2" />
                 </monsters>
 
                 <Characters>
                         <Item from="mlc_distress_npcs" identifier="shuttlecaptain"
-                                allowordering="true" isCaptain="true" payout="150"
+                                allowordering="true" isCaptain="true" payout="250"
                                 color="250,164,107" />
-                        <Item from="outpostnpcs1" identifier="commoner" allowordering="true"
-                                payout="500" />
-                        <Item from="outpostnpcs1" identifier="commoner" allowordering="true"
-                                payout="500" />
+                        <Item from="escortnpcs1" identifier="vip" allowordering="true"
+                                payout="1000" />
+                        <Item from="escortnpcs1" identifier="securitynpc" allowordering="true"
+                                payout="250" />
                 </Characters>
 
                 <message text="missionmessage0.distress_shiprescue" />
@@ -320,6 +324,7 @@
                 crewsurviveidentifier="distress.submarinesuccess.crew"
                 subsalvagedidentifer="distress.submarinesuccess.sub"
                 revealedFailureidentifer="distress.submarinefail"
+                minleveldifficulty="40"
         >
 
                 <Submarine path="Content/Submarines/Hemulen.sub" />
@@ -328,13 +333,13 @@
                         <monster
                                 character="Crawler"
                                 min="4"
-                                max="4" />
+                                max="8" />
                 </monsters>
                 <monsters commonness="50">
                         <monster
                                 character="Mudraptor"
-                                min="1"
-                                max="1" />
+                                min="2"
+                                max="3" />
                         <monster
                                 character="Mudraptor_unarmored"
                                 min="1"
@@ -343,18 +348,18 @@
                 <monsters commonness="40">
                         <monster
                                 character="Husk"
-                                min="3"
-                                max="5" />
+                                min="8"
+                                max="10" />
                 </monsters>
                 <monsters commonness="20">
                         <monster
                                 character="Tigerthresher"
-                                min="1"
-                                max="3" />
+                                min="2"
+                                max="4" />
                         <monster
                                 character="Bonethresher"
                                 min="1"
-                                max="1" />
+                                max="2" />
                 </monsters>
 
                 <Characters>
@@ -362,15 +367,15 @@
                                 allowordering="true" isCaptain="true" payout="250"
                                 color="250,164,107" />
                         <Item from="outpostnpcs1" identifier="commoner" allowordering="true"
-                                payout="400" />
-                        <Item from="outpostnpcs1" identifier="commoner" allowordering="true"
-                                payout="400" />
-                        <Item from="outpostnpcs1" identifier="commoner" allowordering="true"
-                                payout="400" />
-                        <Item from="outpostnpcs1" identifier="commoner" allowordering="true"
-                                payout="400" />
-                        <Item from="outpostnpcs1" identifier="commoner" allowordering="true"
-                                payout="400" />
+                                payout="500" />
+                        <Item from="escortnpcs1" identifier="vip" allowordering="true"
+                                payout="1000" />
+                        <Item from="escortnpcs1" identifier="vip" allowordering="true"
+                                payout="2000" />
+                        <Item from="escortnpcs1" identifier="securitynpc" allowordering="true"
+                                payout="250" />
+                        <Item from="escortnpcs1" identifier="securitynpc" allowordering="true"
+                                payout="250" />
                 </Characters>
 
                 <message text="missionmessage0.distress_shiprescue" />
@@ -435,36 +440,83 @@
         <!--                       Distress Ghostship Missions                         -->
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
+        <!-- Bandit -->
+
         <DistressGhostship
-                identifier="distress_ghostship_clowns"
+                identifier="distress_ghostship_bandit_easy"
                 textidentifier="distressmission"
                 tags="distress, mlc"
                 type="GoTo"
                 customType="DistressGhostship"
-                commonness="2"
+                commonness="5"
                 reward="0"
-                successmessage="distress.success.clowns"
+                successmessage="distress.success.distress_ghostship_bandit1"
+                minleveldifficulty="0"
+                maxleveldifficulty="20"
         >
                 <Submarines>
-                        <Sub path="Content/Submarines/Barsuk.sub" commonness="100" />
+                        <Sub path="Content/Submarines/Barsuk.sub" commonness="40" />
+                        <Sub path="Content/Submarines/Dugong.sub" commonness="35" />
+                        <Sub path="Content/Submarines/Camel.sub" commonness="25" />
                 </Submarines>
 
+                <Reputation
+                        identifier="location"
+                        amount="3" amountforopposingfaction="-1" />
+
+
+                <Characters>
+                        <Item
+                                from="mlc_distress_corpses"
+                                identifier="distress_captain"
+                                minmoney="100"
+                                maxmoney="300"
+                                alive="false">
+                                <AdditionalItems>
+                                        <Item identifier="captains_notebook" />
+                                </AdditionalItems>
+
+                                <Affliction identifier="gunshotwound" randomLimb="true"
+                                        randomStrength="true" count="4" />
+                        </Item>
+                        <Item
+                                from="mlc_distress_corpses"
+                                identifier="distress_engineer"
+                                minmoney="25"
+                                maxmoney="70"
+                                alive="false">
+                                <Affliction identifier="gunshotwound" randomLimb="true"
+                                        randomStrength="true" count="4" />
+                        </Item>
+                        <Item
+                                from="mlc_distress_corpses"
+                                identifier="distress_mechanic"
+                                minmoney="25"
+                                maxmoney="70"
+                                alive="false">
+                                <Affliction identifier="gunshotwound" randomLimb="true"
+                                        randomStrength="true" count="4" />
+                        </Item>
+                </Characters>
+
                 <Decals>
-                        <Item prefab="fruitsplatter_red" count="20" />
-                        <Item prefab="fruitsplatter_green" count="20" />
-                        <Item prefab="fruitsplatter_blue" count="20" />
-                        <Item prefab="fruitsplatter_black" count="20" />
-                        <Item prefab="fruitsplatter_white" count="20" />
+                        <Item prefab="blood" count="20" />
+                        <Item prefab="explosion" count="2" preferedhull="roomname.commandroom" />
                 </Decals>
+
+                <!--DamageDevices>
+                        <Item tag="command" condition="0" all="true" />
+                        <Item tag="engine" condition="0" all="true" />
+                </DamageDevices-->
 
                 <message header="missionheader0.distress_ghostship"
                         text="missionmessage0.distress_ghostship" />
 
                 <message header="missionheader1.distress_ghostship"
-                        text="missionmessage1.quiet" />
+                        text="missionmessage1.distress_ghostship_bandit1" />
 
 
-                <TriggerEvent state="0" delay="5" eventidentifier="distress_ghostship_clowns"
+                <TriggerEvent state="0" delay="5" eventidentifier="distress_ghostship_bandit_2_easy"
                         campaignonly="true" />
                 <Icon
                         texture="%ModDir%/Missions/Icons.png"
@@ -473,7 +525,7 @@
         </DistressGhostship>
 
         <DistressGhostship
-                identifier="distress_ghostship_bandit1"
+                identifier="distress_ghostship_bandit_easy2"
                 textidentifier="distressmission"
                 tags="distress, mlc"
                 type="GoTo"
@@ -481,11 +533,13 @@
                 commonness="5"
                 reward="0"
                 successmessage="distress.success.distress_ghostship_bandit1"
+                minleveldifficulty="10"
+                maxleveldifficulty="30"
         >
                 <Submarines>
+                        <Sub path="Content/Submarines/Barsuk.sub" commonness="25" />
                         <Sub path="Content/Submarines/Dugong.sub" commonness="50" />
                         <Sub path="Content/Submarines/Camel.sub" commonness="25" />
-                        <Sub path="Content/Submarines/Orca.sub" commonness="15" />
                 </Submarines>
 
                 <Reputation
@@ -553,19 +607,21 @@
         </DistressGhostship>
 
         <DistressGhostship
-                identifier="distress_ghostship_bandit2"
+                identifier="distress_ghostship_bandit_medium"
                 textidentifier="distressmission"
                 tags="distress, mlc"
                 type="GoTo"
                 customType="DistressGhostship"
-                commonness="5"
+                commonness="4"
                 reward="0"
                 successmessage="distress.success.distress_ghostship_bandit1"
+                minleveldifficulty="20"
+                maxleveldifficulty="40"
         >
                 <Submarines>
+                        <Sub path="Content/Submarines/Barsuk.sub" commonness="25" />
                         <Sub path="Content/Submarines/Dugong.sub" commonness="50" />
                         <Sub path="Content/Submarines/Camel.sub" commonness="25" />
-                        <Sub path="Content/Submarines/Orca.sub" commonness="15" />
                 </Submarines>
 
                 <Reputation
@@ -577,8 +633,8 @@
                         <Item
                                 from="mlc_distress_corpses"
                                 identifier="distress_captain"
-                                minmoney="100"
-                                maxmoney="300"
+                                minmoney="500"
+                                maxmoney="1000"
                                 alive="false">
                                 <AdditionalItems>
                                         <Item identifier="captains_notebook" />
@@ -590,8 +646,8 @@
                         <Item
                                 from="mlc_distress_corpses"
                                 identifier="distress_engineer"
-                                minmoney="25"
-                                maxmoney="70"
+                                minmoney="100"
+                                maxmoney="300"
                                 alive="false">
                                 <Affliction identifier="gunshotwound" randomLimb="true"
                                         randomStrength="true" count="4" />
@@ -599,8 +655,173 @@
                         <Item
                                 from="mlc_distress_corpses"
                                 identifier="distress_mechanic"
-                                minmoney="25"
-                                maxmoney="70"
+                                minmoney="100"
+                                maxmoney="300"
+                                alive="false">
+                                <Affliction identifier="gunshotwound" randomLimb="true"
+                                        randomStrength="true" count="4" />
+                        </Item>
+                </Characters>
+
+                <Decals>
+                        <Item prefab="blood" count="20" />
+                        <Item prefab="explosion" count="2" preferedhull="roomname.commandroom" />
+                </Decals>
+
+                <!--DamageDevices>
+                        <Item tag="command" condition="0" all="true" />
+                        <Item tag="engine" condition="0" all="true" />
+                </DamageDevices-->
+
+                <message header="missionheader0.distress_ghostship"
+                        text="missionmessage0.distress_ghostship" />
+
+                <message header="missionheader1.distress_ghostship"
+                        text="missionmessage1.distress_ghostship_bandit1" />
+
+
+                <TriggerEvent state="0" delay="5" eventidentifier="distress_ghostship_bandit_4_easy"
+                        campaignonly="true" />
+                <Icon
+                        texture="%ModDir%/Missions/Icons.png"
+                        sourcerect="256,0,256,256"
+                        color="255,106,106" />
+        </DistressGhostship>
+
+        <DistressGhostship
+                identifier="distress_ghostship_bandit_medium1"
+                textidentifier="distressmission"
+                tags="distress, mlc"
+                type="GoTo"
+                customType="DistressGhostship"
+                commonness="4"
+                reward="0"
+                successmessage="distress.success.distress_ghostship_bandit1"
+                minleveldifficulty="20"
+                maxleveldifficulty="40"
+        >
+                <Submarines>
+                        <Sub path="Content/Submarines/Barsuk.sub" commonness="25" />
+                        <Sub path="Content/Submarines/Dugong.sub" commonness="50" />
+                        <Sub path="Content/Submarines/Camel.sub" commonness="25" />
+                </Submarines>
+
+                <Reputation
+                        identifier="location"
+                        amount="3" amountforopposingfaction="-1" />
+
+
+                <Characters>
+                        <Item
+                                from="mlc_distress_corpses"
+                                identifier="distress_captain"
+                                minmoney="500"
+                                maxmoney="1000"
+                                alive="false">
+                                <AdditionalItems>
+                                        <Item identifier="captains_notebook" />
+                                </AdditionalItems>
+
+                                <Affliction identifier="gunshotwound" randomLimb="true"
+                                        randomStrength="true" count="4" />
+                        </Item>
+                        <Item
+                                from="mlc_distress_corpses"
+                                identifier="distress_engineer"
+                                minmoney="100"
+                                maxmoney="300"
+                                alive="false">
+                                <Affliction identifier="gunshotwound" randomLimb="true"
+                                        randomStrength="true" count="4" />
+                        </Item>
+                        <Item
+                                from="mlc_distress_corpses"
+                                identifier="distress_mechanic"
+                                minmoney="100"
+                                maxmoney="300"
+                                alive="false">
+                                <Affliction identifier="gunshotwound" randomLimb="true"
+                                        randomStrength="true" count="4" />
+                        </Item>
+                </Characters>
+
+                <Decals>
+                        <Item prefab="blood" count="20" />
+                        <Item prefab="explosion" count="2" preferedhull="roomname.commandroom" />
+                </Decals>
+
+                <!--DamageDevices>
+                        <Item tag="command" condition="0" all="true" />
+                        <Item tag="engine" condition="0" all="true" />
+                </DamageDevices-->
+
+                <message header="missionheader0.distress_ghostship"
+                        text="missionmessage0.distress_ghostship" />
+
+                <message header="missionheader1.distress_ghostship"
+                        text="missionmessage1.distress_ghostship_bandit1" />
+
+
+                <TriggerEvent state="0" delay="5"
+                        eventidentifier="distress_ghostship_bandit_4_medium"
+                        campaignonly="true" />
+                <Icon
+                        texture="%ModDir%/Missions/Icons.png"
+                        sourcerect="256,0,256,256"
+                        color="255,106,106" />
+        </DistressGhostship>
+
+        <DistressGhostship
+                identifier="distress_ghostship_bandit_hard1"
+                textidentifier="distressmission"
+                tags="distress, mlc"
+                type="GoTo"
+                customType="DistressGhostship"
+                commonness="4"
+                reward="0"
+                successmessage="distress.success.distress_ghostship_bandit1"
+                minleveldifficulty="20"
+                maxleveldifficulty="40"
+        >
+                <Submarines>
+                        <Sub path="Content/Submarines/Barsuk.sub" commonness="25" />
+                        <Sub path="Content/Submarines/Dugong.sub" commonness="50" />
+                        <Sub path="Content/Submarines/Camel.sub" commonness="25" />
+                </Submarines>
+
+                <Reputation
+                        identifier="location"
+                        amount="3" amountforopposingfaction="-1" />
+
+
+                <Characters>
+                        <Item
+                                from="mlc_distress_corpses"
+                                identifier="distress_captain"
+                                minmoney="500"
+                                maxmoney="1000"
+                                alive="false">
+                                <AdditionalItems>
+                                        <Item identifier="captains_notebook" />
+                                </AdditionalItems>
+
+                                <Affliction identifier="gunshotwound" randomLimb="true"
+                                        randomStrength="true" count="4" />
+                        </Item>
+                        <Item
+                                from="mlc_distress_corpses"
+                                identifier="distress_engineer"
+                                minmoney="100"
+                                maxmoney="300"
+                                alive="false">
+                                <Affliction identifier="gunshotwound" randomLimb="true"
+                                        randomStrength="true" count="4" />
+                        </Item>
+                        <Item
+                                from="mlc_distress_corpses"
+                                identifier="distress_mechanic"
+                                minmoney="100"
+                                maxmoney="300"
                                 alive="false">
                                 <Affliction identifier="gunshotwound" randomLimb="true"
                                         randomStrength="true" count="4" />
@@ -632,6 +853,9 @@
                         color="255,106,106" />
         </DistressGhostship>
 
+
+        <!-- Husk -->
+
         <DistressGhostship
                 identifier="distress_ghostship_husks"
                 textidentifier="distressmission"
@@ -641,6 +865,7 @@
                 commonness="5"
                 reward="0"
                 successmessage="distress.success.distress_ghostship_husks"
+                minleveldifficulty="20"
         >
                 <Submarines>
                         <Sub path="Content/Submarines/Camel.sub" commonness="1" />
@@ -781,10 +1006,12 @@
                 commonness="5"
                 reward="0"
                 successmessage="distress.success.distress_ghostship_husks"
+                minleveldifficulty="40"
         >
                 <Submarines>
-                        <Sub path="Content/Submarines/Camel.sub" commonness="1" />
+                        <Sub path="Content/Submarines/Azimuth.sub" commonness="1" />
                         <Sub path="Content/Submarines/Orca.sub" commonness="1" />
+                        <Sub path="Content/Submarines/Typhon.sub" commonness="1" />
                 </Submarines>
 
                 <Reputation
@@ -892,6 +1119,7 @@
                         color="255,106,106" />
         </DistressGhostship>
 
+        <!-- Special -->
 
         <DistressGhostship
                 identifier="distress_ghostship_crawlers"
@@ -899,9 +1127,10 @@
                 tags="distress, mlc"
                 type="GoTo"
                 customType="DistressGhostship"
-                commonness="5"
+                commonness="3"
                 reward="0"
                 successmessage="distress.success.distress_ghostship_crawlers"
+                minleveldifficulty="0"
         >
                 <Submarines
                         floodtargets="roomname.reactorroom, roomname.subbottomright"
@@ -1000,6 +1229,8 @@
                 commonness="4"
                 reward="0"
                 successmessage="distress.success.distress_ghostship_prisonbreak"
+                minleveldifficulty="15"
+                maxleveldifficulty="40"
         >
                 <Submarines traveltarget="Start">
                         <Sub path="Content/Submarines/Venture.sub" />
@@ -1074,10 +1305,10 @@
                 commonness="3"
                 reward="0"
                 successmessage="distress.success.distress_ghostship_prisonbreak"
+                minleveldifficulty="30"
         >
                 <Submarines traveltarget="Start">
-                        <Sub path="Content/Submarines/Venture.sub" />
-                        <Sub path="Content/Submarines/Hemulen.sub" />
+                        <Sub path="Content/Submarines/Dugong.sub" commonness="50" />
                 </Submarines>
 
                 <Reputation
@@ -1148,6 +1379,7 @@
                 commonness="1"
                 reward="0"
                 successmessage="distress.success.distress_ghostship_alienship"
+                minleveldifficulty="30"
         >
                 <Submarines floodtargets="roomname.armory"
                         minfloodpercentage="1" maxfloodpercentage="1">
@@ -1231,6 +1463,45 @@
                         sourcerect="256,0,256,256"
                         color="255,106,106" />
         </DistressGhostship>
+
+        <DistressGhostship
+                identifier="distress_ghostship_clowns"
+                textidentifier="distressmission"
+                tags="distress, mlc"
+                type="GoTo"
+                customType="DistressGhostship"
+                commonness="2"
+                reward="0"
+                successmessage="distress.success.clowns"
+                minleveldifficulty="0"
+        >
+                <Submarines>
+                        <Sub path="Content/Submarines/Barsuk.sub" commonness="100" />
+                </Submarines>
+
+                <Decals>
+                        <Item prefab="fruitsplatter_red" count="20" />
+                        <Item prefab="fruitsplatter_green" count="20" />
+                        <Item prefab="fruitsplatter_blue" count="20" />
+                        <Item prefab="fruitsplatter_black" count="20" />
+                        <Item prefab="fruitsplatter_white" count="20" />
+                </Decals>
+
+                <message header="missionheader0.distress_ghostship"
+                        text="missionmessage0.distress_ghostship" />
+
+                <message header="missionheader1.distress_ghostship"
+                        text="missionmessage1.quiet" />
+
+
+                <TriggerEvent state="0" delay="5" eventidentifier="distress_ghostship_clowns"
+                        campaignonly="true" />
+                <Icon
+                        texture="%ModDir%/Missions/Icons.png"
+                        sourcerect="256,0,256,256"
+                        color="255,106,106" />
+        </DistressGhostship>
+
 
         <!--DistressGhostship
                 identifier="distress_ghostship_outoffuel"

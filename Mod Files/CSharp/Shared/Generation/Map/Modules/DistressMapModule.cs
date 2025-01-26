@@ -202,6 +202,17 @@ namespace MoreLevelContent.Shared.Generation
             data.DistressStepsLeft = eventDuration;
         }
 
+        protected override bool TryGetMissionPrefab(LevelData levelData, out MissionPrefab prefab)
+        {
+            if (!ForcedMissionIdentifier.IsNullOrEmpty()) return base.TryGetMissionPrefab(levelData, out prefab);
+            var orderedMissions = MissionPrefab.Prefabs.Where(m => m.Tags.Contains(EventTag) && m.IsAllowedDifficulty(levelData.Difficulty)).OrderBy(m => m.UintIdentifier);
+
+            Random rand = new MTRandom(ToolBox.StringToInt(levelData.Seed));
+            prefab = ToolBox.SelectWeightedRandom(orderedMissions, p => p.Commonness, rand);
+            return prefab != null;
+
+        }
+
         protected override void HandleUpdate(LevelData_MLCData data, LocationConnection connection)
         {
             if (!data.HasDistress) return;

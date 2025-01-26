@@ -81,7 +81,7 @@ namespace MoreLevelContent.Shared.Generation
             // Never try to spawn a timed event on an outpost level
             if (levelData.Type == LevelData.LevelType.Outpost) return;
 
-            if (TryGetMissionByTag(EventTag, levelData, out MissionPrefab prefab, ForcedMissionIdentifier))
+            if (TryGetMissionPrefab(levelData, out MissionPrefab prefab))
             {
                 Log.Debug($"Adding {EventTag} mission");
                 Mission inst = prefab.Instantiate(GameMain.GameSession.Map.SelectedConnection.Locations, Submarine.MainSub);
@@ -93,7 +93,11 @@ namespace MoreLevelContent.Shared.Generation
             {
                 Log.Error($"Failed to find any {EventTag} missions!");
             }
+        }
 
+        protected virtual bool TryGetMissionPrefab(LevelData levelData, out MissionPrefab prefab)
+        {
+            return TryGetMissionByTag(EventTag, levelData, out prefab, ForcedMissionIdentifier);
         }
 
         protected void AddExtraMission(Mission mission)

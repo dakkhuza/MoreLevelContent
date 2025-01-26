@@ -195,6 +195,348 @@
         </npc>
     </npcset>
 
+    <npcset identifier="mlc_distress_bandits">
+        <npc identifier="bandit" commonness="0" tags="bandit" job="alwaysfightintruders" behavior="Patrol" healthmultiplier="0.75" hearing="1.0">
+            <ItemSet commonness="1">
+                <Item identifier="idcard" equip="true" />
+                <Item identifier="banditclothes1" equip="true" />
+                <Item identifier="divingmask">
+                    <Item identifier="oxygentank" />
+                </Item>
+                <Item identifier="weldingtool">
+                    <Item identifier="weldingfueltank" />
+                </Item>
+                <Item identifier="wrench" equip="true" />
+                <Item identifier="divingknife" equip="false" />
+                <Item identifier="toolbelt" equip="true" />
+            </ItemSet>
+            <ItemSet commonness="1">
+                <Item identifier="idcard" equip="true" />
+                <Item identifier="banditclothes1" equip="true" />
+                <Item identifier="divingmask">
+                    <Item identifier="oxygentank" />
+                </Item>
+                <Item identifier="weldingtool">
+                    <Item identifier="weldingfueltank" />
+                </Item>
+                <Item identifier="divingknife" equip="false" />
+                <Item identifier="toolbelt" equip="true" />
+                <Item identifier="revolver">
+                    <Item identifier="revolverround" amount="6" />
+                </Item>
+            </ItemSet>
+            <ItemSet commonness="1">
+                <Item identifier="idcard" equip="true" />
+                <Item identifier="banditclothes2" equip="true" />
+                <Item identifier="divingmask">
+                    <Item identifier="oxygentank" />
+                </Item>
+                <Item identifier="weldingtool">
+                    <Item identifier="weldingfueltank" />
+                </Item>
+                <Item identifier="baseballcap" equip="true" />
+                <Item identifier="crowbar" equip="false" />
+            </ItemSet>
+            <ItemSet commonness="1">
+                <Item identifier="idcard" equip="true" />
+                <Item identifier="banditclothes2" equip="true" />
+                <Item identifier="divingmask">
+                    <Item identifier="oxygentank" />
+                </Item>
+                <Item identifier="weldingtool">
+                    <Item identifier="weldingfueltank" />
+                </Item>
+                <Item identifier="crowbar" equip="true" />
+                <Item identifier="toolbelt" equip="true" />
+                <Item identifier="revolver">
+                    <Item identifier="revolverround" amount="6" />
+                </Item>
+            </ItemSet>
+        </npc>
+        <npc identifier="bandit_heavy" commonness="0" tags="bandit"
+            moduleflags="crewmodule,engineeringmodule" job="alwaysfightintruders" behavior="Patrol"
+            healthmultiplier="0.8" aimspeed="1.25" aimaccuracy="0.5" reportrange="550"
+            hearing="1.5" findweaponsrange="1000">
+            <ItemSet commonness="1">
+                <Item identifier="idcard" equip="true" />
+                <Item identifier="piratehelmet" equip="true" />
+                <Item identifier="banditclothes1" equip="true" />
+                <Item identifier="divingmask">
+                    <Item identifier="oxygentank" />
+                </Item>
+                <Item identifier="weldingtool">
+                    <Item identifier="weldingfueltank" />
+                </Item>
+                <Item identifier="divingknife" equip="false" />
+                <Item identifier="machinepistol" equip="true">
+                    <Item identifier="smgmagazine" />
+                </Item>
+                <Item identifier="toolbelt" equip="true" />
+            </ItemSet>
+            <ItemSet commonness="1">
+                <Item identifier="idcard" equip="true" />
+                <Item identifier="piratehelmet" equip="true" />
+                <Item identifier="banditclothes1" equip="true" />
+                <Item identifier="divingmask">
+                    <Item identifier="oxygentank" />
+                </Item>
+                <Item identifier="weldingtool">
+                    <Item identifier="weldingfueltank" />
+                </Item>
+                <Item identifier="divingknife" equip="false" />
+                <Item identifier="toolbelt" equip="true" />
+                <Item identifier="revolver">
+                    <Item identifier="revolverround" amount="6" />
+                </Item>
+            </ItemSet>
+            <ItemSet commonness="1">
+                <Item identifier="idcard" equip="true" />
+                <Item identifier="piratehelmet" equip="true" />
+                <Item identifier="banditclothes2" equip="true" />
+                <Item identifier="divingmask">
+                    <Item identifier="oxygentank" />
+                </Item>
+                <Item identifier="weldingtool">
+                    <Item identifier="weldingfueltank" />
+                </Item>
+                <Item identifier="baseballcap" equip="true" />
+                <Item identifier="crowbar" equip="false" />
+                <Item identifier="shotgun">
+                    <Item identifier="shotgunshell" amount="6" />
+                </Item>
+            </ItemSet>
+            <ItemSet commonness="1">
+                <Item identifier="idcard" equip="true" />
+                <Item identifier="banditclothes2" equip="true" />
+                <Item identifier="piratebodyarmor" equip="true" />
+                <Item identifier="divingmask">
+                    <Item identifier="oxygentank" />
+                </Item>
+                <Item identifier="weldingtool">
+                    <Item identifier="weldingfueltank" />
+                </Item>
+                <Item identifier="divingknife" equip="false" />
+                <Item identifier="toolbelt" equip="true" />
+                <Item identifier="revolver" equip="true">
+                    <Item identifier="revolverround" amount="6" />
+                </Item>
+            </ItemSet>
+        </npc>
+        <npc identifier="bandit_elite" commonness="0" tags="bandit" job="alwaysfightintruders" behavior="Patrol"
+            aimspeed="1.5" aimaccuracy="0.85" reportrange="600" hearing="2.0"
+            findweaponsrange="1000">
+            <ItemSet commonness="1">
+                <Item identifier="idcard" equip="true" />
+                <Item identifier="banditclothes1" equip="true" />
+                <Item identifier="piratebodyarmor" equip="true" />
+                <Item identifier="piratehelmet" equip="true" />
+                <Item identifier="divingmask">
+                    <Item identifier="oxygentank" />
+                </Item>
+                <Item identifier="weldingtool">
+                    <Item identifier="weldingfueltank" />
+                </Item>
+                <Item identifier="divingknife" equip="false" />
+                <Item identifier="smgmagazine" amount="2" />
+                <Item identifier="machinepistol" equip="true">
+                    <Item identifier="smgmagazine" />
+                </Item>
+                <Item identifier="machinepistol" equip="true">
+                    <Item identifier="smgmagazine" />
+                </Item>
+                <Item identifier="toolbelt" equip="true" />
+            </ItemSet>
+            <ItemSet commonness="1">
+                <Item identifier="idcard" equip="true" />
+                <Item identifier="banditclothes1" equip="true" />
+                <Item identifier="piratebodyarmor" equip="true" />
+                <Item identifier="piratehelmet" equip="true" />
+                <Item identifier="divingmask">
+                    <Item identifier="oxygentank" />
+                </Item>
+                <Item identifier="weldingtool">
+                    <Item identifier="weldingfueltank" />
+                </Item>
+                <Item identifier="divingknife" equip="false" />
+                <Item identifier="toolbelt" equip="true" />
+                <Item identifier="revolverround" amount="6" />
+                <Item identifier="revolver" equip="true">
+                    <Item identifier="revolverround" amount="6" />
+                </Item>
+                <Item identifier="revolver" equip="true">
+                    <Item identifier="revolverround" amount="6" />
+                </Item>
+            </ItemSet>
+            <ItemSet commonness="1">
+                <Item identifier="idcard" equip="true" />
+                <Item identifier="banditclothes2" equip="true" />
+                <Item identifier="piratebodyarmor" equip="true" />
+                <Item identifier="piratehelmet" equip="true" />
+                <Item identifier="divingmask">
+                    <Item identifier="oxygentank" />
+                </Item>
+                <Item identifier="weldingtool">
+                    <Item identifier="weldingfueltank" />
+                </Item>
+                <Item identifier="baseballcap" equip="true" />
+                <Item identifier="crowbar" equip="false" />
+                <Item identifier="shotgunshell" amount="6" />
+                <Item identifier="shotgun">
+                    <Item identifier="shotgunshell" amount="6" />
+                </Item>
+            </ItemSet>
+            <ItemSet commonness="1">
+                <Item identifier="idcard" equip="true" />
+                <Item identifier="banditclothes2" equip="true" />
+                <Item identifier="piratebodyarmor" equip="true" />
+                <Item identifier="piratehelmet" equip="true" />
+                <Item identifier="divingmask">
+                    <Item identifier="oxygentank" />
+                </Item>
+                <Item identifier="weldingtool">
+                    <Item identifier="weldingfueltank" />
+                </Item>
+                <Item identifier="divingknife" equip="false" />
+                <Item identifier="toolbelt" equip="true" />
+                <Item identifier="rifle" equip="true">
+                    <Item identifier="riflebullet" amount="6" />
+                </Item>
+            </ItemSet>
+        </npc>
+        <npc identifier="banditleader" commonness="0" tags="bandit"
+            job="alwaysfightintruders" behavior="Passive" aimspeed="2" aimaccuracy="1"
+            reportrange="750" hearing="1.0" findweaponsrange="1000">
+            <ItemSet commonness="1">
+                <Item identifier="idcard" equip="true" />
+                <Item identifier="divingknife" equip="false" />
+                <Item identifier="captainscap2" equip="true" />
+                <Item identifier="captainsuniform2" equip="true" />
+                <Item identifier="bodyarmor" equip="true" />
+                <Item identifier="steroids" />
+                <Item identifier="steroids" />
+                <Item identifier="divingmask">
+                    <Item identifier="oxygentank" />
+                </Item>
+                <Item identifier="weldingtool">
+                    <Item identifier="weldingfueltank" />
+                </Item>
+                <Item identifier="shotgun">
+                    <Item identifier="shotgunshell" amount="6" />
+                </Item>
+            </ItemSet>
+            <ItemSet commonness="0.5">
+                <Item identifier="idcard" equip="true" />
+                <Item identifier="divingknife" equip="false" />
+                <Item identifier="wrench" equip="true" />
+                <Item identifier="captainscap2" equip="true" />
+                <Item identifier="captainsuniform2" equip="true" />
+                <Item identifier="bodyarmor" equip="true" />
+                <Item identifier="steroids" />
+                <Item identifier="steroids" />
+                <Item identifier="toolbelt" equip="true" />
+                <Item identifier="divingmask">
+                    <Item identifier="oxygentank" />
+                </Item>
+                <Item identifier="weldingtool">
+                    <Item identifier="weldingfueltank" />
+                </Item>
+                <Item identifier="smg">
+                    <Item identifier="smgmagazine" />
+                </Item>
+            </ItemSet>
+        </npc>
+        <npc identifier="banditleader_heavy" commonness="0" tags="bandit"
+            job="alwaysfightintruders" behavior="Passive" aimspeed="2" aimaccuracy="1"
+            reportrange="750" hearing="1.0" findweaponsrange="1000">
+            <ItemSet commonness="0.8">
+                <Item identifier="idcard" equip="true" />
+                <Item identifier="divingknife" equip="false" />
+                <Item identifier="captainsuniform3" equip="true" />
+                <Item identifier="bodyarmor" equip="true" />
+                <Item identifier="steroids" />
+                <Item identifier="steroids" />
+                <Item identifier="divingmask">
+                    <Item identifier="oxygentank" />
+                </Item>
+                <Item identifier="weldingtool">
+                    <Item identifier="weldingfueltank" />
+                </Item>
+                <Item identifier="shotgun">
+                    <Item identifier="shotgunshell" amount="6" />
+                </Item>
+            </ItemSet>
+            <ItemSet commonness="0.5">
+                <Item identifier="idcard" equip="true" />
+                <Item identifier="divingknife" equip="false" />
+                <Item identifier="wrench" equip="true" />
+                <Item identifier="captainsuniform3" equip="true" />
+                <Item identifier="bodyarmor" equip="true" />
+                <Item identifier="steroids" />
+                <Item identifier="steroids" />
+                <Item identifier="divingmask">
+                    <Item identifier="oxygentank" />
+                </Item>
+                <Item identifier="weldingtool">
+                    <Item identifier="weldingfueltank" />
+                </Item>
+                <Item identifier="smg">
+                    <Item identifier="smgmagazine" />
+                </Item>
+            </ItemSet>
+            <ItemSet commonness="0.2">
+                <Item identifier="idcard" equip="true" />
+                <Item identifier="divingknife" equip="false" />
+                <Item identifier="captainsuniform3" equip="true" />
+                <Item identifier="bodyarmor" equip="true" />
+                <Item identifier="steroids" />
+                <Item identifier="steroids" />
+                <Item identifier="divingmask">
+                    <Item identifier="oxygentank" />
+                </Item>
+                <Item identifier="weldingtool">
+                    <Item identifier="weldingfueltank" />
+                </Item>
+                <Item identifier="shotgununique">
+                    <Item identifier="shotgunshell" />
+                    <Item identifier="shotgunshell" />
+                </Item>
+                <Item identifier="shotgunshell" amount="4" />
+            </ItemSet>
+            <ItemSet commonness="0.2">
+                <Item identifier="idcard" equip="true" />
+                <Item identifier="divingknife" equip="false" />
+                <Item identifier="captainsuniform3" equip="true" />
+                <Item identifier="bodyarmor" equip="true" />
+                <Item identifier="steroids" />
+                <Item identifier="steroids" />
+                <Item identifier="divingmask">
+                    <Item identifier="oxygentank" />
+                </Item>
+                <Item identifier="weldingtool">
+                    <Item identifier="weldingfueltank" />
+                </Item>
+                <Item identifier="smgunique">
+                    <Item identifier="smgmagazine" />
+                </Item>
+            </ItemSet>
+            <ItemSet commonness="0.2">
+                <Item identifier="idcard" equip="true" />
+                <Item identifier="divingknife" equip="false" />
+                <Item identifier="captainsuniform3" equip="true" />
+                <Item identifier="bodyarmor" equip="true" />
+                <Item identifier="steroids" />
+                <Item identifier="steroids" />
+                <Item identifier="divingmask">
+                    <Item identifier="oxygentank" />
+                </Item>
+                <Item identifier="flamer">
+                    <Item identifier="weldingfueltank" />
+                </Item>
+            </ItemSet>
+        </npc>
+
+    </npcset>
+
     <npcset identifier="mlc_distress_corpses">
 
         <npc identifier="distress_captain" job="captain"

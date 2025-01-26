@@ -212,8 +212,8 @@
         </npc>
 
         <!-- Husk cultists -->
-        <npc identifier="huskcultist_waystation" faction="huskcult"
-            commonness="0" job="hostileinfriendlysub" behavior="Patrol" healthmultiplier="1">
+        <npc identifier="huskcultist_waystation" tags="huskcultist" group="husk"
+            commonness="0" job="alwaysfightintruders" behavior="Patrol" healthmultiplier="1">
             <ItemSet commonness="1">
                 <Item identifier="idcard" equip="true" />
                 <Item identifier="cultistrobes" equip="true" />

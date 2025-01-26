@@ -2,6 +2,7 @@
 using Barotrauma.MoreLevelContent.Config;
 using HarmonyLib;
 using MoreLevelContent.Shared;
+using MoreLevelContent.Shared.AI;
 using MoreLevelContent.Shared.Generation;
 using MoreLevelContent.Shared.Utils;
 using MoreLevelContent.Shared.XML;
@@ -72,6 +73,7 @@ namespace MoreLevelContent
             Commands.Instance.Setup();
             CompatabilityHelper.Instance.Setup();
             ReflectionInfo.Instance.Setup();
+            MLCAIObjectiveManager.Instance.Setup();
 
             if (!levelContentProducer.Active)
             {

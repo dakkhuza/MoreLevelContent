@@ -8,8 +8,8 @@ using System.Linq;
 
 public class CompatabilityHelper : Singleton<CompatabilityHelper>
 {
+    public bool ReactorModInstalled { get; private set; }
     public bool HazardousReactorsInstalled { get; private set; }
-    public bool NeurotraumaInstalled { get; private set; }
     public bool DynamicEuropaInstalled { get; private set; }
 
     internal Faction BanditFaction
@@ -35,14 +35,17 @@ public class CompatabilityHelper : Singleton<CompatabilityHelper>
     public override void Setup()
     {
         HazardousReactorsInstalled = CheckInstalled(2547888957);
-        NeurotraumaInstalled = CheckInstalled(2776270649);
+        if (ItemPrefab.Prefabs.TryGet("reactor1", out ItemPrefab prefab))
+        {
+            ReactorModInstalled = prefab.IsOverride;
+        }
+
         DynamicEuropaInstalled = CheckInstalled(2532991202);
 
 
         Log.Debug(
             $"-= MLC Compatability =-\n" +
-            $"- HazReactor: {HazardousReactorsInstalled}\n" +
-            $"- Neurotrauma: {NeurotraumaInstalled}\n" +
+            $"- ReactorModInstalled: {ReactorModInstalled}\n" +
             $"- DynamicEuropa: {DynamicEuropaInstalled}");
     }
 

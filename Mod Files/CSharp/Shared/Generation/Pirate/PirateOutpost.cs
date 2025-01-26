@@ -90,15 +90,32 @@ namespace MoreLevelContent.Shared.Generation.Pirate
             _Sub.PhysicsBody.BodyType = FarseerPhysics.BodyType.Static;
             _Sub.Info.DisplayName = TextManager.Get("mlc.pirateoutpost");
             _Sub.ShowSonarMarker = PirateOutpostDirector.Config.DisplaySonarMarker;
-            _Sub.TeamID = CharacterTeamType.None;
-            _Sub.Info.Type = SubmarineType.EnemySubmarine;
-            Status = PirateBaseRelationStatus.Hostile;
 
-            
             if (CompatabilityHelper.Instance.DynamicEuropaInstalled)
             {
                 SetupDE();
+            } else
+            {
+                Status = PirateBaseRelationStatus.Hostile;
             }
+
+            _Sub.TeamID = CharacterTeamType.None;
+            _Sub.Info.Type = SubmarineType.EnemySubmarine;
+
+            switch (Status)
+            {
+                case PirateBaseRelationStatus.Neutral:
+                    // ToDo: Allow bribing the pirates
+                    break;
+                case PirateBaseRelationStatus.Friendly:
+                    _Sub.TeamID = CharacterTeamType.FriendlyNPC;
+                    break;
+                case PirateBaseRelationStatus.Hostile:
+                default:
+                    break;
+            }
+            
+
 
             Log.InternalDebug($"Spawned a pirate base with name {_Sub.Info.Name}");
 
@@ -120,15 +137,53 @@ namespace MoreLevelContent.Shared.Generation.Pirate
             }
         }
 
+        StructureDamageTracker damageTracker;
+        private bool threshholdCrossed;
+
         void SetupActive()
         {
             if (_Sub.GetItems(alsoFromConnectedSubs: false).Find(i => i.HasTag("reactor") && !i.NonInteractable)?.GetComponent<Reactor>() is Reactor reactor)
             {
                 reactor.PowerUpImmediately();
                 reactor.FuelConsumptionRate = 0; // never run out of fuel
+
                 // Make sure the reactor doesn't explode lol
-                if (CompatabilityHelper.Instance.HazardousReactorsInstalled) reactor.Item.InvulnerableToDamage = true;
+                if (CompatabilityHelper.Instance.HazardousReactorsInstalled)
+                {
+                    reactor.Item.InvulnerableToDamage = true;
+
+                    // If we have a different reactor mod installed (e.g. immersive repairs) make the reactor not degrade
+                } else if (CompatabilityHelper.Instance.ReactorModInstalled)
+                {
+                    Repairable repair = reactor.Item.GetComponent<Repairable>();
+                    if (repair != null)
+                    {
+                        repair.DeteriorationSpeed = 0;
+                        repair.MinDeteriorationDelay = float.PositiveInfinity;
+                        repair.MinDeteriorationCondition = 100;
+                    }
+                }
             }
+
+            if (Status != PirateBaseRelationStatus.Hostile)
+            {
+                damageTracker = new StructureDamageTracker(_Sub);
+                damageTracker.ThresholdCrossed += DamageTracker_ThresholdCrossed;
+                damageTracker.DamageAfterThreshold += DamageTracker_DamageAfterThreshold;
+                threshholdCrossed = false;
+            }
+        }
+
+        private void DamageTracker_DamageAfterThreshold(float amount)
+        {
+
+        }
+
+        private void DamageTracker_ThresholdCrossed()
+        {
+            // Send message
+            threshholdCrossed = true;
+            Log.Debug("Threshold Crossed");
         }
 
         void SetupDestroyed()
@@ -224,6 +279,9 @@ namespace MoreLevelContent.Shared.Generation.Pirate
                 // it is possible to get more than the "max" amount of characters if the modified difficulty is high enough; this is intentional
                 // if necessary, another "hard max" value could be used to clamp the value for performance/gameplay concerns
                 int amountCreated = GetDifficultyModifiedAmount(element.GetAttributeInt("minamount", 0), element.GetAttributeInt("maxamount", 0), enemyCreationDifficulty, rand);
+
+                // Set hard cap on pirates to prevent lag when there's a lot of mods installed
+                amountCreated = Math.Max(amountCreated, 8);
 
                 for (int i = 0; i < amountCreated; i++)
                 {
@@ -354,7 +412,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
                     Log.Debug($"Base still active: {crewStatus} dead: {_Commander.IsDead} removed: {_Commander.Removed} handcuffed: {_Commander.IsHandcuffed}");
                 }
                 LocationConnection con = Level.Loaded.StartLocation.Connections.Where(c => c.OtherLocation(Level.Loaded.StartLocation) == Level.Loaded.EndLocation).First();
-                PirateOutpostDirector.Instance.UpdateStatus(levelData.MLC().PirateData, con);
+                PirateOutpostDirector.UpdateStatus(levelData.MLC().PirateData, con);
             } catch(Exception e) 
             {
                 DebugConsole.ThrowError("Error in pirate outpost OnRoundEnd", e);

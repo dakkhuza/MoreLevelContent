@@ -3,12 +3,9 @@ using Barotrauma.MoreLevelContent.Shared.Utils;
 using Barotrauma.Networking;
 using MoreLevelContent.Networking;
 using MoreLevelContent.Shared.Data;
+using MoreLevelContent.Shared.Generation.Pirate;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MoreLevelContent.Shared.Generation
 {

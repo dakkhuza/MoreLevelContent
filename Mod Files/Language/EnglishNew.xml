@@ -1,6 +1,6 @@
 <infotexts language="English" nowhitespace="false" translatedname="English">
     <!-- Updated texts -->
-    <entitydescription.jumpstarter>Battery powered electrical device used to jump start dead systems.\n‖color:gui.blue‖Use to restart stranded shuttles during distress missions‖end‖</entitydescription.jumpstarter>
+    <entitydescription.jumpstarter>Battery powered electrical device used to jump start dead systems.\n‖color:gui.blue‖Use to restart stranded shuttles during distress missions, can be reused.‖end‖</entitydescription.jumpstarter>
     <entitydescription.captains_notebook>A small, wellworn paper book. Typically used by sub captains to record their travels.\n‖color:gui.blue‖Can be sold for a high price at outposts or read to garner some experience.‖end‖</entitydescription.captains_notebook>
     
     <loadingscreentip>‖color:gui.blue‖More Level Content Tip: ‖end‖If you have ‖color:gui.green‖Dynamic Europa‖end‖ installed, high reputation with the Bandit faction will turn pirate bases passive.</loadingscreentip>

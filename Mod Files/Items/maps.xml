@@ -1,0 +1,86 @@
+<Items>
+    <Item name="Map Frame" identifier="mlc-mapframe" category="Equipment" Tags="smallitem"
+        impactsoundtag="impact_soft">
+        <Sprite texture="%ModDir%/Missions/mission_items.png" sourcerect="448,190,31,37" depth="0.6"
+            origin="0.5,0.5" />
+        <InventoryIcon texture="%ModDir%/Missions/mission_items.png" sourcerect="411,188,35,52"
+            origin="0.5,0.5" />
+        <Body width="28" height="28" density="20" />
+
+        <Holdable slots="Any,RightHand+LeftHand" aimable="false" aimpos="40,-20" handle1="5,0"
+            aimangle="260" swingamount="0,3" swingspeed="0.5" swingwhenaiming="true"
+            msg="ItemMsgPickUpSelect">
+            <RequiredSkill identifier="helm" level="55" />
+
+        </Holdable>
+
+    </Item>
+
+    <Item name="Blank Map" identifier="mlc-blankmap" category="Misc" Tags="smallitem"
+        hideinmenus="true" impactsoundtag="impact_soft">
+        <PreferredContainer primary="crewcab" />
+        <Deconstruct time="20">
+            <Item identifier="carbon" />
+        </Deconstruct>
+        <Sprite texture="%ModDir%/Missions/mission_items.png" sourcerect="448,190,31,37" depth="0.6"
+            origin="0.5,0.5" />
+        <InventoryIcon texture="%ModDir%/Missions/mission_items.png" sourcerect="411,188,35,52"
+            origin="0.5,0.5" />
+        <Body width="28" height="28" density="20" />
+
+        <RequiredSkill identifier="helm" level="50" />
+
+        <Holdable slots="Any,RightHand+LeftHand" aimable="false" aimpos="40,-20" handle1="5,0"
+            aimangle="260" swingamount="0,3" swingspeed="0.5" swingwhenaiming="true"
+            msg="ItemMsgPickUpSelect">
+            <StatusEffect type="OnSecondaryUse" target="This" Condition="-10.0" />
+            <StatusEffect type="OnSecondaryUse" target="This,Character" disabledeltatime="true">
+                <Conditional Condition="lte 0" />
+
+                <RemoveItem />
+            </StatusEffect>
+        </Holdable>
+    </Item>
+
+    <Item name="Cavern Map" identifier="mlc-map" variantof="mlc-blankmap">
+        <Price baseprice="500" buyingpricemodifier="2.5" minleveldifficulty="25">
+            <Price storeidentifier="merchantcity" maxavailable="1" />
+            <Price storeidentifier="merchantoutpost" sold="false" />
+            <Price storeidentifier="merchantresearch" sold="false" />
+            <Price storeidentifier="merchantmilitary" sold="false" />
+            <Price storeidentifier="merchantmine" sold="false" />
+        </Price>
+    </Item>
+
+    <Item name="Pirate Base Map" identifier="mlc-piratebasemap" variantof="mlc-blankmap">
+        <Price baseprice="500">
+            <Price storeidentifier="merchantcity" sold="false" />
+            <Price storeidentifier="merchantoutpost" sold="false" />
+            <Price storeidentifier="merchantresearch" sold="false" />
+            <Price storeidentifier="merchantmilitary" sold="false" multiplier="3" />
+            <Price storeidentifier="merchantmine" sold="false" />
+        </Price>
+    </Item>
+
+    <Item name="Pirate Treasure Map" identifier="mlc-treasuremap" variantof="mlc-blankmap">
+        <Price baseprice="8000">
+            <Price storeidentifier="merchantcity" sold="false" />
+            <Price storeidentifier="merchantoutpost" sold="false" />
+            <Price storeidentifier="merchantresearch" sold="false" />
+            <Price storeidentifier="merchantmilitary" sold="false" />
+            <Price storeidentifier="merchantmine" sold="false" />
+        </Price>
+    </Item>
+
+    <Item name="Unknown Map" identifier="mlc-unknownmap" variantof="mlc-blankmap">
+        <Price baseprice="500">
+            <Price storeidentifier="merchantcity" sold="false" />
+            <Price storeidentifier="merchantoutpost" sold="false" />
+            <Price storeidentifier="merchantresearch" sold="false" />
+            <Price storeidentifier="merchantmilitary" sold="false" />
+            <Price storeidentifier="merchantmine" sold="false" />
+        </Price>
+    </Item>
+
+
+</Items>

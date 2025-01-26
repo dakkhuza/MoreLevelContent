@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<contentpackage name="More Level Content dev" modversion="0.0.107" corepackage="False" gameversion="1.5.9.2">
+<contentpackage name="More Level Content dev" modversion="0.0.109" corepackage="False" gameversion="1.7.7.0">
   <Item file="%ModDir%/dummyitem.xml" />
   <Text file="%ModDir%/Language/English.xml" />
   <Text file="%ModDir%/Language/PatchNotes.xml" />
@@ -37,7 +37,6 @@
   <OutpostModule file="%ModDir%/Map/ConstructionSites/BeaconConstruction.sub" />
   <OutpostModule file="%ModDir%/Map/ConstructionSites/BeaconConstruction_worksite.sub" />
   <OutpostModule file="%ModDir%/Map/ConstructionSites/BeaconConstruction_2_worksite.sub" />
-  <Submarine file="%ModDir%/Missions/dugong_alien.sub" />
   <Submarine file="%ModDir%/Map/CargoPods/cargo_pod.sub" />
   <Submarine file="%ModDir%/Missions/barsuk_monster.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/mlc_pirate_o1_diff_0-10.sub" />
@@ -60,11 +59,14 @@
   <Submarine file="%ModDir%/Map/MapFeatures/ClownStation.sub" />
   <Submarine file="%ModDir%/Map/MapFeatures/HuskChurch.sub" />
   <OutpostModule file="%ModDir%/Pirate/Outposts/PirateOutpost_Ceiling01.sub" />
-  <Submarine file="%ModDir%/Map/MapFeatures/AbyssResearch.sub" />
-  <Submarine file="%ModDir%/Missions/WirePuzzle.sub" />
   <Afflictions file="%ModDir%/Afflictions.xml" />
   <Submarine file="%ModDir%/Map/MapFeatures/AutoTrader_Weapons.sub" />
   <Submarine file="%ModDir%/Map/MapFeatures/AutoTrader_Supplies.sub" />
   <Submarine file="%ModDir%/Map/MapFeatures/Waystation.sub" />
-  <Talents file="%ModDir%/Talents.xml"/>
+  <Talents file="%ModDir%/Talents.xml" />
+  <Submarine file="%ModDir%/Map/MapFeatures/AbyssResearch.sub" />
+  <Submarine file="%ModDir%/Missions/dugong_alien.sub" />
+  <Orders file="%ModDir%/Orders.xml" />
+  <Submarine file="%ModDir%/Missions/WirePuzzle.sub" />
+  <Item file="%ModDir%/Items/maps.xml"/>
 </contentpackage>

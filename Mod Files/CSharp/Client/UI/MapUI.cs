@@ -47,7 +47,7 @@ namespace Barotrauma.MoreLevelContent.Client.UI
             var code = new List<CodeInstruction>(instructions);
             for (int i = 0; i < code.Count; i++)
             {
-                if (finished == false && code[i].opcode == OpCodes.Stloc_S && code[i].operand.ToString() == "Barotrauma.LocationConnection (33)")
+                if (finished == false && code[i].opcode == OpCodes.Stloc_S && code[i].operand.ToString() == "Barotrauma.LocationConnection (32)")
                 {                    
                     finished = true;
                     yield return code[i];
@@ -61,6 +61,7 @@ namespace Barotrauma.MoreLevelContent.Client.UI
                 }
                 yield return code[i];
             }
+            if (!finished) Log.Error("Failed to find map transpile injection point!");
         }
 
         private static void DrawRevealedFeatures(LocationConnection connection, Map map, SpriteBatch spriteBatch, Rectangle viewArea, Vector2 viewOffset)
@@ -69,9 +70,11 @@ namespace Barotrauma.MoreLevelContent.Client.UI
             if (!CheckValid()) return;
 
             // Both sides are in fog of war
-            if ((bool)isInFogOfWar.Invoke(map, new object[] { connection.Locations[0] }) && (bool)isInFogOfWar.Invoke(map, new object[] { connection.Locations[1] }))
+            bool inFow = (bool)isInFogOfWar.Invoke(map, new object[] { connection.Locations[0] }) && (bool)isInFogOfWar.Invoke(map, new object[] { connection.Locations[1] });
+            if (inFow)
             {
                 DrawCustomConnections(spriteBatch, connection, viewArea, viewOffset, map, true);
+                Log.Debug("Drawing FOW connection");
             }
 
             bool CheckValid()

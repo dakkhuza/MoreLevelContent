@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Resources;
 using System.Xml.Linq;
 
 namespace MoreLevelContent.Missions
@@ -262,9 +263,7 @@ namespace MoreLevelContent.Missions
             return output;
         }
 
-        int successfulCycles = 0;
-        float cycleTimer = 0;
-        double gracePeriod = 0;
+        double successTimer = 0;
         protected override void UpdateMissionSpecific(float deltaTime)
         {
             if (IsClient) return;
@@ -278,41 +277,19 @@ namespace MoreLevelContent.Missions
                 }
             }
 
-            if (State == 1)
+            // Crew has entered the relay and is fixing it
+            if (State >= 1)
             {
+                // We have the correct value
                 if (_WpLight.IsOn)
                 {
-                    // When the light is on, start counting up the cycle time
-                    cycleTimer += deltaTime;
-                    gracePeriod = CYCLE_GRACE_PERIOD;
-
-                    // When the cycle time gets over the required cycle time
-                    // Reset the timer and increment the successful cycles
-                    if (cycleTimer > REQUIRED_CYCLE_TIME)
-                    {
-                        successfulCycles++;
-                        cycleTimer = 0;
-                    }
-
-                    // When the successful cycles goes over the required cycles
-                    // Complete the mission!
-                    if (successfulCycles >= REQUIRED_CYCLES)
-                    {
-                        State = 2;
-                    }
-                } else
+                    successTimer = 2f;
+                } else if (successTimer > 0)
                 {
-                    // If the light turns off at any point, reset the cycle timer
-                    // As well as the successful cycles, AFTER the grace period runs out
-                    if (gracePeriod > 0)
-                    {
-                        gracePeriod -= deltaTime;
-                    } else
-                    {
-                        cycleTimer = 0;
-                        successfulCycles = 0;
-                    }
+                    successTimer -= deltaTime;
                 }
+
+                State = successTimer > 0 ? 2 : 1;
             }
 
             // Return if timer is counting

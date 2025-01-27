@@ -31,6 +31,7 @@
   <NPCSets file="%ModDir%/Map/MapFeatureNPCS.xml" />
   <RandomEvents file="%ModDir%/Missions/MissionEvents.xml" />
   <RandomEvents file="%ModDir%/Map/MapEvents.xml" />
+  <RandomEvents file="%ModDir%/Items/Events.xml"/>
   <Submarine file="%ModDir%/Map/ConstructionSites/BeaconConstruction_worksite.sub" />
   <OutpostModule file="%ModDir%/Map/ConstructionSites/BeaconConstruction_encounter.sub" />
   <OutpostModule file="%ModDir%/Map/ConstructionSites/BeaconConstruction_2.sub" />

@@ -7,8 +7,8 @@
 
 
     <!-- Pirate Items -->
-    <entityname.mlcpirateradio>‖color:gui.Orange‖Pirate Radio‖end‖</entityname.mlcpirateradio>
-    <entitydescription.mlcpirateradio>A rugged, custom built radio. Used by pirates to announce their presence to each other.\n‖color:gui.green‖You could use this to negotiate safe passage if there's a pirate base in the area,‖end‖ ‖color:gui.red‖for a price.‖end‖\n‖color:gui.blue‖Can be sold for a very high price to military outposts.‖end‖</entitydescription.mlcpirateradio>
+    <entityname.mlc-pirateradio>‖color:gui.Orange‖Pirate Radio‖end‖</entityname.mlc-pirateradio>
+    <entitydescription.mlc-pirateradio>A rugged, custom built radio. Used by pirates to announce their presence to each other.\n‖color:gui.green‖You could use this to negotiate safe passage if there's a pirate base in the area,‖end‖ ‖color:gui.red‖for a price.‖end‖\n‖color:gui.blue‖Can be sold for a very high price to military outposts.‖end‖</entitydescription.mlc-pirateradio>
 
     <!-- New Loading Tips -->
     <loadingscreentip>‖color:gui.blue‖More Level Content Tip: ‖end‖If you have ‖color:gui.green‖Dynamic Europa‖end‖ installed, you may find a Pirate Radio during your travels. Depending on your reputation with the bandit faction, the options this radio gives to you will change.</loadingscreentip>
@@ -19,14 +19,22 @@
     <mapupdate.unknown.revealed>A location of interest has been revealed!</mapupdate.unknown.revealed>
 
     <!-- Maps -->
-    <entityname.mlc-blankmap>Blank Map</entityname.mlc-blankmap>
+    <entityname.mlc-mapframe>Charting Frame</entityname.mlc-mapframe>
+    <entitydescription.mlc-mapframe>A device used by captains to organize map fragments and plot routes.\n‖color:gui.blue‖Low skill users may damage map fragments.‖end‖</entitydescription.mlc-mapframe>
+
+    <ItemMsgRequireMapFragment>Map Fragments required</ItemMsgRequireMapFragment>
+
+    <entityname.mlc-mapfragment>Map Fragment</entityname.mlc-mapfragment>
+    <entitydescription.mlc-mapfragment>A torn piece of a map, you can make out some familiar locations on it.\n‖color:gui.blue‖Can be combined with other fragments to make a legible map in a Charting Frame.‖end‖</entitydescription.mlc-mapfragment>
+
+    <entityname.mlc-blankmap>‖color:gui.red‖Blank Map‖end‖</entityname.mlc-blankmap>
     <entitydescription.mlc-blankmap>Looking closer it's blanker than blank. It's totally empty. The longer you stare the emptier it gets. Your hands feel empty, your heart feels empty, you feel... Using this would be a bad idea, you should put this back where you found it as fast as possible.</entitydescription.mlc-blankmap>
 
     <entityname.mlc-map>Cavern Map</entityname.mlc-map>
     <entitydescription.mlc-map>A worn map of the local caverns and water ways.\nIt's a bit old but there might be some identifiable features on it to those familiar with the area.</entitydescription.mlc-map>
 
     <entityname.mlc-piratebasemap>Esoteric Map</entityname.mlc-piratebasemap>
-    <entitydescription.mlc-piratemap>A map written in pirate code.\nIt's hard to decypher but those in the know might have more luck.\n‖color:gui.blue‖Military outposts would be very interested in this.‖end‖</entitydescription.mlc-piratemap>
+    <entitydescription.mlc-piratebasemap>A map written in pirate code.\nIt's hard to decypher but those in the know might have more luck.\n‖color:gui.blue‖Military outposts would be very interested in this.‖end‖</entitydescription.mlc-piratebasemap>
 
     <entityname.mlc-treasuremap>‖color:gui.Orange‖Treasure Map‖end‖</entityname.mlc-treasuremap>
     <entitydescription.mlc-treasuremap>This is very clearly a treasure map, dotted line and red X included.\nWhat are you waiting for? It's time to find some sunken treasure!</entitydescription.mlc-treasuremap>
@@ -34,6 +42,4 @@
     <entityname.mlc-unknownmap>‖color:gui.Orange‖Unlabled Map‖end‖</entityname.mlc-unknownmap>
     <entitydescription.mlc-unknownmap>A detailed map in exelent condition. Anyone could read this with ease.\nFor all the care that went into making this map the creator has neglected to note what it actually leads to... But that doesn't matter, right?</entitydescription.mlc-unknownmap>
 
-    <entityname.mlc-mapframe>Map Frame</entityname.mlc-mapframe>
-    <entitydescription.mlc-mapframe>A framing device used by captains to organize map fragments and plot routes.</entitydescription.mlc-mapframe>
 </infotexts>

@@ -1,0 +1,28 @@
+<Randomevents>
+    <EventPrefabs>
+        <ScriptedEvent identifier="givemap">
+
+            <RNGAction chance="0.5">
+
+                <!-- Cavern Map -->
+                <Success>
+                    <SpawnAction ItemIdentifier="mlc-map" TargetInventory="statuseffecttarget" />
+                </Success>
+                <Failure>
+                    <!-- Pirate Base Map -->
+                    <RNGAction chance="0.75">
+                        <Success>
+                            <SpawnAction ItemIdentifier="mlc-piratebasemap"
+                                TargetInventory="statuseffecttarget" />
+                        </Success>
+                        <!-- Treasure map -->
+                        <Failure>
+                            <SpawnAction ItemIdentifier="mlc-treasuremap"
+                                TargetInventory="statuseffecttarget" />
+                        </Failure>
+                    </RNGAction>
+                </Failure>
+            </RNGAction>
+        </ScriptedEvent>
+    </EventPrefabs>
+</Randomevents>

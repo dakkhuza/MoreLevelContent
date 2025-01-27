@@ -1,20 +1,113 @@
 <Items>
-    <Item name="Map Frame" identifier="mlc-mapframe" category="Equipment" Tags="smallitem"
-        impactsoundtag="impact_soft">
+    <Item name="Map Frame" identifier="mlc-mapframe" category="Equipment" Tags="smallitem, mapframe"
+        impactsoundtag="impact_soft" condition="0.1">
         <Sprite texture="%ModDir%/Missions/mission_items.png" sourcerect="448,190,31,37" depth="0.6"
             origin="0.5,0.5" />
         <InventoryIcon texture="%ModDir%/Missions/mission_items.png" sourcerect="411,188,35,52"
             origin="0.5,0.5" />
         <Body width="28" height="28" density="20" />
 
-        <Holdable slots="Any,RightHand+LeftHand" aimable="false" aimpos="40,-20" handle1="5,0"
-            aimangle="260" swingamount="0,3" swingspeed="0.5" swingwhenaiming="true"
+        <Holdable slots="RightHand+LeftHand" holdpos="40,-30" handle1="0,-15" handle2="50,50"
+            swingwhenusing="true" swingamount="15,15" swingspeed="0.4" aimable="false"
             msg="ItemMsgPickUpSelect">
-            <RequiredSkill identifier="helm" level="55" />
-
+            <!-- Fragments get damaged in water -->
+            <StatusEffect type="InWater" target="Contained" condition="-1" interval="1"
+                disabledeltatime="true">
+                <Conditional condition="gt 0" />
+            </StatusEffect>
         </Holdable>
 
+
+        <RepairTool firedamage="0.0" structurefixamount="0.0" range="0" barrelpos="0,0"
+            repairmultiple="false" repairthroughwalls="false" usablein="Air" combatpriority="0"
+            levelwallfixamount="0.0" targetforce="0">
+
+            <RequiredSkill identifier="helm" level="55" />
+            <RequiredItem items="mlc-mapfragment" type="Contained" msg="ItemMsgRequireMapFragment" />
+
+            <!-- play scribble sounds when using with items -->
+            <!-- increase the item condition when using the item, if the condition is less than 100 -->
+            <StatusEffect type="OnUse" target="This" duration="0.1" stackable="true"
+                AllowWhenBroken="true">
+                <Conditional condition="lt 100" />
+                <Sound file="%ModDir%/Sounds/scribble0.ogg" volume="2" range="600" />
+                <Sound file="%ModDir%/Sounds/scribble1.ogg" volume="2" range="600" />
+                <Sound file="%ModDir%/Sounds/scribble2.ogg" volume="2" range="600" />
+                <Sound file="%ModDir%/Sounds/scribble3.ogg" volume="2" range="600" />
+                <!--Sound
+                file="%ModDir:3114087512%/Content/Items/OxygenGenerator/CleanAirFilter.ogg"
+                    volume="2" range="600" loop="true" /-->
+            </StatusEffect>
+
+            <StatusEffect type="OnUse" target="This" condition="50" AllowWhenBroken="true">
+                <Conditional condition="lt 100" />
+            </StatusEffect>
+
+            <StatusEffect type="OnUse" target="Contained" condition="-20" AllowWhenBroken="true">
+                <Conditional condition="lt 100" targetcontainer="true" />
+            </StatusEffect>
+
+            <!-- User fails, play paper rip sound -->
+            <StatusEffect type="OnFailure" target="Contained" condition="-40" AllowWhenBroken="true">
+                <Sound file="%ModDir%/Sounds/paper-tear.ogg" volume="2" range="600" loop="false" />
+            </StatusEffect>
+
+            <StatusEffect type="OnUse" target="Contained" condition="0" setvalue="true">
+                <Conditional targetcontainer="true" condition="gte 99" />
+            </StatusEffect>
+
+            <StatusEffect type="OnUse" target="This" condition="0.1" setvalue="true">
+                <Conditional condition="gte 99" />
+                <Sound file="%ModDir%/Sounds/create-map.ogg" volume="2" range="600" />
+                <TriggerEvent identifier="givemap" />
+            </StatusEffect>
+
+        </RepairTool>
+
+
+        <ItemContainer capacity="1" maxstacksize="1" containedstateindicatorstyle="Default"
+            hideitems="true" keepopenwhenequipped="true">
+            <Containable items="mlc-mapfragment" />
+        </ItemContainer>
+
+        <SkillRequirementHint identifier="helm" level="55" />
     </Item>
+
+    <Item name="mapfragment" identifier="mlc-mapfragment" category="Misc" Tags="smallitem"
+        mpactsoundtag="impact_soft">
+        <PreferredContainer primary="crewcab" />
+        <PreferredContainer secondary="wreckarmcab,abandonedarmcab" maxamount="2"
+            spawnprobability="0.01" minleveldifficulty="30" />
+        <PreferredContainer secondary="wreckcrewcab" maxamount="1" spawnprobability="0.01"
+            minleveldifficulty="30" />
+        <PreferredContainer secondary="piratearmcab" maxamount="4" spawnprobability="0.1" />
+
+        <Deconstruct time="20">
+            <Item identifier="carbon" />
+        </Deconstruct>
+
+        <Sprite texture="%ModDir%/Missions/mission_items.png" sourcerect="448,190,31,37" depth="0.6"
+            origin="0.5,0.5" />
+        <InventoryIcon texture="%ModDir%/Missions/mission_items.png" sourcerect="411,188,35,52"
+            origin="0.5,0.5" />
+        <Body width="28" height="28" density="20" />
+
+        <Holdable slots="Any,RightHand+LeftHand" aimable="false" msg="ItemMsgPickUpSelect">
+            <StatusEffect type="Always" target="This">
+                <Conditional Condition="lte 0" />
+                <RemoveItem />
+            </StatusEffect>
+
+            <!-- Remove item if the user tries to take it out of the frame after using it -->
+            <StatusEffect type="Always" target="this" comparison="And">
+                <Conditional Condition="lt 100" />
+                <Conditional hastag="neq mapframe" targetcontainer="true" />
+                <Sound file="%ModDir%/Sounds/paper-tear.ogg" volume="2" range="600" loop="false" />
+                <RemoveItem />
+            </StatusEffect>
+        </Holdable>
+    </Item>
+
 
     <Item name="Blank Map" identifier="mlc-blankmap" category="Misc" Tags="smallitem"
         hideinmenus="true" impactsoundtag="impact_soft">
@@ -27,8 +120,6 @@
         <InventoryIcon texture="%ModDir%/Missions/mission_items.png" sourcerect="411,188,35,52"
             origin="0.5,0.5" />
         <Body width="28" height="28" density="20" />
-
-        <RequiredSkill identifier="helm" level="50" />
 
         <Holdable slots="Any,RightHand+LeftHand" aimable="false" aimpos="40,-20" handle1="5,0"
             aimangle="260" swingamount="0,3" swingspeed="0.5" swingwhenaiming="true"
@@ -43,6 +134,8 @@
     </Item>
 
     <Item name="Cavern Map" identifier="mlc-map" variantof="mlc-blankmap">
+        <PreferredContainer secondary="outpostcrewcabinet,abandonedcrewcab,abandonedstoragecab,beaconsupplycab" maxamount="1"
+            spawnprobability="0.05" />
         <Price baseprice="500" buyingpricemodifier="2.5" minleveldifficulty="25">
             <Price storeidentifier="merchantcity" maxavailable="1" />
             <Price storeidentifier="merchantoutpost" sold="false" />
@@ -53,6 +146,7 @@
     </Item>
 
     <Item name="Pirate Base Map" identifier="mlc-piratebasemap" variantof="mlc-blankmap">
+        <PreferredContainer secondary="piratearmcab" maxamount="1" spawnprobability="0.1" />
         <Price baseprice="500">
             <Price storeidentifier="merchantcity" sold="false" />
             <Price storeidentifier="merchantoutpost" sold="false" />
@@ -62,7 +156,11 @@
         </Price>
     </Item>
 
-    <Item name="Pirate Treasure Map" identifier="mlc-treasuremap" variantof="mlc-blankmap">
+    <Item name="Treasure Map" identifier="mlc-treasuremap" variantof="mlc-blankmap">
+        <PreferredContainer secondary="wreckarmcab,abandonedarmcab" maxamount="1"
+            spawnprobability="0.001" />
+        <PreferredContainer secondary="piratearmcab" maxamount="1" spawnprobability="0.01" />
+
         <Price baseprice="8000">
             <Price storeidentifier="merchantcity" sold="false" />
             <Price storeidentifier="merchantoutpost" sold="false" />
@@ -73,6 +171,11 @@
     </Item>
 
     <Item name="Unknown Map" identifier="mlc-unknownmap" variantof="mlc-blankmap">
+        <PreferredContainer
+            secondary="abandonedcrewcab,abandonedstoragecab,wreckcrewcab,wreckstoragecab"
+            maxamount="1"
+            spawnprobability="0.001" minleveldifficulty="20" />
+
         <Price baseprice="500">
             <Price storeidentifier="merchantcity" sold="false" />
             <Price storeidentifier="merchantoutpost" sold="false" />

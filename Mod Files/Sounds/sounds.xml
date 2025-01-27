@@ -4,4 +4,5 @@
     <vanish file="%ModDir%/Sounds/vanish.ogg" volume="1.0" range="500" />
     <cashregister file="%ModDir%/Sounds/cash-register.ogg" volume="0.5" range="500" />
     <yes file="%ModDir%/Sounds/yes.ogg" volume="0.5" range="500" />
+    <papertear file="%ModDir%/Sounds/paper-tear.ogg" volume="1.0" range="100"/>
 </sounds>

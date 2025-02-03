@@ -45,9 +45,10 @@ public class CompatabilityHelper : Singleton<CompatabilityHelper>
 
         Log.Debug(
             $"-= MLC Compatability =-\n" +
+            $"- HazReactorsInstalled: {HazardousReactorsInstalled}\n" +
             $"- ReactorModInstalled: {ReactorModInstalled}\n" +
             $"- DynamicEuropa: {DynamicEuropaInstalled}");
     }
 
-    bool CheckInstalled(UInt64 workshopID) => ContentPackageManager.EnabledPackages.All.Any(p => p.TryExtractSteamWorkshopId(out SteamWorkshopId idOut) && idOut.Value == workshopID);
+    bool CheckInstalled(ulong workshopID) => ContentPackageManager.EnabledPackages.All.Any(p => p.TryExtractSteamWorkshopId(out SteamWorkshopId idOut) && idOut.Value == workshopID);
 }

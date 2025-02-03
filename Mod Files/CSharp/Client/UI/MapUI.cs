@@ -210,6 +210,11 @@ namespace Barotrauma.MoreLevelContent.Client.UI
                 iconPos += (iconDiff * -(iconCount - 1) / 2.0f) + iconDiff * iconIndex;
 
                 var style = GUIStyle.GetComponentStyle(iconStyle);
+                if (style == null)
+                {
+                    Log.Error($"Unable to find icon style {style}");
+                    return;
+                }
                 bool mouseOn = Vector2.DistanceSquared(iconPos, PlayerInput.MousePosition) < iconSize * iconSize && IsPreferredTooltip(iconPos, __instance);
                 Sprite iconSprite = style.GetDefaultSprite();
                 iconSprite.Draw(spriteBatch, iconPos, (mouseOn ? style.HoverColor : style.Color) * 0.7f,

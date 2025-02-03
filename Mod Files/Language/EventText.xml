@@ -113,11 +113,11 @@
         crew, right man? Someone'll pick me up, yeah!"</MapFeature.autotraderoverdose.o2.c1>
 
     <!-- Abyss Research -->
-    <MapFeature.abyssresearch.c1>As you walk past the researcher the look up at you. "Oh good you're here, finally. This is very important, make sure it arrives in once piece. They shove a bundle of papers into your arms. You try to explain you're not a mailman but they've already tuned you out. Looks like there's a location scribbled onto the front of the packet.</MapFeature.abyssresearch.c1>
+    <MapFeature.abyssresearch.c1>As you walk past the researcher they look up at you. "Oh good you're here, finally. This is very important, make sure it arrives in once piece. They shove a bundle of papers into your arms. You try to explain you're not a mailman but they've already tuned you out. Looks like there's a location scribbled onto the front of the packet.</MapFeature.abyssresearch.c1>
     
     <MapFeature.mailman.impatient>There's an impatient looking researcher here.</MapFeature.mailman.impatient>
     <MapFeature.mailman.waiting>Waiting for something?</MapFeature.mailman.waiting>
-    <MapFeature.mailman.exposition>He turns to look at you. "Yes, actually. A devlivery crew was supposed to deliver some important research from a colleague of mine yesterday but they've been a no-show so far. I'm begining to think an abyss creature got them."</MapFeature.mailman.exposition>
+    <MapFeature.mailman.exposition>He turns to look at you. "Yes, actually. A devlivery crew was supposed to bring me some important research from a colleague of mine yesterday but they've been a no-show so far. I'm begining to think an abyss creature got them."</MapFeature.mailman.exposition>
     <MapFeature.mailman.handover>Hand over research data.</MapFeature.mailman.handover>
     <MapFeature.mailman.later>Later.</MapFeature.mailman.later>
     <MapFeature.mailman.missing>Where did you leave that research data again?</MapFeature.mailman.missing>
@@ -176,7 +176,7 @@
     
     <EventText.waystation_cargoad.c1>There's an ad here, "Looking for freelancers to transport cargo. More information provided on site." Followed by directions to a nearby outpost.</EventText.waystation_cargoad.c1>
 
-    <EventText.huskchurch_unlockescort.c1>"Welcome to our humble church traveler." You swear you hear a clicking sound whne they talk,  "Say, you look like the type that would help the church. We've got some acolytes on a nearby outpost looking for transport. Here, I'll mark it down for you."</EventText.huskchurch_unlockescort.c1>
+    <EventText.huskchurch_unlockescort.c1>"Welcome to our humble church traveler." You swear you hear a clicking sound when they talk,  "Say, you look like the type that would help the church. We've got some acolytes on a nearby outpost looking for transport. Here, I'll mark it down for you."</EventText.huskchurch_unlockescort.c1>
     <EventText.huskchurch_cargo.c1>"Welcome to our humble church traveler." You can hear the smile in their voice, it makes you shiver,  "Say, you look like the type that would help the church. We've got some... goods on a nearby outpost looking for transport. Here, I'll mark it down for you. Those that help the church in turn help themselves."</EventText.huskchurch_cargo.c1>
     
     <EventText.clownstation_unlockescort.c1>"You look like a jovial fella, I've got some other jovial friends looking for transport, if you're interested. I'll mark it on your map."</EventText.clownstation_unlockescort.c1>

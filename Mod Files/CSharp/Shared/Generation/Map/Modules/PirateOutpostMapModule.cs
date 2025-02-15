@@ -23,7 +23,7 @@ namespace MoreLevelContent.Shared.Generation
         public override void OnMapLoad(Map __instance)
         {
             // Map has no pirate outposts, lets generate some
-            if (!__instance.Connections.Any(c => c.LevelData.MLC().PirateData.HasPirateOutpost))
+            if (!__instance.Connections.Any(c => c.LevelData.MLC().PirateData.HasPirateBase))
             {
                 Log.Debug("Map has no pirate bases, adding some...");
                 for (int i = 0; i < __instance.Connections.Count; i++)

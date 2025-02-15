@@ -196,6 +196,6 @@ namespace MoreLevelContent.Shared.Data
         public float Difficulty;
         public bool Revealed;
 
-        public bool HasPirateOutpost => Status != PirateOutpostStatus.None;
+        public bool HasPirateBase => Status != PirateOutpostStatus.None;
     }
 }

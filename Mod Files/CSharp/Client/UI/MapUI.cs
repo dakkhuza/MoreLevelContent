@@ -151,7 +151,7 @@ namespace Barotrauma.MoreLevelContent.Client.UI
                 DrawIcon("LostCargo", (int)(28 * zoom), RichString.Rich(TextManager.Get("mlc.lostcargotooltip")));
             }
 
-            if (data.PirateData.HasPirateOutpost && (GameMain.DebugDraw || Commands.DisplayAllMapLocations || data.PirateData.Revealed))
+            if (data.PirateData.HasPirateBase && (GameMain.DebugDraw || Commands.DisplayAllMapLocations || data.PirateData.Revealed))
             {
                 LocalizedString text = "";
                 switch (data.PirateData.Status)

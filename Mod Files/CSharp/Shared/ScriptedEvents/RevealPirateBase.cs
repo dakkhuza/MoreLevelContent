@@ -19,41 +19,7 @@ namespace MoreLevelContent
     [InjectScriptedEvent]
     internal class RevealPirateBaseAction : BinaryOptionAction
     {
-        public RevealPirateBase(ScriptedEvent parentEvent, ContentXElement element) : base(parentEvent, element)
-        {
-            if (GameMain.GameSession.GameMode is CampaignMode campaign)
-            {
-                LocationConnection pirateBaseConnection;
-                try
-                {
-                    pirateBaseConnection = FindPirateBase();
-                }
-                catch (Exception e)
-                {
-                    Log.Error($"RevealMapFeatureAction crashed! {e.Message}");
-                    return;
-                }
-
-                if (pirateBaseConnection != null)
-                {
-                    var pirateData = pirateBaseConnection.LevelData.MLC().PirateData;
-
-                    // Probably have to do some syncing here, maybe not
-                    if (campaign is MultiPlayerCampaign mpCampaign)
-                    {
-                        mpCampaign.IncrementLastUpdateIdForFlag(MultiPlayerCampaign.NetFlags.MapAndMissions);
-                    }
-
-#if CLIENT
-                    ShowNotification(pirateBaseConnection);
-#else
-                    MapDirector.Instance.NotifyMapFeatureRevealed(pirateBaseConnection, pirateBaseConnection.LevelData.MLC().MapFeatureData);
-                    pirateBaseConnection.LevelData.MLC().MapFeatureData.Revealed = true;
-#endif
-
-                }
-            }
-        }
+        public RevealPirateBaseAction(ScriptedEvent parentEvent, ContentXElement element) : base(parentEvent, element) { }
 
         private LocationConnection FindPirateBase()
         {
@@ -123,18 +89,21 @@ namespace MoreLevelContent
                 LocationConnection connection = FindPirateBase();
                 if (connection != null)
                 {
-                    if (campaign is MultiPlayerCampaign mpCampaign)
-                    {
-                        mpCampaign.IncrementLastUpdateIdForFlag(MultiPlayerCampaign.NetFlags.MapAndMissions);
-                    }
 #if CLIENT
                     ShowNotification(connection);
-#else
-                    var data = connection.LevelData.MLC().PirateData;
-                    data.Revealed = true;
-                    PirateOutpostDirector.UpdateStatus(data, connection);
 #endif
+                    if (!Main.IsClient)
+                    {
+                        var data = connection.LevelData.MLC().PirateData;
+                        data.Revealed = true;
 
+                        PirateOutpostDirector.UpdateStatus(data, connection);
+                        if (campaign is MultiPlayerCampaign mpCampaign)
+                        {
+                            mpCampaign.IncrementLastUpdateIdForFlag(MultiPlayerCampaign.NetFlags.MapAndMissions);
+                        }
+                        Log.Debug("Updated status of pirate base to revealed");
+                    }
                     return true;
                 }
             }
@@ -142,8 +111,6 @@ namespace MoreLevelContent
             {
                 Log.Error($"RevealMapFeatureAction crashed! {e.Message}");
             }
-
-
 
             return false;
         }
@@ -153,10 +120,10 @@ namespace MoreLevelContent
         {
             if (GameMain.GameSession.GameMode is not CampaignMode) return;
             _ = new GUIMessageBox
-                (TextManager.Get("mapupdate.generic.header"), 
-                TextManager.GetWithVariables("mapupdate.piratebase.revealed",
-                ("[location1]", $"‖color:gui.orange‖{connection.Locations[0]}‖end‖"),
-                ("[location2]", $"‖color:gui.orange‖{connection.Locations[1]}‖end‖")),
+                (TextManager.Get("mapupdate.generic.header"),
+                RichString.Rich(TextManager.GetWithVariables("mapupdate.piratebase.revealed",
+                ("[location1]", $"‖color:gui.orange‖{connection.Locations[0].DisplayName}‖end‖"),
+                ("[location2]", $"‖color:gui.orange‖{connection.Locations[1].DisplayName}‖end‖"))),
                 Array.Empty<LocalizedString>(), type: GUIMessageBox.Type.InGame, iconStyle: "PirateBase", relativeSize: new Vector2(0.2f, 0.06f), minSize: new Point(64, 74));
         }
 #endif

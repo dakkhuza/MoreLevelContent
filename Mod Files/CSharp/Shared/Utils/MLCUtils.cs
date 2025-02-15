@@ -61,6 +61,84 @@ namespace MoreLevelContent.Shared.Utils
             return new MTRandom(ToolBox.StringToInt(Level.Loaded.LevelData.Seed));
         }
 
+        internal static Location FindUnlockLocation(FindLocationInfo info)
+        {
+            if (GameMain.GameSession.GameMode is not CampaignMode campaign) return null;
+            if (info.MinDistance <= 1)
+            {
+                return campaign.Map.CurrentLocation;
+            }
+
+            var currentLocation = campaign.Map.CurrentLocation;
+            int distance = 0;
+            HashSet<Location> checkedLocations = new HashSet<Location>();
+            HashSet<Location> pendingLocations = new HashSet<Location>() { currentLocation };
+            do
+            {
+                List<Location> currentLocations = pendingLocations.ToList();
+                pendingLocations.Clear();
+                foreach (var location in currentLocations)
+                {
+                    checkedLocations.Add(location);
+                    if (IsLocationValid(currentLocation, location, distance, info))
+                    {
+                        return location;
+                    }
+                    else
+                    {
+                        foreach (LocationConnection connection in location.Connections)
+                        {
+                            var otherLocation = connection.OtherLocation(location);
+                            if (checkedLocations.Contains(otherLocation)) { continue; }
+                            pendingLocations.Add(otherLocation);
+                        }
+                    }
+                }
+                distance++;
+            } while (pendingLocations.Any());
+
+            return null;
+        }
+
+        internal static bool IsLocationValid(Location currentLocation, Location location, int distance, FindLocationInfo info)
+        {
+            if (!info.RequiredFaction.IsEmpty)
+            {
+                if (location.Faction?.Prefab.Identifier != info.RequiredFaction &&
+                    location.SecondaryFaction?.Prefab.Identifier != info.RequiredFaction)
+                {
+                    return false;
+                }
+            }
+            if (info.AllowedLocationTypes != null && info.AllowedLocationTypes.Count() > 0 && !info.AllowedLocationTypes.Contains(location.Type.Identifier) && !(location.HasOutpost() && info.AllowedLocationTypes.Contains(Tags.AnyOutpost)))
+            {
+                return false;
+            }
+            if (distance < info.MinDistance)
+            {
+                return false;
+            }
+            if (info.MustBeFurtherOnMap && location.MapPosition.X < currentLocation.MapPosition.X)
+            {
+                return false;
+            }
+            if (info.MustBeHidden && !location.Discovered)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        internal struct FindLocationInfo
+        {
+            public int MinDistance;
+            public int MaxDistance;
+            public bool MustBeFurtherOnMap;
+            public IEnumerable<Identifier> AllowedLocationTypes;
+            public Identifier RequiredFaction;
+            public bool MustBeHidden;
+        }
+
         internal static Random GetRandomFromString(string seed)
         {
             return new MTRandom(ToolBox.StringToInt(seed));

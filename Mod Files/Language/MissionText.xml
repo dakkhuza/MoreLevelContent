@@ -90,6 +90,11 @@
     <missionfailure.relayrepair>The relay station remains offline.</missionfailure.relayrepair>
 
     <missionname.gotoresearch>Mailman</missionname.gotoresearch>
-    <missiondescription.gotoresearch>This seems like this is the place to drop off the research data, better look around and see who wants it.</missiondescription.gotoresearch>
+    <missiondescription.gotoresearch>Seems like this is the place to drop off the research data, better look around and see who wants it.</missiondescription.gotoresearch>
+
+    <!-- Map Mission -->
+    <triangulatepoint>Triangulation Point [number]</triangulatepoint>
+    <missionname.triangulation>Triangulation</missionname.triangulation>
+    <missionmessage0.triangulation>The map leads to this passage, now all that's left to do is locate the point of interest. </missionmessage0.triangulation>
 
 </infotexts>

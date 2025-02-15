@@ -1,32 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Items>
-  <Item name="Sonar Jammer" identifier="sonarjammer" tags="command" category="Machine,Weapon"
-    spritecolor="255,255,255,255" Scale="1">
-    <Sprite texture="%ModDir%/Pirate/pirate_weapons.png" sourcerect="2,0,158,147" depth="0.8"
-      origin="0.5,0.5" />
+  <Item name="Sonar Jammer" identifier="sonarjammer" tags="command" category="Machine,Weapon" spritecolor="255,255,255,255" Scale="1">
+    <Sprite texture="%ModDir%/Pirate/pirate_weapons.png" sourcerect="2,0,158,147" depth="0.8" origin="0.5,0.5" />
     <SonarJammer PowerConsumption="800" strength="1" minvoltage="0.5" />
-    <LightComponent range="10.0" lightcolor="255,255,255,0" alphablend="true" pulsefrequency="0.4"
-      pulseamount="0.4" powerconsumption="1" IsOn="false" castshadows="false"
-      allowingameediting="false">
-      <sprite texture="%ModDir%/Pirate/pirate_weapons.png" sourcerect="160,0,158,147" depth="0.1"
-        origin="0.5,0.5" alpha="1.0" />
+    <LightComponent range="10.0" lightcolor="255,255,255,0" alphablend="true" pulsefrequency="0.4" pulseamount="0.4" powerconsumption="1" IsOn="false" castshadows="false" allowingameediting="false">
+      <sprite texture="%ModDir%/Pirate/pirate_weapons.png" sourcerect="160,0,158,147" depth="0.1" origin="0.5,0.5" alpha="1.0" />
       <IsActive targetitemcomponent="SonarJammer" Voltage="gt 0.5" />
     </LightComponent>
     <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver">
-      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center"
-        style="ConnectionPanel" />
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
       <requireditem items="screwdriver" type="Equipped" />
       <input name="power_in" displayname="connection.powerin" />
     </ConnectionPanel>
     <aitarget soundrange="8000" fadeouttime="5" />
   </Item>
-  <Item name="Pirate Radio" identifier="mlc-pirateradio" tags="smallitem" category="Equipment"
-    impactsoundtag="impact_metal_light" scale="0.5">
+  <Item name="Pirate Radio" identifier="mlc-pirateradio" tags="smallitem" category="Equipment" impactsoundtag="impact_metal_light" scale="0.5">
     <PreferredContainer primary="locker" />
-    <PreferredContainer secondary="wreckarmcab,abandonedarmcab" amount="1"
-      spawnprobability="0.005" />
+    <PreferredContainer secondary="wreckarmcab,abandonedarmcab" amount="1" spawnprobability="0.005" />
     <PreferredContainer secondary="piratearmcab" amount="1" spawnprobability="0.01" />
-
     <Price baseprice="2000">
       <Price storeidentifier="merchantoutpost" multiplier="0.1" sold="false" />
       <Price storeidentifier="merchantcity" sold="false" />
@@ -35,9 +26,7 @@
       <Price storeidentifier="merchantmine" multiplier="0.1" sold="false" />
       <Price storeidentifier="merchantengineering" multiplier="0.25" sold="false" />
     </Price>
-
     <Fabricate SuitableFabricator="piratestore" requiredtime="3" requiredmoney="2000" fabricationlimitmin="1" fabricationlimitmax="1" />
-
     <Deconstruct time="30">
       <Item identifier="titanium" />
       <Item identifier="ballisticfiber" />
@@ -45,24 +34,15 @@
       <Item identifier="rubber" amount="2" />
       <Item identifier="fpgacircuit" />
     </Deconstruct>
-
-    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="832,320,64,64"
-      origin="0.5,0.5" />
-    <Sprite texture="Content/Items/Tools/tools.png" sourcerect="473,1,29,65" depth="0.55"
-      origin="0.5,0.5" />
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="832,320,64,64" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Tools/tools.png" sourcerect="231,101,24,54" depth="0.55" origin="0.5,0.5" />
     <Body width="27" height="60" density="12" />
-
-    <Holdable slots="Any,RightHand,LeftHand" holdangle="30" handle1="0,-15"
-      msg="ItemMsgPickUpSelect" />
-
-    <ItemContainer capacity="1" maxstacksize="1" hideitems="true"
-      containedstateindicatorstyle="battery">
-      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="128,448,64,64"
-        origin="0.5,0.5" />
+    <Holdable slots="Any,RightHand,LeftHand" holdangle="30" handle1="0,-15" msg="ItemMsgPickUpSelect" />
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="battery">
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="128,448,64,64" origin="0.5,0.5" />
       <Containable items="mobilebattery">
         <StatusEffect type="OnContaining" targettype="This" Voltage="1.0" setvalue="true" />
       </Containable>
     </ItemContainer>
-
   </Item>
 </Items>

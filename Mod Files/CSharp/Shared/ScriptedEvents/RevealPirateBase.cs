@@ -5,6 +5,7 @@ using MoreLevelContent.Shared;
 using MoreLevelContent.Shared.Data;
 using MoreLevelContent.Shared.Generation;
 using MoreLevelContent.Shared.Generation.Pirate;
+using MoreLevelContent.Shared.XML;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,8 @@ namespace MoreLevelContent
     /// <summary>
     /// Changes what map feature the current level has.
     /// </summary>
-    internal class RevealPirateBase : BinaryOptionAction
+    [InjectScriptedEvent]
+    internal class RevealPirateBaseAction : BinaryOptionAction
     {
         public RevealPirateBase(ScriptedEvent parentEvent, ContentXElement element) : base(parentEvent, element)
         {

@@ -3,12 +3,14 @@ using Barotrauma.Extensions;
 using Barotrauma.Items.Components;
 using Microsoft.Xna.Framework;
 using MoreLevelContent.Shared;
+using MoreLevelContent.Shared.XML;
 using System.Collections.Generic;
 using System.Linq;
 using static Barotrauma.Level;
 
 namespace MoreLevelContent
 {
+    [InjectScriptedEvent]
     internal class TeleportCharacterAction : EventAction
     {
         [Serialize("", IsPropertySaveable.Yes, description: "Tag of the target(s) to teleport.")]

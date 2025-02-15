@@ -5,6 +5,7 @@ using MoreLevelContent.Networking;
 using MoreLevelContent.Shared;
 using MoreLevelContent.Shared.Data;
 using MoreLevelContent.Shared.Generation;
+using MoreLevelContent.Shared.XML;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,9 @@ using System.Reflection;
 namespace MoreLevelContent
 {
     /// <summary>
-    /// Changes what map feature the current level has.
+    /// Finds and reveals a hidden map feature.
     /// </summary>
+    [InjectScriptedEvent]
     internal class RevealMapFeatureAction : EventAction
     {
         [Serialize("", IsPropertySaveable.Yes, description: "The Identifier of the map feature to search for.")]

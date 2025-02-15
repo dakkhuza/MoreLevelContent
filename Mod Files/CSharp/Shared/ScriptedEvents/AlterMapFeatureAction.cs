@@ -2,12 +2,14 @@
 using Barotrauma;
 using MoreLevelContent.Shared.Data;
 using MoreLevelContent.Shared.Generation;
+using MoreLevelContent.Shared.XML;
 
 namespace MoreLevelContent
 {
     /// <summary>
     /// Changes what map feature the current level has.
     /// </summary>
+    [InjectScriptedEvent]
     internal class AlterMapFeatureAction : EventAction
     {
         [Serialize("", IsPropertySaveable.Yes, description: "The Identifier this levels map feature should change to.")]

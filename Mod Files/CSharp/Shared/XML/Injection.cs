@@ -7,14 +7,20 @@ using MoreLevelContent.Shared.Data;
 using MoreLevelContent.Shared.Generation;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
 
 namespace MoreLevelContent.Shared.XML
 {
+    [AttributeUsage(AttributeTargets.Class)]
+    public class InjectScriptedEvent : Attribute { }
+
     public class InjectionManager : Singleton<InjectionManager>
     {
         FieldInfo missionPrefab_constructor;
+        static ImmutableDictionary<string, Type> _CustomScriptedEvents;
+
         public override void Setup()
         {
             missionPrefab_constructor = AccessTools.Field(typeof(MissionPrefab), "constructor");
@@ -22,6 +28,21 @@ namespace MoreLevelContent.Shared.XML
             var eventAction_Instantiate = AccessTools.Method(typeof(EventAction), "Instantiate");
             _ = Main.Harmony.Patch(npcConversation_GetCurrentFlags, postfix: new HarmonyMethod(AccessTools.Method(typeof(InjectionManager), nameof(AddNPCConcersationFlags))));
             _ = Main.Harmony.Patch(eventAction_Instantiate, prefix: new HarmonyMethod(AccessTools.Method(typeof(InjectionManager), nameof(InjectEventActions))));
+
+            // Collect scripted events
+            Dictionary<string, Type> customEventDict = new();
+            foreach (Type type in Assembly.GetCallingAssembly().GetTypes())
+            {
+                if (type.GetCustomAttribute(typeof(InjectScriptedEvent), true) is InjectScriptedEvent injectScriptedEvent)
+                {
+                    customEventDict.Add(type.Name, type);
+                    Log.Debug($"Registered custom scripted event {type.Name}");
+                }
+            }
+            _CustomScriptedEvents = customEventDict.ToImmutableDictionary();
+
+
+
             InjectMissions();
         }
         
@@ -29,26 +50,8 @@ namespace MoreLevelContent.Shared.XML
         // We'll fix this incompatability when it happens!
         private static bool InjectEventActions(ScriptedEvent scriptedEvent, ContentXElement element, ref EventAction __result)
         {
-            Type actionType = null;
-            Identifier typeName = element.Name.ToString().ToIdentifier();
-            if (typeName == "RevealMapFeatureAction")
-            {
-                actionType = typeof(RevealMapFeatureAction);
-            }
-            // if (typeName == "AlterMapFeatureAction")
-            // {
-            //     actionType = typeof(AlterMapFeatureAction);
-            // }
-            if (typeName == "TeleportCharacterAction")
-            {
-                actionType = typeof(TeleportCharacterAction);
-            }
-
-            if (typeName == "SpawnCreatureNearbyAction")
-            {
-                actionType = typeof(SpawnCreatureNearbyAction);
-            }
-
+            string typeName = element.Name.ToString();
+            if (!_CustomScriptedEvents.TryGetValue(typeName, out Type actionType)) return true;
             if (actionType != null)
             {
                 ConstructorInfo constructor = actionType.GetConstructor(new[] { typeof(ScriptedEvent), typeof(ContentXElement) });

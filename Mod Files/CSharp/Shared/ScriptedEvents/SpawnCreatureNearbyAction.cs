@@ -1,7 +1,9 @@
 ﻿using Barotrauma;
+using MoreLevelContent.Shared.XML;
 
 namespace MoreLevelContent
 {
+    [InjectScriptedEvent]
     internal class SpawnCreatureNearbyAction : EventAction
     {
         public SpawnCreatureNearbyAction(ScriptedEvent parentEvent, ContentXElement element) : base(parentEvent, element)

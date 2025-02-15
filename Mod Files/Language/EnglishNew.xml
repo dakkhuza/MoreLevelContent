@@ -18,6 +18,9 @@
     <mapupdate.piratebase.revealed>A pirate base between [location1] and [location2] has been revealed!</mapupdate.piratebase.revealed>
     <mapupdate.unknown.revealed>A location of interest has been revealed!</mapupdate.unknown.revealed>
 
+    <mapupdate.revealed.location>[location1] has been discovered.</mapupdate.revealed.location>
+
+
     <!-- Maps -->
     <entityname.mlc-mapframe>Charting Frame</entityname.mlc-mapframe>
     <entitydescription.mlc-mapframe>A device used by captains to organize map fragments and plot routes.\n‖color:gui.blue‖Low skill users may damage map fragments.‖end‖</entitydescription.mlc-mapframe>

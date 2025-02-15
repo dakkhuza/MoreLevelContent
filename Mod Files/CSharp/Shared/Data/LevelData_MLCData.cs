@@ -127,7 +127,7 @@ namespace MoreLevelContent.Shared.Data
         }
     }
 
-    public struct MapFeatureData
+    public class MapFeatureData
     {
         public Identifier Name;
         public bool Revealed;
@@ -165,7 +165,7 @@ namespace MoreLevelContent.Shared.Data
         Active
     }
 
-    internal struct PirateData
+    internal class PirateData
     {
         public PirateData()
         {

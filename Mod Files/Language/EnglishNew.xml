@@ -22,8 +22,8 @@
 
 
     <!-- Maps -->
-    <entityname.mlc-mapframe>Charting Frame</entityname.mlc-mapframe>
-    <entitydescription.mlc-mapframe>A device used by captains to organize map fragments and plot routes.\n‖color:gui.blue‖Low skill users may damage map fragments.‖end‖</entitydescription.mlc-mapframe>
+    <entityname.mlc-mapframe>Charting Tools</entityname.mlc-mapframe>
+    <entitydescription.mlc-mapframe>A collection of tools used by captains to organize map fragments and plot routes.\n‖color:gui.blue‖Low skill users may damage map fragments.‖end‖</entitydescription.mlc-mapframe>
 
     <ItemMsgRequireMapFragment>Map Fragments required</ItemMsgRequireMapFragment>
 

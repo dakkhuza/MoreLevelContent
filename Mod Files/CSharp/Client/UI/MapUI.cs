@@ -66,7 +66,7 @@ namespace Barotrauma.MoreLevelContent.Client.UI
 
         private static void DrawRevealedFeatures(LocationConnection connection, Map map, SpriteBatch spriteBatch, Rectangle viewArea, Vector2 viewOffset)
         {
-            // Skip if we don't have a feature 
+            // Skip if we don't have a feature or pirate base
             if (!CheckValid()) return;
 
             // Both sides are in fog of war
@@ -74,12 +74,16 @@ namespace Barotrauma.MoreLevelContent.Client.UI
             if (inFow)
             {
                 DrawCustomConnections(spriteBatch, connection, viewArea, viewOffset, map, true);
-                Log.Debug("Drawing FOW connection");
+                Log.Debug("Drew custom connection");
             }
 
             bool CheckValid()
             {
                 var feature = connection.LevelData.MLC().MapFeatureData;
+                var pirateBase = connection.LevelData.MLC().PirateData;
+
+
+                if (pirateBase.HasPirateBase && pirateBase.Revealed) return true;
                 // Not valid if we don't have a feature
                 if (!feature.HasFeature) return false;
                 // Not valid if the feature isn't revealed
@@ -97,7 +101,7 @@ namespace Barotrauma.MoreLevelContent.Client.UI
             DrawCustomConnections(spriteBatch, connection, viewArea, viewOffset, __instance, false);
         }
 
-        private static void DrawCustomConnections(SpriteBatch spriteBatch, LocationConnection connection, Rectangle viewArea, Vector2 viewOffset, Map __instance, bool justMapFeature)
+        private static void DrawCustomConnections(SpriteBatch spriteBatch, LocationConnection connection, Rectangle viewArea, Vector2 viewOffset, Map __instance, bool drawInFOW)
         {
             _DrawingConnections = false;
             if (connection == null || spriteBatch == null) return;
@@ -119,10 +123,11 @@ namespace Barotrauma.MoreLevelContent.Client.UI
             }
             iconCount = GetIconCount(__instance, connection);
 
-            if (justMapFeature)
+            if (drawInFOW)
             {
                 iconCount = 0;
                 DrawMapFeature(data);
+                DrawPirateBase();
                 return;
             }
 
@@ -151,8 +156,37 @@ namespace Barotrauma.MoreLevelContent.Client.UI
                 DrawIcon("LostCargo", (int)(28 * zoom), RichString.Rich(TextManager.Get("mlc.lostcargotooltip")));
             }
 
-            if (data.PirateData.HasPirateBase && (GameMain.DebugDraw || Commands.DisplayAllMapLocations || data.PirateData.Revealed))
+            if (data.HasRelayStation)
             {
+                var iconName = data.RelayStationStatus == RelayStationStatus.Active ? "RelayStationActive" : "RelayStationInactive";
+                var locString = data.RelayStationStatus == RelayStationStatus.Active ? "mlc.relaystationtooltip.active" : "mlc.relaystationtooltip.inactive";
+                LocalizedString localizedString = TextManager.Get(locString);
+                DrawIcon(iconName, (int)(28 * zoom), RichString.Rich(localizedString));
+            }
+
+            DrawPirateBase();
+            DrawMapFeature(data);
+
+            void DrawMapFeature(LevelData_MLCData data)
+            {
+                if (data.MapFeatureData.Name.IsEmpty) return;
+                if (!data.MapFeatureData.Revealed && !GameMain.DebugDraw && !Commands.DisplayAllMapLocations) return;
+                if (!MapFeatureModule.TryGetFeature(data.MapFeatureData.Name, out MapFeature feature))
+                {
+                    Log.Error($"Failed to find map feature with identifier {data.MapFeatureData.Name}!!");
+                    return;
+                }
+                var tooltip = TextManager.Get(feature.Display.Tooltip);
+                if (GameMain.DebugDraw)
+                {
+                    tooltip = $"{tooltip.Value} + {data.MapFeatureData.Revealed}";
+                }
+                DrawIcon(feature.Display.Icon, (int)(28 * zoom), RichString.Rich(tooltip));
+            }
+
+            void DrawPirateBase()
+            {
+                if (data.PirateData.HasPirateBase && (GameMain.DebugDraw || Commands.DisplayAllMapLocations || data.PirateData.Revealed)) { } else { return; }
                 LocalizedString text = "";
                 switch (data.PirateData.Status)
                 {
@@ -172,34 +206,8 @@ namespace Barotrauma.MoreLevelContent.Client.UI
                     text += $" Revealed: {data.PirateData.Revealed}";
                 }
 
+
                 DrawIcon(data.PirateData.Status == PirateOutpostStatus.Active ? "PirateBase" : "PirateBaseDestroyed", (int)(28 * zoom), RichString.Rich(text));
-            }
-
-            if (data.HasRelayStation)
-            {
-                var iconName = data.RelayStationStatus == RelayStationStatus.Active ? "RelayStationActive" : "RelayStationInactive";
-                var locString = data.RelayStationStatus == RelayStationStatus.Active ? "mlc.relaystationtooltip.active" : "mlc.relaystationtooltip.inactive";
-                LocalizedString localizedString = TextManager.Get(locString);
-                DrawIcon(iconName, (int)(28 * zoom), RichString.Rich(localizedString));
-            }
-
-            DrawMapFeature(data);
-
-            void DrawMapFeature(LevelData_MLCData data)
-            {
-                if (data.MapFeatureData.Name.IsEmpty) return;
-                if (!data.MapFeatureData.Revealed && !GameMain.DebugDraw && !Commands.DisplayAllMapLocations) return;
-                if (!MapFeatureModule.TryGetFeature(data.MapFeatureData.Name, out MapFeature feature))
-                {
-                    Log.Error($"Failed to find map feature with identifier {data.MapFeatureData.Name}!!");
-                    return;
-                }
-                var tooltip = TextManager.Get(feature.Display.Tooltip);
-                if (GameMain.DebugDraw)
-                {
-                    tooltip = $"{tooltip.Value} + {data.MapFeatureData.Revealed}";
-                }
-                DrawIcon(feature.Display.Icon, (int)(28 * zoom), RichString.Rich(tooltip));
             }
 
             void DrawIcon(string iconStyle, int iconSize, RichString tooltipText)

@@ -38,6 +38,7 @@ namespace MoreLevelContent
 
         public override void Update(float deltaTime)
         {
+            isFinished = true;
             if (GameMain.GameSession.GameMode is CampaignMode campaign)
             {
                 Location loc = MLCUtils.FindUnlockLocation(new MLCUtils.FindLocationInfo()
@@ -66,8 +67,6 @@ namespace MoreLevelContent
 #endif
 
             }
-
-            isFinished = true;
         }
 
 #if CLIENT

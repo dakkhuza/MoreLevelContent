@@ -63,7 +63,11 @@ namespace MoreLevelContent.Shared.Utils
 
         internal static Location FindUnlockLocation(FindLocationInfo info)
         {
-            if (GameMain.GameSession.GameMode is not CampaignMode campaign) return null;
+            if (GameMain.GameSession.GameMode is not CampaignMode campaign)
+            {
+                Log.Warn("Not campaign mode, can't find location");
+                return null;
+            }
             if (info.MinDistance <= 1)
             {
                 return campaign.Map.CurrentLocation;

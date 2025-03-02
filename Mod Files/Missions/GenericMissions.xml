@@ -84,7 +84,7 @@
                         campaignonly="true" />
 
         </RelayRepair>
-        
+
         <RelayRepair
                 identifier="relayrepair3"
                 textidentifier="relayrepair"
@@ -178,5 +178,14 @@
 
         </RelayRepair>
 
+        <Triangulation
+                identifier="triangulation"
+                textidentifier="relayrepair"
+                tags="triangulation, mlc"
+                type="GoTo"
+                customType="Triangulation"
+                commonness="0"
+                reward="0">
+        </Triangulation>
 
 </Missions>

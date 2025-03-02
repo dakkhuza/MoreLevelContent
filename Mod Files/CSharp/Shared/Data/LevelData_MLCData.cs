@@ -43,6 +43,9 @@ namespace MoreLevelContent.Shared.Data
         [AttributeSaveData(0)]
         public int RequestedE;
 
+        [AttributeSaveData(TriangulationTarget.None)]
+        public TriangulationTarget TriangulationTarget;
+
         public MapFeatureData MapFeatureData;
 
         internal PirateData PirateData;
@@ -163,6 +166,14 @@ namespace MoreLevelContent.Shared.Data
         None,
         Inactive,
         Active
+    }
+
+    public enum TriangulationTarget
+    {
+        None,
+        MapFeature,
+        PirateBase,
+        Treasure
     }
 
     internal class PirateData

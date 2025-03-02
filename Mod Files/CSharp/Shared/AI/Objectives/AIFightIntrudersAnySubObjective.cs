@@ -26,6 +26,7 @@ namespace MoreLevelContent.Shared.AI
             foreach (Character target in GetList())
             {
                 if (!IsValidTarget(target)) { continue; }
+                if (!character.CanSeeTarget(target)) { continue; }
                 if (!ignoreList.Contains(target))
                 {
                     Targets.Add(target);

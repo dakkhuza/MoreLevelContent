@@ -215,7 +215,17 @@ namespace MoreLevelContent.Missions
                 return;
             }
 
-            MissionGenerationDirector.RequestSubmarine(file, OnSubCreated);
+            MissionGenerationDirector.RequestSubmarine(new MissionGenerationDirector.SubmarineSpawnRequest()
+            {
+                File = file,
+                Callback = OnSubCreated,
+                AllowStealing = true,
+                AutoFill = true,
+                IgnoreCrushDpeth = true,
+                Prefix = MissionGenerationDirector.SubmarineSpawnRequest.AutoFillPrefix.Abandoned,
+                SpawnPosition = MissionGenerationDirector.SubSpawnPosition.Path,
+                SkipItemChance = 0.5f
+            });
         }
 
 

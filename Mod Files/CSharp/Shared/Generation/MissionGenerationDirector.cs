@@ -24,7 +24,7 @@ namespace MoreLevelContent.Shared.Generation
 
         readonly Queue<SubmarineSpawnRequest> SubCreationQueue = new();
         readonly Queue<DecoSpawnRequest> DecoCreationQueue = new();
-        readonly Queue<Submarine> AutoFillQueue = new();
+        readonly Queue<(Submarine Sub, float SkipChance)> AutoFillQueue = new();
         internal delegate void OnSubmarineCreated(Submarine createdSubmarine);
         internal delegate void OnDecoCreated(List<Submarine> decoItems, Cave decoratedCave);
         public static List<(Vector2, Vector2)> DebugPoints = new();
@@ -61,6 +61,7 @@ namespace MoreLevelContent.Shared.Generation
             public SubSpawnPosition SpawnPosition = SubSpawnPosition.PathWall;
             public PlacementType PlacementType = PlacementType.Bottom;
             public bool IgnoreCrushDpeth = true;
+            public float SkipItemChance = 0.5f;
 
             public SubmarineSpawnRequest()
             {
@@ -174,7 +175,7 @@ namespace MoreLevelContent.Shared.Generation
                             }
                         }
                         Log.Debug("Filed auto fill request for submarine");
-                        AutoFillQueue.Enqueue(submarine);
+                        AutoFillQueue.Enqueue((submarine, request.SkipItemChance));
                     }
                 }
                 else
@@ -264,8 +265,8 @@ namespace MoreLevelContent.Shared.Generation
             {
                 try
                 {
-                    Submarine submarine = AutoFillQueue.Dequeue();
-                    AutofillSub(submarine);
+                    (Submarine, float)request = AutoFillQueue.Dequeue();
+                    AutofillSub(request.Item1, request.Item2);
                     Log.Debug("Auto filled submarine");
                 } catch(Exception e)
                 {

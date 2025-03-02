@@ -45,6 +45,6 @@ namespace MoreLevelContent.Shared.Generation
             SubPlacementUtils.SetCrushDepth(placedSub, ignoreCrushDepth);
             return placedSub;
         }
-        internal void AutofillSub(Submarine sub) => _autofill.Invoke(null, new object[] { sub.ToEnumerable(), null, 0.0f });
+        internal void AutofillSub(Submarine sub, float skipChance = 0.5f) => _autofill.Invoke(null, new object[] { sub.ToEnumerable(), null, skipChance });
     }
 }

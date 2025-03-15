@@ -14,7 +14,7 @@
     </ConnectionPanel>
     <aitarget soundrange="8000" fadeouttime="5" />
   </Item>
-  <Item name="Pirate Radio" identifier="mlc-pirateradio" tags="smallitem" category="Equipment" impactsoundtag="impact_metal_light" scale="0.5">
+  <!--Item name="Pirate Radio" identifier="mlc-pirateradio" tags="smallitem" category="Equipment" impactsoundtag="impact_metal_light" scale="0.5">
     <PreferredContainer primary="locker" />
     <PreferredContainer secondary="wreckarmcab,abandonedarmcab" amount="1" spawnprobability="0.005" />
     <PreferredContainer secondary="piratearmcab" amount="1" spawnprobability="0.01" />
@@ -44,5 +44,5 @@
         <StatusEffect type="OnContaining" targettype="This" Voltage="1.0" setvalue="true" />
       </Containable>
     </ItemContainer>
-  </Item>
+  </Item-->
 </Items>

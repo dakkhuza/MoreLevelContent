@@ -14,6 +14,45 @@
             <RevealMapFeatureAction mapfeatureidentifier="clownstation" />
         </ScriptedEvent>
 
+        <!-- 
+
+            Clown Rep Check
+
+        -->
+        <ScriptedEvent identifier="sectoyhammer_clownrepcheck">
+            <CheckReputationAction targettype="faction" identifier="clowns" condition="gte 80">
+                <Success>
+                    <GoTo name="end" />
+                </Success>
+                <Failure>
+                    <GoTo name="explode" />
+                </Failure>
+            </CheckReputationAction>
+
+            <Label name="explode" />
+            <RemoveItemAction targettag="statuseffectentity" />
+            <StatusEffectAction targettag="statuseffectuser">
+                <StatusEffect target="This">
+                    <sound file="%ModDir%/Sounds/womp.ogg"
+                        range="500" />
+                </StatusEffect>
+            </StatusEffectAction>
+            <StatusEffectAction targettag="statuseffectuser">
+                <StatusEffect target="This">
+                    <Explosion range="5.0" stun="5" force="200.0" flames="false"
+                        severlimbsprobability="0"
+                        flash="true" shockwave="false" sparks="true"
+                        underwaterbubble="false">
+                        <Affliction identifier="lacerations" strength="5"
+                            dividebylimbcount="false" />
+                    </Explosion>
+
+                </StatusEffect>
+            </StatusEffectAction>
+
+            <Label name="end" />
+        </ScriptedEvent>
+
 
         <!-- 
         

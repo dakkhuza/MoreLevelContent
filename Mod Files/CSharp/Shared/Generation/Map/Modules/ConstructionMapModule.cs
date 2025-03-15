@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using System;
 using System.Linq;
+using Barotrauma.MoreLevelContent.Config;
 
 namespace MoreLevelContent.Shared.Generation
 {
@@ -14,7 +15,7 @@ namespace MoreLevelContent.Shared.Generation
         {
             if (levelData.Type == LevelData.LevelType.Outpost) return; // Ignore outpost levels
             LevelData_MLCData data = levelData.MLC();
-            if (data.HasBeaconConstruction)
+            if (data.HasBeaconConstruction && ConfigManager.Instance.Config.NetworkedConfig.GeneralConfig.EnableConstructionSites)
             {
                 var constructionMissions = MissionPrefab.Prefabs.Where(m => m.Tags.Contains("beaconconstruction")).OrderBy(m => m.UintIdentifier);
                 if (constructionMissions.Any())

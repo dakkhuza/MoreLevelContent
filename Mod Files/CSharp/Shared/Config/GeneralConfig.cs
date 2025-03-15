@@ -8,6 +8,10 @@ namespace Barotrauma.MoreLevelContent.Shared.Config
     public struct LevelConfig : INetSerializableStruct
     {
         // public bool MoveRuins;
+        public bool EnableDistressMissions;
+        public bool EnableConstructionSites;
+        public bool EnableRelayStations;
+        public bool EnableMapFeatures;
         public bool EnableThalamusCaves;
         public int RuinMoveChance;
         public int MaxActiveDistressBeacons;
@@ -22,7 +26,11 @@ namespace Barotrauma.MoreLevelContent.Shared.Config
                 EnableThalamusCaves = true,
                 RuinMoveChance = 25,
                 MaxActiveDistressBeacons = 5,
-                DistressSpawnChance = 35
+                DistressSpawnChance = 35,
+                EnableConstructionSites = true,
+                EnableDistressMissions = true,
+                EnableMapFeatures = true,
+                EnableRelayStations = true
             };
             return config;
         }

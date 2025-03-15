@@ -2,6 +2,7 @@
 using Barotrauma;
 using Barotrauma.Extensions;
 using Barotrauma.Items.Components;
+using Barotrauma.MoreLevelContent.Config;
 using FarseerPhysics;
 using Microsoft.Xna.Framework;
 using MoreLevelContent.Missions;
@@ -187,7 +188,7 @@ namespace MoreLevelContent.Shared.Generation
 
         void SpawnConstructionSite()
         {
-            if (Level.Loaded.LevelData.MLC().HasBeaconConstruction)
+            if (Level.Loaded.LevelData.MLC().HasBeaconConstruction && ConfigManager.Instance.Config.NetworkedConfig.GeneralConfig.EnableConstructionSites)
             {
                 Submarine beacon = SpawnSubOnPath("Construction Site", BeaconConstStore.Instance.GetBeaconForLevel(), ignoreCrushDepth: true, SubmarineType.EnemySubmarine);
                 beacon.PhysicsBody.BodyType = BodyType.Static;

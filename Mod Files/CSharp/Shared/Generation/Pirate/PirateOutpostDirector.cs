@@ -84,7 +84,7 @@ namespace MoreLevelContent.Shared.Generation.Pirate
                 }
             }
 
-            if (levelData.MLC().PirateData.HasPirateBase)
+            if (levelData.MLC().PirateData.HasPirateBase && ConfigManager.Instance.Config.NetworkedConfig.PirateConfig.EnablePirateBases)
             {
                 _PirateOutpost = new PirateOutpost(levelData.MLC().PirateData, ForcedPirateOutpost, levelData.Seed);
                 Log.Verbose("Set pirate outpost");

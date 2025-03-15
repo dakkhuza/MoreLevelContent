@@ -24,5 +24,13 @@
                 </Failure>
             </RNGAction>
         </ScriptedEvent>
+
+        <ScriptedEvent identifier="testrevealmap">
+            <RevealMapAreaAction />
+        </ScriptedEvent>
+        <ScriptedEvent identifier="testrevealpirate">
+            <RevealPirateBaseAction />
+        </ScriptedEvent>
+
     </EventPrefabs>
 </Randomevents>

@@ -23,6 +23,8 @@ namespace MoreLevelContent.Shared.Generation
         private Type _notification;
         private MethodInfo _addMethod;
         private ConstructorInfo _notifConstructor;
+        private FieldInfo _mapAnimField;
+        private ConstructorInfo _mapAnimConstructor;
         private MapSyncState SyncState = MapSyncState.Syncing;
         partial void SetupProjSpecific()
         {
@@ -33,6 +35,11 @@ namespace MoreLevelContent.Shared.Generation
 
             _addMethod = AccessTools.Method(_notificationList.FieldType, "Add");
             _notifConstructor = AccessTools.Constructor(_notification, new Type[] { typeof(string), typeof(GUIFont), _notificationList.FieldType, typeof(Location) });
+
+            _mapAnimField = AccessTools.Field(typeof(Map), "mapAnimQueue");
+
+            var mapAnimType = typeof(Map).GetNestedType("MapAnim", BindingFlags.NonPublic);
+            _mapAnimConstructor = AccessTools.Constructor(mapAnimType);
 
             NetUtil.Register(NetEvent.MAP_SEND_STATE, ReceiveMapState);
         }
@@ -95,6 +102,8 @@ namespace MoreLevelContent.Shared.Generation
 
             _notificationList.SetValue(GameMain.GameSession.Map, list);
         }
+
+        public void AddMapAnimation() => throw new NotImplementedException();
 
         void NotifyRevealMapFeature(object[] args)
         {

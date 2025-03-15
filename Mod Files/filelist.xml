@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<contentpackage name="More Level Content dev" modversion="0.0.109" corepackage="False" gameversion="1.7.7.0">
+<contentpackage name="More Level Content dev" modversion="0.0.111" corepackage="False" gameversion="1.7.7.0">
   <Item file="%ModDir%/dummyitem.xml" />
   <Text file="%ModDir%/Language/English.xml" />
   <Text file="%ModDir%/Language/PatchNotes.xml" />
@@ -31,7 +31,7 @@
   <NPCSets file="%ModDir%/Map/MapFeatureNPCS.xml" />
   <RandomEvents file="%ModDir%/Missions/MissionEvents.xml" />
   <RandomEvents file="%ModDir%/Map/MapEvents.xml" />
-  <RandomEvents file="%ModDir%/Items/Events.xml"/>
+  <RandomEvents file="%ModDir%/Items/Events.xml" />
   <Submarine file="%ModDir%/Map/ConstructionSites/BeaconConstruction_worksite.sub" />
   <OutpostModule file="%ModDir%/Map/ConstructionSites/BeaconConstruction_encounter.sub" />
   <OutpostModule file="%ModDir%/Map/ConstructionSites/BeaconConstruction_2.sub" />
@@ -63,11 +63,12 @@
   <Afflictions file="%ModDir%/Afflictions.xml" />
   <Submarine file="%ModDir%/Map/MapFeatures/AutoTrader_Weapons.sub" />
   <Submarine file="%ModDir%/Map/MapFeatures/AutoTrader_Supplies.sub" />
-  <Submarine file="%ModDir%/Map/MapFeatures/Waystation.sub" />
   <Talents file="%ModDir%/Talents.xml" />
   <Submarine file="%ModDir%/Map/MapFeatures/AbyssResearch.sub" />
   <Submarine file="%ModDir%/Missions/dugong_alien.sub" />
   <Orders file="%ModDir%/Orders.xml" />
+  <!--Item file="%ModDir%/Items/maps.xml" /-->
+  <Submarine file="%ModDir%/Map/MapFeatures/Waystation.sub" />
   <Submarine file="%ModDir%/Missions/WirePuzzle.sub" />
-  <Item file="%ModDir%/Items/maps.xml"/>
+  <Submarine file="%ModDir%/RelayStation_Bones.sub" />
 </contentpackage>

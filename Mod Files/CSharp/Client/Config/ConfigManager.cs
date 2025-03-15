@@ -77,9 +77,10 @@ namespace Barotrauma.MoreLevelContent.Config
 
         private void DisplayPatchNotes(bool force = false)
         {
+            // REMEMBER TO CHANGE THIS BACK
             if (Config.Version != Main.Version || force || Main.IsNightly)
             {
-                ShouldDisplayPatchNotes = true;
+                ShouldDisplayPatchNotes = false;
             }
         }
 

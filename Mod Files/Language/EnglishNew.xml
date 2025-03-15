@@ -45,4 +45,23 @@
     <entityname.mlc-unknownmap>‖color:gui.Orange‖Unlabled Map‖end‖</entityname.mlc-unknownmap>
     <entitydescription.mlc-unknownmap>A detailed map in exelent condition. Anyone could read this with ease.\nFor all the care that went into making this map the creator has neglected to note what it actually leads to... But that doesn't matter, right?</entitydescription.mlc-unknownmap>
 
+    <!-- Generic Items / Config -->
+
+    <entityname.toyhammer_sec>Honkmotherian Toy Hammer</entityname.toyhammer_sec>
+    <entitydescription.toyhammer_sec>A special toy hammer said to be imbued with the power of the Honkmother herself.\n\n‖color:gui.blue‖Requires good standing with the Honkmother to use safely.‖end‖</entitydescription.toyhammer_sec>
+
+    <mlc.settings.enablepiratebase>Enable Pirate Bases</mlc.settings.enablepiratebase>
+    <mlc.settings.enablepiratebasetooltip>When turned off, all revealed pirate bases will disappear from the map and they will not spawn in level.</mlc.settings.enablepiratebasetooltip>
+
+    <mlc.settings.enabledistressmissions>Enable Distress Missions</mlc.settings.enabledistressmissions>
+    <mlc.settings.enabledistressmissionstooltip>When turned off, all active distress missions will disappear and no more will spawn.</mlc.settings.enabledistressmissionstooltip>
+
+    <mlc.settings.enablemapfeature>Enable Map Features</mlc.settings.enablemapfeature>
+    <mlc.settings.enablemapfeaturetooltip>When turned off, waystations, auto-traders and other small event locations will be removed from the map and will not spawn in levels.</mlc.settings.enablemapfeaturetooltip>
+
+    <mlc.settings.enablerelaystation>Enable Relay Stations</mlc.settings.enablerelaystation>
+    <mlc.settings.enablerelaystationtooltip>When turned off, relay stations will be removed from the map and will not spawn in level. Math haters rejoice.</mlc.settings.enablerelaystationtooltip>
+
+    <mlc.settings.enableconstructionsites>Enable Construction Sites</mlc.settings.enableconstructionsites>
+    <mlc.settings.enableconstructionsitestooltip>When turned off, beacon construction sites will be removed from the map and will not spawn in level.</mlc.settings.enableconstructionsitestooltip>
 </infotexts>

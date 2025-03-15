@@ -12,6 +12,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Reflection.Emit;
+using Barotrauma.MoreLevelContent.Config;
 
 namespace Barotrauma.MoreLevelContent.Client.UI
 {
@@ -131,13 +132,13 @@ namespace Barotrauma.MoreLevelContent.Client.UI
                 return;
             }
 
-            if (data.HasBeaconConstruction)
+            if (data.HasBeaconConstruction && ConfigManager.Instance.Config.NetworkedConfig.GeneralConfig.EnableConstructionSites)
             {
                 LocalizedString localizedString = TextManager.GetWithVariable("mlc.beaconconsttooltip", "[requestedsupplies]", data.GetRequestedSupplies());
                 DrawIcon("BeaconConst", (int)(28 * zoom), RichString.Rich(localizedString));
             }
 
-            if (data.HasDistress)
+            if (data.HasDistress && ConfigManager.Instance.Config.NetworkedConfig.GeneralConfig.EnableDistressMissions)
             {
                 string tooltip = "mlc.distresstooltip";
                 string iconStyle = "DistressBeacon";
@@ -156,7 +157,7 @@ namespace Barotrauma.MoreLevelContent.Client.UI
                 DrawIcon("LostCargo", (int)(28 * zoom), RichString.Rich(TextManager.Get("mlc.lostcargotooltip")));
             }
 
-            if (data.HasRelayStation)
+            if (data.HasRelayStation && ConfigManager.Instance.Config.NetworkedConfig.GeneralConfig.EnableRelayStations)
             {
                 var iconName = data.RelayStationStatus == RelayStationStatus.Active ? "RelayStationActive" : "RelayStationInactive";
                 var locString = data.RelayStationStatus == RelayStationStatus.Active ? "mlc.relaystationtooltip.active" : "mlc.relaystationtooltip.inactive";
@@ -169,6 +170,7 @@ namespace Barotrauma.MoreLevelContent.Client.UI
 
             void DrawMapFeature(LevelData_MLCData data)
             {
+                if (!ConfigManager.Instance.Config.NetworkedConfig.GeneralConfig.EnableMapFeatures) return;
                 if (data.MapFeatureData.Name.IsEmpty) return;
                 if (!data.MapFeatureData.Revealed && !GameMain.DebugDraw && !Commands.DisplayAllMapLocations) return;
                 if (!MapFeatureModule.TryGetFeature(data.MapFeatureData.Name, out MapFeature feature))
@@ -186,7 +188,10 @@ namespace Barotrauma.MoreLevelContent.Client.UI
 
             void DrawPirateBase()
             {
-                if (data.PirateData.HasPirateBase && (GameMain.DebugDraw || Commands.DisplayAllMapLocations || data.PirateData.Revealed)) { } else { return; }
+                if (ConfigManager.Instance.Config.NetworkedConfig.PirateConfig.EnablePirateBases && 
+                    data.PirateData.HasPirateBase && 
+                    (GameMain.DebugDraw || Commands.DisplayAllMapLocations || data.PirateData.Revealed)) 
+                { } else { return; }
                 LocalizedString text = "";
                 switch (data.PirateData.Status)
                 {

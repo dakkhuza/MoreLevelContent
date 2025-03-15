@@ -59,6 +59,11 @@ namespace Barotrauma.MoreLevelContent.Config
             Config.NetworkedConfig.GeneralConfig.DistressSpawnChance = 35;
             Config.NetworkedConfig.GeneralConfig.MaxActiveDistressBeacons = 5;
             Config.NetworkedConfig.PirateConfig.PeakSpawnChance = 35;
+            Config.NetworkedConfig.PirateConfig.EnablePirateBases = true;
+            Config.NetworkedConfig.GeneralConfig.EnableConstructionSites = true;
+            Config.NetworkedConfig.GeneralConfig.EnableDistressMissions = true;
+            Config.NetworkedConfig.GeneralConfig.EnableMapFeatures = true;
+            Config.NetworkedConfig.GeneralConfig.EnableRelayStations = true;
         }
 
         private void DefaultConfig()

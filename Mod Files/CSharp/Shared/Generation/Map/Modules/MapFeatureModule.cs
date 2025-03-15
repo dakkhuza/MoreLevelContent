@@ -12,6 +12,7 @@ using Barotrauma.Items.Components;
 using Steamworks.Ugc;
 using Microsoft.Xna.Framework;
 using System.Reflection.Metadata.Ecma335;
+using Barotrauma.MoreLevelContent.Config;
 
 namespace MoreLevelContent.Shared.Generation
 {
@@ -103,6 +104,7 @@ namespace MoreLevelContent.Shared.Generation
             Feature = null;
             MapFeatureSub = null;
             var data = levelData.MLC();
+            if (!ConfigManager.Instance.Config.NetworkedConfig.GeneralConfig.EnableMapFeatures) return;
             if (data.MapFeatureData.Name.IsEmpty) return;
             if (!TryGetFeature(data.MapFeatureData.Name, out MapFeature feature))
             {

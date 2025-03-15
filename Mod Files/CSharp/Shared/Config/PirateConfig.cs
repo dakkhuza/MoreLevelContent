@@ -9,6 +9,7 @@ namespace Barotrauma.MoreLevelContent.Shared.Config
     [NetworkSerialize]
     public struct PirateConfig : INetSerializableStruct
     {
+        public bool EnablePirateBases;
         public Int32 BasePirateSpawnChance;
         public Int32 PeakSpawnChance;
         public Int32 BaseHuskChance;
@@ -27,7 +28,8 @@ namespace Barotrauma.MoreLevelContent.Shared.Config
                 SpawnChanceNoise = 10.0f,
                 DifficultyNoise = 10.0f,
                 AddDiffPerPlayer = true,
-                DisplaySonarMarker = false
+                DisplaySonarMarker = false,
+                EnablePirateBases = true
             };
             return config;
         }

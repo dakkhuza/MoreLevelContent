@@ -204,6 +204,8 @@ namespace MoreLevelContent.Shared.Generation
 
         protected override bool TryGetMissionPrefab(LevelData levelData, out MissionPrefab prefab)
         {
+            prefab = null;
+            if (!ConfigManager.Instance.Config.NetworkedConfig.GeneralConfig.EnableDistressMissions) return false;
             if (!ForcedMissionIdentifier.IsNullOrEmpty()) return base.TryGetMissionPrefab(levelData, out prefab);
             var orderedMissions = MissionPrefab.Prefabs.Where(m => m.Tags.Contains(EventTag) && m.IsAllowedDifficulty(levelData.Difficulty)).OrderBy(m => m.UintIdentifier);
 
@@ -226,6 +228,6 @@ namespace MoreLevelContent.Shared.Generation
             }
         }
 
-        protected override bool LevelHasEvent(LevelData_MLCData data) => data.HasDistress;
+        protected override bool LevelHasEvent(LevelData_MLCData data) => data.HasDistress && ConfigManager.Instance.Config.NetworkedConfig.GeneralConfig.EnableDistressMissions;
     }
 }

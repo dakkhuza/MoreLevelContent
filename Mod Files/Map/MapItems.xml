@@ -143,7 +143,14 @@
   </Item>
   <Item name="" identifier="syringegun_weapon" nameidentifier="syringegun" variantof="syringegun" category="Weapon" hideinmenus="true" tags="smallitem,weapon,gun,provocativetohumanai,mountableweapon">
     <PreferredContainer secondary="secarmcab,weaponholder" />
-    <Price baseprice="310" sold="false"></Price>
+    <Price baseprice="310" sold="false">
+      <Price storeidentifier="merchantoutpost" sold="false"/>
+      <Price storeidentifier="merchantcity" sold="false"/>
+      <Price storeidentifier="merchantresearch" sold="false" />
+      <Price storeidentifier="merchantmilitary" sold="false" />
+      <Price storeidentifier="merchantmine" sold="false" />
+      <Price storeidentifier="merchantclown" sold="false" />
+    </Price>
     <Fabricate />
     <Deconstruct time="10">
       <Item identifier="titaniumaluminiumalloy" />
@@ -167,7 +174,14 @@
     <SkillRequirementHint identifier="medical" level="50" />
   </Item>
   <Item name="" identifier="sonarbeacon_abyssresearch" nameidentifier="sonarbeacon" hideinmenus="true" category="Equipment,Diving" Tags="smallitem,sonar,provocative" Scale="0.5" impactsoundtag="impact_metal_light">
-    <Price baseprice="150" sold="false" />
+    <Price baseprice="150" sold="false">
+      <Price storeidentifier="merchantoutpost" sold="false"/>
+      <Price storeidentifier="merchantcity" sold="false"/>
+      <Price storeidentifier="merchantresearch" sold="false" />
+      <Price storeidentifier="merchantmilitary" sold="false" />
+      <Price storeidentifier="merchantmine" sold="false" />
+      <Price storeidentifier="merchantclown" sold="false" />
+    </Price>
     <Deconstruct time="15">
       <Item identifier="copper" />
       <Item identifier="plastic" amount="2" />
@@ -193,19 +207,43 @@
       </Containable>
     </ItemContainer>
   </Item>
-  <Item name="" identifier="toyhammer_sec" nameidentifier="toyhammer" variantof="toyhammer" category="Weapon" hideinmenus="true" tags="smallitem,weapon,stunner,mountableweapon">
-    <Price baseprice="80" sold="false"></Price>
+  <Item name="" identifier="toyhammer_sec" category="Weapon" hideinmenus="false" tags="smallitem,weapon,stunner,mountableweapon" Scale="0.5" impactsoundtag="impact_metal_light" RequireAimToUse="True">
+    <Price baseprice="80" sold="false">
+      <Price storeidentifier="merchantoutpost" sold="false"/>
+      <Price storeidentifier="merchantcity" sold="false"/>
+      <Price storeidentifier="merchantresearch" sold="false" />
+      <Price storeidentifier="merchantmilitary" sold="false" />
+      <Price storeidentifier="merchantmine" sold="false" />
+      <Price storeidentifier="merchantclown" minavailable="1" maxavailable="1" sold="true">
+        <Reputation faction="clowns" min="80" />
+      </Price>
+    </Price>
     <Fabricate />
+    <Deconstruct time="10">
+      <Item identifier="bikehorn" />
+      <Item identifier="dementonite" />
+    </Deconstruct>
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="641,960,64,64" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="0,311,121,55" depth="0.55" origin="0.5,0.5" />
+    <Body width="120" height="48" density="20" />
+
     <MeleeWeapon slots="RightHand+LeftHand,Any" controlpose="true" aimpos="45,10" handle1="-20,0" handle2="-10,5" holdangle="60" reload="1" range="100" combatpriority="35" msg="ItemMsgPickUpSelect">
-      <StatusEffect type="OnUse" target="UseTarget" delay="1" comparison="Or">
-        <Conditional speciesname="latcher" />
-        <Conditional speciesname="endworm" />
-        <Conditional speciesname="charybdis" />
-        <TriggerEvent identifier="toyhammeronabyssmonster" />
-      </StatusEffect>
+      
+      <!--StatusEffect type="OnUse" target="This,Character">
+        <Conditional IsBot="false" />
+        <TriggerEvent identifier="sectoyhammer_clownrepcheck" triggeredEventUserTag="user" triggeredEventEntityTag="hammer"/>
+      </StatusEffect-->
+
       <Attack targetimpulse="2">
         <Affliction identifier="stun" strength="3" />
       </Attack>
+
+      <StatusEffect type="OnUse" target="This" disabledeltatime="false">
+        <Conditional TeamID="!equals FriendlyNPC" />
+        <TriggerEvent identifier="sectoyhammer_clownrepcheck" triggeredEventUserTag="user" triggeredEventEntityTag="hammer"/>
+      </StatusEffect>
+
+
       <StatusEffect type="OnUse" target="This" forceplaysounds="true">
         <Sound type="OnUse" file="Content/Items/Weapons/ToyHammerHit1.ogg" range="800" selectionmode="Random" />
         <Sound type="OnUse" file="Content/Items/Weapons/ToyHammerHit2.ogg" range="800" />

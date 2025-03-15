@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using System;
 using System.Linq;
+using Barotrauma.MoreLevelContent.Config;
 
 namespace MoreLevelContent.Shared.Generation
 {
@@ -21,7 +22,7 @@ namespace MoreLevelContent.Shared.Generation
                 return; // Ignore outpost levels
             }
             LevelData_MLCData data = levelData.MLC();
-            if (data.RelayStationStatus == RelayStationStatus.None)
+            if (data.RelayStationStatus == RelayStationStatus.None || !ConfigManager.Instance.Config.NetworkedConfig.GeneralConfig.EnableRelayStations)
             {
                 Log.Debug("No relay station");
                 return; // Do nothing if we don't have a relay station

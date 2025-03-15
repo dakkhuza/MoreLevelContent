@@ -84,6 +84,32 @@ namespace Barotrauma.MoreLevelContent.Client.UI
                 unsavedConfig.NetworkedConfig.GeneralConfig.EnableThalamusCaves,
                 (v) => unsavedConfig.NetworkedConfig.GeneralConfig.EnableThalamusCaves = v);
 
+            Tickbox(left,
+                TextManager.Get("mlc.settings.enabledistressmissions"),
+                TextManager.Get("mlc.settings.enabledistressmissionstooltip"),
+                unsavedConfig.NetworkedConfig.GeneralConfig.EnableDistressMissions,
+                (v) => unsavedConfig.NetworkedConfig.GeneralConfig.EnableDistressMissions = v);
+
+            Tickbox(left,
+                TextManager.Get("mlc.settings.enablemapfeature"),
+                TextManager.Get("mlc.settings.enablemapfeaturetooltip"),
+                unsavedConfig.NetworkedConfig.GeneralConfig.EnableMapFeatures,
+                (v) => unsavedConfig.NetworkedConfig.GeneralConfig.EnableMapFeatures = v);
+
+            Tickbox(left,
+                TextManager.Get("mlc.settings.enablerelaystation"),
+                TextManager.Get("mlc.settings.enablerelaystationtooltip"),
+                unsavedConfig.NetworkedConfig.GeneralConfig.EnableRelayStations,
+                (v) => unsavedConfig.NetworkedConfig.GeneralConfig.EnableRelayStations = v);
+
+            Tickbox(left,
+                TextManager.Get("mlc.settings.enableconstructionsites"),
+                TextManager.Get("mlc.settings.enableconstructionsitestooltip"),
+                unsavedConfig.NetworkedConfig.GeneralConfig.EnableConstructionSites,
+                (v) => unsavedConfig.NetworkedConfig.GeneralConfig.EnableConstructionSites = v);
+
+
+
 
             var moveRuinsChance = Label(left, TextManager.Get("mlc.settings.moveruins"), GUIStyle.SubHeadingFont);
             moveRuinsChanceDisplay = TextBlock(moveRuinsChance, TextManager.Get("mlc.settings.moveruinstooltip"));
@@ -143,6 +169,13 @@ namespace Barotrauma.MoreLevelContent.Client.UI
         {
             GUIFrame content = CreateNewContentFrame(Tab.PirateOutpost);
             var (left, right) = CreateSidebars(content);
+
+            Tickbox(left,
+                TextManager.Get("mlc.settings.enablepiratebase"),
+                TextManager.Get("mlc.settings.enablepiratebasetooltip"),
+                unsavedConfig.NetworkedConfig.PirateConfig.EnablePirateBases,
+                (v) => unsavedConfig.NetworkedConfig.PirateConfig.EnablePirateBases = v);
+
 
             // If the pirate outpost is displayed on sonar
             Tickbox(left, 

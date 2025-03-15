@@ -29,8 +29,6 @@ namespace MoreLevelContent
             CommandUtils.AddCommand("mlc_toggleMapDisplay", "Toggles if all map locations should be shown, even if they are not discovered yet", _toggleMapDisplay, isCheat: true);
             CommandUtils.AddCommand("mlc_showpatchnotes", "Displays the patch notes", _showPatchnotes);
             CommandUtils.AddCommand("mlc_leveldatadebug", "Displays debug info on the current level's generation data", _isDistressActive);
-            CommandUtils.AddCommand("mlc_itemspotcheck", "", _itemSpotCheck, isCheat: true);
-            CommandUtils.AddCommand("mlc_togglelaggymotiondetectors", "", _motionToggle, isCheat: true);
         }
 
         private void _motionToggle(object[] args)

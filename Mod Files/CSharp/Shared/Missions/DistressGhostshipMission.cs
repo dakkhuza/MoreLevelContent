@@ -134,7 +134,8 @@ namespace MoreLevelContent.Missions
                 SpawnPosition = SubSpawnPosition.Path,
                 AutoFill = true,
                 Prefix = MissionGenerationDirector.SubmarineSpawnRequest.AutoFillPrefix.Abandoned,
-                AllowStealing = AllowStealing
+                AllowStealing = AllowStealing,
+                SkipItemChance = 0.75f
             });
         }
 

@@ -241,28 +241,32 @@ namespace MoreLevelContent.Shared.Generation
 
         void RollForFeature(LevelData data, LocationConnection connection)
         {
-            // Check if there's already a map featue nearby
-            if (connection.Locations.Any(l => _DisallowedLocations.Contains(l)))
+            try
             {
-                return;
+                // Check if there's already a map featue nearby
+                if (connection.Locations.Any(l => _DisallowedLocations.Contains(l)))
+                {
+                    return;
+                }
+
+                var rand = MLCUtils.GetRandomFromString(data.Seed);
+
+                int zoneIndex = connection.Locations[0].GetZoneIndex(GameMain.GameSession.Map);
+
+                var validFeatures = _Features.Where(f => f.CommonnessPerZone.ContainsKey(zoneIndex));
+                if (!validFeatures.Any()) return;
+                // Select feature to try and spawn
+                MapFeature feature = ToolBox.SelectWeightedRandom(validFeatures, f => f.CommonnessPerZone[zoneIndex], rand);
+
+                // Roll for spawn
+                if (feature.Chance > rand.NextDouble())
+                {
+                    data.MLC().MapFeatureData.Name = feature.Name;
+                    data.MLC().MapFeatureData.Revealed = !feature.Display.HideUntilRevealed;
+                    _DisallowedLocations.AddRange(connection.Locations);
+                }
             }
-
-            var rand = MLCUtils.GetRandomFromString(data.Seed);
-            
-            int zoneIndex = connection.Locations[0].GetZoneIndex(GameMain.GameSession.Map);
-
-            var validFeatures = _Features.Where(f => f.CommonnessPerZone.ContainsKey(zoneIndex));
-            if (!validFeatures.Any()) return;
-            // Select feature to try and spawn
-            MapFeature feature = ToolBox.SelectWeightedRandom(validFeatures, f => f.CommonnessPerZone[zoneIndex], rand);
-
-            // Roll for spawn
-            if (feature.Chance > rand.NextDouble())
-            {
-                data.MLC().MapFeatureData.Name = feature.Name;
-                data.MLC().MapFeatureData.Revealed = !feature.Display.HideUntilRevealed;
-                _DisallowedLocations.AddRange(connection.Locations);
-            }
+            catch { }
         }
     }
 

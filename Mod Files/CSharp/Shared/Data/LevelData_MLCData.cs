@@ -50,6 +50,12 @@ namespace MoreLevelContent.Shared.Data
 
         internal PirateData PirateData;
 
+        public LevelData_MLCData()
+        {
+            MapFeatureData = new MapFeatureData();
+            PirateData = new PirateData();
+        }
+
         public bool HasRelayStation => RelayStationStatus != RelayStationStatus.None;
 
         public LocalizedString GetRequestedSupplies()

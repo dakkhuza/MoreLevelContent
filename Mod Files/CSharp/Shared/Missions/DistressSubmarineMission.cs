@@ -26,7 +26,7 @@ namespace MoreLevelContent.Missions
             public MonsterSet(XElement element) => Commonness = element.GetAttributeFloat("commonness", 100.0f);
         }
 
-        private readonly XElement characterConfig;
+        private readonly XElement localCharacterConfig;
         private readonly List<MonsterSet> monsterSets = new List<MonsterSet>();
         private readonly XElement submarineTypeConfig;
         private readonly LocalizedString sonarLabel;
@@ -50,7 +50,7 @@ namespace MoreLevelContent.Missions
         public DistressSubmarineMission(MissionPrefab prefab, Location[] locations, Submarine sub) : base(prefab, locations, sub)
         {
             // Setup submarine
-            characterConfig = prefab.ConfigElement.GetChildElement("Characters");
+            localCharacterConfig = prefab.ConfigElement.GetChildElement("Characters");
             submarineTypeConfig = prefab.ConfigElement.GetChildElement("Submarine");
 
             // Setup text
@@ -78,7 +78,7 @@ namespace MoreLevelContent.Missions
                 }
             }
 
-            missionNPCs = new(this, characterConfig);
+            missionNPCs = new(this, localCharacterConfig);
 
             // for campaign missions, set level at construction
             LevelData levelData = locations[0].Connections.Where(c => c.Locations.Contains(locations[1])).FirstOrDefault()?.LevelData ?? locations[0]?.LevelData;

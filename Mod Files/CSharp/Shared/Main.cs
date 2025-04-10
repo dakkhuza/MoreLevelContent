@@ -52,7 +52,9 @@ namespace MoreLevelContent
             GameMain.LuaCs.Hook.HookMethod(identifier, method, patch, hookType, Instance);
 
         public static void Patch(MethodBase original, HarmonyMethod prefix = null, HarmonyMethod postfix = null, HarmonyMethod transpiler = null, HarmonyMethod finalizer = null)
-            => Harmony.Patch(original, prefix, postfix, transpiler, finalizer);
+        {
+            Harmony.Patch(original, prefix, postfix, transpiler, finalizer, null);
+        }
 
         public void Init()
         {

@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
-using Barotrauma;
-using Barotrauma.Extensions;
-using Barotrauma.Items.Components;
-using Barotrauma.MoreLevelContent.Shared.Utils;
+﻿using Barotrauma;
 using Microsoft.Xna.Framework;
 using MoreLevelContent.Shared;
 using MoreLevelContent.Shared.Data;
-using MoreLevelContent.Shared.Utils;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
 using static Barotrauma.Level;
 
 namespace MoreLevelContent.Missions
@@ -17,7 +13,7 @@ namespace MoreLevelContent.Missions
     // Shared
     partial class DistressEscortMission : DistressMission
     {
-        private readonly XElement characterConfig;
+        private readonly XElement localCharacterConfig;
         private readonly LocalizedString sonarLabel;
         private readonly PositionType spawnPositionType;
         private readonly bool hostile;
@@ -42,11 +38,11 @@ namespace MoreLevelContent.Missions
             : base(prefab, locations, sub)
         {
             missionSub = sub;
-            characterConfig = prefab.ConfigElement.GetChildElement("Characters");
+            localCharacterConfig = prefab.ConfigElement.GetChildElement("Characters");
             sonarLabel = TextManager.Get("missionname.distressmission");
-            spawnPositionType = characterConfig.GetAttributeEnum("spawntype", PositionType.Cave);
-            hostile = characterConfig.GetAttributeBool("hostile", false);
-            missionNPCs = new(this, characterConfig);
+            spawnPositionType = localCharacterConfig.GetAttributeEnum("spawntype", PositionType.Cave);
+            hostile = localCharacterConfig.GetAttributeBool("hostile", false);
+            missionNPCs = new(this, localCharacterConfig);
             CalculateReward();
         }
 
@@ -145,7 +141,7 @@ namespace MoreLevelContent.Missions
 #endif
             }
 
-            if (characterConfig == null)
+            if (localCharacterConfig == null)
             {
                 DebugConsole.ThrowError("Failed to initialize characters for escort mission (characterConfig == null)");
                 return;

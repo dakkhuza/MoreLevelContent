@@ -20,7 +20,7 @@ namespace MoreLevelContent.Missions
     partial class DistressGhostshipMission : DistressMission
     {
         private readonly LocalizedString defaultSonarLabel;
-        private readonly XElement characterConfig;
+        private readonly XElement localCharacterConfig;
         private readonly XElement submarineConfig;
         private readonly XElement decalConfig;
         private readonly XElement damageDevices;
@@ -50,7 +50,7 @@ namespace MoreLevelContent.Missions
         {
             // Config
             submarineConfig = prefab.ConfigElement.GetChildElement("submarines");
-            characterConfig = prefab.ConfigElement.GetChildElement("characters");
+            localCharacterConfig = prefab.ConfigElement.GetChildElement("characters");
             removeItems = prefab.ConfigElement.GetChildElement("removeitems");
             decalConfig = prefab.ConfigElement.GetChildElement("decals");
             damageDevices = prefab.ConfigElement.GetChildElement("damageDevices");
@@ -64,7 +64,7 @@ namespace MoreLevelContent.Missions
 
             // General
             defaultSonarLabel = TextManager.Get("missionname.distressmission");
-            missionNPCs = new(this, characterConfig);
+            missionNPCs = new(this, localCharacterConfig);
 
             // for campaign missions, set level at construction
             LevelData levelData = locations[0].Connections.Where(c => c.Locations.Contains(locations[1])).FirstOrDefault()?.LevelData ?? locations[0]?.LevelData;

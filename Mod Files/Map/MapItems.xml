@@ -218,7 +218,6 @@
         <Reputation faction="clowns" min="80" />
       </Price>
     </Price>
-    <Fabricate />
     <Deconstruct time="10">
       <Item identifier="bikehorn" />
       <Item identifier="dementonite" />

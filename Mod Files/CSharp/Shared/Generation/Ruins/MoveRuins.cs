@@ -1,5 +1,6 @@
 ﻿using Barotrauma;
 using Barotrauma.MoreLevelContent.Config;
+using HarmonyLib;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace MoreLevelContent.Shared.Generation
         {
             if (GameMain.IsMultiplayer) return;
             var level_FindPosAwayFromMainPath = typeof(Level).GetMethod("FindPosAwayFromMainPath", BindingFlags.NonPublic | BindingFlags.Instance);
-            Main.HookMethod("MLC::MoveRuinSpawnPos", level_FindPosAwayFromMainPath, MoveRuinSpawnPos, LuaCsHook.HookMethodType.Before);
+            // Main.Patch(level_FindPosAwayFromMainPath, prefix: AccessTools.Method(typeof(MoveRuins), nameof(MoveRuinSpawnPos)));
         }
 
         readonly static Point ruinSize = new Point(5000);

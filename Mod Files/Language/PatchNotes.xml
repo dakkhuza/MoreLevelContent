@@ -1,31 +1,30 @@
 <infotexts language="English" nowhitespace="false" translatedname="English">
     <mlc.patchnotes>
-    OCCUPATIONAL HAZARDS
+    SWAN SONG
 
-    NEW FEATURES
-    - Pirate base overhaul
-    - Pirate bases are now presistant, destroy them and they won't come back
-    - Pirate bases can now jam your sonar
+    Well, this is it! 
     
-    - Dynamic Europa Integration
-    - If you have DE installed, you'll get some new features
-    - Pirate bases will be more common near DE pirate outposts
-    - If you have high reps with bandits, pirate bases will be passive
+    More Level Content's final update.
 
-    - Map Features
-    - Be on the lookout for hidden POIs
+    It's been fun, when I started working on this mod back in 2023 I never
+    would have guessed that 91,270(!!!) people would, at some point, install
+    this mod. Thank you all! 
 
-    - New mission: Relay Repair
-    - Similar to beacon stations but you solve a puzzle
+    Sorry about that time your multiplayer campaign kicked everyone.
 
-    - Thalamus Caves
+    I'm actually working on a video game now(!) called "Concrete Abyss"
+    with the creator of "Robotrauma", maybe you'll end up playing it one day.
 
-    CHANGES
-    - Updated some of the pirate base
-    - Some new pirate bases 
-    - Distress notifications are now displayed on the news ticker
+    Okay, with that out of the way! Lets do this one last time.
 
-    Let me know how it feels!
-    Contact @Dak#0001 on https://discord.gg/XFp5vq67MY 
+    CHANGES / FIXES
+    - Custom scripted events are working again!
+    - Made the jump starter suck less (hopefully).
+    
+    And that's it for now, this mod will not survive the dlc, so enjoy it
+    while you can!
+    
+    I will see you up ahead.
+        - Dak, 2026 &lt;3
     </mlc.patchnotes>
 </infotexts>

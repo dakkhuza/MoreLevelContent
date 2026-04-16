@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using static Barotrauma.Level;
 
-namespace MoreLevelContent
+namespace Barotrauma
 {
     [InjectScriptedEvent]
     internal class TeleportCharacterAction : EventAction

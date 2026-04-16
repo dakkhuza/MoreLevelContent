@@ -1,4 +1,5 @@
 ﻿using Barotrauma;
+using Barotrauma.LuaCs;
 using Barotrauma.MoreLevelContent.Config;
 using HarmonyLib;
 using MoreLevelContent.Shared;
@@ -29,7 +30,7 @@ namespace MoreLevelContent
 
 
         public static Main Instance;
-        public static string Version = "0.0.8";
+        public static string Version = "1.0.0";
         private static LevelContentProducer levelContentProducer;
         internal static Harmony Harmony;
 
@@ -39,17 +40,14 @@ namespace MoreLevelContent
             Log.Debug("Mod Init");
             ConfigManager.Instance.Setup();
             Init();
+
+
 #if SERVER
             InitServer();
 #elif CLIENT
             InitClient();
 #endif
         }
-
-        public static void Hook(string name, string hookName, LuaCsFunc hook) => 
-            GameMain.LuaCs.Hook.Add(name, hookName, hook, Instance);
-        public static void HookMethod(string identifier, MethodInfo method, LuaCsPatch patch, LuaCsHook.HookMethodType hookType) =>
-            GameMain.LuaCs.Hook.HookMethod(identifier, method, patch, hookType, Instance);
 
         public static void Patch(MethodBase original, HarmonyMethod prefix = null, HarmonyMethod postfix = null, HarmonyMethod transpiler = null, HarmonyMethod finalizer = null)
         {
@@ -83,35 +81,11 @@ namespace MoreLevelContent
                 return;
             }
 
-            Log.Verbose("Hooking...");
-            GameMain.LuaCs.Hook.HookMethod(
-                "mlc.shared.OnCreateWrecks",
-                level_onCreateWrecks,
-                OnCreateWrecks,
-                LuaCsHook.HookMethodType.After,
-                this);
-
-            GameMain.LuaCs.Hook.HookMethod(
-                "mlc.shared.OnSpawnNPC",
-                level_onSpawnNPC,
-                OnSpawnNPC,
-                LuaCsHook.HookMethodType.Before,
-                this
-                );
-
-            GameMain.LuaCs.Hook.HookMethod(
-                "mlc.shared.OnLevelGenerate",
-                level_generate,
-                OnLevelGenerate,
-                LuaCsHook.HookMethodType.Before,
-                this);
-
-            GameMain.LuaCs.Hook.HookMethod(
-                "mlc.shared.before_startRound",
-                gameSession_before_startRound,
-                OnBeforeStartRound,
-                LuaCsHook.HookMethodType.Before,
-                this);
+            Log.Verbose("Patching...");
+            Patch(level_onCreateWrecks, postfix: AccessTools.Method(typeof(Main), nameof(OnCreateWrecks)));
+            Patch(level_onSpawnNPC, prefix: AccessTools.Method(typeof(Main), nameof(OnSpawnNPC)));
+            Patch(level_generate, prefix: AccessTools.Method(typeof(Main), nameof(OnLevelGenerate)));
+            Patch(gameSession_before_startRound, prefix: AccessTools.Method(typeof(Main), nameof(OnBeforeStartRound)));
 
             _ = Harmony.Patch(eventManager_TriggerOnEndRoundActions, postfix: new HarmonyMethod(AccessTools.Method(typeof(Main), nameof(Main.OnRoundEnd))));
 
@@ -121,29 +95,25 @@ namespace MoreLevelContent
         }
 
 
-        public object OnCreateWrecks(object self, Dictionary<string, object> args)
+        public static void OnCreateWrecks()
         {
             levelContentProducer.CreateWrecks();
-            return null;
         }
 
-        public object OnSpawnNPC(object self, Dictionary<string, object> args)
+        public static void OnSpawnNPC()
         {
             levelContentProducer.SpawnNPCs();
-            return null;
         }
 
-        public object OnLevelGenerate(object self, Dictionary<string, object> args)
+        public static void OnLevelGenerate(LevelData levelData, bool mirror)
         {
-            levelContentProducer.LevelGenerate(args["levelData"] as LevelData, args["mirror"] as bool? ?? false);
-            MapDirector.Instance.OnLevelGenerate(args["levelData"] as LevelData, args["mirror"] as bool? ?? false);
-            return null;
+            levelContentProducer.LevelGenerate(levelData, mirror);
+            MapDirector.Instance.OnLevelGenerate(levelData, mirror);
         }
 
-        public object OnBeforeStartRound(object self, Dictionary<string, object> args)
+        public static void OnBeforeStartRound()
         {
             levelContentProducer.StartRound();
-            return null;
         }
 
         public static void OnRoundEnd(CampaignMode.TransitionType transitionType)
@@ -152,9 +122,6 @@ namespace MoreLevelContent
             MapDirector.Instance.RoundEnd(transitionType);
         }
 
-        public override void Stop()
-        {
-            Harmony.UnpatchAll(); // Cleanup harmony patches
-        }
+        public override void Stop() => Main.Harmony.UnpatchSelf();
     }
 }

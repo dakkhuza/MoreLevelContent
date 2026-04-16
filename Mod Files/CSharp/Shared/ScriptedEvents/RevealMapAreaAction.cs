@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace MoreLevelContent
+namespace Barotrauma
 {
     /// <summary>
     /// Remove the fog of war from a nearby area

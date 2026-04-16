@@ -332,7 +332,7 @@ namespace MoreLevelContent.Missions
             }
         }
 
-        protected override void StartMissionSpecific(Level level)
+        public override void StartMissionSpecific(Level level)
         {
             if (!IsClient)
             {
@@ -443,7 +443,7 @@ namespace MoreLevelContent.Missions
         float setupDelay = FINAL_SETUP_DELAY;
         partial void UpdateProjSpecific(float deltaTime);
 
-        protected override void UpdateMissionSpecific(float deltaTime)
+        public override void UpdateMissionSpecific(float deltaTime)
         {
             if (ghostship == null) return;
             if (!finalSubSetup && !IsClient && setupDelay <= 0)
@@ -515,9 +515,9 @@ namespace MoreLevelContent.Missions
             }
         }
 
-        protected override bool DetermineCompleted() => State == 2;
+        public override bool DetermineCompleted(CampaignMode.TransitionType transitionType) => State == 2;
 
-        protected override void EndMissionSpecific(bool completed)
+        public override void EndMissionSpecific(bool completed)
         {
             base.EndMissionSpecific(completed);
             missionNPCs.Clear();

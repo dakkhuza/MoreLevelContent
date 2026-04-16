@@ -45,7 +45,7 @@ namespace MoreLevelContent.Missions
             return reward;
         }
 
-        protected override void StartMissionSpecific(Level level) => description = description.Replace("[requestedsupplies]", level.LevelData.MLC().GetRequestedSupplies());
+        public override void StartMissionSpecific(Level level) => description = description.Replace("[requestedsupplies]", level.LevelData.MLC().GetRequestedSupplies());
 
         public override IEnumerable<(LocalizedString Label, Vector2 Position)> SonarLabels
         {
@@ -60,7 +60,7 @@ namespace MoreLevelContent.Missions
             }
         }
 
-        protected override void UpdateMissionSpecific(float deltaTime)
+        public override void UpdateMissionSpecific(float deltaTime)
         {
             if (IsClient) { return; }
             if (State == 0 && level.MLC().CheckSuppliesDelivered())
@@ -69,7 +69,7 @@ namespace MoreLevelContent.Missions
             }
         }
 
-        protected override void EndMissionSpecific(bool completed)
+        public override void EndMissionSpecific(bool completed)
         {
             if (completed && level.LevelData != null)
             {
@@ -80,6 +80,6 @@ namespace MoreLevelContent.Missions
         }
 
         public override void AdjustLevelData(LevelData levelData) => levelData.MLC().HasBeaconConstruction = true;
-        protected override bool DetermineCompleted() => level.MLC().CheckSuppliesDelivered();
+        public override bool DetermineCompleted(CampaignMode.TransitionType transitionType) => level.MLC().CheckSuppliesDelivered();
     }
 }

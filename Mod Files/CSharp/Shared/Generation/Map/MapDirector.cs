@@ -76,6 +76,8 @@ namespace MoreLevelContent.Shared.Generation
 
             Modules.Add(new MapFeatureModule());
 
+Log.Debug("Map direction setup");
+
             SetupProjSpecific();
         }
 

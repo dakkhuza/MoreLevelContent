@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace MoreLevelContent
+namespace Barotrauma
 {
     /// <summary>
     /// Finds and reveals a hidden map feature.

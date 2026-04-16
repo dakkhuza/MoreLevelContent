@@ -41,8 +41,13 @@ namespace MoreLevelContent.Shared.Generation
             var mapAnimType = typeof(Map).GetNestedType("MapAnim", BindingFlags.NonPublic);
             _mapAnimConstructor = AccessTools.Constructor(mapAnimType);
 
+            var singlePlayerCampaign_Start = typeof(SinglePlayerCampaign).GetMethod(nameof(SinglePlayerCampaign.Start));
+            _ = Main.Harmony.Patch(singlePlayerCampaign_Start, postfix: new HarmonyMethod(GetType().GetMethod(nameof(OnSinglePlayerMapLoad), BindingFlags.Static | BindingFlags.NonPublic)));
+
             NetUtil.Register(NetEvent.MAP_SEND_STATE, ReceiveMapState);
         }
+
+        private static void OnSinglePlayerMapLoad(SinglePlayerCampaign __instance) => OnMapLoad(__instance.Map);
 
         private void ReceiveMapState(object[] args)
         {

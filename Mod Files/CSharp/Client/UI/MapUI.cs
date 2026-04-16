@@ -75,7 +75,7 @@ namespace Barotrauma.MoreLevelContent.Client.UI
             if (inFow)
             {
                 DrawCustomConnections(spriteBatch, connection, viewArea, viewOffset, map, true);
-                Log.Debug("Drew custom connection");
+                //Log.Debug("Drew custom connection");
             }
 
             bool CheckValid()

@@ -11,14 +11,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 
-namespace MoreLevelContent
+namespace Barotrauma
 {
     /// <summary>
     /// Changes what map feature the current level has.
     /// </summary>
     [InjectScriptedEvent]
-    internal class RevealPirateBaseAction : BinaryOptionAction
+    internal class RevealPirateBaseAction //: BinaryOptionAction
     {
+        /*
         public RevealPirateBaseAction(ScriptedEvent parentEvent, ContentXElement element) : base(parentEvent, element) { }
 
         private LocationConnection FindPirateBase()
@@ -127,6 +128,6 @@ namespace MoreLevelContent
                 Array.Empty<LocalizedString>(), type: GUIMessageBox.Type.InGame, iconStyle: "PirateBase", relativeSize: new Vector2(0.2f, 0.06f), minSize: new Point(64, 74));
         }
 #endif
-
+        */
     }
 }

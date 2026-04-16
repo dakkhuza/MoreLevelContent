@@ -20,6 +20,6 @@ namespace MoreLevelContent.Missions
     // 
     //     public override bool DisplayAsFailed => throw new NotImplementedException();
     // 
-    //     protected override bool DetermineCompleted() => throw new NotImplementedException();
+    //     public override  bool DetermineCompleted() => throw new NotImplementedException();
     // }
 }

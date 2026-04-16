@@ -20,29 +20,32 @@ namespace MoreLevelContent.Shared.XML
     {
         FieldInfo missionPrefab_constructor;
         static ImmutableDictionary<string, Type> _CustomScriptedEvents;
+        private static Assembly _BaroAsm;
 
         public override void Setup()
         {
             missionPrefab_constructor = AccessTools.Field(typeof(MissionPrefab), "constructor");
             var npcConversation_GetCurrentFlags = AccessTools.Method(typeof(NPCConversation), "GetCurrentFlags");
             var eventAction_Instantiate = AccessTools.Method(typeof(EventAction), "Instantiate");
+            _BaroAsm = Assembly.GetAssembly(typeof(EventAction));
+
             _ = Main.Harmony.Patch(npcConversation_GetCurrentFlags, postfix: new HarmonyMethod(AccessTools.Method(typeof(InjectionManager), nameof(AddNPCConcersationFlags))));
             _ = Main.Harmony.Patch(eventAction_Instantiate, prefix: new HarmonyMethod(AccessTools.Method(typeof(InjectionManager), nameof(InjectEventActions))));
-
+            
             // Collect scripted events
-            Dictionary<string, Type> customEventDict = new();
-            foreach (Type type in Assembly.GetCallingAssembly().GetTypes())
+            Dictionary<string, Type> customEventDict = new()
             {
-                if (type.GetCustomAttribute(typeof(InjectScriptedEvent), true) is InjectScriptedEvent injectScriptedEvent)
-                {
-                    customEventDict.Add(type.Name, type);
-                    Log.Debug($"Registered custom scripted event {type.Name}");
-                }
-            }
+                { nameof(AlterMapFeatureAction), typeof(AlterMapFeatureAction) },
+                { nameof(RevealMapAreaAction), typeof(RevealMapAreaAction) },
+                { nameof(RevealMapFeatureAction), typeof(RevealMapFeatureAction) },
+                { nameof(RevealPirateBaseAction), typeof(RevealPirateBaseAction) },
+                { nameof(TeleportCharacterAction), typeof(TeleportCharacterAction) }
+            };
+
             _CustomScriptedEvents = customEventDict.ToImmutableDictionary();
-
-
-
+            
+            
+            
             InjectMissions();
         }
         
@@ -50,28 +53,52 @@ namespace MoreLevelContent.Shared.XML
         // We'll fix this incompatability when it happens!
         private static bool InjectEventActions(ScriptedEvent scriptedEvent, ContentXElement element, ref EventAction __result)
         {
-            string typeName = element.Name.ToString();
-            if (!_CustomScriptedEvents.TryGetValue(typeName, out Type actionType)) return true;
-            if (actionType != null)
+            Type actionType;
+            __result = null;
+            try
             {
-                ConstructorInfo constructor = actionType.GetConstructor(new[] { typeof(ScriptedEvent), typeof(ContentXElement) });
-                try
+                Identifier typeName = element.Name.ToString().ToIdentifier();
+                if (typeName == "TutorialSegmentAction")
                 {
-                    if (constructor == null)
-                    {
-                        throw new Exception($"Error in scripted event \"{scriptedEvent.Prefab.Identifier}\" - could not find a constructor for the EventAction \"{actionType}\".");
-                    }
-                    __result = constructor.Invoke(new object[] { scriptedEvent, element }) as EventAction;
-                    return false;
+                    typeName = nameof(EventObjectiveAction).ToIdentifier();
                 }
-                catch (Exception ex)
+                else if (typeName == "TutorialHighlightAction")
                 {
-                    DebugConsole.ThrowError(ex.InnerException != null ? ex.InnerException.ToString() : ex.ToString(),
-                        contentPackage: element.ContentPackage);
-                    return false;
+                    typeName = nameof(HighlightAction).ToIdentifier();
                 }
+
+                if (!_CustomScriptedEvents.TryGetValue(typeName.ToString(), out actionType))
+                {
+                    actionType = _BaroAsm.GetType("Barotrauma." + typeName, throwOnError: true, ignoreCase: true);
+                    //actionType = _BaroAsm.GetType("Barotrauma." + typeName.ToString(), throwOnError: true, ignoreCase: true);
+                }
+
+                if (actionType == null) { throw new NullReferenceException(); }
             }
-            return true;
+            catch(Exception e)
+            {
+                Log.Error(e.Message);
+                DebugConsole.ThrowError($"Could not find an {nameof(EventAction)} class of the type \"{element.Name}\".",
+                    contentPackage: element.ContentPackage);
+                return false;
+            }
+
+            ConstructorInfo constructor = actionType.GetConstructor(new[] { typeof(ScriptedEvent), typeof(ContentXElement) });
+            try
+            {
+                if (constructor == null)
+                {
+                    throw new Exception($"Error in scripted event \"{scriptedEvent.Prefab.Identifier}\" - could not find a constructor for the EventAction \"{actionType}\".");
+                }
+                __result = constructor.Invoke(new object[] { scriptedEvent, element }) as EventAction;
+                return false;
+            }
+            catch (Exception ex)
+            {
+                DebugConsole.ThrowError(ex.InnerException != null ? ex.InnerException.ToString() : ex.ToString(),
+                    contentPackage: element.ContentPackage);
+                return false;
+            }
         }
 
         private static void AddNPCConcersationFlags(ref List<Identifier> __result, Character speaker)

@@ -37,7 +37,7 @@ namespace MoreLevelContent.Shared.AI
             }
 
             actCasualTimer = 5;//Rand.Range(60, 120, Rand.RandSync.Unsynced);
-            ForceWalk = true;
+            ForceWalkPermanently = true;
             character.OnAttacked += OnAttacked;
         }
         private bool HasItem => targetItem != null && character.Inventory.Contains(targetItem);
@@ -64,7 +64,7 @@ namespace MoreLevelContent.Shared.AI
         Character victim;
 
         // Set the priority of this to be low if we're cuffed or we're still acting /casual/
-        protected override float GetPriority()
+        public override  float GetPriority()
         {
             Priority = IsActingCasual ? 0 : AIObjectiveManager.RunPriority - 0.5f;
             return Priority;
@@ -96,7 +96,7 @@ namespace MoreLevelContent.Shared.AI
             base.Update(deltaTime);
         }
         AIObjectiveEscapeHandcuffs _EscapeHandcuffsSubObjective;
-        protected override void Act(float deltaTime)
+        public override  void Act(float deltaTime)
         {
             // don't do anything if we're cuffed 
             if (character.LockHands)
@@ -131,7 +131,7 @@ namespace MoreLevelContent.Shared.AI
                 _ = TryAddSubObjective(ref gotoVictimTask, () => 
                 new AIObjectiveGoTo(victim, character, objectiveManager, closeEnough: CloseEnoughToInject)
                 {
-                    ForceWalk = true
+                    ForceWalkPermanently = true
                 }, 
                 () => GotToVictim(),
                 () => CouldntGetToVictim());
@@ -146,7 +146,7 @@ namespace MoreLevelContent.Shared.AI
                 RemoveSubObjective(ref gotoVictimTask);
                 _ = TryAddSubObjective(ref gotoVictimTask, () => new AIObjectiveGoTo(victim, character, objectiveManager, closeEnough: CloseEnoughToInject)
                 {
-                    ForceWalk = true
+                    ForceWalkPermanently = true
                 },
                 onCompleted: () => GotToVictim(),
                 onAbandon: () => CouldntGetToVictim()
@@ -168,7 +168,7 @@ namespace MoreLevelContent.Shared.AI
                 DebugSpeak("Getting outta dodge!");
                 return new AIObjectiveGoTo(targetHull, character, objectiveManager)
                 {
-                    ForceWalk = true
+                    ForceWalkPermanently = true
                 };
             },
             onCompleted: () =>
@@ -288,7 +288,7 @@ namespace MoreLevelContent.Shared.AI
                     DebugSpeak("Going to find the poison :)");
                     return new AIObjectiveGetItem(character, targetItemIdentifier, objectiveManager, spawnItemIfNotFound: false, checkInventory: true)
                     {
-                        ForceWalk = true,
+                        ForceWalkPermanently = true,
                         AllowStealing = true,
                         SpeakIfFails = false
                     };
@@ -417,6 +417,6 @@ namespace MoreLevelContent.Shared.AI
 
         // never abort
         //protected bool CheckObjectiveSpecific() => false;
-        protected override bool CheckObjectiveState() => throw new NotImplementedException();
+        public override  bool CheckObjectiveState() => throw new NotImplementedException();
     }
 }

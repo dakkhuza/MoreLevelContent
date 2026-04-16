@@ -136,7 +136,7 @@ namespace MoreLevelContent.Missions
         }
 
 
-        protected override void StartMissionSpecific(Level level)
+        public override void StartMissionSpecific(Level level)
         {
             _Station = level.MLC().RelayStation;
 
@@ -264,7 +264,7 @@ namespace MoreLevelContent.Missions
         }
 
         double successTimer = 0;
-        protected override void UpdateMissionSpecific(float deltaTime)
+        public override void UpdateMissionSpecific(float deltaTime)
         {
             if (IsClient) return;
             if (_Station == null) return;
@@ -325,7 +325,7 @@ namespace MoreLevelContent.Missions
             }
         }
 
-        protected override void EndMissionSpecific(bool completed)
+        public override void EndMissionSpecific(bool completed)
         {
             if (completed && level.LevelData != null)
             {
@@ -333,6 +333,6 @@ namespace MoreLevelContent.Missions
             }
         }
 
-        protected override bool DetermineCompleted() => State == 2;
+        public override bool DetermineCompleted(CampaignMode.TransitionType transitionType) => State == 2;
     }
 }

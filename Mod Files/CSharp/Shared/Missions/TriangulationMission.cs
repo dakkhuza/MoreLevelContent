@@ -27,8 +27,8 @@ namespace MoreLevelContent.Missions
             }
         }
 
-        protected override bool DetermineCompleted() => false;
-
+        //public override bool DetermineCompleted() => false;
+        public override bool DetermineCompleted(CampaignMode.TransitionType transitionType) => false;
 
         public override IEnumerable<(LocalizedString Label, Vector2 Position)> SonarLabels => base.SonarLabels;
 

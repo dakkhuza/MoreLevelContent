@@ -4,7 +4,7 @@ using MoreLevelContent.Shared.Data;
 using MoreLevelContent.Shared.Generation;
 using MoreLevelContent.Shared.XML;
 
-namespace MoreLevelContent
+namespace Barotrauma
 {
     /// <summary>
     /// Changes what map feature the current level has.

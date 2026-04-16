@@ -38,7 +38,7 @@ namespace Barotrauma.MoreLevelContent.Config
             
         }
 
-        private readonly List<ulong> correctInstalls = new List<ulong>();
+        private readonly List<AccountId> correctInstalls = new List<AccountId>();
 
         #region Networking
         private void ServerRead(object[] args)
@@ -90,7 +90,8 @@ namespace Barotrauma.MoreLevelContent.Config
 
         private bool CheckClientVersion(Client client, string clientVersion)
         {
-            if (correctInstalls.Contains(client.SteamID)) return true;
+            if (!client.AccountId.TryUnwrap(out AccountId account)) return false;
+            if (correctInstalls.Contains(account)) return true;
             
             if (clientVersion != Main.Version)
             {
@@ -103,7 +104,7 @@ namespace Barotrauma.MoreLevelContent.Config
             }
 
             GameMain.Server.SendChatMessage(TextManager.GetServerMessage($"mlc.server.installed~[client]={client.Name}").Value);
-            correctInstalls.Add(client.SteamID);
+            correctInstalls.Add(account);
             return true;
         }
 
